@@ -22,10 +22,10 @@ module.exports = {
         },
         secondary: {
           700: "#FAE475",
-          500: "FFEDC2",
+          500: "#FFEDC2",
         },
         success: "#60D394",
-        warning: "FF9B85",
+        warning: "#FF9B85",
         error: "#EE6055",
         shades: {
           0: "#FFFFFF",
