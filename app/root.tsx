@@ -7,7 +7,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { useEffect } from "react";
 import { RecoilRoot } from "recoil";
+import RecoilNexus from "recoil-nexus";
+import { registerWorkers } from "./registerWorker";
 
 import AppCss from "./styles/css/app.css";
 
@@ -27,20 +30,24 @@ export const meta: MetaFunction = () => ({
 });
 
 export default function App() {
+  useEffect(() => {
+    registerWorkers();
+  }, []);
   return (
-    <html lang="en">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <RecoilRoot>
+    <RecoilRoot>
+      <RecoilNexus />
+      <html lang="en">
+        <head>
+          <Meta />
+          <Links />
+        </head>
+        <body>
           <Outlet />
-        </RecoilRoot>
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </body>
+      </html>
+    </RecoilRoot>
   );
 }

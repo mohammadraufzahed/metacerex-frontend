@@ -1,6 +1,11 @@
-import { atom } from "recoil";
+import { atom, useRecoilState } from "recoil";
 
-export const textD = atom({
-  key: "textD",
-  default: "hello",
+export const count = atom({
+  key: "count-useless",
+  default: 0,
 });
+
+export function useSetCount(counts: Number) {
+  const [_, setCounts] = useRecoilState(count);
+  setCounts(counts);
+}
