@@ -12,13 +12,18 @@ import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
 import { registerWorkers } from "./registerWorker";
 
-import AppCss from "./styles/css/app.css";
+import AppCss from "./styles/css/tailwindcss.css";
+import GlobalCss from "./styles/css/global.css";
 
 export const links: LinksFunction = () => {
   return [
     {
       rel: "stylesheet",
       href: AppCss,
+    },
+    {
+      rel: "stylesheet",
+      href: GlobalCss,
     },
   ];
 };
@@ -36,7 +41,7 @@ export default function App() {
   return (
     <RecoilRoot>
       <RecoilNexus />
-      <html lang="en">
+      <html lang="fa" dir="rtl">
         <head>
           <Meta />
           <Links />

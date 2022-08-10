@@ -3,6 +3,9 @@ module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        vazir: ["Vazirmatn", "Arial"],
+      },
       colors: {
         neutrals: {
           50: "#F8FAFC",
