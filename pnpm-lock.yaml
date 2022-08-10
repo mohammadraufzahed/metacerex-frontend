@@ -12,6 +12,7 @@ specifiers:
   concurrently: ^7.3.0
   eslint: ^8.20.0
   framer-motion: ^7.0.0
+  hamburger-react: ^2.5.0
   postcss: ^8.4.14
   react: ^17.0.2
   react-dom: ^17.0.2
@@ -26,6 +27,7 @@ dependencies:
   '@remix-run/react': 1.6.7_sfoxds7t5ydpegc3knd667wn6m
   '@remix-run/serve': 1.6.7_sfoxds7t5ydpegc3knd667wn6m
   framer-motion: 7.0.0_sfoxds7t5ydpegc3knd667wn6m
+  hamburger-react: 2.5.0_react@17.0.2
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   recoil: 0.7.4_sfoxds7t5ydpegc3knd667wn6m
@@ -4254,6 +4256,14 @@ packages:
       pumpify: 1.5.1
       through2: 2.0.5
     dev: true
+
+  /hamburger-react/2.5.0_react@17.0.2:
+    resolution: {integrity: sha512-5GSXe+ucxTPJ0SkhIsPQ/PRDweZPIKya1lfahAuExx31SdheeUA4uOPfQIAirbKona8hvo79VDr5LJQzPXsdpw==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18
+    dependencies:
+      react: 17.0.2
+    dev: false
 
   /hamt_plus/1.0.2:
     resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}

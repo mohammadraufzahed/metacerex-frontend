@@ -1,7 +1,5 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { count } from "~/atoms/text";
+import DashboardLayout from "~/layouts/DashboardLayout";
 
 export default function Index() {
-  const counter = useRecoilValue(count);
-  return <div></div>;
+  return <DashboardLayout></DashboardLayout>;
 }
