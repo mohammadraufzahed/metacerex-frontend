@@ -2,8 +2,12 @@ import React from "react";
 import logo from "../../public/svgs/logo.svg";
 import { Link } from "@remix-run/react";
 import Hamburger from "hamburger-react";
+import { useRecoilState } from "recoil";
+import { showSidebar } from "~/atoms/showSidebar";
 
 const DashboardNavbar: React.FC = () => {
+  const [showDashboardSidebar, setShowDashboardSidebar] =
+    useRecoilState(showSidebar);
   return (
     <nav className="w-full flex flex-row-reverse justify-between bg-neutral-50 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] md:flex-row lg:px-8 border-b-[1px] border-primary-700">
       <div className="flex flex-row gap-16 items-center">
@@ -20,7 +24,10 @@ const DashboardNavbar: React.FC = () => {
       </div>
       <div>
         <div className="md:hidden">
-          <Hamburger />
+          <Hamburger
+            onToggle={(e) => setShowDashboardSidebar(e.valueOf())}
+            toggled={showDashboardSidebar}
+          />
         </div>
         <span className="hidden md:block font-vazir font-bold text-base text-primary-700">
           محمدحسین اسماعیلی نژاد
