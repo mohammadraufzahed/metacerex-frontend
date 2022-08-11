@@ -1,4 +1,4 @@
-FROM node:18-bullseye as builder
+FROM node:18-alpine as builder
 
 WORKDIR /src/app
 
