@@ -1,5 +1,6 @@
 import React from "react";
 import DashboardNavbar from "~/components/DashboardNavbar";
+import DashboardSidebar from "~/components/DashboardSidebar";
 
 const DashboardLayout: React.FC = ({ children }) => {
   return (
@@ -7,7 +8,10 @@ const DashboardLayout: React.FC = ({ children }) => {
       <header>
         <DashboardNavbar />
       </header>
-      <main className="flex-auto w-screen bg-neutral-200"></main>
+      <main className="flex-auto flex flex-row w-screen bg-neutral-200">
+        <DashboardSidebar />
+        <div className="flex-1">{children}</div>
+      </main>
     </div>
   );
 };
