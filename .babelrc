@@ -1,0 +1,9 @@
+{
+
+    "env": {
+        "server": {
+            "plugins": ["dynamic-import-node"]
+
+        }
+    }
+}
