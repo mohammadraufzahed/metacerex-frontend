@@ -10,6 +10,7 @@ export const registerWorkers = () => {
 const registerWorker = (worker: Function, jobs: WorkerJobFunction[]) => {
   const WorkerURL: string = generateWebWorkerUrl(worker);
   const WorkerInstance: Worker = new Worker(WorkerURL);
+  // eslint-disable-next-line array-callback-return
   jobs.map((job) => {
     job(WorkerInstance);
   });
