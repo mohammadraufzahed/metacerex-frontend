@@ -39,20 +39,20 @@ export default function App() {
     registerWorkers();
   }, []);
   return (
-    <RecoilRoot>
-      <RecoilNexus />
-      <html lang="fa" dir="rtl">
-        <head>
-          <Meta />
-          <Links />
-        </head>
-        <body>
+    <html lang="fa" dir="rtl">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <RecoilRoot>
+          <RecoilNexus />
           <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </body>
-      </html>
-    </RecoilRoot>
+        </RecoilRoot>
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
   );
 }
