@@ -117,7 +117,7 @@ const DashboardSidebar: React.FC = () => {
     <motion.div
       className="w-[170px] py-5 bg-neutral-50 md:w-12"
       variants={ContainerVariant}
-      animate={"show"}
+      animate={show ? "show" : "hide"}
       transition={{ type: "tween", duration: 0.4 }}
     >
       <SidebarBox items={SidebarBoxData[1]} />
