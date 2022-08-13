@@ -9,7 +9,7 @@ import tailwindCss from "./styles/tailwind.css";
 
 export default function App() {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" className="overflow-x-hidden">
       <head>
         <title>صرافی</title>
         <style>{globalCss}</style>
