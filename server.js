@@ -63,18 +63,19 @@ export async function createServer(
         });
         template = await vite.transformIndexHtml(url, template);
         render = (await vite.ssrLoadModule("/src/entry-server.tsx")).render;
+        const context = {};
+        const appHtml = render(url, context);
+        if (context.url) {
+          return res.redirect(301, context.url);
+        }
+        const html = template.replace("<!--app-html-->", appHtml);
+        res.status(200).set({ "Content-Type": "text/html" }).end(html);
       } else {
         template = indexProd;
         // @ts-ignore
-        render = (await import("./dist/server/entry-server.js")).render;
+        render = (await import("./dist/server/index.js")).prodRender;
+        render(url, res);
       }
-      const context = {};
-      const appHtml = render(url, context);
-      if (context.url) {
-        return res.redirect(301, context.url);
-      }
-      const html = template.replace("<!--app-html-->", appHtml);
-      res.status(200).set({ "Content-Type": "text/html" }).end(html);
     } catch (e) {
       !isProd && vite.ssrFixStacktrace(e);
       console.log(e.stack);

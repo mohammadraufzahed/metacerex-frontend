@@ -3,10 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { registerWorkers } from "./registerWorkers";
 
-// Css Files
-import "./styles/global.scss";
-import "./styles/tailwind.css";
-
 const AppRender: React.FC = () => (
   <>
     <BrowserRouter>
@@ -15,5 +11,5 @@ const AppRender: React.FC = () => (
   </>
 );
 
-hydrateRoot(document.getElementById("root") as HTMLDivElement, <AppRender />);
+hydrateRoot(document.getElementById("root") as HTMLElement, <AppRender />);
 registerWorkers();

@@ -1,22 +1,26 @@
-import ReactDOMServer from "react-dom/server";
+import * as ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import App from "./App";
+import type { Response } from "express";
 
-export function render(url, context) {
-  return ReactDOMServer.renderToString(
-    <StaticRouter location={url} context={context}>
+function ServerApp({ url }) {
+  return (
+    <StaticRouter location={url}>
       <App />
     </StaticRouter>
   );
 }
 
-export async function prodRender(url, context, res) {
+export function render(url: string) {
+  return ReactDOMServer.renderToString(<ServerApp url={url} />);
+}
+
+export function prodRender(url: string, res: Response) {
   const stream = ReactDOMServer.renderToPipeableStream(
-    <StaticRouter location={url} context={context}>
-      <App />
-    </StaticRouter>,
+    <ServerApp url={url} />,
     {
       onShellReady() {
+        res.status(200).set({ "Content-Type": "text/html" });
         stream.pipe(res);
       },
     }
