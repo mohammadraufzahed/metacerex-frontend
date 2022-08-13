@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+import { Helmet } from "react-helmet";
 import { Outlet } from "react-router-dom";
 import Loading from "../components/Loading";
 
@@ -8,6 +9,9 @@ const DashboardSidebar = lazy(() => import("../components/DashboardSidebar"));
 const DashboardLayout: React.FC = () => {
   return (
     <div className="flex flex-col w-screen h-screen">
+      <Helmet>
+        <title>صرافی - حساب کاربری</title>
+      </Helmet>
       <header>
         <DashboardNavbar />
       </header>

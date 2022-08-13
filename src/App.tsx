@@ -11,7 +11,7 @@ export default function App() {
   return (
     <html lang="fa" dir="rtl">
       <head>
-        <title>Hello</title>
+        <title>صرافی</title>
         <style>{globalCss}</style>
         <style>{tailwindCss}</style>
       </head>
