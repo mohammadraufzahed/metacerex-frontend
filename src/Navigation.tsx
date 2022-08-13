@@ -1,6 +1,7 @@
 import React, { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import PageNotFound from "./pages/PageNotFound";
 
 const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
 
@@ -13,14 +14,7 @@ const Navigation = () => {
       <Routes>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="overview" element={<Helmet title="Hello World" />} />
-          <Route
-            path="*"
-            element={
-              <span className="w-full h-full flex justify-center items-center">
-                صفحه پیدا نشد
-              </span>
-            }
-          />
+          <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
     </>
