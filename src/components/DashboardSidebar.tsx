@@ -25,7 +25,7 @@ const SidebarBoxData: SidebarBoxDataT = {
     {
       text: "لیست ارزها",
       Icon: ElementOne,
-      href: "/dashboard",
+      href: "/dashboard/list",
     },
     {
       text: "onchain",
@@ -115,7 +115,7 @@ const DashboardSidebar: React.FC = () => {
   }, []);
   return (
     <motion.div
-      className="w-[170px] py-5 bg-neutral-50 md:w-12"
+      className="w-[170px] h-screen z-10 py-5 bg-neutral-50 absolute md:relative md:w-12"
       variants={ContainerVariant}
       animate={show ? "show" : "hide"}
       transition={{ type: "tween", duration: 0.4 }}
