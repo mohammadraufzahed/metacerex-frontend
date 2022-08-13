@@ -1,7 +1,8 @@
 @import "./fonts/index.scss";
 
 html,
-body {
+body,
+#root {
   width: 100vw;
   min-height: 100vh;
 }

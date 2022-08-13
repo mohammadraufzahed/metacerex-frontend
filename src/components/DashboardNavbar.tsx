@@ -1,8 +1,9 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Link } from "react-router-dom";
-import Hamburger from "hamburger-react";
 import { useRecoilState } from "recoil";
 import { showSidebar } from "../atoms/showSidebar";
+
+const Hamburger = lazy(() => import("hamburger-react"));
 
 const DashboardNavbar: React.FC = () => {
   const [showDashboardSidebar, setShowDashboardSidebar] =

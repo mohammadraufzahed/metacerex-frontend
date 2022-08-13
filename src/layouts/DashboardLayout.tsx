@@ -1,5 +1,6 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import { Outlet } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const DashboardNavbar = lazy(() => import("../components/DashboardNavbar"));
 const DashboardSidebar = lazy(() => import("../components/DashboardSidebar"));
@@ -12,8 +13,10 @@ const DashboardLayout: React.FC = () => {
       </header>
       <main className="flex-auto flex flex-row w-screen bg-neutral-200">
         <DashboardSidebar />
-        <div className="flex-1">
-          <Outlet />
+        <div className="flex-auto flex">
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
     </div>

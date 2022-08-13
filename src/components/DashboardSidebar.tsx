@@ -1,5 +1,5 @@
 import React, { lazy, useEffect, useRef, useState } from "react";
-import type { SVGProps } from "react";
+import type { SVGProps, LazyExoticComponent } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -148,7 +148,7 @@ const SidebarBox: React.FC<SidebarBoxT> = ({ items }) => {
 
 type SidebarItemT = {
   text: string;
-  Icon: React.FC<SVGProps<SVGSVGElement>>;
+  Icon: LazyExoticComponent<React.FC<SVGProps<SVGSVGElement>>>;
   href: string;
   onlyMobile?: boolean;
 };

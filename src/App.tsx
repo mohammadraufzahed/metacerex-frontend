@@ -2,10 +2,11 @@ import React, { Suspense } from "react";
 import Navigation from "./Navigation";
 import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
+import Loading from "./components/Loading";
 
 function App() {
   return (
-    <Suspense fallback={<h1>Loading</h1>}>
+    <Suspense fallback={<Loading />}>
       <RecoilRoot>
         <RecoilNexus />
         <Navigation />
