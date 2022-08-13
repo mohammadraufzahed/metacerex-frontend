@@ -20,6 +20,7 @@ specifiers:
   react-dom: ^18.2.0
   react-helmet: ^6.1.0
   react-router-dom: ^6.3.0
+  react-tradingview-embed: ^3.0.6
   recoil: ^0.7.5
   recoil-nexus: ^0.4.0
   sass: ^1.54.4
@@ -40,6 +41,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-helmet: 6.1.0_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
+  react-tradingview-embed: 3.0.6_biqbaboplfbrettd7655fr4n2y
   recoil: 0.7.5_biqbaboplfbrettd7655fr4n2y
   recoil-nexus: 0.4.0_gqoqxgro3tfglhyzbje5qpwnfe
   serve-static: 1.15.0
@@ -1987,6 +1989,16 @@ packages:
       react: ^16.3.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /react-tradingview-embed/3.0.6_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-1qClGqBHOi7mvRFvhBxXSoyoPrNR8aPi/yfF/mYt8EWStA8LoWBl9ufemCyG+mc61iPmNGjJla0XB00FPENaPg==}
+    peerDependencies:
+      react: '>= 16.8.0'
+      react-dom: '>= 16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react/18.2.0:
