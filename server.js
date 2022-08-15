@@ -2,11 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import express from "express";
 import { fileURLToPath } from "node:url";
-import cluster from "node:cluster";
-import { cpus } from "node:os";
 import process from "node:process";
-
-const numCPUs = cpus().length;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -87,23 +83,9 @@ export async function createServer(
   return { app, vite };
 }
 if (!isTest) {
-  if (!isProdMain) {
-    createServer().then(({ app }) =>
-      app.listen(PORT, "0.0.0.0", () => {
-        console.log(`http://0.0.0.0:${PORT}`);
-      })
-    );
-  } else {
-    if (cluster.isPrimary) {
-      for (let i = 0; i < numCPUs; i++) {
-        cluster.fork();
-      }
-      cluster.on("exit", (worker, code, signal) => {
-        console.log(`Worker ${worker.process.pid} died`);
-      });
-    } else {
-      createServer().then(({ app }) => app.listen(PORT, "0.0.0.0"));
-      console.log(`process ${process.pid} started`);
-    }
-  }
+  createServer().then(({ app }) =>
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`http://0.0.0.0:${PORT}`);
+    })
+  );
 }
