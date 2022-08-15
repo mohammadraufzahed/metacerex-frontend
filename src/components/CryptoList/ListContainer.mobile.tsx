@@ -16,7 +16,7 @@ const ListContainer = () => {
   };
   const boxAnimation = {
     show: {
-      height: "76vh",
+      height: "77.5vh",
     },
     hide: {
       height: 0,

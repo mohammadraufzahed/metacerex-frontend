@@ -2,16 +2,21 @@ import fs from "node:fs";
 import path from "node:path";
 import express from "express";
 import { fileURLToPath } from "node:url";
+import cluster from "node:cluster";
+import { cpus } from "node:os";
+import process from "node:process";
+
+const numCPUs = cpus().length;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
-
+const isProdMain = process.env.NODE_ENV === "production";
 const PORT = process.env.PORT ?? 9000;
 
 export async function createServer(
   root = process.cwd(),
-  isProd = process.env.NODE_ENV === "production",
+  isProd = isProdMain,
   hmrPort
 ) {
   const resolve = (p) => path.resolve(__dirname, ...p);
@@ -63,11 +68,7 @@ export async function createServer(
         });
         template = await vite.transformIndexHtml(url, template);
         render = (await vite.ssrLoadModule("/src/entry-server.tsx")).render;
-        const context = {};
         const appHtml = render(url, context);
-        if (context.url) {
-          return res.redirect(301, context.url);
-        }
         const html = template.replace("<!--app-html-->", appHtml);
         res.status(200).set({ "Content-Type": "text/html" }).end(html);
       } else {
@@ -81,13 +82,28 @@ export async function createServer(
       console.log(e.stack);
       res.status(500).end(e.stack);
     }
+    console.log(`process ${process.pid} handled the request`);
   });
   return { app, vite };
 }
 if (!isTest) {
-  createServer().then(({ app }) =>
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`http://0.0.0.0:${PORT}`);
-    })
-  );
+  if (!isProdMain) {
+    createServer().then(({ app }) =>
+      app.listen(PORT, "0.0.0.0", () => {
+        console.log(`http://0.0.0.0:${PORT}`);
+      })
+    );
+  } else {
+    if (cluster.isPrimary) {
+      for (let i = 0; i < numCPUs; i++) {
+        cluster.fork();
+      }
+      cluster.on("exit", (worker, code, signal) => {
+        console.log(`Worker ${worker.process.pid} died`);
+      });
+    } else {
+      createServer().then(({ app }) => app.listen(PORT, "0.0.0.0"));
+      console.log(`process ${process.pid} started`);
+    }
+  }
 }

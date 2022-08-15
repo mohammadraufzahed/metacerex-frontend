@@ -1,0 +1,19 @@
+name: Liara CI/CD
+on:
+  push:
+    branches: [migration, master]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/chechkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "18"
+      - name: Deploy to liara
+        env:
+          LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+        run: |
+            npm i --location=global @liara/cli@2
+            liara deploy --app="saraphi-ui" --port 9000 --api-token="$LIARA_TOKENeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI1ZjdmMjkwMTg2ZDhlMjAwMTExMzkyMzIiLCJpYXQiOjE2NjA1NTczMDh9.PzriRoScWYknD80kWEXdd1Rof_Vy8guVZ-qewVdzQ4g" --region iran --detach
