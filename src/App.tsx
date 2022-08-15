@@ -11,11 +11,13 @@ export default function App() {
   return (
     <html lang="fa" dir="rtl" className="overflow-x-hidden">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="UTF-8" />
         <title>صرافی</title>
         <style>{globalCss}</style>
         <style>{tailwindCss}</style>
       </head>
-      <body id="root">
+      <body id="root" className="overflow-x-hidden">
         <Suspense fallback={<Loading />}>
           <RecoilRoot>
             <RecoilNexus />
