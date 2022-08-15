@@ -97,14 +97,14 @@ const DashboardSidebar: React.FC = () => {
   const [show, setShow] = useRecoilState(showSidebar);
   const ContainerVariant = {
     show: {
-      x: 0,
+      translateX: 0,
     },
     hide: {
-      x: "100vw",
+      translateX: "100vw",
     },
   };
   const showHandlerResize = (width: number) =>
-    width >= 768 ? setShow(true) : setShow(false);
+    width >= 1024 ? setShow(true) : setShow(false);
   useEffect(() => {
     if (window) {
       showHandlerResize(window.innerWidth);
@@ -115,10 +115,11 @@ const DashboardSidebar: React.FC = () => {
   }, []);
   return (
     <motion.div
-      className="w-[170px] h-screen z-10 py-5 bg-neutral-50 absolute md:relative md:w-12"
+      className="w-[170px] h-screen z-20 py-5 bg-neutral-50 absolute lg:relative lg:w-12 overflow-x-hidden"
       variants={ContainerVariant}
       animate={show ? "show" : "hide"}
       transition={{ type: "tween", duration: 0.4 }}
+      initial={{ translateX: 0 }}
     >
       <SidebarBox items={SidebarBoxData[1]} />
       <SidebarBox items={SidebarBoxData[2]} />
@@ -132,7 +133,7 @@ type SidebarBoxT = {
 };
 const SidebarBox: React.FC<SidebarBoxT> = ({ items }) => {
   return (
-    <div className="w-full my-0 border-b-neutral-200 border-b-[1px] md:border-transparent">
+    <div className="w-full my-0 border-b-neutral-200 border-b-[1px] lg:border-transparent">
       {items.map((item, key) => (
         <SidebarItem
           text={item.text}
@@ -174,14 +175,14 @@ const SidebarItem: React.FC<SidebarItemT> = ({
     <NavLink
       to={href}
       className={`group w-full flex items-center justify-center ${
-        onlyMobile ? "md:hidden" : ""
+        onlyMobile ? "lg:hidden" : ""
       }`}
       ref={link}
     >
       <div
-        className={`flex-1 flex flex-row h-10 items-center pr-6 md:pr-0 md:justify-center gap-3 font-vazir font-light text-sm ${
+        className={`flex-1 flex flex-row h-10 items-center pr-6 lg:pr-0 lg:justify-center gap-3 font-vazir font-light text-sm ${
           isActive
-            ? "bg-primary-700 text-neutral-50 md:bg-neutral-200"
+            ? "bg-primary-700 text-neutral-50 lg:bg-neutral-200"
             : "text-primary-700"
         }`}
       >
@@ -190,7 +191,7 @@ const SidebarItem: React.FC<SidebarItemT> = ({
             isActive ? "stroke-neutral-50" : "stroke-primary-700 "
           } md:stroke-primary-700`}
         />
-        <span className="md:hidden w-max">{text}</span>
+        <span className="lg:hidden w-max">{text}</span>
       </div>
     </NavLink>
   );
