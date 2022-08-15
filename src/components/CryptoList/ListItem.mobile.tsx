@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-type PropsT = {
+export type PropsT = {
   icon?: string;
   name?: string;
   grow?: number;
@@ -18,7 +18,7 @@ const ListItem: React.FC<PropsT> = ({ icon, name, grow, price }) => {
     },
   };
   return (
-    <div className="font-vazir font-normal text-xs flex flex-row items-center justify-between">
+    <div className="font-vazir font-normal text-xs flex flex-row items-center justify-between border-b-[1px] border-b-neutral-300 pb-2">
       <div className="flex flex-row gap-3 items-center text-neutral-900">
         <img src={icon} />
         <span>{name}</span>
@@ -26,6 +26,7 @@ const ListItem: React.FC<PropsT> = ({ icon, name, grow, price }) => {
       <motion.span
         variants={growAnimation}
         animate={grow && grow < 0 ? "down" : "up"}
+        className=""
       >
         {grow?.toString().replace("-", "")}%
       </motion.span>
