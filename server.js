@@ -96,9 +96,9 @@ export async function createServer(
   return { app, vite };
 }
 if (!isTest) {
-  
-    createServer().then(({ app }) =>
-      app.listen({ host: "0.0.0.0", port: PORT }, () => {
-        console.log(`Server started 🚀`);
-      })
+  createServer().then(({ app }) =>
+    app.listen({ host: "0.0.0.0", port: PORT }, () => {
+      console.log(`Server started on ${process.pid} Worker 🚀`);
+    })
+  );
 }
