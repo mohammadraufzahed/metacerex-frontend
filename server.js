@@ -3,6 +3,10 @@ import path from "node:path";
 import fastify from "fastify";
 import { fileURLToPath } from "node:url";
 import process from "node:process";
+import { cpus } from "node:os";
+import cluster from "node:cluster";
+
+const CPUS = cpus().length;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -23,7 +27,7 @@ export async function createServer(
     : "";
 
   const app = fastify({
-    logger: true,
+    logger: !isProd,
   });
   await app.register((await import("@fastify/middie")).default);
   /**
@@ -92,9 +96,23 @@ export async function createServer(
   return { app, vite };
 }
 if (!isTest) {
-  createServer().then(({ app }) =>
-    app.listen({ host: "0.0.0.0", port: PORT }, () => {
-      console.log(`http://0.0.0.0:${PORT}`);
-    })
-  );
+  if (isProdMain) {
+    if (cluster.isPrimary) {
+      for (let i = 0; i < CPUS; i++) {
+        cluster.fork();
+      }
+    } else {
+      createServer().then(({ app }) =>
+        app.listen({ host: "0.0.0.0", port: 9000 }, () => {
+          console.log(`Server started on ${process.pid} Worker 🚀`);
+        })
+      );
+    }
+  } else {
+    createServer().then(({ app }) =>
+      app.listen({ host: "0.0.0.0", port: PORT }, () => {
+        console.log(`Server started on ${process.pid} Worker 🚀`);
+      })
+    );
+  }
 }
