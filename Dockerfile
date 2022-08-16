@@ -1,20 +1,18 @@
-FROM node:18-alpine
-
-USER node
-
-ENV NODE_ENV="production"
+FROM node:18
 
 
-WORKDIR /home/node/app
+WORKDIR /usr/app
 
-COPY package.json .
+COPY package.json . 
 
-RUN npm install 
+RUN npm i --location=global tailwindcss
+
+RUN yarn 
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
-CMD [ "npm", "run", "serve" ]
+CMD [ "yarn", "serve" ]
 
 EXPOSE 9000
