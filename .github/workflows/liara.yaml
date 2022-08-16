@@ -10,9 +10,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: "16"
+          node-version: "18"
       - name: Deploy to liara
         env:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
         run: |
-            npx -y liara deploy --platform=docker --app="saraphi-ui" --port=9000 --api-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI1ZjdmMjkwMTg2ZDhlMjAwMTExMzkyMzIiLCJpYXQiOjE2NjA1NTc2NzV9.oxWD3IzeLkWUM-wqjNwRi7P-EXLXLlnSpfj0JVdba9w" --region iran --detach
+            npm i --location=global @liara/cli
+            liara deploy --platform=docker --app="saraphi-ui" --port=9000 --api-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI1ZjdmMjkwMTg2ZDhlMjAwMTExMzkyMzIiLCJpYXQiOjE2NjA1NTc2NzV9.oxWD3IzeLkWUM-wqjNwRi7P-EXLXLlnSpfj0JVdba9w" --region iran --detach
