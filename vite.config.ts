@@ -7,10 +7,5 @@ export default defineConfig({
   plugins: [react(), svgr()],
   build: {
     minify: "esbuild",
-    rollupOptions: {
-      output: {
-        entryFileNames: "index.js",
-      },
-    },
   },
 });

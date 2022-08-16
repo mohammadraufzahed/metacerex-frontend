@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import express from "express";
+import fastify from "fastify";
 import { fileURLToPath } from "node:url";
 import process from "node:process";
 
@@ -22,7 +22,10 @@ export async function createServer(
       })
     : "";
 
-  const app = express();
+  const app = fastify({
+    logger: true,
+  });
+  await app.register((await import("@fastify/middie")).default);
   /**
    * @type {import('vite').ViteDevServer}
    */
@@ -54,9 +57,9 @@ export async function createServer(
       })
     );
   }
-  app.use("*", async (req, res) => {
+  app.get("*", async (req, res) => {
     try {
-      const url = req.originalUrl;
+      const url = req.url;
       let template, render;
       if (!isProd) {
         template = fs.readFileSync(resolve(["index.html"]), {
@@ -64,19 +67,25 @@ export async function createServer(
         });
         template = await vite.transformIndexHtml(url, template);
         render = (await vite.ssrLoadModule("/src/entry-server.tsx")).render;
-        const appHtml = render(url, context);
-        const html = template.replace("<!--app-html-->", appHtml);
-        res.status(200).set({ "Content-Type": "text/html" }).end(html);
+        const html = render(url);
+        template = template.replace("<!--app-html-->", appHtml);
       } else {
-        template = indexProd;
         // @ts-ignore
-        render = (await import("./dist/server/index.js")).prodRender;
-        render(url, res);
+        template = indexProd;
+        render = (await import("./dist/server/entry-server.js")).render;
+        const html = render(url);
+        template = template.replace(
+          '<div id="root"></div>',
+          `<div id="root">${html}</div>`
+        );
       }
+      res.status(200);
+      res.header("Content-Type", "text/html");
+      res.send(template);
     } catch (e) {
       !isProd && vite.ssrFixStacktrace(e);
-      console.log(e.stack);
-      res.status(500).end(e.stack);
+      res.status(500);
+      res.send(e.stack);
     }
     console.log(`process ${process.pid} handled the request`);
   });
@@ -84,7 +93,7 @@ export async function createServer(
 }
 if (!isTest) {
   createServer().then(({ app }) =>
-    app.listen(PORT, "0.0.0.0", () => {
+    app.listen({ host: "0.0.0.0", port: PORT }, () => {
       console.log(`http://0.0.0.0:${PORT}`);
     })
   );
