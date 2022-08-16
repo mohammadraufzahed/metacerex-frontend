@@ -96,28 +96,9 @@ export async function createServer(
   return { app, vite };
 }
 if (!isTest) {
-  if (isProdMain) {
-    if (cluster.isPrimary) {
-      for (let i = 0; i < CPUS; i++) {
-        cluster.fork();
-        cluster.once("exit", () => {
-          cluster.fork();
-        });
-      }
-    } else {
-      try {
-        createServer().then(({ app }) =>
-          app.listen({ host: "0.0.0.0", port: 9000 }, () => {
-            console.log(`Server started on ${process.pid} Worker 🚀`);
-          })
-        );
-      } catch (e) {}
-    }
-  } else {
+  
     createServer().then(({ app }) =>
       app.listen({ host: "0.0.0.0", port: PORT }, () => {
-        console.log(`Server started on ${process.pid} Worker 🚀`);
+        console.log(`Server started 🚀`);
       })
-    );
-  }
 }
