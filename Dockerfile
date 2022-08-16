@@ -4,7 +4,8 @@ USER node
 
 ENV NODE_ENV="production"
 
-WORKDIR /app
+
+WORKDIR /home/node/app
 
 COPY package.json .
 
