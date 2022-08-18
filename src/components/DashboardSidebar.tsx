@@ -115,7 +115,7 @@ const DashboardSidebar: React.FC = () => {
   }, []);
   return (
     <motion.div
-      className="w-[170px] h-screen z-20 py-5 bg-neutral-50 absolute lg:relative lg:w-12 overflow-x-hidden"
+      className="w-[170px] h-screen z-20 py-5 bg-neutral-50 absolute lg:relative lg:min-w-[3rem] lg:max-w-[3rem] overflow-x-hidden"
       variants={ContainerVariant}
       animate={show ? "show" : "hide"}
       transition={{ type: "tween", duration: 0.4 }}
