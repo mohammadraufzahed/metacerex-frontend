@@ -13,6 +13,7 @@ const Navigation = () => {
           <Route path="list" element={<ListPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );
