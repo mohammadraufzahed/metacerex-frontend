@@ -4,7 +4,7 @@ import SearchBox from "./SearchBox";
 
 const ListBoxMobile = lazy(() => import("./ListBox.mobile"));
 
-const ListContainer = () => {
+const ListContainer: React.FC = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const arrowAnimations = {
     rotate: {

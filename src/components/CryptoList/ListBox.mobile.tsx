@@ -1,6 +1,7 @@
-import React from "react";
+import React, { lazy } from "react";
 import type { PropsT as ListItemT } from "./ListItem.mobile";
-import ListItem from "./ListItem.mobile";
+
+const ListItem = lazy(() => import("./ListItem.mobile"));
 
 type PropsT = {
   items?: ListItemT[];

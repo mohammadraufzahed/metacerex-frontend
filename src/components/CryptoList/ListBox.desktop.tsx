@@ -1,5 +1,6 @@
-import React from "react";
-import ListItem from "./ListItem.desktop";
+import React, { lazy } from "react";
+
+const ListItem = lazy(() => import("./ListItem.desktop"));
 
 const ListBox: React.FC = () => {
   return (
