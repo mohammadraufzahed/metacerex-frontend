@@ -11,7 +11,7 @@
     "generate": "vite build --outDir /dist/static",
     "serve": "cross-env NODE_ENV=production node server",
     "dev:tailwind": "tailwindcss -w -i ./src/styles/tailwind.scss -o ./src/styles/tailwind.css",
-    "dev": "concurrently \"yarn dev:tailwind\" \"yarn server\""
+    "dev": "concurrently \"yarn dev:tailwind\" \"node server\""
   },
   "keywords": [],
   "author": "",

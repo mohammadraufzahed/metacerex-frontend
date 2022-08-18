@@ -72,7 +72,7 @@ export async function createServer(
         template = await vite.transformIndexHtml(url, template);
         render = (await vite.ssrLoadModule("/src/entry-server.tsx")).render;
         const html = render(url);
-        template = template.replace("<!--app-html-->", appHtml);
+        template = template.replace("<!--app-html-->", html);
       } else {
         // @ts-ignore
         template = indexProd;

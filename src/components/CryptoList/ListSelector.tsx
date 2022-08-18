@@ -5,7 +5,7 @@ const ListContainerDesktop = lazy(() => import("./ListContainer.desktop"));
 
 const ListSelector = () => {
   return (
-    <div className="relative">
+    <div className="relative max-h-[50vh] overflow-y-hidden">
       <ListContainerMobile />
       <ListContainerDesktop />
     </div>

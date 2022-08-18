@@ -1,6 +1,6 @@
 import React, { lazy, useState } from "react";
 import { motion } from "framer-motion";
-import Search from "../../svgs/Search";
+import SearchBox from "./SearchBox";
 
 const ListBoxMobile = lazy(() => import("./ListBox.mobile"));
 
@@ -50,13 +50,7 @@ const ListContainer = () => {
         className="z-10 flex flex-col gap-4 absolute w-full bg-neutral-50 overflow-hidden px-3 lg:hidden"
         transition={{ duration: 0.8, type: "tween" }}
       >
-        <div className="w-full relative drop-shadow-xl mt-4">
-          <input
-            className="w-full py-2 font-vazir font-normal text-sm text-neutral-300 outline-none pr-12 border-[1px] border-neutral-300 rounded-lg"
-            placeholder="جستجو در میان بیش از 840 رمز ارز"
-          />
-          <Search className="absolute bottom-1.5 right-3 stroke-neutral-300" />
-        </div>
+        <SearchBox />
         {/* Mobile Version */}
         <div className="flex-auto flex flex-col h-max overflow-y-scroll">
           <ListBoxMobile />
