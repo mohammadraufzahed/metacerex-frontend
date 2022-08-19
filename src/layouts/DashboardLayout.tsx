@@ -15,7 +15,7 @@ const DashboardLayout: React.FC = () => {
       <header>
         <DashboardNavbar />
       </header>
-      <main className="flex-auto flex flex-row w-screen bg-neutral-200">
+      <main className="flex-auto flex flex-row w-screen bg-background-50">
         <DashboardSidebar />
         <div className="flex-auto flex">
           <Suspense fallback={<Loading />}>

@@ -188,8 +188,8 @@ const SidebarItem: React.FC<SidebarItemT> = ({
       >
         <Icon
           className={`${
-            isActive ? "stroke-neutral-50" : "stroke-primary-700 "
-          } md:stroke-primary-700`}
+            isActive ? "stroke-neutral-50" : "stroke-primary-700"
+          } lg:stroke-primary-700`}
         />
         <span className="lg:hidden w-max">{text}</span>
       </div>

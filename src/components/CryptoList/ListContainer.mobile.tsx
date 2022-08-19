@@ -47,9 +47,10 @@ const ListContainer: React.FC = () => {
         variants={boxAnimation}
         initial={{ height: 0 }}
         animate={openMenu ? "show" : "hide"}
-        className="z-10 flex flex-col gap-4 absolute w-full bg-neutral-50 overflow-hidden px-3 lg:hidden"
+        className="z-10 flex flex-col absolute w-full bg-neutral-50 overflow-hidden px-3 lg:hidden scrollbar-vertical"
         transition={{ duration: 0.8, type: "tween" }}
       >
+        <div className="mt-4" />
         <SearchBox />
         {/* Mobile Version */}
         <div className="flex-auto flex flex-col h-max overflow-y-scroll">

@@ -9,7 +9,7 @@ const ListPage = () => {
   return (
     <div className="flex-auto w-full h-full flex flex-col pt-4">
       <div className="w-full flex flex-col flex-auto pb-14 md:px-4 lg:grid lg:grid-cols-12 lg:gap-x-2 lg:mb-10">
-        <div className="col-span-5 row-span-1 xl:col-span-3">
+        <div className="lg:col-span-5 xl:col-span-3">
           <ListSelector />
         </div>
         <div className="w-full flex-auto mt-1 lg:mt-0 lg:col-span-7 xl:col-span-9">

@@ -35,6 +35,12 @@ module.exports = {
           0: "#FFFFFF",
           100: "#000000",
         },
+        background: {
+          50: "#EDF3F5",
+          100: "#E4EEF2",
+          300: "#C8DDE5",
+          500: "#ADCCD7",
+        },
       },
     },
   },
