@@ -1,12 +1,12 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy } from "react";
 import { AdvancedChart } from "react-tradingview-embed";
-import Loading from "../components/Loading";
-import NewsBox from "../components/News/NewsBox";
+
+const NewsBox = lazy(() => import("../components/News/NewsBox"));
 const ListSelector = lazy(
   () => import("../components/CryptoList/ListSelector")
 );
 
-const ListPage = () => {
+const ListPage: React.FC = () => {
   return (
     <div className="flex-auto w-full h-full flex flex-col pt-4">
       <div className="w-full flex flex-col flex-auto pb-14 md:px-4 lg:grid lg:grid-cols-12 lg:gap-x-2 lg:mb-10">
