@@ -1,93 +1,93 @@
 export type AutocompleteAssets = {
-  code: String;
-  name?: String;
-  name_farsi?: String;
-  icon: String;
-  q?: String;
+  code: string;
+  name?: string;
+  name_farsi?: string;
+  icon: string;
+  q?: string;
   networks: {
-    name: String;
-    name_detailed: String;
-    site_wallet_address: String;
+    name: string;
+    name_detailed: string;
+    site_wallet_address: string;
   };
 };
 
 export type BaseAsset = {
-  code: String;
-  name?: String;
-  name_farsi?: String;
-  icon: String;
-  precision?: Number;
+  code: string;
+  name?: string;
+  name_farsi?: string;
+  icon: string;
+  precision?: number;
 };
 
 export type Buy = {
-  id: Number;
-  added_on: String;
-  updated_on: String;
+  id: number;
+  added_on: string;
+  updated_on: string;
   quantity: string;
-  quote_asset_equivalent: String;
-  market_price: String;
-  network_fee: String;
-  final_payable: String;
+  quote_asset_equivalent: string;
+  market_price: string;
+  network_fee: string;
+  final_payable: string;
   state: State914Enum;
-  user: Number;
-  symbol: Number;
+  user: number;
+  symbol: number;
 };
 
 export type BuyCreate = {
-  id: Number;
-  is_preview: Boolean;
-  added_on: String;
-  updated_on: String;
-  quantity?: String;
-  quote_asset_equivalent?: String;
-  market_price: String;
-  network_fee: String;
-  final_payable: String;
+  id: number;
+  is_preview: boolean;
+  added_on: string;
+  updated_on: string;
+  quantity?: string;
+  quote_asset_equivalent?: string;
+  market_price: string;
+  network_fee: string;
+  final_payable: string;
   state: State914Enum;
-  user: Number;
+  user: number;
 };
 
 export type CustomTokenObtain = {
-  access: String;
-  refresh: String;
-  user_display_name: String;
-  is_password_entered: Boolean;
-  is_mobile_verified: Boolean;
-  is_identity_verified: Boolean;
-  is_shetab_cards_verified: Boolean;
-  username: String;
-  password: String;
+  access: string;
+  refresh: string;
+  user_display_name: string;
+  is_password_entered: boolean;
+  is_mobile_verified: boolean;
+  is_identity_verified: boolean;
+  is_shetab_cards_verified: boolean;
+  username: string;
+  password: string;
 };
 
 export type DepositStateEnum = "new" | "waiting" | "verified" | "failed";
 
 export type Deposit = {
-  id: Number;
-  added_on: String;
-  updated_on: String;
-  amount_toman: Number;
+  id: number;
+  added_on: string;
+  updated_on: string;
+  amount_toman: number;
   state?: DepositStateEnum;
-  user: Number;
-  card: Number;
-  transaction: Number;
+  user: number;
+  card: number;
+  transaction: number;
 };
 
 export type DepositCreate = {
-  amount_toman: Number;
+  amount_toman: number;
   gateway: GatewayEnum;
-  card_number: String;
-  short_desc?: String;
-  callback_url: String;
-  redirect_url: String;
+  card_number: string;
+  short_desc?: string;
+  callback_url: string;
+  redirect_url: string;
 };
 
 export type DepositVerify = {
-  token: String;
-  payment_status: String;
-  error: String;
-  ref_number: String;
-  tracking_code: String;
-  transaction_id: String;
+  token: string;
+  payment_status: string;
+  error: string;
+  ref_number: string;
+  tracking_code: string;
+  transaction_id: string;
 };
 
 export type GatewayEnum = "VANDAR";
@@ -106,170 +106,170 @@ export type WithdrawStateEnum = "NEW" | "VERIFIED" | "FAILED";
 export type WsStateEnum = "new" | "read" | "ignored";
 
 export type Networks = {
-  name: String;
-  name_detailed: String;
-  site_wallet_address: String;
+  name: string;
+  name_detailed: string;
+  site_wallet_address: string;
 };
 
 export type NewsArticleDetail = {
-  author: String;
-  cover: String;
-  title: String;
-  description: String;
-  body: String;
-  tags: String;
-  added_on: String;
-  updated_on: String;
+  author: string;
+  cover: string;
+  title: string;
+  description: string;
+  body: string;
+  tags: string;
+  added_on: string;
+  updated_on: string;
 };
 
 export type NewsArticleList = {
-  pk: Number;
-  author: String;
-  cover: String;
-  title: String;
-  description: String;
-  added_on: String;
+  pk: number;
+  author: string;
+  cover: string;
+  title: string;
+  description: string;
+  added_on: string;
 };
 
 export type Notifications = {
-  id: Number;
-  message: String;
+  id: number;
+  message: string;
   ws_state?: WsStateEnum;
-  added_on: String;
+  added_on: string;
 };
 
 export type PasswordSet = {
-  password1: String;
-  password2: String;
+  password1: string;
+  password2: string;
 };
 
 export type ProfileReadOnly = {
-  username: String;
-  first_name: String;
-  last_name: String;
-  email: String;
-  mobile: String;
-  is_mobile_verified: Boolean;
-  melli_code: String;
-  is_identity_verified: Boolean;
-  is_shetab_cards_verified: Boolean;
-  referral_code: String;
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  mobile: string;
+  is_mobile_verified: boolean;
+  melli_code: string;
+  is_identity_verified: boolean;
+  is_shetab_cards_verified: boolean;
+  referral_code: string;
   referred_by: ReferredByReadOnly;
-  balance_toman: Number;
+  balance_toman: number;
   cards: UserCardsReadonly[];
 };
 
 export type UserCardsReadonly = {
-  number: String;
-  sheba: String;
-  is_verified: Boolean;
+  number: string;
+  sheba: string;
+  is_verified: boolean;
 };
 
 export type ReferredByReadOnly = {
-  name: String;
-  code: String;
+  name: string;
+  code: string;
 };
 
 export type RegisterMobileRequest = {
-  mobile: String;
-  uuid: String;
-  referrer_code?: String;
+  mobile: string;
+  uuid: string;
+  referrer_code?: string;
 };
 
 export type RegisterMobileVerify = {
-  uuid: String;
-  response: String;
-  access: String;
-  refresh: String;
-  user_display_name: String;
+  uuid: string;
+  response: string;
+  access: string;
+  refresh: string;
+  user_display_name: string;
 };
 
 export type ReportEOD = {
-  id: Number;
-  username: String;
-  first_name?: String;
-  last_name?: String;
-  mobile?: String;
-  email?: String;
-  period_deposit_toman: Number;
-  period_withdraw_toman: Number;
-  period_balance_toman: Number;
-  total_balance_toman: Number;
+  id: number;
+  username: string;
+  first_name?: string;
+  last_name?: string;
+  mobile?: string;
+  email?: string;
+  period_deposit_toman: number;
+  period_withdraw_toman: number;
+  period_balance_toman: number;
+  total_balance_toman: number;
 };
 
 export type Status = {
-  is_maintenance_mode: Boolean;
-  allowed_qoute_assets: String[];
-  shetab_gateways: String[];
+  is_maintenance_mode: boolean;
+  allowed_qoute_assets: string[];
+  shetab_gateways: string[];
 };
 
 export type TickerTable = {
-  code: String;
+  code: string;
   base_asset: {
-    code: String;
-    name?: String;
-    name_farsi?: String;
-    icon: String;
-    precision: Number;
+    code: string;
+    name?: string;
+    name_farsi?: string;
+    icon: string;
+    precision: number;
   };
   quote_asset?: QuoteAssetEnum;
-  price?: String;
-  price_toman: String;
+  price?: string;
+  price_toman: string;
 };
 
 export type TokenRefresh = {
-  access: String;
-  refresh: String;
+  access: string;
+  refresh: string;
 };
 
 export type UserAdmin = {
-  username: String;
-  first_name?: String;
-  last_name?: String;
-  email?: String;
-  mobile?: String;
-  password: String;
+  username: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  mobile?: string;
+  password: string;
 };
 
 export type VerifyIdentity = {
-  melli_code: String;
-  first_name: String;
-  last_name: String;
-  photo_melli_card: String;
-  photo_with_melli_card: String;
+  melli_code: string;
+  first_name: string;
+  last_name: string;
+  photo_melli_card: string;
+  photo_with_melli_card: string;
 };
 
 export type VerifyShetab = {
-  card_number: String;
-  sheba_number: String;
-  photo_bank_card: String;
-  photo_with_bank_card: String;
+  card_number: string;
+  sheba_number: string;
+  photo_bank_card: string;
+  photo_with_bank_card: string;
 };
 
 export type Withdraw = {
-  id: Number;
+  id: number;
   card: ShetabCard;
   transaction: Transaction;
-  added_on: String;
-  updated_on: String;
+  added_on: string;
+  updated_on: string;
   state?: WithdrawStateEnum;
-  user: Number;
+  user: number;
 };
 
 export type WithdrawCreate = {
-  amount_toman: Number;
-  sheba_number: String;
-  short_desc?: String;
-  withdraw_id: String;
+  amount_toman: number;
+  sheba_number: string;
+  short_desc?: string;
+  withdraw_id: string;
 };
 
 export type ShetabCard = {
-  number: String;
-  sheba: String;
+  number: string;
+  sheba: string;
 };
 
 export type Transaction = {
-  uuid: String;
-  ref_number: String;
-  tracking_code: String;
+  uuid: string;
+  ref_number: string;
+  tracking_code: string;
 };
