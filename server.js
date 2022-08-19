@@ -79,8 +79,8 @@ export async function createServer(
         render = (await import("./dist/server/entry-server.js")).render;
         const html = render(url);
         template = template.replace(
-          '<div id="root"></div>',
-          `<div id="root">${html}</div>`
+          '<div id="root" class="flex"></div>',
+          `<div id="root" class="flex">${html}</div>`
         );
       }
       res.status(200);
