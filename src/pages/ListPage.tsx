@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { AdvancedChart } from "react-tradingview-embed";
 import Loading from "../components/Loading";
+import NewsBox from "../components/News/NewsBox";
 const ListSelector = lazy(
   () => import("../components/CryptoList/ListSelector")
 );
@@ -9,8 +10,9 @@ const ListPage = () => {
   return (
     <div className="flex-auto w-full h-full flex flex-col pt-4">
       <div className="w-full flex flex-col flex-auto pb-14 md:px-4 lg:grid lg:grid-cols-12 lg:gap-x-2 lg:mb-10">
-        <div className="lg:col-span-5 xl:col-span-3">
+        <div className="lg:col-span-5 xl:col-span-3 xl:flex xl:flex-col">
           <ListSelector />
+          <NewsBox />
         </div>
         <div className="w-full flex-auto mt-1 lg:mt-0 lg:col-span-7 xl:col-span-9">
           <AdvancedChart
