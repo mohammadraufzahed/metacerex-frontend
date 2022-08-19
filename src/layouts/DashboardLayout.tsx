@@ -8,7 +8,7 @@ const DashboardSidebar = lazy(() => import("../components/DashboardSidebar"));
 
 const DashboardLayout: React.FC = () => {
   return (
-    <div className="flex flex-col w-screen h-screen max-w-[100vw] overflow-hidden">
+    <div className="flex flex-col w-screen h-screen max-w-[100vw] overflow-y-scroll overflow-x-hidden scrollbar-vertical">
       <Helmet>
         <title>صرافی - حساب کاربری</title>
       </Helmet>
