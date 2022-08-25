@@ -5,6 +5,7 @@ specifiers:
   '@tanstack/react-query': ^4.2.1
   '@tanstack/react-query-devtools': ^4.2.1
   '@tanstack/react-table': ^8.5.11
+  '@types/node': ^18.7.13
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
   '@types/react-helmet': ^6.1.5
@@ -61,6 +62,7 @@ dependencies:
   vite-plugin-svgr: 2.2.1_vite@3.0.6
 
 devDependencies:
+  '@types/node': 18.7.13
   '@types/react': 18.0.17
   '@types/react-dom': 18.0.6
   '@types/react-helmet': 6.1.5
@@ -673,6 +675,10 @@ packages:
     resolution: {integrity: sha512-ZN61ockLaIAiiPbZfMKT2S03nbWx28OHg/nAiDnNfmN4QmAMcdwVajPn2QQwnNVGAr4jS4nbhbYzCcjq8livXQ==}
     engines: {node: '>=12'}
     dev: false
+
+  /@types/node/18.7.13:
+    resolution: {integrity: sha512-46yIhxSe5xEaJZXWdIBP7GU4HDTG8/eo0qd9atdiL+lFpA03y8KS+lkTN834TWJj5767GbWv4n/P6efyTFt1Dw==}
+    dev: true
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}

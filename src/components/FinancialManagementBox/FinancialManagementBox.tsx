@@ -25,7 +25,7 @@ const FinancialManagementBox: React.FC = () => {
       className={`lg:w-full
       } ${
         financialBoxStat == "idle" || financialBoxStat == "open"
-          ? "lg:pt-7"
+          ? "lg:pt-5"
           : ""
       } lg:block lg:relative lg:bottom-0`}
     >

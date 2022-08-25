@@ -11,7 +11,7 @@ const NewsItem = lazy(() => import("./NewsItem"));
 const NewsBox: React.FC = () => {
   const { data } = useQuery(["posts"], useNews);
   return (
-    <div className="hidden bg-neutral-50 mt-3 flex-auto rounded-lg lg:flex flex-col items-center pt-8 gap-6">
+    <div className="hidden bg-neutral-50 mt-3 flex-auto rounded-lg lg:flex flex-col items-center justify-evenly pt-8 gap-6">
       {data?.slice(0, 2).map((item) => (
         <NewsItem key={item.pk} {...item} />
       ))}
