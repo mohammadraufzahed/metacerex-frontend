@@ -1,18 +1,32 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { AdvancedChart } from "react-tradingview-embed";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
+import { FinancialManagementBox } from "../components/FinancialManagementBox";
+import { useRecoilState } from "recoil";
+import { financialBoxStatus } from "../atoms/financialBoxStatus";
 
+const TradingView = lazy(() => import("../components/TradingView"));
 const NewsBox = lazy(() => import("../components/News/NewsBox"));
 const ListSelector = lazy(
   () => import("../components/CryptoList/ListSelector")
 );
 
 const ListPage: React.FC = () => {
+  const [financialBoxStat, setFinancialBoxStat] =
+    useRecoilState(financialBoxStatus);
+  useEffect(() => {
+    window.onresize = () => {
+      if (window.innerWidth < 1060) {
+        setFinancialBoxStat("idleMobile");
+      } else {
+        setFinancialBoxStat("idle");
+      }
+    };
+  }, []);
   return (
-    <div className="flex-auto w-full h-full flex flex-col pt-4">
-      <div className="w-full flex flex-col flex-auto pb-14 md:px-4 lg:grid lg:grid-cols-12 lg:gap-x-2 lg:mb-10">
+    <div className="flex-auto w-full h-full flex flex-col pt-4 max-w-[2000px]">
+      <div className="w-full flex flex-col flex-auto pb-5 md:px-4 lg:grid lg:grid-cols-12 lg:gap-x-2 lg:justify-center lg:max-h-[1060px]">
         <div className="lg:col-span-5 xl:col-span-3 gap-2 xl:flex xl:flex-col">
           <ListSelector />
           <ErrorBoundary fallback={<Error />}>
@@ -21,17 +35,9 @@ const ListPage: React.FC = () => {
             </Suspense>
           </ErrorBoundary>
         </div>
-        <div className="w-full flex-auto mt-1 lg:mt-0 lg:col-span-7 xl:col-span-9">
-          <AdvancedChart
-            widgetProps={{
-              theme: "light",
-              hide_side_toolbar: true,
-              hide_top_toolbar: true,
-              width: "100%",
-              height: "100%",
-              allow_symbol_change: false,
-            }}
-          />
+        <div className="w-full flex-auto mt-1 lg:mt-0 lg:col-span-7 xl:col-span-9 flex flex-col">
+          <TradingView />
+          <FinancialManagementBox />
         </div>
       </div>
     </div>
