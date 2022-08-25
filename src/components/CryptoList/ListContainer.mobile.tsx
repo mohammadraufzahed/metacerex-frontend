@@ -1,10 +1,13 @@
 import React, { lazy, useState } from "react";
 import { motion } from "framer-motion";
 import SearchBox from "./SearchBox";
+import { useRecoilValue } from "recoil";
+import { financialBoxStatus } from "../../atoms/financialBoxStatus";
 
 const ListBoxMobile = lazy(() => import("./ListBox.mobile"));
 
 const ListContainer: React.FC = () => {
+  const financialBoxStat = useRecoilValue(financialBoxStatus);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const arrowAnimations = {
     rotate: {
@@ -23,7 +26,16 @@ const ListContainer: React.FC = () => {
     },
   };
   return (
-    <div>
+    <motion.div
+      variants={{
+        hide: {
+          height: 0,
+          overflow: "hidden",
+          display: "none",
+        },
+      }}
+      animate={financialBoxStat == "mobileOpen" ? "hide" : ""}
+    >
       <div
         className="font-vazir font-normal h-12 text-sm bg-neutral-50 flex flex-row justify-between items-center px-6 cursor-pointer border-b-[1px] border-b-primary-700 lg:hidden"
         onClick={() => setOpenMenu(!openMenu)}
@@ -59,7 +71,7 @@ const ListContainer: React.FC = () => {
         </div>
         {/* End mobile version */}
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 

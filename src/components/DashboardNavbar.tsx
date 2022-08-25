@@ -30,6 +30,8 @@ const DashboardNavbar: React.FC = () => {
       <div>
         <div className="lg:hidden">
           <Hamburger
+            rounded={true}
+            duration={0.4}
             onToggle={(e) => setShowDashboardSidebar(e.valueOf())}
             toggled={showDashboardSidebar}
           />
