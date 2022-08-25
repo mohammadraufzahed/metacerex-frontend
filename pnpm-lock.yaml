@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@fastify/middie': ^8.0.0
   '@tanstack/react-query': ^4.2.1
-  '@tanstack/react-query-devtools': ^4.2.1
+  '@tanstack/react-table': ^8.5.11
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
   '@types/react-helmet': ^6.1.5
@@ -39,7 +39,7 @@ specifiers:
 dependencies:
   '@fastify/middie': 8.0.0
   '@tanstack/react-query': 4.2.1_biqbaboplfbrettd7655fr4n2y
-  '@tanstack/react-query-devtools': 4.2.1_32b63s5o6uo6n4n6pi5xgs6jfq
+  '@tanstack/react-table': 8.5.11_biqbaboplfbrettd7655fr4n2y
   axios: 0.27.2
   compression: 1.7.4
   fastify: 4.4.0
@@ -610,30 +610,8 @@ packages:
       - supports-color
     dev: false
 
-  /@tanstack/match-sorter-utils/8.1.1:
-    resolution: {integrity: sha512-IdmEekEYxQsoLOR0XQyw3jD1GujBpRRYaGJYQUw1eOT1eUugWxdc7jomh1VQ1EKHcdwDLpLaCz/8y4KraU4T9A==}
-    engines: {node: '>=12'}
-    dependencies:
-      remove-accents: 0.4.2
-    dev: false
-
   /@tanstack/query-core/4.2.1:
     resolution: {integrity: sha512-UOyOhHKLS/5i9qG2iUnZNVV3R9riJJmG9eG+hnMFIPT/oRh5UzAfjxCtBneNgPQZLDuP8y6YtRYs/n4qVAD5Ng==}
-    dev: false
-
-  /@tanstack/react-query-devtools/4.2.1_32b63s5o6uo6n4n6pi5xgs6jfq:
-    resolution: {integrity: sha512-k7Ch3qvs8U74aRMMRvNisxcxZFTzk8FDdvpQKXxSZ8fsD4ZwpM0MoUSqKsCXbfTvUI7MJiGxavy1YlvImPNO+Q==}
-    peerDependencies:
-      '@tanstack/react-query': ^4.0.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@tanstack/match-sorter-utils': 8.1.1
-      '@tanstack/react-query': 4.2.1_biqbaboplfbrettd7655fr4n2y
-      '@types/use-sync-external-store': 0.0.3
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
   /@tanstack/react-query/4.2.1_biqbaboplfbrettd7655fr4n2y:
@@ -653,6 +631,23 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
+
+  /@tanstack/react-table/8.5.11_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-bIegBJ3VPUX3Z7rMnFEnTRCRgPccTsciilQA1ib/pA6M7Qq1boTNPjNjSbEHmBKytaxPrPfcUfzkZLogYtvu3g==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/table-core': 8.5.11
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@tanstack/table-core/8.5.11:
+    resolution: {integrity: sha512-ZN61ockLaIAiiPbZfMKT2S03nbWx28OHg/nAiDnNfmN4QmAMcdwVajPn2QQwnNVGAr4jS4nbhbYzCcjq8livXQ==}
+    engines: {node: '>=12'}
     dev: false
 
   /@types/parse-json/4.0.0:
@@ -2199,10 +2194,6 @@ packages:
 
   /regenerator-runtime/0.13.9:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
-    dev: false
-
-  /remove-accents/0.4.2:
-    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
     dev: false
 
   /require-directory/2.1.1:
