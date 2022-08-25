@@ -3,12 +3,13 @@ import { Helmet } from "react-helmet";
 import { Outlet } from "react-router-dom";
 import Loading from "../components/Loading";
 
+const BottomBar = lazy(() => import("../components/BottomBar"));
 const DashboardNavbar = lazy(() => import("../components/DashboardNavbar"));
 const DashboardSidebar = lazy(() => import("../components/DashboardSidebar"));
 
 const DashboardLayout: React.FC = () => {
   return (
-    <div className="flex flex-col w-screen h-screen max-w-[100vw] overflow-y-scroll overflow-x-hidden scrollbar-vertical">
+    <div className="flex pb-16 flex-col w-screen h-screen max-w-[100vw] overflow-y-scroll overflow-x-hidden scrollbar-vertical lg:pb-0">
       <Helmet>
         <title>صرافی - حساب کاربری</title>
       </Helmet>
@@ -22,6 +23,7 @@ const DashboardLayout: React.FC = () => {
             <Outlet />
           </Suspense>
         </div>
+        <BottomBar />
       </main>
     </div>
   );
