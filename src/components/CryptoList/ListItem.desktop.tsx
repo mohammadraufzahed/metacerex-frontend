@@ -1,22 +1,14 @@
 import { motion } from "framer-motion";
 import React from "react";
+import { TickerTable } from "../../types/API";
 
-type PropsT = {
-  name?: {
-    persian?: string;
-    english?: string;
-  };
-  price?: string;
-  icon?: string;
-};
-
-const ListItem: React.FC<PropsT> = ({ name, price, icon }) => {
+const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
   return (
     <tr className='font-vazir font-normal relative text-xs text-neutral-900 after:content-[""] after:w-full after:h-[1px] after:bg-neutral-200 after:absolute after:left-0 after:-bottom-2'>
       <td className="flex flex-row items-center justify-center">
-        <img src={icon} width={14} />
-        <span className="mx-2">{name?.persian}</span>
-        {name?.english ? <span>{`(${name?.english})`}</span> : null}
+        <img src={base_asset.icon} width={14} />
+        <span className="mx-2">{base_asset.name_farsi}</span>
+        {base_asset.name ? <span>{`(${base_asset.name})`}</span> : null}
       </td>
       <td className="text-center">{price}</td>
       <td className="flex flex-row gap-2 justify-center">
@@ -25,15 +17,6 @@ const ListItem: React.FC<PropsT> = ({ name, price, icon }) => {
       </td>
     </tr>
   );
-};
-
-ListItem.defaultProps = {
-  name: {
-    persian: "بیت کوین",
-    english: "BTC",
-  },
-  price: "346,000,000",
-  icon: "/svgs/btc.svg",
 };
 
 type ButtonT = {

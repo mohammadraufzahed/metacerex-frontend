@@ -8,6 +8,7 @@ import "./styles/global.scss";
 import "./styles/tailwind.css";
 import "./styles/scrollbar.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { suspense: true } },
@@ -20,6 +21,7 @@ export default function App() {
           <RecoilNexus />
           <Navigation />
         </RecoilRoot>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </Suspense>
   );
