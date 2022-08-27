@@ -26,6 +26,7 @@
     "@types/node": "^18.7.13",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-helmet": "^6.1.5",
     "@vitejs/plugin-react": "^2.0.1",
     "autoprefixer": "^10.4.8",
@@ -47,19 +48,23 @@
     "axios": "^0.27.2",
     "compression": "^1.7.4",
     "fastify": "^4.4.0",
+    "formik": "^2.2.9",
     "framer-motion": "^7.1.0",
     "hamburger-react": "^2.5.0",
     "localforage": "^1.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
+    "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.4.0",
+    "react-loading": "^2.0.3",
     "react-router-dom": "^6.3.0",
     "react-tradingview-embed": "^3.0.6",
     "recoil": "^0.7.5",
     "recoil-nexus": "^0.4.0",
     "serve-static": "^1.15.0",
-    "vite-plugin-svgr": "^2.2.1"
+    "vite-plugin-svgr": "^2.2.1",
+    "yup": "^0.32.11"
   }
 }
