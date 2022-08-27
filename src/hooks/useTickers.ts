@@ -7,5 +7,5 @@ export async function useTickers(): Promise<TickerTable[]> {
       quote_asset: "toman",
     },
   });
-  return request.data;
+  return request.data.results;
 }

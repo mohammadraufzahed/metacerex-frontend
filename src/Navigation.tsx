@@ -11,6 +11,7 @@ const Navigation = () => {
     <>
       <Routes>
         <Route path="dashboard" element={<DashboardLayout />}>
+          <Route path="" element={<ListPage />} />
           <Route path="list" element={<ListPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
