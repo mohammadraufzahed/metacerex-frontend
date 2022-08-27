@@ -15,7 +15,7 @@ const FinancialTabel: React.FC = () => {
       borderTopColor: "rgba(0 0 0 0)",
     },
     max: {
-      height: 1060,
+      height: 960,
       borderTopColor: "rgba(0 0 0 1)",
     },
     maxMobile: {

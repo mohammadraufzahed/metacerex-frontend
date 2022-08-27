@@ -21,6 +21,7 @@ const TradingView: React.FC = () => {
   return (
     <motion.div
       variants={containerAnimation}
+      initial={{}}
       animate={
         financialBoxStat == "max"
           ? "hideDesktop"
