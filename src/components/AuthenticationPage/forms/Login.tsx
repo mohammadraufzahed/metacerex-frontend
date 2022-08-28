@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import AuthenticationFormLayout from "../../layouts/AuthenticationFormLayout";
-import Input from "./Input";
+import AuthenticationFormLayout from "../../../layouts/AuthenticationFormLayout";
+import Input from "../Input";
 import ReCAPTCHA from "react-google-recaptcha";
-import Button from "./Button";
+import Button from "../Button";
 
 const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +53,7 @@ const Login: React.FC = () => {
       <Button
         text="ورود"
         loading={isLoading}
-        onClick={() => setIsLoading(!isLoading)}
+        onClick={() => loginFormik.submitForm()}
       />
     </AuthenticationFormLayout>
   );

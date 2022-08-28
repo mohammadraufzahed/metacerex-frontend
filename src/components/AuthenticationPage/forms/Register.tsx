@@ -1,13 +1,13 @@
 import { useFormik } from "formik";
 import React, { lazy } from "react";
 import * as yup from "yup";
-import Button from "./Button";
+import Button from "../Button";
 
 const AuthenticationFormLayout = lazy(
-  () => import("../../layouts/AuthenticationFormLayout")
+  () => import("../../../layouts/AuthenticationFormLayout")
 );
-const Input = lazy(() => import("./Input"));
-const RulesCheckbox = lazy(() => import("./RulesCheckbox"));
+const Input = lazy(() => import("../Input"));
+const RulesCheckbox = lazy(() => import("../RulesCheckbox"));
 
 const Register: React.FC = () => {
   const registerFormik = useFormik({

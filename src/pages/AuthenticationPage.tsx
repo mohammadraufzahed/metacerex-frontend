@@ -2,9 +2,11 @@ import React, { lazy, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GoogleButton from "../components/AuthenticationPage/GoogleButton";
 
-const Login = lazy(() => import("../components/AuthenticationPage/Login"));
+const Login = lazy(
+  () => import("../components/AuthenticationPage/forms/Login")
+);
 const Register = lazy(
-  () => import("../components/AuthenticationPage/Register")
+  () => import("../components/AuthenticationPage/forms/Register")
 );
 const MenuItem = lazy(
   () => import("../components/AuthenticationPage/MenuItem")
