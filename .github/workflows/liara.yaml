@@ -15,5 +15,5 @@ jobs:
         env:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
         run: |
-            npm i --location=global @liara/cli
-            liara deploy --platform=docker --app="saraphi-ui" --port=9000 --api-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI1ZjdmMjkwMTg2ZDhlMjAwMTExMzkyMzIiLCJpYXQiOjE2NjA1NTc2NzV9.oxWD3IzeLkWUM-wqjNwRi7P-EXLXLlnSpfj0JVdba9w" --region iran --detach
+          npm i --location=global @liara/cli
+          liara deploy --platform=docker --app="saraphi-ui" --port=80 --api-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI1ZjdmMjkwMTg2ZDhlMjAwMTExMzkyMzIiLCJpYXQiOjE2NjA1NTc2NzV9.oxWD3IzeLkWUM-wqjNwRi7P-EXLXLlnSpfj0JVdba9w" --region iran --detach

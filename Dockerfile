@@ -1,11 +1,11 @@
-FROM node:18
+FROM node:18-alpine as builder
 
 
 WORKDIR /usr/app
 
 COPY package.json . 
 
-RUN npm i --location=global tailwindcss
+RUN yarn config set "strict-ssl" false -g
 
 RUN yarn 
 
@@ -13,6 +13,8 @@ COPY . .
 
 RUN yarn build
 
-CMD [ "yarn", "serve" ]
+FROM nginx:latest
 
-EXPOSE 9000
+COPY --from=builder /usr/app/dist /usr/web
+
+COPY ./nginx/default.conf /etc/nginx/conf.d
