@@ -15,6 +15,6 @@ RUN yarn build
 
 FROM nginx:latest
 
-COPY --from=builder /usr/app/dist /usr/web
+COPY --from=builder /usr/app/build /usr/web
 
 COPY ./nginx/default.conf /etc/nginx/conf.d

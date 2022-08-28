@@ -31,6 +31,7 @@ specifiers:
   react-tradingview-embed: ^3.0.6
   recoil: ^0.7.5
   recoil-nexus: ^0.4.0
+  recoil-persist: ^4.2.0
   sass: ^1.54.4
   tailwindcss: ^3.1.8
   typecript: 0.0.1-security
@@ -59,6 +60,7 @@ dependencies:
   react-tradingview-embed: 3.0.6_biqbaboplfbrettd7655fr4n2y
   recoil: 0.7.5_biqbaboplfbrettd7655fr4n2y
   recoil-nexus: 0.4.0_gqoqxgro3tfglhyzbje5qpwnfe
+  recoil-persist: 4.2.0_recoil@0.7.5
   vite-plugin-svgr: 2.2.1_vite@3.0.6
   yup: 0.32.11
 
@@ -1909,6 +1911,14 @@ packages:
       react-dom: 18.2.0_react@18.2.0
       recoil: 0.7.5_biqbaboplfbrettd7655fr4n2y
       typescript: 4.7.4
+    dev: false
+
+  /recoil-persist/4.2.0_recoil@0.7.5:
+    resolution: {integrity: sha512-MHVfML9GxJP3RpkKR4F5rp7DtvzIvjWhowtMao/b7h2k4afMio/4sMAdUtltIrDaeVegH0Iga8Sx5XQ3oD7CzA==}
+    peerDependencies:
+      recoil: ^0.7.2
+    dependencies:
+      recoil: 0.7.5_biqbaboplfbrettd7655fr4n2y
     dev: false
 
   /recoil/0.7.5_biqbaboplfbrettd7655fr4n2y:
