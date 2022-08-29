@@ -4,7 +4,14 @@ import { TickerTable } from "../../types/API";
 
 const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
   return (
-    <tr className='font-vazir font-normal relative text-xs text-neutral-900 after:content-[""] after:w-full after:h-[1px] after:bg-neutral-200 after:absolute after:left-0 after:-bottom-2'>
+    <motion.tr
+      initial={{ x: 460 }}
+      animate={{ x: 0 }}
+      exit={{ x: -460 }}
+      key={base_asset.name}
+      transition={{ duration: 0.5, type: "tween" }}
+      className='font-vazir font-normal relative text-xs text-neutral-900 after:content-[""] after:w-full after:h-[1px] after:bg-neutral-200 after:absolute after:left-0 after:-bottom-2'
+    >
       <td className="flex flex-row items-center justify-center">
         <img src={base_asset.icon} width={14} />
         <span className="mx-2">{base_asset.name_farsi}</span>
@@ -15,7 +22,7 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
         <Button type="buy" />
         <Button type="sell" />
       </td>
-    </tr>
+    </motion.tr>
   );
 };
 
