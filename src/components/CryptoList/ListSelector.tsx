@@ -1,7 +1,8 @@
 import { QueryErrorResetBoundary, useQuery } from "@tanstack/react-query";
 import React, { lazy, useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { screen } from "../../atoms/screen";
 import { tickers } from "../../atoms/tickers";
 import { useTickers } from "../../hooks/useTickers";
 import ErrorFetch from "../ErrorFetch";
@@ -15,6 +16,7 @@ const ListSelector: React.FC = () => {
     refetchIntervalInBackground: true,
     refetchInterval: 60000,
   });
+  const screenR = useRecoilValue(screen);
   const [tickersList, setTickersList] = useRecoilState(tickers);
   useEffect(() => {
     setTickersList(tickersQuery.data ?? []);
@@ -29,8 +31,11 @@ const ListSelector: React.FC = () => {
           )}
         >
           <div className="relative lg:max-h-[440px] lg:min-h-[440px] lg:overflow-y-hidden">
-            <ListContainerMobile />
-            <ListContainerDesktop />
+            {screenR.width < 1060 ? (
+              <ListContainerMobile />
+            ) : (
+              <ListContainerDesktop />
+            )}
           </div>
         </ErrorBoundary>
       )}
