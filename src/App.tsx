@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import Navigation from "./Navigation";
 import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
@@ -13,7 +13,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 const queryClient = new QueryClient({
   defaultOptions: { queries: { suspense: true } },
 });
-export default function App() {
+const App: React.FC = () => {
   return (
     <Suspense fallback={<Loading />}>
       <QueryClientProvider client={queryClient}>
@@ -25,4 +25,6 @@ export default function App() {
       </QueryClientProvider>
     </Suspense>
   );
-}
+};
+
+export default App;
