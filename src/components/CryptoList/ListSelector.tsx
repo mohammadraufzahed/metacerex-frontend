@@ -31,11 +31,8 @@ const ListSelector: React.FC = () => {
           )}
         >
           <div className="relative lg:max-h-[440px] lg:min-h-[440px] lg:overflow-y-hidden">
-            {screenR.width < 1060 ? (
-              <ListContainerMobile />
-            ) : (
-              <ListContainerDesktop />
-            )}
+            <ListContainerMobile />
+            <ListContainerDesktop />
           </div>
         </ErrorBoundary>
       )}
