@@ -13,9 +13,9 @@ import { httpClient } from "../../../../axios";
 import { useRecoilState } from "recoil";
 import { registerAtom } from "../../../../atoms/registerAtom";
 import ReCAPTCHA from "react-google-recaptcha";
+import useCustomToast from "../../../../hooks/useCustomToast";
 
 const RegisterFirstStep: React.FC = () => {
-  const [status, setStatus] = useState<"sent" | "faild" | null>(null);
   const [registerData, setRegisterData] = useRecoilState(registerAtom);
   const registerFormik = useFormik({
     initialValues: {
@@ -67,6 +67,11 @@ const RegisterFirstStep: React.FC = () => {
         })
         .then((data) => {
           if (data.status == 200 || data.status == 201) {
+            useCustomToast(
+              "bottom-right",
+              "success",
+              "کد تایید با موفقیت ارسال شد"
+            );
             setRegisterData({
               ...registerData,
               uuid: data.data.uuid,
@@ -74,10 +79,13 @@ const RegisterFirstStep: React.FC = () => {
             });
           }
         })
-        .catch((e) => {
-          setStatus("faild");
-          setTimeout(() => setStatus(null), 10000);
-        });
+        .catch((e) =>
+          useCustomToast(
+            "bottom-right",
+            "error",
+            e.response.data.mobile ?? e.response.data.email
+          )
+        );
     },
   });
   return (
@@ -88,18 +96,6 @@ const RegisterFirstStep: React.FC = () => {
       exit={{ opacity: 0 }}
       transition={{ type: "spring", duration: 0.5 }}
     >
-      <AnimatePresence exitBeforeEnter>
-        {status == "faild" ? (
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: 70 }}
-            exit={{ height: 0 }}
-            className="bg-error rounded-lg w-full flex items-center justify-center font-bold text-xl font-vazir text-shades-0"
-          >
-            ثبت نام با خطا مواجه شد
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
       <Input
         label="ایمیل / موبایل"
         id="identity"

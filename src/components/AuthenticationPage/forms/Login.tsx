@@ -12,9 +12,9 @@ import { CustomTokenObtain } from "../../../types/API";
 import { useRecoilState } from "recoil";
 import { user } from "../../../atoms/user";
 import { useNavigate } from "react-router-dom";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 const Login: React.FC = () => {
-  const [status, setStatus] = useState<"faild" | null>(null);
   const [userD, setUserD] = useRecoilState(user);
   const navigate = useNavigate();
   const loginFormik = useFormik({
@@ -40,31 +40,21 @@ const Login: React.FC = () => {
           if (res.status == 200) {
             const user: CustomTokenObtain = res.data;
             setUserD(user);
-            navigate("/dashboard/list");
+            useCustomToast(
+              "bottom-right",
+              "success",
+              "شما با موفقیت وارد شدید"
+            );
+            navigate("/dashboard/list", { replace: true });
           }
         })
-        .catch((d) => {
-          alert(JSON.stringify(d.response.data));
-          setStatus("faild");
-          setTimeout(() => setStatus(null), 5000);
+        .catch((e) => {
+          useCustomToast("bottom-right", "error", e.response.data.detail);
         });
     },
   });
   return (
     <AuthenticationFormLayout key="loginForm">
-      <AnimatePresence exitBeforeEnter>
-        {status == "faild" ? (
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: 70 }}
-            exit={{ height: 0 }}
-            className="bg-error rounded-lg w-full flex items-center justify-center font-bold text-xl font-vazir text-shades-0"
-          >
-            نام کاربری یا پسورد صحیح نمیاشد.
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-
       <Input
         label="ایمیل / موبایل"
         id="identity"

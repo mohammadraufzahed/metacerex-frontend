@@ -10,9 +10,9 @@ import { httpClient } from "../../../../axios";
 import { CustomTokenObtain } from "../../../../types/API";
 import { user } from "../../../../atoms/user";
 import { useNavigate } from "react-router-dom";
+import useCustomToast from "../../../../hooks/useCustomToast";
 
 const RegisterLastSetp: React.FC = () => {
-  const [status, setStatus] = useState<null | "faild">(null);
   const [registerData, setRegisterData] = useRecoilState(registerAtom);
   const navigate = useNavigate();
   const [userD, setUserD] = useRecoilState(user);
@@ -37,15 +37,19 @@ const RegisterLastSetp: React.FC = () => {
             const data: CustomTokenObtain = res.data;
             setUserD(data);
             setRegisterData(null);
+            useCustomToast(
+              "bottom-right",
+              "success",
+              "حساب شما با موفقیت تایید شد"
+            );
             setTimeout(
               () => navigate("/dashboard/list", { replace: true }),
               5000
             );
           }
         })
-        .catch(() => {
-          setStatus("faild");
-          setTimeout(() => setStatus(null), 5000);
+        .catch((e) => {
+          useCustomToast("bottom-right", "error", e.response.data.response);
         });
     },
   });
@@ -57,18 +61,6 @@ const RegisterLastSetp: React.FC = () => {
       exit={{ opacity: 0 }}
       transition={{ type: "spring", duration: 0.5 }}
     >
-      <AnimatePresence exitBeforeEnter>
-        {status == "faild" ? (
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: 70 }}
-            exit={{ height: 0 }}
-            className="bg-error rounded-lg w-full flex items-center justify-center font-bold text-xl font-vazir text-shades-0"
-          >
-            کد وارد شده صحیح نمیباشد.
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
       <Input
         id="verifyCode"
         name="verifyCode"
