@@ -9,6 +9,7 @@ import "./styles/tailwind.css";
 import "./styles/scrollbar.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { suspense: true } },
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <RecoilRoot>
           <RecoilNexus />
           <Navigation />
+          <Toaster />
         </RecoilRoot>
         <ReactQueryDevtools />
       </QueryClientProvider>

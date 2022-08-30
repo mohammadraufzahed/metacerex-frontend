@@ -25,6 +25,7 @@ specifiers:
   react-error-boundary: ^3.1.4
   react-google-recaptcha: ^2.1.0
   react-helmet: ^6.1.0
+  react-hot-toast: ^2.3.0
   react-icons: ^4.4.0
   react-loading: ^2.0.3
   react-router-dom: ^6.3.0
@@ -55,6 +56,7 @@ dependencies:
   react-error-boundary: 3.1.4_react@18.2.0
   react-google-recaptcha: 2.1.0_react@18.2.0
   react-helmet: 6.1.0_react@18.2.0
+  react-hot-toast: 2.3.0_biqbaboplfbrettd7655fr4n2y
   react-icons: 4.4.0_react@18.2.0
   react-loading: 2.0.3_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
@@ -2077,6 +2079,12 @@ packages:
       slash: 3.0.0
     dev: true
 
+  /goober/2.1.11:
+    resolution: {integrity: sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A==}
+    peerDependencies:
+      csstype: ^3.0.10
+    dev: false
+
   /got/7.1.0:
     resolution: {integrity: sha512-Y5WMo7xKKq1muPsxD+KmrR8DH5auG7fBdDVueZwETwV6VytKyU9OX/ddpq2/1hp1vIPvVb4T81dKQz3BivkNLw==}
     engines: {node: '>=4'}
@@ -3120,6 +3128,20 @@ packages:
       react: 18.2.0
       react-fast-compare: 3.2.0
       react-side-effect: 2.1.2_react@18.2.0
+    dev: false
+
+  /react-hot-toast/2.3.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-/RxV+bfjld7tSJR1SCLzMAXgFuNW7fCpK6+vbYqfmbGSWcqTMz2rizrvfWKvtcPH5HK0NqxmBaC5SrAy1F42zA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      goober: 2.1.11
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    transitivePeerDependencies:
+      - csstype
     dev: false
 
   /react-icons/4.4.0_react@18.2.0:
