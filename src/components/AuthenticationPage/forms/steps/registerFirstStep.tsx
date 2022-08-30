@@ -101,7 +101,7 @@ const RegisterFirstStep: React.FC = () => {
         ) : null}
       </AnimatePresence>
       <Input
-        label="ایمیل /موبایل"
+        label="ایمیل / موبایل"
         id="identity"
         name="identity"
         value={registerFormik.values.identity}
