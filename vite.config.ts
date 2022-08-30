@@ -23,6 +23,9 @@ export default defineConfig({
     alias: process.env.NODE_ENV == "production" ? prodAlias : devAlias,
   },
   build: {
+    outDir: "./build",
+    emptyOutDir: true,
+    cssCodeSplit: true,
     minify: "esbuild",
   },
 });
