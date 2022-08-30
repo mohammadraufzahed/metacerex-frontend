@@ -1,9 +1,10 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GoogleButton from "../components/AuthenticationPage/GoogleButton";
 import { useRecoilValue } from "recoil";
 import { user } from "../atoms/user";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const Login = lazy(
   () => import("../components/AuthenticationPage/forms/Login")
@@ -43,10 +44,12 @@ const AuthenticationPage: React.FC = () => {
             }
           />
         </div>
-        <AnimatePresence exitBeforeEnter>
-          VITE_GOOGLE_RECAPTCHA_SITEKEY
-          {currentForm == "login" ? <Login /> : <Register />}
-        </AnimatePresence>
+        <Suspense fallback={<Loading />}>
+          <AnimatePresence exitBeforeEnter>
+            VITE_GOOGLE_RECAPTCHA_SITEKEY
+            {currentForm == "login" ? <Login /> : <Register />}
+          </AnimatePresence>
+        </Suspense>
         <div className="w-full flex place-items-center place-content-center gap-2">
           <div className="w-5/12 h-[1px] bg-neutral-400" />
           <span className="font-vazir font-normal text-2xl text-neutral-400">
