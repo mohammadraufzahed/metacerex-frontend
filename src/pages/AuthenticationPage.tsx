@@ -5,13 +5,9 @@ import { useRecoilValue } from "recoil";
 import { user } from "../atoms/user";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
+import Login from "../components/AuthenticationPage/forms/Login";
+import Register from "../components/AuthenticationPage/forms/Register";
 
-const Login = lazy(
-  () => import("../components/AuthenticationPage/forms/Login")
-);
-const Register = lazy(
-  () => import("../components/AuthenticationPage/forms/Register")
-);
 const MenuItem = lazy(
   () => import("../components/AuthenticationPage/MenuItem")
 );
