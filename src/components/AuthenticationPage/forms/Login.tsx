@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
+import { object, string } from "yup";
 import AuthenticationFormLayout from "../../../layouts/AuthenticationFormLayout";
 import Input from "../Input";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -13,12 +13,11 @@ const Login: React.FC = () => {
       phone: "",
       password: "",
     },
-    validationSchema: yup.object({
-      phone: yup
-        .string()
+    validationSchema: object({
+      phone: string()
         .required("شماره تلفن وارد نشده است.")
         .matches(/^(\+98|0098|98|0)?9\d{9}$/g, "شماره تلفن معتبر نمیباشد."),
-      password: yup.string().matches(
+      password: string().matches(
         /[a-zA-Z]+[0-9]+[!@#$&()\-`.+,\\]+/gm,
         `گذرواژه میبایست ترکیبی از حروف و اعداد انگلیسی و کارکترهای خاص
 مانند @ # $ % & * باشد`

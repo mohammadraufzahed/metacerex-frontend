@@ -1,5 +1,6 @@
 import React from "react";
 import type { ChangeEventHandler } from "react";
+import { FaAsterisk } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 type PropsT = {
@@ -10,6 +11,7 @@ type PropsT = {
   name: string;
   id: string;
   type: string;
+  required?: boolean;
 };
 
 const Input: React.FC<PropsT> = ({
@@ -20,14 +22,16 @@ const Input: React.FC<PropsT> = ({
   value,
   type,
   onChange,
+  required,
 }) => {
   return (
     <div className="w-full flex flex-col gap-2 items-center">
       <label
-        className="font-vazir font-bold text-sm self-start mr-4"
+        className="font-vazir flex flex-row items-center gap-1 font-bold text-sm self-start mr-7"
         htmlFor={id}
       >
         {label}
+        {required ? <FaAsterisk className="text-error" size={10} /> : null}
       </label>
       <input
         className="w-11/12 max-w-sm h-10 outline-none border-[1px] border-shades-100 rounded-[4px] font-vazir font-bold px-4 text-neutral-600 text-sm"

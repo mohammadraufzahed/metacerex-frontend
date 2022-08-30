@@ -1,6 +1,9 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GoogleButton from "../components/AuthenticationPage/GoogleButton";
+import { useRecoilValue } from "recoil";
+import { user } from "../atoms/user";
+import { useNavigate } from "react-router-dom";
 
 const Login = lazy(
   () => import("../components/AuthenticationPage/forms/Login")
@@ -14,6 +17,13 @@ const MenuItem = lazy(
 
 const AuthenticationPage: React.FC = () => {
   const [currentForm, setCurrentForm] = useState<"register" | "login">("login");
+  const userD = useRecoilValue(user);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userD?.access) {
+      navigate("/dashboard/list");
+    }
+  }, [userD]);
   return (
     <div className="flex flex-row justify-center items-center flex-auto lg:justify-start lg:px-14">
       <div className="flex flex-col bg-neutral-50 overflow-hidden w-11/12 w-max-full mx-2 h-max-full h-max my-2 mb-16 rounded-lg justify-self-center max-w-[360px] px-6 lg:h-max lg:max-w-none lg:w-[30rem]">

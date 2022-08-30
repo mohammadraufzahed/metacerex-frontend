@@ -50,13 +50,12 @@ export type BuyCreate = {
 export type CustomTokenObtain = {
   access: string;
   refresh: string;
-  user_display_name: string;
-  is_password_entered: boolean;
-  is_mobile_verified: boolean;
-  is_identity_verified: boolean;
-  is_shetab_cards_verified: boolean;
-  username: string;
-  password: string;
+  user_display_name?: string;
+  is_password_entered?: boolean;
+  is_mobile_verified?: boolean;
+  is_identity_verified?: boolean;
+  is_shetab_cards_verified?: boolean;
+  username?: string;
 };
 
 export type DepositStateEnum = "new" | "waiting" | "verified" | "failed";
@@ -170,13 +169,20 @@ export type ReferredByReadOnly = {
   code: string;
 };
 
-export type RegisterMobileRequest = {
-  mobile: string;
-  uuid: string;
+export type RegisterRequest = {
+  mobile?: string;
+  email?: string;
+  password: string;
   referrer_code?: string;
 };
 
-export type RegisterMobileVerify = {
+export type RegisterRequestResponse = {
+  mobile?: string;
+  email?: string;
+  uuid: string;
+};
+
+export type RegisterVerify = {
   uuid: string;
   response: string;
   access: string;
