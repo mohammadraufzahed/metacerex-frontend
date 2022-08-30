@@ -12,6 +12,7 @@ import { RegisterRequest } from "../../../../types/API";
 import { httpClient } from "../../../../axios";
 import { useRecoilState } from "recoil";
 import { registerAtom } from "../../../../atoms/registerAtom";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const RegisterFirstStep: React.FC = () => {
   const [status, setStatus] = useState<"sent" | "faild" | null>(null);
@@ -23,6 +24,7 @@ const RegisterFirstStep: React.FC = () => {
       passwordConfirm: "",
       referrer_code: "",
       rules_accepted: false,
+      captcha: false,
     },
     validationSchema: object({
       identity: string()
@@ -45,6 +47,7 @@ const RegisterFirstStep: React.FC = () => {
         "کد معرف معتبر نمیباشد."
       ),
       rules_accepted: boolean().required().isTrue(),
+      captcha: boolean().required().isTrue(),
     }),
     async onSubmit(props) {
       let user: RegisterRequest = {
@@ -135,6 +138,17 @@ const RegisterFirstStep: React.FC = () => {
         value={registerFormik.values.referrer_code}
         onChange={registerFormik.handleChange}
         type="password"
+      />
+      <ReCAPTCHA
+        lang="fa"
+        onChange={(token) => {
+          if (token) {
+            registerFormik.setFieldValue("captcha", true);
+          } else {
+            registerFormik.setFieldValue("captcha", false);
+          }
+        }}
+        sitekey={import.meta.env.VITE_GOOGLE_RECAPTCHA_SITEKEY}
       />
       <RulesCheckbox
         onChange={registerFormik.handleChange}
