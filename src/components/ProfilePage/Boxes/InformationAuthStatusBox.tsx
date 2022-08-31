@@ -1,6 +1,6 @@
 import React from "react";
-import ProfileDelete from "../../svgs/ProfileDelete";
-import Button from "../AuthenticationPage/Button";
+import ProfileDelete from "../../../svgs/ProfileDelete";
+import Button from "../../AuthenticationPage/Button";
 import { AiOutlineUserDelete } from "react-icons/ai";
 
 const InformationAuthStatusBox: React.FC = () => {
