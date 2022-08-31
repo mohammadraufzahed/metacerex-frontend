@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import MaxMin from "../../svgs/MaxMin";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -23,7 +23,6 @@ const FinancialBar: React.FC = () => {
       : screenR.width < 1060
       ? setFinancialBoxStat("mobileOpen")
       : setFinancialBoxStat("open");
-
   return (
     <div className="flex flex-row z-50 justify-between bg-neutral-50 px-6 py-3 rounded-t-lg">
       <motion.span

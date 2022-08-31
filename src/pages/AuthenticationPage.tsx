@@ -41,7 +41,7 @@ const AuthenticationPage: React.FC = () => {
           />
         </div>
         <Suspense fallback={<Loading />}>
-          <AnimatePresence exitBeforeEnter>
+          <AnimatePresence exitBeforeEnter presenceAffectsLayout>
             VITE_GOOGLE_RECAPTCHA_SITEKEY
             {currentForm == "login" ? <Login /> : <Register />}
           </AnimatePresence>

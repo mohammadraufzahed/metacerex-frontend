@@ -17,12 +17,7 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
         <span className="mx-2">{base_asset.name_farsi}</span>
         {base_asset.name ? <span>{`(${base_asset.name})`}</span> : null}
       </td>
-      <td className="text-center">
-        {price
-          ?.replace(".", "")
-          .match(/.{1,3}/g)
-          ?.join(",")}
-      </td>
+      <td className="text-center">{price}</td>
       <td className="flex flex-row gap-2 justify-center">
         <Button type="buy" />
         <Button type="sell" />

@@ -31,12 +31,7 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
       >
         {grow}%
       </motion.span>
-      <span className="place-self-end">
-        {price
-          ?.replace(".", "")
-          .match(/.{1,3}/g)
-          ?.join(",")}
-      </span>
+      <span className="place-self-end">{price}</span>
     </div>
   );
 };

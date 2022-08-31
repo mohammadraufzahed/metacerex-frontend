@@ -14,8 +14,7 @@ const AuthenticationFormLayout: React.FC<PropsT> = ({ children, key }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{
-        duration: 1,
-        type: "spring",
+        duration: 0.5,
       }}
       className="mx-0 my-8 flex flex-col items-center gap-6 lg:gap-8"
     >

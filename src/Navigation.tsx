@@ -12,18 +12,21 @@ const ListPage = lazy(() => import("./pages/ListPage"));
 const Navigation = () => {
   const [screenR, setScreenR] = useRecoilState(screen);
   useEffect(() => {
-    const handleResize = () =>
+    const resize = () =>
       setScreenR({
         width: window.innerWidth,
         height: window.innerHeight,
       });
     let doit: NodeJS.Timeout;
-    addEventListener("resize", () => {
+    const resizeEventHandler = () => {
       clearTimeout(doit);
-      doit = setTimeout(() => handleResize, 100);
-    });
-    removeEventListener("resize", handleResize);
-  });
+      doit = setTimeout(() => resize(), 200);
+    };
+    addEventListener("resize", resizeEventHandler);
+    return () => {
+      removeEventListener("resize", resizeEventHandler);
+    };
+  }, []);
   return (
     <>
       <Routes>
