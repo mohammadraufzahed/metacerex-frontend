@@ -1,5 +1,8 @@
 import React, { lazy, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { user } from "../atoms/user";
 import MenuItem from "../components/AuthenticationPage/MenuItem";
+import LoginRequiredPage from "./LoginRequiredPage";
 
 const PersonalInformationForm = lazy(
   () => import("../components/ProfilePage/forms/PersonalInformationForm")
@@ -9,6 +12,8 @@ const ProfilePage: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<
     "personalInformation" | "bankInformation" | "securityInformation"
   >("personalInformation");
+  const userD = useRecoilValue(user);
+  if (!userD) return <LoginRequiredPage />;
   return (
     <div className="flex-auto flex flex-col px-4 py-10 lg:px-8">
       <div className="w-full grid grid-cols-3 lg:grid-cols-5">

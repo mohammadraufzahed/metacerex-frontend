@@ -8,6 +8,7 @@ type PropsT = {
   onClick?: MouseEventHandler;
   fullWidth?: boolean;
   className?: string;
+  outlined?: boolean;
 };
 
 const Button: React.FC<PropsT> = ({
@@ -16,11 +17,11 @@ const Button: React.FC<PropsT> = ({
   onClick,
   fullWidth,
   className,
+  outlined,
 }) => {
   const buttonVariant = {
     loading: {},
     loaded: {
-      backgroundColor: "#086788",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -30,7 +31,6 @@ const Button: React.FC<PropsT> = ({
     <motion.button
       onClick={onClick}
       initial={{
-        backgroundColor: "#086788",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -38,7 +38,11 @@ const Button: React.FC<PropsT> = ({
       variants={buttonVariant}
       animate={loading ? "loading" : "loaded"}
       transition={{ type: "spring", duration: 1 }}
-      className={`cursor-pointer text-shades-0 ${
+      className={`cursor-pointer ${
+        outlined
+          ? "text-primary-700 bg-transparent border-[1px] border-primary-700"
+          : "text-shades-0 bg-primary-700"
+      } ${
         fullWidth ? "w-11/12" : "w-max"
       } py-3.5 rounded font-vazir font-bold text-lg ${className}`}
     >
