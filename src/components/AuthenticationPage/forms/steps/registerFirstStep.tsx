@@ -97,6 +97,7 @@ const RegisterFirstStep: React.FC = () => {
       transition={{ type: "spring", duration: 0.5 }}
     >
       <Input
+        fullWidth
         label="ایمیل / موبایل"
         id="identity"
         name="identity"
@@ -107,6 +108,7 @@ const RegisterFirstStep: React.FC = () => {
         required
       />
       <Input
+        fullWidth
         label="گذرواژه"
         id="password"
         name="password"
@@ -117,6 +119,7 @@ const RegisterFirstStep: React.FC = () => {
         required
       />
       <Input
+        fullWidth
         label="تکرار گذرواژه"
         id="passwordConfirm"
         name="passwordConfirm"
@@ -127,6 +130,7 @@ const RegisterFirstStep: React.FC = () => {
         required
       />
       <Input
+        fullWidth
         label="کد معرف"
         id="referrer_code"
         name="referrer_code"

@@ -12,6 +12,9 @@ type PropsT = {
   id: string;
   type: string;
   required?: boolean;
+  fullWidth?: boolean;
+  className?: string;
+  isPrimary?: boolean;
 };
 
 const Input: React.FC<PropsT> = ({
@@ -23,18 +26,29 @@ const Input: React.FC<PropsT> = ({
   type,
   onChange,
   required,
+  fullWidth,
+  className,
+  isPrimary,
 }) => {
   return (
-    <div className="w-full flex flex-col gap-2 items-center">
+    <div
+      className={`${
+        fullWidth ? "w-full" : ""
+      } flex flex-col gap-2 items-center ${className}`}
+    >
       <label
-        className="font-vazir flex flex-row items-center gap-1 font-bold text-sm self-start mr-7"
+        className={`font-vazir flex flex-row ${
+          isPrimary ? "text-primary-700" : "text-shades-100"
+        } items-center gap-1 font-bold text-sm self-start`}
         htmlFor={id}
       >
         {label}
         {required ? <FaAsterisk className="text-error" size={10} /> : null}
       </label>
       <input
-        className="w-11/12 max-w-sm h-10 outline-none border-[1px] border-shades-100 rounded-[4px] font-vazir font-bold px-4 text-neutral-600 text-sm"
+        className={`w-full h-10 outline-none border-[1px] ${
+          isPrimary ? "border-primary-700" : "border-shades-100"
+        } rounded-[4px] font-vazir font-bold px-4 text-neutral-600 text-sm`}
         type={type}
         id={id}
         name={name}

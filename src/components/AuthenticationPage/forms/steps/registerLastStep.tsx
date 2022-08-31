@@ -62,6 +62,7 @@ const RegisterLastSetp: React.FC = () => {
       transition={{ type: "spring", duration: 0.5 }}
     >
       <Input
+        fullWidth
         id="verifyCode"
         name="verifyCode"
         label="کد"

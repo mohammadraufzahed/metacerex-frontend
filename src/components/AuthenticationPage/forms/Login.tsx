@@ -56,6 +56,7 @@ const Login: React.FC = () => {
   return (
     <AuthenticationFormLayout key="loginForm">
       <Input
+        fullWidth
         label="ایمیل / موبایل"
         id="identity"
         name="identity"
@@ -66,6 +67,7 @@ const Login: React.FC = () => {
         error={loginFormik.errors.identity}
       />
       <Input
+        fullWidth
         label="گذرواژه"
         id="password"
         name="password"
