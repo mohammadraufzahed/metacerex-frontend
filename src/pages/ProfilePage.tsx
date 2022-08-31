@@ -10,7 +10,7 @@ const ProfilePage: React.FC = () => {
     "personalInformation" | "bankInformation" | "securityInformation"
   >("personalInformation");
   return (
-    <div className="flex-auto flex flex-col px-4 py-10 ">
+    <div className="flex-auto flex flex-col px-4 py-10 lg:px-8">
       <div className="w-full grid grid-cols-3 lg:grid-cols-5">
         <MenuItem
           text="اطلاعات هویتی"
