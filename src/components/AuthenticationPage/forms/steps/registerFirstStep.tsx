@@ -78,14 +78,7 @@ const RegisterFirstStep: React.FC = () => {
               status: "mobileConfirm",
             });
           }
-        })
-        .catch((e) =>
-          useCustomToast(
-            "bottom-right",
-            "error",
-            e.response.data.mobile ?? e.response.data.email
-          )
-        );
+        });
     },
   });
   return (

@@ -30,27 +30,22 @@ const RegisterLastSetp: React.FC = () => {
         uuid: registerData?.uuid,
         response: verifyCode,
       };
-      await httpClient
-        .post("users/register/verify/", data)
-        .then((res) => {
-          if (res.status == 200) {
-            const data: CustomTokenObtain = res.data;
-            setUserD(data);
-            setRegisterData(null);
-            useCustomToast(
-              "bottom-right",
-              "success",
-              "حساب شما با موفقیت تایید شد"
-            );
-            setTimeout(
-              () => navigate("/dashboard/list", { replace: true }),
-              5000
-            );
-          }
-        })
-        .catch((e) => {
-          useCustomToast("bottom-right", "error", e.response.data.response);
-        });
+      await httpClient.post("users/register/verify/", data).then((res) => {
+        if (res.status == 200) {
+          const data: CustomTokenObtain = res.data;
+          setUserD(data);
+          setRegisterData(null);
+          useCustomToast(
+            "bottom-right",
+            "success",
+            "حساب شما با موفقیت تایید شد"
+          );
+          setTimeout(
+            () => navigate("/dashboard/list", { replace: true }),
+            5000
+          );
+        }
+      });
     },
   });
   return (

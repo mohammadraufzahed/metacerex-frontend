@@ -47,9 +47,6 @@ const Login: React.FC = () => {
             );
             navigate("/dashboard/list", { replace: true });
           }
-        })
-        .catch((e) => {
-          useCustomToast("bottom-right", "error", e.response.data.detail);
         });
     },
   });
