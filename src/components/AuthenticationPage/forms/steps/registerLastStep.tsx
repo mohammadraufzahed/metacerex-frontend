@@ -75,6 +75,7 @@ const RegisterLastSetp: React.FC = () => {
         text="تایید کد"
         loading={verifyCodeFormik.isSubmitting}
         onClick={() => verifyCodeFormik.submitForm()}
+        fullWidth
       />
     </motion.div>
   );

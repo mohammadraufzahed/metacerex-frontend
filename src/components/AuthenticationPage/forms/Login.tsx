@@ -90,6 +90,7 @@ const Login: React.FC = () => {
         text="ورود"
         loading={loginFormik.isSubmitting}
         onClick={() => loginFormik.submitForm()}
+        fullWidth
       />
     </AuthenticationFormLayout>
   );

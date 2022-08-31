@@ -5,10 +5,18 @@ import ReactLoading from "react-loading";
 type PropsT = {
   text: string;
   loading?: boolean;
-  onClick: MouseEventHandler;
+  onClick?: MouseEventHandler;
+  fullWidth?: boolean;
+  className?: string;
 };
 
-const Button: React.FC<PropsT> = ({ text, loading, onClick }) => {
+const Button: React.FC<PropsT> = ({
+  text,
+  loading,
+  onClick,
+  fullWidth,
+  className,
+}) => {
   const buttonVariant = {
     loading: {},
     loaded: {
@@ -30,7 +38,9 @@ const Button: React.FC<PropsT> = ({ text, loading, onClick }) => {
       variants={buttonVariant}
       animate={loading ? "loading" : "loaded"}
       transition={{ type: "spring", duration: 1 }}
-      className=" cursor-pointer text-shades-0 w-11/12 py-3.5 rounded font-vazir font-bold text-lg"
+      className={`cursor-pointer text-shades-0 ${
+        fullWidth ? "w-11/12" : "w-max"
+      } py-3.5 rounded font-vazir font-bold text-lg ${className}`}
     >
       <AnimatePresence exitBeforeEnter>
         {loading ? (

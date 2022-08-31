@@ -159,6 +159,7 @@ const RegisterFirstStep: React.FC = () => {
           registerFormik.submitForm();
         }}
         loading={registerFormik.isSubmitting}
+        fullWidth
       />
     </motion.div>
   );
