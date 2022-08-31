@@ -133,7 +133,7 @@ const RegisterFirstStep: React.FC = () => {
         error={registerFormik.errors.referrer_code}
         value={registerFormik.values.referrer_code}
         onChange={registerFormik.handleChange}
-        type="password"
+        type="text"
       />
       <ReCAPTCHA
         lang="fa"
