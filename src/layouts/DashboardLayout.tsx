@@ -1,13 +1,27 @@
-import React, { lazy, Suspense } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Outlet } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { statusData } from "../atoms/status";
 import Loading from "../components/Loading";
+import { getStatus } from "../functions/status";
 
 const BottomBar = lazy(() => import("../components/BottomBar"));
 const DashboardNavbar = lazy(() => import("../components/DashboardNavbar"));
 const DashboardSidebar = lazy(() => import("../components/DashboardSidebar"));
 
 const DashboardLayout: React.FC = () => {
+  // States
+  const [statusD, setStatus] = useRecoilState(statusData);
+  // Queries
+  const statusQuery = useQuery(["status"], getStatus, {
+    staleTime: 10 * 60 * 10,
+    refetchInterval: 10 * 60 * 10,
+    refetchIntervalInBackground: true,
+  });
+  // Effects
+  useEffect(() => setStatus(statusQuery.data ?? null), [statusQuery.data]);
   return (
     <div className="flex pb-16 flex-col w-screen h-screen max-w-[100vw] overflow-y-scroll overflow-hidden scrollbar-vertical lg:pb-0">
       <Helmet>
