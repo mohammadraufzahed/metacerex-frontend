@@ -25,6 +25,7 @@ httpClient.interceptors.request.use((config) => {
 httpClient.interceptors.response.use(
   (res) => res,
   (err: AxiosError<any, any>) => {
+    const accessKey = getRecoil(user)?.refresh;
     let errorMessage: string = "";
     if (!err.response) {
       if (err.message.includes("Unable to refresh access"))
@@ -36,6 +37,18 @@ httpClient.interceptors.response.use(
         } else {
           errorMessage = "برای ادامه نیاز به ورود با حساب خود دارید";
         }
+      } else if (err.response.status == 400) {
+        Object.entries(err.response.data).map((key, value) => {
+          console.dir(err.response.data);
+          if (typeof value == "string") {
+            useCustomToast("bottom-right", "error", value);
+          } else {
+            Object.entries(value).map((key, value) => {
+              console.dir(value);
+              useCustomToast("bottom-right", "error", value);
+            });
+          }
+        });
       } else if (err.response.status == 500) {
         errorMessage = "هنگام اتصال به سرور خطایی رخ داده است";
       } else if (err.response.status == 404) {
@@ -46,6 +59,8 @@ httpClient.interceptors.response.use(
         errorMessage = err.response.data.response;
       } else if (typeof err.response.data[0] == "string") {
         errorMessage = err.response.data;
+      } else {
+        errorMessage = "درخواست با مشکل برخورد";
       }
     }
     useCustomToast("bottom-right", "error", errorMessage);

@@ -1,57 +1,106 @@
+import { useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
+import { getIdentity, setIdentity } from "../../../functions/identityForm";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
 import Button from "../../AuthenticationPage/Button";
 import Input from "../../AuthenticationPage/Input";
+import * as yup from "yup";
+import { dateReg } from "../../../regex/dateReg";
+import { phoneReg } from "../../../regex/phoneReg";
 
 const IdentityFormBox = () => {
+  const identityData = useQuery(["identityDataFetcher"], getIdentity);
   const identityFormik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      fatherName: "",
-      nationalCode: "",
-      birthdate: "",
-      postalCode: "",
+      first_name: "",
+      last_name: "",
+      father_name: "",
+      melli_code: "",
+      birth_date: "",
+      postal_code: "",
+      mobile: "",
       phone: "",
-      homePhone: "",
       address: "",
       email: "",
     },
-    async onSubmit() {},
+    validationSchema: yup.object({
+      first_name: yup
+        .string()
+        .required("نام وارد نشده است")
+        .max(150, "نام وارد شده بیشتر از 150 کاراکتر میباشد."),
+      last_name: yup
+        .string()
+        .required("نام خانوادگی وارد نشده است.")
+        .max(150, "نام خانوادگی وارد شده بیشتر از 150 کاراکتر میباشد."),
+      father_name: yup
+        .string()
+        .max(64, "نام وارد شده بیشتر از 64 کاراکتر میباشد."),
+      melli_code: yup
+        .string()
+        .matches(/^([0-9]){10}$/gi, "کد ملی وارد شده معتبر نمیباشد"),
+      birth_date: yup.string().matches(dateReg, "تاریخ وارد شده صحیح نمیباشد."),
+      postal_code: yup
+        .string()
+        .matches(/^[1-9]\d{9}$/gi, "کدپستی وارد شده صحیح نمیباشد."),
+      mobile: yup
+        .string()
+        .matches(phoneReg, "شماره تلفن وارد شده صحیح نمیباشد."),
+      phone: yup
+        .string()
+        .required("شماره تلفن ثابت وارد نشده است.")
+        .matches(
+          /^0[1-9]{1}[0-9]{1}[1-9]{1}[0-9]{7}$/gi,
+          "شماره تلفن وارد شده صحیح نمیباشد."
+        ),
+      address: yup
+        .string()
+        .max(500, "آدرس وارد شده بیشتر از 500 کاراکتر میباشد."),
+      email: yup.string().email("ایمیل وارد شده صحیح نمیباشد."),
+    }),
+    async onSubmit(identity): Promise<void> {
+      await setIdentity(identity);
+    },
   });
+  useEffect(() => {
+    if (identityData.data) {
+      identityFormik.setValues(identityData.data);
+    }
+  }, [identityData.data]);
   return (
     <ProfileFormLayout title="اطلاعات هویتی">
       <div className="w-full h-full flex flex-col gap-6 sm:gap-10">
         <div className="w-full grid gap-y-6 grid-cols-1 sm:gap-y-10 sm:grid-cols-2 sm:gap-x-8 md:grid-cols-3 lg:grid-cols-4">
           <Input
             label="نام"
-            id="firstName"
-            name="firstName"
-            error={identityFormik.errors.firstName}
-            value={identityFormik.values.firstName}
+            id="first_name"
+            name="first_name"
+            error={identityFormik.errors.first_name}
+            value={identityFormik.values.first_name}
             onChange={identityFormik.handleChange}
             type="text"
             fullWidth
             isPrimary
+            required
           />
           <Input
             label="نام خانوادگی"
-            id="lastName"
-            name="lastName"
-            error={identityFormik.errors.lastName}
-            value={identityFormik.values.lastName}
+            id="last_name"
+            name="last_name"
+            error={identityFormik.errors.last_name}
+            value={identityFormik.values.last_name}
             onChange={identityFormik.handleChange}
             type="text"
             fullWidth
             isPrimary
+            required
           />
           <Input
             label="نام پدر"
-            id="fatherName"
-            name="fatherName"
-            error={identityFormik.errors.fatherName}
-            value={identityFormik.values.fatherName}
+            id="father_name"
+            name="father_name"
+            error={identityFormik.errors.father_name}
+            value={identityFormik.values.father_name}
             onChange={identityFormik.handleChange}
             type="text"
             fullWidth
@@ -59,10 +108,10 @@ const IdentityFormBox = () => {
           />
           <Input
             label="کد ملی"
-            id="nationalCode"
-            name="nationalCode"
-            error={identityFormik.errors.nationalCode}
-            value={identityFormik.values.nationalCode}
+            id="melli_code"
+            name="melli_code"
+            error={identityFormik.errors.melli_code}
+            value={identityFormik.values.melli_code}
             onChange={identityFormik.handleChange}
             type="text"
             fullWidth
@@ -70,10 +119,10 @@ const IdentityFormBox = () => {
           />
           <Input
             label="تاریخ تولد"
-            id="birthdate"
-            name="birthdate"
-            error={identityFormik.errors.birthdate}
-            value={identityFormik.values.birthdate}
+            id="birth_date"
+            name="birth_date"
+            error={identityFormik.errors.birth_date}
+            value={identityFormik.values.birth_date}
             onChange={identityFormik.handleChange}
             type="text"
             fullWidth
@@ -81,10 +130,10 @@ const IdentityFormBox = () => {
           />
           <Input
             label="کد پستی"
-            id="postalCode"
-            name="postalCode"
-            error={identityFormik.errors.postalCode}
-            value={identityFormik.values.postalCode}
+            id="postal_code"
+            name="postal_code"
+            error={identityFormik.errors.postal_code}
+            value={identityFormik.values.postal_code}
             onChange={identityFormik.handleChange}
             type="text"
             fullWidth
@@ -92,10 +141,10 @@ const IdentityFormBox = () => {
           />
           <Input
             label="شماره موبایل"
-            id="phone"
-            name="phone"
-            error={identityFormik.errors.phone}
-            value={identityFormik.values.phone}
+            id="mobile"
+            name="mobile"
+            error={identityFormik.errors.mobile}
+            value={identityFormik.values.mobile}
             onChange={identityFormik.handleChange}
             type="text"
             fullWidth
@@ -103,10 +152,10 @@ const IdentityFormBox = () => {
           />
           <Input
             label="شماره ثابت"
-            id="homePhone"
-            name="homePhone"
-            error={identityFormik.errors.homePhone}
-            value={identityFormik.values.homePhone}
+            id="phone"
+            name="phone"
+            error={identityFormik.errors.phone}
+            value={identityFormik.values.phone}
             onChange={identityFormik.handleChange}
             type="text"
             fullWidth
@@ -140,6 +189,8 @@ const IdentityFormBox = () => {
         <Button
           text="ذخیره"
           className="sm:mt-14 self-center sm:self-end py-4 px-16"
+          onClick={identityFormik.submitForm}
+          loading={identityFormik.isSubmitting}
         />
       </div>
     </ProfileFormLayout>

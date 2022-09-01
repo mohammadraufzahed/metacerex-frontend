@@ -146,8 +146,13 @@ export type ProfileReadOnly = {
   username: string;
   first_name: string;
   last_name: string;
+  father_name: string;
+  birth_date: string;
+  postal_code: string;
+  address: string;
   email: string;
   mobile: string;
+  phone: string;
   is_mobile_verified: boolean;
   melli_code: string;
   is_identity_verified: boolean;
