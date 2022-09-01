@@ -28,24 +28,33 @@ const IdentityFormBox = () => {
       first_name: yup
         .string()
         .required("نام وارد نشده است")
-        .max(150, "نام وارد شده بیشتر از 150 کاراکتر میباشد."),
+        .max(150, "نام وارد شده بیشتر از 150 کاراکتر میباشد.")
+        .nullable(true),
       last_name: yup
         .string()
         .required("نام خانوادگی وارد نشده است.")
-        .max(150, "نام خانوادگی وارد شده بیشتر از 150 کاراکتر میباشد."),
+        .max(150, "نام خانوادگی وارد شده بیشتر از 150 کاراکتر میباشد.")
+        .nullable(true),
       father_name: yup
         .string()
-        .max(64, "نام وارد شده بیشتر از 64 کاراکتر میباشد."),
+        .max(64, "نام وارد شده بیشتر از 64 کاراکتر میباشد.")
+        .nullable(true),
       melli_code: yup
         .string()
-        .matches(/^([0-9]){10}$/gi, "کد ملی وارد شده معتبر نمیباشد"),
-      birth_date: yup.string().matches(dateReg, "تاریخ وارد شده صحیح نمیباشد."),
+        .matches(/^([0-9]){10}$/gi, "کد ملی وارد شده معتبر نمیباشد")
+        .nullable(true),
+      birth_date: yup
+        .string()
+        .matches(dateReg, "تاریخ وارد شده صحیح نمیباشد.")
+        .nullable(true),
       postal_code: yup
         .string()
-        .matches(/^[1-9]\d{9}$/gi, "کدپستی وارد شده صحیح نمیباشد."),
+        .matches(/^[1-9]\d{9}$/gi, "کدپستی وارد شده صحیح نمیباشد.")
+        .nullable(true),
       mobile: yup
         .string()
-        .matches(phoneReg, "شماره تلفن وارد شده صحیح نمیباشد."),
+        .matches(phoneReg, "شماره تلفن وارد شده صحیح نمیباشد.")
+        .nullable(true),
       phone: yup
         .string()
         .required("شماره تلفن ثابت وارد نشده است.")
@@ -55,8 +64,9 @@ const IdentityFormBox = () => {
         ),
       address: yup
         .string()
-        .max(500, "آدرس وارد شده بیشتر از 500 کاراکتر میباشد."),
-      email: yup.string().email("ایمیل وارد شده صحیح نمیباشد."),
+        .max(500, "آدرس وارد شده بیشتر از 500 کاراکتر میباشد.")
+        .nullable(true),
+      email: yup.string().email("ایمیل وارد شده صحیح نمیباشد.").nullable(true),
     }),
     async onSubmit(identity): Promise<void> {
       await setIdentity(identity);
