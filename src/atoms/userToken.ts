@@ -3,12 +3,12 @@ import { recoilPersist } from "recoil-persist";
 import type { CustomTokenObtain } from "../types/API";
 
 const { persistAtom } = recoilPersist({
-  key: "user",
+  key: "userToken",
   storage: sessionStorage,
 });
 
-export const user = atom<CustomTokenObtain | null>({
-  key: "user",
+export const userToken = atom<CustomTokenObtain | null>({
+  key: "userToken",
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
