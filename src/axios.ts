@@ -1,8 +1,9 @@
 import axios, { AxiosError } from "axios";
 import type { AxiosInstance } from "axios";
-import { getRecoil } from "recoil-nexus";
+import { getRecoil, setRecoil } from "recoil-nexus";
 import { user } from "./atoms/user";
 import useCustomToast from "./hooks/useCustomToast";
+import { useNavigate } from "react-router-dom";
 
 export const httpClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE,
@@ -24,45 +25,56 @@ httpClient.interceptors.request.use((config) => {
 
 httpClient.interceptors.response.use(
   (res) => res,
-  (err: AxiosError<any, any>) => {
-    const accessKey = getRecoil(user)?.refresh;
-    let errorMessage: string = "";
-    if (!err.response) {
-      if (err.message.includes("Unable to refresh access"))
-        errorMessage = "امکان برقراری ارتباط با سرور وجود ندارد";
-    } else {
-      if (err.response.status == 401) {
-        if (err.response.data.detail) {
-          errorMessage = err.response.data.detail;
-        } else {
-          errorMessage = "برای ادامه نیاز به ورود با حساب خود دارید";
-        }
-      } else if (err.response.status == 400) {
-        Object.entries(err.response.data).map((key, value) => {
-          console.dir(err.response.data);
-          if (typeof value == "string") {
-            useCustomToast("bottom-right", "error", value);
+  async (err: AxiosError<any, any>) => {
+    if (err.response) {
+      if (err.response.status === 401) {
+        if (err.response.data.errors.code == "token_not_valid") {
+          const userD = getRecoil(user);
+          if (userD?.refresh) {
+            await httpClient
+              .post("users/token/refresh/", {
+                refresh: userD.refresh,
+              })
+              .then((data) => {
+                if (data.status == 200) {
+                  setRecoil(user, {
+                    ...userD,
+                    access: data.data.access,
+                    refresh: undefined,
+                  });
+                }
+              });
           } else {
-            Object.entries(value).map((key, value) => {
-              console.dir(value);
-              useCustomToast("bottom-right", "error", value);
-            });
+            setRecoil(user, null);
+            callToastError("نشست شما منقضی شده است.");
+            setTimeout(
+              () =>
+                (window.location.href = "" + window.location.origin + "/auth"),
+              3000
+            );
+          }
+        }
+      } else if (err.response.data.detail) {
+        callToastError(err.response.data.detail);
+      } else if (Array.isArray(err.response.data)) {
+        err.response.data.map((item) => callToastError(item));
+      } else if (typeof err.response.data === "object") {
+        Object.entries(err.response.data).map((item) => {
+          const data = item[1];
+          if (typeof data === "string") {
+            callToastError(data);
+          } else if (Array.isArray(data)) {
+            data.map((data) => callToastError(data));
+          } else if (typeof data == "object") {
+            Object.entries(data ?? {}).map((item) => callToastError(item[1]));
           }
         });
-      } else if (err.response.status == 500) {
-        errorMessage = "هنگام اتصال به سرور خطایی رخ داده است";
-      } else if (err.response.status == 404) {
-        errorMessage = "نشانی درخواست شده پیدا نشد";
-      } else if (err.response.data.detail) {
-        errorMessage = err.response.data.detail;
-      } else if (err.response.data.response) {
-        errorMessage = err.response.data.response;
-      } else if (typeof err.response.data[0] == "string") {
-        errorMessage = err.response.data;
-      } else {
-        errorMessage = "درخواست با مشکل برخورد";
       }
     }
-    useCustomToast("bottom-right", "error", errorMessage);
   }
 );
+
+const callToastError = (message: string) =>
+  useCustomToast("bottom-right", "error", message);
+const callToastSuccess = (message: string) =>
+  useCustomToast("bottom-right", "success", message);

@@ -49,7 +49,7 @@ export type BuyCreate = {
 
 export type CustomTokenObtain = {
   access: string;
-  refresh: string;
+  refresh?: string;
   user_display_name?: string;
   is_password_entered?: boolean;
   is_mobile_verified?: boolean;
