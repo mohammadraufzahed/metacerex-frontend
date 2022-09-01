@@ -9,5 +9,5 @@ const { persistAtom } = recoilPersist({
 export const statusData = atom<Status | null>({
   key: "status",
   effects_UNSTABLE: [persistAtom],
-  default: {},
+  default: null,
 });
