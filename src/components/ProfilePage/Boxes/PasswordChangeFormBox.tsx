@@ -3,6 +3,10 @@ import React from "react";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
 import Button from "../../AuthenticationPage/Button";
 import Input from "../../AuthenticationPage/Input";
+import * as yup from "yup";
+import { passwordReg } from "../../../regex/passwordReg";
+import { httpClient } from "../../../axios";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 const PasswordChangeFormBox: React.FC = () => {
   const passwordChangeFormik = useFormik({
@@ -11,7 +15,40 @@ const PasswordChangeFormBox: React.FC = () => {
       newPassword: "",
       confirmNewPassword: "",
     },
-    async onSubmit() {},
+    validationSchema: yup.object({
+      currentPassword: yup.string().required("گذرواژه وارد نشده است."),
+      newPassword: yup
+        .string()
+        .required("گذرواژه جدید وارد نشده است.")
+        .matches(
+          passwordReg,
+          `گذرواژه میبایست ترکیبی از حروف و اعداد انگلیسی و کارکترهای خاص
+مانند @ # $ % & * باشد`
+        ),
+      confirmNewPassword: yup
+        .string()
+        .oneOf(
+          [yup.ref("newPassword"), null],
+          "تکرار گذرواژه با گذرواژه جدید مغایرت دارد."
+        ),
+    }),
+    async onSubmit({ currentPassword, newPassword, confirmNewPassword }) {
+      return await httpClient
+        .post("users/password/set/", {
+          current_password: currentPassword,
+          password1: newPassword,
+          password2: confirmNewPassword,
+        })
+        .then((res) =>
+          res.status == 200
+            ? useCustomToast(
+                "bottom-right",
+                "success",
+                "تغیر گذرواژه با موفقیت انجام شد."
+              )
+            : null
+        );
+    },
   });
   return (
     <ProfileFormLayout title="تغیر گذرواژه">
@@ -27,6 +64,7 @@ const PasswordChangeFormBox: React.FC = () => {
             isPrimary
             fullWidth
             onChange={passwordChangeFormik.handleChange}
+            required
           />
           <Input
             label="گذرواژه جدید"
@@ -38,6 +76,7 @@ const PasswordChangeFormBox: React.FC = () => {
             isPrimary
             fullWidth
             onChange={passwordChangeFormik.handleChange}
+            required
           />
           <Input
             label="تکرار گذرواژه جدید"
@@ -50,11 +89,14 @@ const PasswordChangeFormBox: React.FC = () => {
             fullWidth
             className="sm:col-span-2 md:col-span-1"
             onChange={passwordChangeFormik.handleChange}
+            required
           />
         </div>
         <Button
           text="ذخیره"
           className="sm:mt-14 self-center sm:self-end py-4 px-16"
+          onClick={passwordChangeFormik.submitForm}
+          loading={passwordChangeFormik.isSubmitting}
         />
       </div>
     </ProfileFormLayout>
