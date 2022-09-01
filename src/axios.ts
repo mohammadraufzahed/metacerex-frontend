@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import type { AxiosInstance } from "axios";
 import { getRecoil, setRecoil } from "recoil-nexus";
-import { user } from "./atoms/user";
+import { userToken } from "./atoms/userToken";
 import useCustomToast from "./hooks/useCustomToast";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export const httpClient: AxiosInstance = axios.create({
 });
 
 httpClient.interceptors.request.use((config) => {
-  const accessKey = getRecoil(user)?.access;
+  const accessKey = getRecoil(userToken)?.access;
   if (accessKey) {
     config.headers = {
       ...config.headers,
@@ -29,24 +29,23 @@ httpClient.interceptors.response.use(
     if (err.response) {
       if (err.response.status === 401) {
         if (err.response.data.errors.code == "token_not_valid") {
-          const userD = getRecoil(user);
-          if (userD?.refresh) {
+          const userTokenObject = getRecoil(userToken);
+          if (userTokenObject?.refresh) {
             await httpClient
               .post("users/token/refresh/", {
-                refresh: userD.refresh,
+                refresh: userTokenObject.refresh,
               })
               .then((data) => {
                 if (data.status == 200) {
-                  setRecoil(user, {
-                    ...userD,
+                  setRecoil(userToken, {
+                    ...userTokenObject,
                     access: data.data.access,
                     refresh: undefined,
                   });
                 }
               });
           } else {
-            setRecoil(user, null);
-            callToastError("نشست شما منقضی شده است.");
+            callToastError("لطفا وارد شوید");
             setTimeout(
               () =>
                 (window.location.href = "" + window.location.origin + "/auth"),
