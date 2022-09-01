@@ -171,6 +171,7 @@ const IdentityFormBox: React.FC = () => {
             type="text"
             fullWidth
             isPrimary
+            required
           />
         </div>
         <div className="flex flex-col gap-6 md:gap-10 md:flex-row">
