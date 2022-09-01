@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GoogleButton from "../components/AuthenticationPage/GoogleButton";
 import { useRecoilValue } from "recoil";
-import { user } from "../atoms/user";
+import { userToken } from "../atoms/userToken";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import Login from "../components/AuthenticationPage/forms/Login";
@@ -14,13 +14,13 @@ const MenuItem = lazy(
 
 const AuthenticationPage: React.FC = () => {
   const [currentForm, setCurrentForm] = useState<"register" | "login">("login");
-  const userD = useRecoilValue(user);
+  const userTokenObject = useRecoilValue(userToken);
   const navigate = useNavigate();
   useEffect(() => {
-    if (userD?.access) {
+    if (userTokenObject?.access) {
       navigate("/dashboard/list");
     }
-  }, [userD]);
+  }, [userTokenObject]);
   return (
     <div className="flex flex-row justify-center items-center flex-auto lg:justify-start lg:px-14">
       <div className="flex flex-col bg-neutral-50 overflow-hidden w-11/12 w-max-full mx-2 h-max-full h-max my-2 mb-16 rounded-lg justify-self-center max-w-[360px] px-6 lg:h-max lg:max-w-none lg:w-[30rem]">

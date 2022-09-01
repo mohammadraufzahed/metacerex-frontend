@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { showSidebar } from "../atoms/showSidebar";
-import { user } from "../atoms/user";
+import { userToken } from "../atoms/userToken";
 import { motion } from "framer-motion";
 
 const Hamburger = lazy(() => import("hamburger-react"));
@@ -10,7 +10,7 @@ const Hamburger = lazy(() => import("hamburger-react"));
 const DashboardNavbar: React.FC = () => {
   const [showDashboardSidebar, setShowDashboardSidebar] =
     useRecoilState(showSidebar);
-  const userD = useRecoilValue(user);
+  const userTokenObject = useRecoilValue(userToken);
   const navigate = useNavigate();
   return (
     <nav className="w-full flex flex-row-reverse justify-between bg-neutral-50 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] lg:flex-row lg:px-8 border-b-[1px] border-primary-700">
@@ -40,9 +40,9 @@ const DashboardNavbar: React.FC = () => {
             toggled={showDashboardSidebar}
           />
         </div>
-        {userD ? (
+        {userTokenObject ? (
           <span className="hidden lg:block font-vazir font-bold text-base text-primary-700">
-            {userD.user_display_name}
+            {userTokenObject.user_display_name}
           </span>
         ) : (
           <motion.button

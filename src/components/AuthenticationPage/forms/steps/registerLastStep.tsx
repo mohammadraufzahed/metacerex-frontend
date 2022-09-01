@@ -8,14 +8,14 @@ import { useRecoilState } from "recoil";
 import { registerAtom } from "../../../../atoms/registerAtom";
 import { httpClient } from "../../../../axios";
 import { CustomTokenObtain } from "../../../../types/API";
-import { user } from "../../../../atoms/user";
+import { userToken } from "../../../../atoms/userToken";
 import { useNavigate } from "react-router-dom";
 import useCustomToast from "../../../../hooks/useCustomToast";
 
 const RegisterLastSetp: React.FC = () => {
   const [registerData, setRegisterData] = useRecoilState(registerAtom);
   const navigate = useNavigate();
-  const [userD, setUserD] = useRecoilState(user);
+  const [userTokenObject, settokenObject] = useRecoilState(userToken);
   const verifyCodeFormik = useFormik({
     initialValues: {
       verifyCode: "",
@@ -33,7 +33,7 @@ const RegisterLastSetp: React.FC = () => {
       await httpClient.post("users/register/verify/", data).then((res) => {
         if (res.status == 200) {
           const data: CustomTokenObtain = res.data;
-          setUserD(data);
+          settokenObject(data);
           setRegisterData(null);
           useCustomToast(
             "bottom-right",

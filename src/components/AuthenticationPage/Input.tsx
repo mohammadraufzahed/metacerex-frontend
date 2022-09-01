@@ -15,6 +15,7 @@ type PropsT = {
   fullWidth?: boolean;
   className?: string;
   isPrimary?: boolean;
+  disabled?: boolean;
 };
 
 const Input: React.FC<PropsT> = ({
@@ -29,6 +30,7 @@ const Input: React.FC<PropsT> = ({
   fullWidth,
   className,
   isPrimary,
+  disabled,
 }) => {
   return (
     <div
@@ -54,6 +56,7 @@ const Input: React.FC<PropsT> = ({
         name={name}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
       <AnimatePresence>
         {error ? (

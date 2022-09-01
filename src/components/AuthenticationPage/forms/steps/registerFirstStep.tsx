@@ -50,20 +50,20 @@ const RegisterFirstStep: React.FC = () => {
       captcha: boolean().required().isTrue(),
     }),
     async onSubmit(props) {
-      let user: RegisterRequest = {
+      let userToken: RegisterRequest = {
         password: props.password,
       };
       if (props.referrer_code && props.referrer_code != "") {
-        user.referrer_code = props.referrer_code;
+        userToken.referrer_code = props.referrer_code;
       }
       if (emailReg.test(props.identity)) {
-        user.email = props.identity;
+        userToken.email = props.identity;
       } else {
-        user.mobile = props.identity;
+        userToken.mobile = props.identity;
       }
       await httpClient
         .post("users/register/request/", {
-          ...user,
+          ...userToken,
         })
         .then((data) => {
           if (data.status == 200 || data.status == 201) {

@@ -1,16 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
-import { getIdentity, setIdentity } from "../../../functions/identityForm";
+import { setIdentity } from "../../../functions/identityForm";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
 import Button from "../../AuthenticationPage/Button";
 import Input from "../../AuthenticationPage/Input";
 import * as yup from "yup";
 import { dateReg } from "../../../regex/dateReg";
 import { phoneReg } from "../../../regex/phoneReg";
+import { useRecoilState } from "recoil";
+import { userProfile } from "../../../atoms/userProfile";
 
-const IdentityFormBox = () => {
-  const identityData = useQuery(["identityDataFetcher"], getIdentity);
+const IdentityFormBox: React.FC = () => {
+  const [userProfileD, setUserProfile] = useRecoilState(userProfile);
   const identityFormik = useFormik({
     initialValues: {
       first_name: "",
@@ -73,10 +74,10 @@ const IdentityFormBox = () => {
     },
   });
   useEffect(() => {
-    if (identityData.data) {
-      identityFormik.setValues(identityData.data);
+    if (userProfileD) {
+      identityFormik.setValues(userProfileD);
     }
-  }, [identityData.data]);
+  }, [userProfileD]);
   return (
     <ProfileFormLayout title="اطلاعات هویتی">
       <div className="w-full h-full flex flex-col gap-6 sm:gap-10">

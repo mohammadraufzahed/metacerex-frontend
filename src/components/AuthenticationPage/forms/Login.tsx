@@ -10,12 +10,12 @@ import { httpClient } from "../../../axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { CustomTokenObtain } from "../../../types/API";
 import { useRecoilState } from "recoil";
-import { user } from "../../../atoms/user";
+import { userToken } from "../../../atoms/userToken";
 import { useNavigate } from "react-router-dom";
 import useCustomToast from "../../../hooks/useCustomToast";
 
 const Login: React.FC = () => {
-  const [userD, setUserD] = useRecoilState(user);
+  const [userTokenObject, settokenObject] = useRecoilState(userToken);
   const navigate = useNavigate();
   const loginFormik = useFormik({
     initialValues: {
@@ -38,8 +38,8 @@ const Login: React.FC = () => {
         })
         .then((res) => {
           if (res.status == 200) {
-            const user: CustomTokenObtain = res.data;
-            setUserD(user);
+            const userToken: CustomTokenObtain = res.data;
+            settokenObject(userToken);
             useCustomToast(
               "bottom-right",
               "success",
