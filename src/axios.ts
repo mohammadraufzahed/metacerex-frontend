@@ -45,13 +45,15 @@ httpClient.interceptors.response.use(
                 }
               });
           } else {
-            callToastError("لطفا وارد شوید");
-            setTimeout(
-              () =>
-                (window.location.href = "" + window.location.origin + "/auth"),
-              3000
-            );
           }
+        } else {
+          setRecoil(userToken, null);
+          callToastError("لطفا وارد شوید");
+          setTimeout(
+            () =>
+              (window.location.href = "" + window.location.origin + "/auth"),
+            3000
+          );
         }
       } else if (err.response.data.detail) {
         callToastError(err.response.data.detail);
