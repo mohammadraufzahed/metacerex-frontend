@@ -16,8 +16,8 @@ const DashboardLayout: React.FC = () => {
   const [statusD, setStatus] = useRecoilState(statusData);
   // Queries
   const statusQuery = useQuery(["status"], getStatus, {
-    staleTime: 10 * 60 * 10,
-    refetchInterval: 10 * 60 * 10,
+    staleTime: 10 * 60 * 1000,
+    refetchInterval: 10 * 60 * 1000,
     refetchIntervalInBackground: true,
   });
   // Effects
