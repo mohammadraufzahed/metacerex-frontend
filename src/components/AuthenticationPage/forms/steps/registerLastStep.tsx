@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Input from "../../Input";
+import Input from "../../../Input";
 import { useFormik } from "formik";
 import Button from "../../Button";
 import { object, string } from "yup";

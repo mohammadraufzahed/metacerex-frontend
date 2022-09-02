@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import React from "react";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
 import Button from "../../AuthenticationPage/Button";
-import Input from "../../AuthenticationPage/Input";
+import Input from "../../Input";
 import * as yup from "yup";
 import { passwordReg } from "../../../regex/passwordReg";
 import { httpClient } from "../../../axios";

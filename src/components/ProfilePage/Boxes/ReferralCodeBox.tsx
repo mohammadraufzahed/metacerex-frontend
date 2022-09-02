@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { userProfile } from "../../../atoms/userProfile";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
 import AnimatedCopy from "../../../svgs/AnimatedCopy";
-import Input from "../../AuthenticationPage/Input";
+import Input from "../../Input";
 
 const ReferralCodeBox: React.FC = () => {
   const userProfileD = useRecoilValue(userProfile);
@@ -27,14 +27,14 @@ const ReferralCodeBox: React.FC = () => {
           />
           <button className="bg-primary-700 px-5 py-2 mt-7 -mr-1 w-max h-max rounded-l-md">
             <AnimatedCopy
-              done={copy}
+              copied={copy ? 1 : 0}
               className="stroke-white"
               onClick={() => {
                 navigator.clipboard.writeText(
                   userProfileD?.referral_code ?? ""
                 );
-                setCopy(true);
-                setTimeout(() => setCopy(false), 2000);
+                setCopy((copy) => !copy);
+                setTimeout(() => setCopy((copy) => !copy), 2000);
               }}
             />
           </button>

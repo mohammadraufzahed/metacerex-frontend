@@ -4,7 +4,7 @@ import { object, string, ref, boolean } from "yup";
 import { emailOrPhone } from "../../../../regex/emailOrPhone";
 import { passwordReg } from "../../../../regex/passwordReg";
 import Button from "../../Button";
-import Input from "../../Input";
+import Input from "../../../Input";
 import RulesCheckbox from "../../RulesCheckbox";
 import { AnimatePresence, motion } from "framer-motion";
 import { emailReg } from "../../../../regex/emailReg";
