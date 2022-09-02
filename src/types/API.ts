@@ -274,6 +274,56 @@ export type WithdrawCreate = {
   withdraw_id: string;
 };
 
+export type UserLogs = {
+  requested_at: string;
+  remote_addr: string;
+  action: string;
+};
+
+export type Paginated = {
+  count: number;
+  next: string;
+  previous: string;
+};
+
+export type PaginatedUserLogs = Paginated & {
+  results: UserLogs[];
+};
+
+export type PaginatedCardList = Paginated & {
+  results: Card[];
+};
+
+export type Card = {
+  id: number;
+  number: string;
+  sheba: string;
+  bank?: Bank;
+  branch?: string;
+  account_type?: AccountType;
+  is_verified: boolean;
+  is_active: boolean;
+};
+
+export type AccountType =
+  | "SAVING_LOAN"
+  | "CURRENT_LOAN"
+  | "SHORT_DEPOSIT"
+  | "LONG_DEPOSIT"
+  | "PLANNED_DEPOSIT";
+
+export type Bank =
+  | "MELLI"
+  | "PARSIAN"
+  | "ENBANK"
+  | "PASARGAD"
+  | "KESHAVARZI"
+  | "SAMAN"
+  | "MELLAT"
+  | "SADERAT"
+  | "REFAH"
+  | "SARMAYEH";
+
 export type ShetabCard = {
   number: string;
   sheba: string;

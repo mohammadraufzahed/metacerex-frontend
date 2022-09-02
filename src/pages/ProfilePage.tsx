@@ -8,13 +8,15 @@ import MenuItem from "../components/AuthenticationPage/MenuItem";
 import ErrorFetch from "../components/ErrorFetch";
 import Loading from "../components/Loading";
 import BankCardsForm from "../components/ProfilePage/forms/BankCardsForm";
-import SecurityForm from "../components/ProfilePage/forms/SecurityForm";
-import LoginRequiredPage from "./LoginRequiredPage";
+
+const SecurityForm = lazy(
+  () => import("../components/ProfilePage/forms/SecurityForm")
+);
+const LoginRequiredPage = lazy(() => import("./LoginRequiredPage"));
 
 const PersonalInformationForm = lazy(
   () => import("../components/ProfilePage/forms/PersonalInformationForm")
 );
-
 const ProfilePage: React.FC = () => {
   // States
   const [currentTab, setCurrentTab] = useState<
