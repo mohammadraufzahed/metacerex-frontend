@@ -3,9 +3,8 @@ import React, { MouseEventHandler, useState } from "react";
 import { getUserLogs } from "../../../functions/user";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
 import { useDateToString } from "../../../utils/date";
-import { motion } from "framer-motion";
 import { API_LIMIT } from "../../../constants/APILimit";
-import NavigationButton from "../../NavigationButton";
+import PaginationButton from "../../PaginationButton";
 
 const LoginHistoryBox = () => {
   // States
@@ -53,12 +52,12 @@ const LoginHistoryBox = () => {
         </tbody>
       </table>
       <div className="w-full flex flex-row items-center justify-center gap-4 mt-5">
-        <NavigationButton
+        <PaginationButton
           text="بعدی"
           disabled={logsQuery.data && logsQuery.data.next == null}
           onClick={() => setNextPage((nextPage) => nextPage + API_LIMIT)}
         />
-        <NavigationButton
+        <PaginationButton
           text="قبلی"
           disabled={logsQuery.data && logsQuery.data.previous == null}
           onClick={() => setNextPage((nextPage) => nextPage - API_LIMIT)}
