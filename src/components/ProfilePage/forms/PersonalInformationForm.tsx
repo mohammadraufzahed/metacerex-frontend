@@ -8,6 +8,7 @@ import { getIdentity } from "../../../functions/identityForm";
 import { useQuery } from "@tanstack/react-query";
 import { userProfile } from "../../../atoms/userProfile";
 import { useRecoilState } from "recoil";
+import { Helmet } from "react-helmet";
 
 const PersonalInformationForm: React.FC = () => {
   // States
@@ -23,17 +24,22 @@ const PersonalInformationForm: React.FC = () => {
     }
   }, [identityData.data]);
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="w-full py-2 lg:py-8 flex flex-col gap-6 lg:gap-8"
-    >
-      <InformationAuthStatusBox />
-      <IdentityFormBox />
-      <PasswordChangeFormBox />
-      <ReferralCodeBox />
-    </motion.div>
+    <>
+      <Helmet>
+        <title>صرافی - اطلاعات شخصی</title>
+      </Helmet>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="w-full py-2 lg:py-8 flex flex-col gap-6 lg:gap-8"
+      >
+        <InformationAuthStatusBox />
+        <IdentityFormBox />
+        <PasswordChangeFormBox />
+        <ReferralCodeBox />
+      </motion.div>
+    </>
   );
 };
 

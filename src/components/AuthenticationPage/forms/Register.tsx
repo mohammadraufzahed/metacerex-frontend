@@ -1,6 +1,6 @@
-import { useFormik } from "formik";
 import { AnimatePresence } from "framer-motion";
 import React, { lazy } from "react";
+import { Helmet } from "react-helmet";
 import { useRecoilValue } from "recoil";
 import { registerAtom } from "../../../atoms/registerAtom";
 import RegisterFirstStep from "./steps/registerFirstStep";
@@ -13,15 +13,20 @@ const AuthenticationFormLayout = lazy(
 const Register: React.FC = () => {
   const registerData = useRecoilValue(registerAtom);
   return (
-    <AuthenticationFormLayout key="registerForm">
-      <AnimatePresence exitBeforeEnter>
-        {registerData?.status == "register" ? (
-          <RegisterFirstStep />
-        ) : (
-          <RegisterLastSetp />
-        )}
-      </AnimatePresence>
-    </AuthenticationFormLayout>
+    <>
+      <Helmet>
+        <title>صرافی - ثبت نام</title>
+      </Helmet>
+      <AuthenticationFormLayout key="registerForm">
+        <AnimatePresence exitBeforeEnter>
+          {registerData?.status == "register" ? (
+            <RegisterFirstStep />
+          ) : (
+            <RegisterLastSetp />
+          )}
+        </AnimatePresence>
+      </AuthenticationFormLayout>
+    </>
   );
 };
 
