@@ -13,13 +13,15 @@ export const httpClient: AxiosInstance = axios.create({
 });
 
 httpClient.interceptors.request.use((config) => {
-  const user = JSON.parse(sessionStorage.getItem("userToken") ?? "");
-  if (user.userToken) {
-    config.headers = {
-      ...config.headers,
-      Authorization: `Bearer ${user.userToken.access}`,
-    };
-  }
+  try {
+    const user = JSON.parse(sessionStorage.getItem("userToken") ?? "");
+    if (user.userToken) {
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${user.userToken.access}`,
+      };
+    }
+  } catch (e) {}
   return config;
 });
 
