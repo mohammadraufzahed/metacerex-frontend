@@ -24,7 +24,11 @@ const BankCardsForm: React.FC = () => {
       exit={{ opacity: 0 }}
       className="py-2 flex flex-col gap-6 md:gap-8"
     >
-      {cards ? cards.map((item) => <BankCardBox card={item} />) : null}
+      {cards
+        ? cards.map((item) => (
+            <BankCardBox card={item} newCard={item.number == ""} />
+          ))
+        : null}
       <motion.div
         variants={{
           idle: {

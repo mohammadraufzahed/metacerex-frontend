@@ -30,11 +30,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          framer: ["framer-motion"],
-          yup: ["yup"],
-          react_icon: ["react-icons"],
-          react_loading: ["react-loading"],
-          formik: ["formik"],
+          "form.vendor": ["yup", "formik"],
+          "ui.vendor": ["react-icons", "react-loading", "framer-motion"],
+          "http.vendor": ["axios", "@tanstack/react-query"],
           react_table: ["@tanstack/react-table"],
         },
       },

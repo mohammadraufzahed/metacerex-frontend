@@ -34,9 +34,11 @@ const accountOption = [
 
 type PropsT = {
   card: Card;
+  newCard: boolean;
 };
 
-const BankCardBox: React.FC<PropsT> = ({ card }) => {
+const BankCardBox: React.FC<PropsT> = ({ card, newCard }) => {
+  console.dir(card);
   const cardFormik = useFormik({
     initialValues: {
       ...card,
@@ -70,8 +72,8 @@ const BankCardBox: React.FC<PropsT> = ({ card }) => {
         ),
     }),
     async onSubmit({ number, sheba, bank, branch, account_type }) {
-      return await httpClient("shetab/card/", {
-        method: Object.entries(card).length == 0 ? "post" : "put",
+      return await httpClient(`shetab/card/${!newCard ? card.id : ""}`, {
+        method: newCard ? "post" : "patch",
         data: {
           number,
           sheba,
@@ -80,13 +82,11 @@ const BankCardBox: React.FC<PropsT> = ({ card }) => {
           account_type,
         },
       }).then((data) => {
-        if (data.status == 200) {
+        if (data.status == 200 || data.status == 201) {
           useCustomToast(
             "bottom-right",
             "success",
-            `حساب بانکی با موفقیت ${
-              Object.entries(card).length == 0 ? "ذخیره" : "بروز رسانی"
-            } شد`
+            `حساب بانکی با موفقیت ${newCard ? "ذخیره" : "بروز رسانی"} شد`
           );
         }
       });
