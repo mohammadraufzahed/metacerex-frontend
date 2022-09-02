@@ -1,11 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
-import React, { lazy, useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { userProfile } from "../atoms/userProfile";
+import React, { lazy, Suspense, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
 import MenuItem from "../components/AuthenticationPage/MenuItem";
-import { getIdentity } from "../functions/identityForm";
+import ErrorFetch from "../components/ErrorFetch";
+import Loading from "../components/Loading";
+import BankCardsForm from "../components/ProfilePage/forms/BankCardsForm";
+import SecurityForm from "../components/ProfilePage/forms/SecurityForm";
 import LoginRequiredPage from "./LoginRequiredPage";
 
 const PersonalInformationForm = lazy(
@@ -18,17 +21,9 @@ const ProfilePage: React.FC = () => {
     "personalInformation" | "bankInformation" | "securityInformation"
   >("personalInformation");
   const userTokenObject = useRecoilValue(userToken);
-  const [userProfileD, setUserProfile] = useRecoilState(userProfile);
   // Authentication check
   if (!userTokenObject) return <LoginRequiredPage />;
-  // Queries
-  const identityData = useQuery(["identityDataFetcher"], getIdentity);
-  // Effects
-  useEffect(() => {
-    if (identityData.data) {
-      setUserProfile(identityData.data);
-    }
-  }, [identityData.data]);
+
   return (
     <div className="flex-auto flex flex-col px-4 py-10 lg:px-8">
       <div className="w-full grid grid-cols-3 lg:grid-cols-5">
@@ -62,12 +57,28 @@ const ProfilePage: React.FC = () => {
         <MenuItem text="" onClick={() => {}} active={false} only="desktop" />
         <MenuItem text="" onClick={() => {}} active={false} only="desktop" />
       </div>
-      <AnimatePresence exitBeforeEnter>
-        {currentTab == "personalInformation" ? (
-          <PersonalInformationForm />
-        ) : currentTab == "bankInformation" ? null : currentTab ==
-          "securityInformation" ? null : null}
-      </AnimatePresence>
+      <Suspense fallback={<Loading />}>
+        <QueryErrorResetBoundary>
+          {({ reset }) => (
+            <ErrorBoundary
+              onReset={reset}
+              fallbackRender={({ resetErrorBoundary }) => (
+                <ErrorFetch resetErrorBoundary={resetErrorBoundary} />
+              )}
+            >
+              <AnimatePresence exitBeforeEnter>
+                {currentTab == "personalInformation" ? (
+                  <PersonalInformationForm />
+                ) : currentTab == "bankInformation" ? (
+                  <BankCardsForm />
+                ) : currentTab == "securityInformation" ? (
+                  <SecurityForm />
+                ) : null}
+              </AnimatePresence>
+            </ErrorBoundary>
+          )}
+        </QueryErrorResetBoundary>
+      </Suspense>
     </div>
   );
 };
