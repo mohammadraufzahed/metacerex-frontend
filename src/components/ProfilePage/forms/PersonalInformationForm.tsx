@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import IdentityFormBox from "../Boxes/IdentityFormBox";
 import InformationAuthStatusBox from "../Boxes/InformationAuthStatusBox";
 import PasswordChangeFormBox from "../Boxes/PasswordChangeFormBox";
 import ReferralCodeBox from "../Boxes/ReferralCodeBox";
 import { motion } from "framer-motion";
+import { getIdentity } from "../../../functions/identityForm";
+import { useQuery } from "@tanstack/react-query";
+import { userProfile } from "../../../atoms/userProfile";
+import { useRecoilState } from "recoil";
 
 const PersonalInformationForm: React.FC = () => {
+  // States
+  const [userProfileD, setUserProfile] = useRecoilState(userProfile);
+  // Queries
+  const identityData = useQuery(["identityDataFetcher"], getIdentity, {
+    networkMode: "offlineFirst",
+  });
+  // Effects
+  useEffect(() => {
+    if (identityData.data) {
+      setUserProfile(identityData.data);
+    }
+  }, [identityData.data]);
   return (
     <motion.div
       initial={{ opacity: 0 }}
