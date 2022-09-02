@@ -3,7 +3,7 @@ import type { AxiosInstance } from "axios";
 import { getRecoil, setRecoil } from "recoil-nexus";
 import { userToken } from "./atoms/userToken";
 import useCustomToast from "./hooks/useCustomToast";
-import { useNavigate } from "react-router-dom";
+import { CustomTokenObtain } from "./types/API";
 
 export const httpClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE,
@@ -13,11 +13,11 @@ export const httpClient: AxiosInstance = axios.create({
 });
 
 httpClient.interceptors.request.use((config) => {
-  const accessKey = getRecoil(userToken)?.access;
-  if (accessKey) {
+  const user = JSON.parse(sessionStorage.getItem("userToken") ?? "");
+  if (user.userToken) {
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${accessKey}`,
+      Authorization: `Bearer ${user.userToken.access}`,
     };
   }
   return config;
@@ -36,12 +36,23 @@ httpClient.interceptors.response.use(
                 refresh: userTokenObject.refresh,
               })
               .then((data) => {
-                if (data.status == 200) {
-                  setRecoil(userToken, {
-                    ...userTokenObject,
-                    access: data.data.access,
-                    refresh: undefined,
-                  });
+                if (data.data.access) {
+                  const userToken: {
+                    userToken: CustomTokenObtain;
+                  } | null = JSON.parse(
+                    sessionStorage.getItem("userToken") ?? ""
+                  );
+                  if (userToken) {
+                    sessionStorage.setItem(
+                      "userToken",
+                      JSON.stringify({
+                        userToken: {
+                          ...userToken.userToken,
+                          access: data.data.access,
+                        },
+                      })
+                    );
+                  }
                 }
               });
           } else {
