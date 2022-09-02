@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { setIdentity } from "../../../functions/identityForm";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
 import Button from "../../AuthenticationPage/Button";
-import Input from "../../AuthenticationPage/Input";
+import Input from "../../Input";
 import * as yup from "yup";
 import { dateReg } from "../../../regex/dateReg";
 import { phoneReg } from "../../../regex/phoneReg";
