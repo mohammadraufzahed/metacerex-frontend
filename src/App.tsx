@@ -10,7 +10,8 @@ import "./styles/scrollbar.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
-import useCustomToast from "./hooks/useCustomToast";
+import { ErrorBoundary } from "react-error-boundary";
+import Error from "./components/Error";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { suspense: true } },
@@ -18,14 +19,16 @@ const queryClient = new QueryClient({
 const App: React.FC = () => {
   return (
     <Suspense fallback={<Loading />}>
-      <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <RecoilNexus />
-          <Navigation />
-          <Toaster />
-        </RecoilRoot>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
+      <ErrorBoundary fallback={<Error />}>
+        <QueryClientProvider client={queryClient}>
+          <RecoilRoot>
+            <RecoilNexus />
+            <Navigation />
+            <Toaster />
+          </RecoilRoot>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </ErrorBoundary>
     </Suspense>
   );
 };
