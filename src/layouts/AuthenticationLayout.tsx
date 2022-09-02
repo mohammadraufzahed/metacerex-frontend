@@ -3,18 +3,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import GoogleButton from "../components/AuthenticationPage/GoogleButton";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import Login from "../components/AuthenticationPage/forms/Login";
-import Register from "../components/AuthenticationPage/forms/Register";
 
 const MenuItem = lazy(
   () => import("../components/AuthenticationPage/MenuItem")
 );
 
-const AuthenticationPage: React.FC = () => {
-  const [currentForm, setCurrentForm] = useState<"register" | "login">("login");
+const AuthenticationLayout: React.FC = () => {
   const userTokenObject = useRecoilValue(userToken);
+  const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
     if (userTokenObject?.access) {
@@ -27,23 +25,18 @@ const AuthenticationPage: React.FC = () => {
         <div className="w-full h-max grid grid-cols-2 pt-10 place-items-center place-content-center font-vazir font-bold text-lg">
           <MenuItem
             text="ورود"
-            active={currentForm == "login"}
-            onClick={() =>
-              currentForm != "login" ? setCurrentForm("login") : null
-            }
+            active={location.pathname == "/auth/login"}
+            onClick={() => navigate("/auth/login", { replace: true })}
           />
           <MenuItem
             text="ثبت نام"
-            active={currentForm == "register"}
-            onClick={() =>
-              currentForm != "register" ? setCurrentForm("register") : null
-            }
+            active={location.pathname == "/auth/register"}
+            onClick={() => navigate("/auth/register", { replace: true })}
           />
         </div>
         <Suspense fallback={<Loading />}>
           <AnimatePresence exitBeforeEnter presenceAffectsLayout>
-            VITE_GOOGLE_RECAPTCHA_SITEKEY
-            {currentForm == "login" ? <Login /> : <Register />}
+            <Outlet />
           </AnimatePresence>
         </Suspense>
         <div className="w-full flex place-items-center place-content-center gap-2">
@@ -63,4 +56,4 @@ const AuthenticationPage: React.FC = () => {
   );
 };
 
-export default AuthenticationPage;
+export default AuthenticationLayout;
