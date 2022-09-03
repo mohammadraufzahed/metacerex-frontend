@@ -23,8 +23,6 @@ const NewsListPage: React.FC = () => {
     () => getNewsPaginated(page, search),
     {
       keepPreviousData: true,
-      networkMode: "offlineFirst",
-      suspense: true,
     }
   );
   // Effects
