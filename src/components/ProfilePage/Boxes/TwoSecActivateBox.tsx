@@ -6,8 +6,8 @@ import { AiFillCheckCircle } from "react-icons/ai";
 const TwoSecActivateBox: React.FC = () => {
   const [active, setActive] = useState<boolean>(false);
   return (
-    <div className="flex flex-col bg-gray-50 w-full rounded-2xl items-center justify-center py-2 gap-4">
-      <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col bg-gray-50 w-full rounded-2xl items-center justify-center py-2 gap-4 md:flex-row md:justify-between md:px-8 md:py-7">
+      <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:gap-7">
         <img src="/svgs/2af.svg" width={32} height={32} />
         <div className="font-vazir font-bold text-sm">
           <span>احراز هویت دو عاملی: </span>
