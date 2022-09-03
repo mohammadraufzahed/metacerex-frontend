@@ -112,7 +112,9 @@ export type Networks = {
 
 export type NewsArticleDetail = {
   author: string;
-  cover: string;
+  cover: {
+    crop: string;
+  };
   title: string;
   description: string;
   body: string;
@@ -124,7 +126,10 @@ export type NewsArticleDetail = {
 export type NewsArticleList = {
   pk: number;
   author: string;
-  cover: string;
+  cover: {
+    thumb: string;
+  };
+  slug: string;
   title: string;
   description: string;
   added_on: string;
@@ -284,6 +289,10 @@ export type Paginated = {
   count: number;
   next: string;
   previous: string;
+};
+
+export type PaginatedNewsList = Paginated & {
+  results: NewsArticleList[];
 };
 
 export type PaginatedUserLogs = Paginated & {

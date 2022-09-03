@@ -27,7 +27,7 @@ const DashboardNavbar: React.FC = () => {
           </strong>
         </div>
         <div className="hidden flex-row items-center gap-6 font-vazir font-bold text-xl text-primary-700 lg:flex">
-          <Link to="#">اخبار</Link>
+          <Link to="/news">اخبار</Link>
           <Link to="#">ارتباط با ما</Link>
         </div>
       </div>

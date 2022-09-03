@@ -35,7 +35,7 @@ const AuthenticationLayout: React.FC = () => {
           />
         </div>
         <Suspense fallback={<Loading />}>
-          <AnimatePresence exitBeforeEnter presenceAffectsLayout>
+          <AnimatePresence mode="wait">
             <Outlet />
           </AnimatePresence>
         </Suspense>

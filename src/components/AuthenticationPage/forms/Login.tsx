@@ -51,52 +51,50 @@ const Login: React.FC = () => {
     },
   });
   return (
-    <>
+    <AuthenticationFormLayout key="loginForm">
       <Helmet>
         <title>صرافی - ورود</title>
       </Helmet>
-      <AuthenticationFormLayout key="loginForm">
-        <Input
-          fullWidth
-          label="ایمیل / موبایل"
-          id="identity"
-          name="identity"
-          type="text"
-          required
-          onChange={loginFormik.handleChange}
-          value={loginFormik.values.identity}
-          error={loginFormik.errors.identity}
-        />
-        <Input
-          fullWidth
-          label="گذرواژه"
-          id="password"
-          name="password"
-          type="password"
-          required
-          onChange={loginFormik.handleChange}
-          value={loginFormik.values.password}
-          error={loginFormik.errors.password}
-        />
-        <ReCAPTCHA
-          lang="fa"
-          onChange={(token) => {
-            if (token) {
-              loginFormik.setFieldValue("captcha", true);
-            } else {
-              loginFormik.setFieldValue("captcha", false);
-            }
-          }}
-          sitekey={import.meta.env.VITE_GOOGLE_RECAPTCHA_SITEKEY}
-        />
-        <Button
-          text="ورود"
-          loading={loginFormik.isSubmitting}
-          onClick={() => loginFormik.submitForm()}
-          fullWidth
-        />
-      </AuthenticationFormLayout>
-    </>
+      <Input
+        fullWidth
+        label="ایمیل / موبایل"
+        id="identity"
+        name="identity"
+        type="text"
+        required
+        onChange={loginFormik.handleChange}
+        value={loginFormik.values.identity}
+        error={loginFormik.errors.identity}
+      />
+      <Input
+        fullWidth
+        label="گذرواژه"
+        id="password"
+        name="password"
+        type="password"
+        required
+        onChange={loginFormik.handleChange}
+        value={loginFormik.values.password}
+        error={loginFormik.errors.password}
+      />
+      <ReCAPTCHA
+        lang="fa"
+        onChange={(token) => {
+          if (token) {
+            loginFormik.setFieldValue("captcha", true);
+          } else {
+            loginFormik.setFieldValue("captcha", false);
+          }
+        }}
+        sitekey={import.meta.env.VITE_GOOGLE_RECAPTCHA_SITEKEY}
+      />
+      <Button
+        text="ورود"
+        loading={loginFormik.isSubmitting}
+        onClick={() => loginFormik.submitForm()}
+        fullWidth
+      />
+    </AuthenticationFormLayout>
   );
 };
 
