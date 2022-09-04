@@ -8,7 +8,9 @@ export type AutocompleteAssets = {
     name: string;
     name_detailed: string;
     site_wallet_address: string;
-  };
+    has_memo: boolean;
+  }[];
+  precision: number;
 };
 
 export type BaseAsset = {

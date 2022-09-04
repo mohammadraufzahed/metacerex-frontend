@@ -5,6 +5,7 @@ import { screen } from "./atoms/screen";
 import LogoutPage from "./pages/LogoutPage";
 import PageNotFound from "./pages/PageNotFound";
 
+const WalletPage = lazy(() => import("./pages/WalletPage"));
 const NewsListPage = lazy(() => import("./pages/NewsListPage"));
 const NewsPage = lazy(() => import("./pages/NewsPage"));
 const BankCardsForm = lazy(
@@ -50,8 +51,12 @@ const Navigation: React.FC = () => {
       <Routes>
         <Route path="" element={<DashboardLayout />}>
           <Route path="dashboard">
-            <Route path="" element={<ListPage />} />
+            <Route
+              path=""
+              element={<Navigate to="/dashboard/list" replace />}
+            />
             <Route path="list" element={<ListPage />} />
+            <Route path="wallet" element={<WalletPage />} />
             <Route path="profile" element={<ProfileLayout />}>
               <Route
                 path=""
