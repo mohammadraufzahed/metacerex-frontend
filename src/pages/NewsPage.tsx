@@ -4,6 +4,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { getNews } from "../functions/news";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 const NewsPage = () => {
   // States
@@ -15,6 +16,9 @@ const NewsPage = () => {
   const navigate = useNavigate();
   return (
     <div className="flex-auto bg-background-100">
+      <Helmet>
+        <title>صرافی - {newsQuery.data?.title}</title>
+      </Helmet>
       <motion.div
         initial={{ scale: 1 }}
         whileHover={{ scale: 1.02 }}

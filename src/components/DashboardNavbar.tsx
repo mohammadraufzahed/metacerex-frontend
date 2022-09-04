@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { showSidebar } from "../atoms/showSidebar";
 import { userToken } from "../atoms/userToken";
@@ -14,7 +14,7 @@ const DashboardNavbar: React.FC = () => {
   const navigate = useNavigate();
   return (
     <nav className="w-full flex flex-row-reverse justify-between bg-neutral-50 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] lg:flex-row lg:px-8 border-b-[1px] border-primary-700">
-      <div className="flex flex-row gap-16 items-center">
+      <div className="flex flex-auto flex-row gap-16 items-center h-full">
         <div className="flex flex-row items-center gap-5">
           <img
             src="/svgs/logo.svg"
@@ -26,9 +26,29 @@ const DashboardNavbar: React.FC = () => {
             شرکت الفبا
           </strong>
         </div>
-        <div className="hidden flex-row items-center gap-6 font-vazir font-bold text-xl text-primary-700 lg:flex">
-          <Link to="/news">اخبار</Link>
-          <Link to="#">ارتباط با ما</Link>
+        <div className="hidden flex-auto flex-row items-center gap-6 font-vazir font-bold text-xl text-primary-700 lg:flex h-full">
+          <NavLink
+            to="/news"
+            className={({ isActive }) =>
+              "transition-all duration-300 " +
+              (isActive
+                ? "bg-primary-700 h-full text-white px-5 flex items-center justify-center"
+                : "")
+            }
+          >
+            اخبار
+          </NavLink>
+          <NavLink
+            to="/contact-us"
+            className={({ isActive }) =>
+              "transition-all duration-300 " +
+              (isActive
+                ? "bg-primary-700 h-full text-white px-5 flex items-center justify-center"
+                : "")
+            }
+          >
+            ارتباط با ما
+          </NavLink>
         </div>
       </div>
       <div>

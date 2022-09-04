@@ -24,9 +24,6 @@ const DashboardLayout: React.FC = () => {
   useEffect(() => setStatus(statusQuery.data ?? null), [statusQuery.data]);
   return (
     <div className="flex pb-16 flex-col w-screen h-screen max-w-[100vw] overflow-y-scroll overflow-hidden scrollbar-vertical lg:pb-0">
-      <Helmet>
-        <title>صرافی - حساب کاربری</title>
-      </Helmet>
       <header>
         <DashboardNavbar />
       </header>

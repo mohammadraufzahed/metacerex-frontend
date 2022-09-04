@@ -70,7 +70,7 @@ const SidebarBoxData: SidebarBoxDataT = {
     {
       text: "اخبار",
       Icon: Sound,
-      href: "/dashboard/news",
+      href: "/news",
       onlyMobile: true,
     },
     {
