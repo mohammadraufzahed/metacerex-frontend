@@ -42,7 +42,7 @@ export const TCell: React.FC<TCellT> = ({ title }) => (
 export const TAction: React.FC = () => {
   return (
     <div className="w-full flex justify-center items-center pl-10">
-      <div className="grid grid-cols-4 items-center place w-max gap-x-1">
+      <div className="grid grid-cols-4 items-center place w-max gap-x-6">
         <motion.button
           className="bg-success rounded-lg py-2 w-[63px] font-vazir font-normal text-base text-white"
           initial={{ scale: 1 }}
