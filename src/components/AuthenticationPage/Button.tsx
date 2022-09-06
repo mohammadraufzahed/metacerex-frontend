@@ -32,9 +32,12 @@ const Button: React.FC<PropsT> = ({
       onClick={onClick}
       initial={{
         display: "flex",
+        scale: 1,
         justifyContent: "center",
         alignItems: "center",
       }}
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 1.015 }}
       variants={buttonVariant}
       animate={loading ? "loading" : "loaded"}
       transition={{ type: "spring", duration: 1 }}
@@ -46,7 +49,7 @@ const Button: React.FC<PropsT> = ({
         fullWidth ? "w-11/12" : "w-max"
       } py-3.5 rounded font-vazir font-bold text-lg ${className}`}
     >
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode="wait">
         {loading ? (
           <motion.div
             initial={{ opacity: 0 }}

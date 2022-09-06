@@ -23,13 +23,13 @@ const DashboardLayout: React.FC = () => {
   // Effects
   useEffect(() => setStatus(statusQuery.data ?? null), [statusQuery.data]);
   return (
-    <div className="flex pb-16 flex-col w-screen h-screen max-w-[100vw] overflow-y-scroll overflow-hidden scrollbar-vertical lg:pb-0">
+    <div className="flex pb-16 flex-col w-screen min-h-screen h-max max-w-[100vw] overflow-y-hidden overflow-hidden scrollbar-vertical lg:pb-0">
       <header>
         <DashboardNavbar />
       </header>
-      <main className="flex-auto flex flex-row w-screen bg-background-50">
+      <main className="min-h-screen max-h-max h-full overflow-y-scroll scrollbar-vertical flex flex-row min-w-screen bg-background-50">
         <DashboardSidebar />
-        <div className="flex-auto flex">
+        <div className="flex-auto min-h-screen h-full flex">
           <Suspense fallback={<Loading />}>
             <Outlet />
           </Suspense>

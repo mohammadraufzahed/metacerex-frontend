@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import type { MouseEventHandler } from "react";
 
 type PropsT = {
-  text: string;
+  text: string | React.ReactNode;
   active: boolean;
   onClick: MouseEventHandler;
   only?: "desktop" | "mobile";

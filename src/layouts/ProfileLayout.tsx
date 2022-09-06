@@ -46,7 +46,7 @@ const ProfileLayout: React.FC = () => {
         <MenuItem text="" onClick={() => {}} active={false} only="desktop" />
         <MenuItem text="" onClick={() => {}} active={false} only="desktop" />
       </div>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode="wait">
         <Suspense fallback={<Loading />}>
           <QueryErrorResetBoundary>
             {({ reset }) => (

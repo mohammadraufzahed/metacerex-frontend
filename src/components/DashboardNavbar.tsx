@@ -14,7 +14,7 @@ const DashboardNavbar: React.FC = () => {
   const navigate = useNavigate();
   return (
     <nav className="w-full flex flex-row-reverse justify-between bg-neutral-50 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] lg:flex-row lg:px-8 border-b-[1px] border-primary-700">
-      <div className="flex flex-auto flex-row gap-16 items-center h-full">
+      <div className="flex flex-row gap-16 items-center h-full lg:flex-auto">
         <div className="flex flex-row items-center gap-5">
           <img
             src="/svgs/logo.svg"
@@ -26,7 +26,7 @@ const DashboardNavbar: React.FC = () => {
             شرکت الفبا
           </strong>
         </div>
-        <div className="hidden flex-auto flex-row items-center gap-6 font-vazir font-bold text-xl text-primary-700 lg:flex h-full">
+        <div className="hidden lg:flex-auto flex-row items-center gap-6 font-vazir font-bold text-xl text-primary-700 lg:flex h-full">
           <NavLink
             to="/news"
             className={({ isActive }) =>
