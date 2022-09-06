@@ -6,6 +6,7 @@ import LogoutPage from "./pages/LogoutPage";
 import PageNotFound from "./pages/PageNotFound";
 
 const DepositPage = lazy(() => import("./pages/DepositPage"));
+const WithdrawPage = lazy(() => import("./pages/WithdrawPage"));
 const WalletPage = lazy(() => import("./pages/WalletPage"));
 const NewsListPage = lazy(() => import("./pages/NewsListPage"));
 const NewsPage = lazy(() => import("./pages/NewsPage"));
@@ -77,6 +78,10 @@ const Navigation: React.FC = () => {
               <Route path="deposit">
                 <Route path="" element={<DepositPage />} />
                 <Route path=":currency" element={<DepositPage />} />
+              </Route>
+              <Route path="withdraw">
+                <Route path="" element={<WithdrawPage />} />
+                <Route path=":currency" element={<WithdrawPage />} />
               </Route>
             </Route>
             <Route path="logout" element={<LogoutPage />} />

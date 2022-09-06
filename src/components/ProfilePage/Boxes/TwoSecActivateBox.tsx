@@ -25,9 +25,14 @@ const TwoSecActivateBox: React.FC = () => {
 type AnimatedCheckBoxT = {
   active: boolean;
   onClick: MouseEventHandler;
+  className?: string;
 };
 
-const AnimatedCheckBox: React.FC<AnimatedCheckBoxT> = ({ active, onClick }) => (
+export const AnimatedCheckBox: React.FC<AnimatedCheckBoxT> = ({
+  active,
+  onClick,
+  className,
+}) => (
   <motion.div
     variants={{
       active: {
@@ -38,7 +43,7 @@ const AnimatedCheckBox: React.FC<AnimatedCheckBoxT> = ({ active, onClick }) => (
       },
     }}
     animate={active ? "active" : "deactive"}
-    className="w-16 h-9 rounded-2xl cursor-pointer"
+    className={`w-16 h-9 rounded-2xl cursor-pointer ${className}`}
     onClick={onClick}
   >
     <motion.div

@@ -107,13 +107,16 @@ type WarnBoxT = {
   content: string;
 };
 
-const WarnBox: React.FC<WarnBoxT> = ({ content }) => (
+export const WarnBox: React.FC<WarnBoxT> = ({ content }) => (
   <div className="flex flex-col items-center gap-8 bg-neutral-50 md:flex-row md:py-[72px] md:px-6">
     <div className="text-[#FFA34F] flex flex-row gap-3 items-center">
       <TiWarningOutline className="text-5xl" />
       <span className="font-vazir font-bold text-2xl">هشدار</span>
     </div>
-    <p className="font-vazir font-normal text-sm md:text-base">{content}</p>
+    <p
+      className="font-vazir  font-normal text-sm md:text-base whitespace-pre-line"
+      dangerouslySetInnerHTML={{ __html: content }}
+    ></p>
   </div>
 );
 
