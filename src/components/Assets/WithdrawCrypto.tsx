@@ -12,6 +12,7 @@ import * as yup from "yup";
 import useCustomToast from "../../hooks/useCustomToast";
 import { httpClient } from "../../axios";
 import { useNavigate } from "react-router-dom";
+import { nanoid } from "nanoid";
 
 type PropsT = {
   onRuleClick: (event: MouseEvent) => void;
@@ -91,8 +92,8 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4, type: "spring" }}
-      key="crypto_withdraw"
+      transition={{ duration: 0.3, type: "tween" }}
+      key={nanoid()}
       className="w-full flex flex-col gap-7 items-center"
     >
       <DropboxSelect

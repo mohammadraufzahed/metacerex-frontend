@@ -12,6 +12,8 @@ import DepositCrypto from "../components/Assets/DepositCrypto";
 import Loading from "../components/Loading";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "../components/Error";
+import { motion } from "framer-motion";
+import { nanoid } from "nanoid";
 
 const DepositPage: React.FC = () => {
   // States
@@ -55,14 +57,28 @@ const DepositPage: React.FC = () => {
       </ActionsBox>
 
       <RulesBox show={showRules} onClose={() => setShowRules(false)}>
-        <div className="flex flex-col w-full gap-14">
+        <AnimatePresence mode="wait">
           {currentForm == "toman" ? (
-            <>
+            <motion.div
+              key={nanoid()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, type: "tween" }}
+              className="flex flex-col w-full gap-14"
+            >
               <WarnBox content="کاربر گرامی، قبل از واریز تومان، از احراز شدن کارت بانکی خود در حساب کاربری اطمینان حاصل نمایید." />
               <WarnBox content="در صورت استفاده از VPN، تراکنش توسط بانک لغو خواهد شد." />
-            </>
+            </motion.div>
           ) : (
-            <>
+            <motion.div
+              key={nanoid()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, type: "tween" }}
+              className="flex flex-col w-full gap-14"
+            >
               <div className="w-full bg-neutral-50 py-10 px-2 rounded-2xl flex flex-col gap-10 xl:flex-row items-center md:px-14 md:py-16">
                 <div className="flex flex-col gap-10">
                   <strong className="font-vazir font-bold text-sm">
@@ -95,9 +111,9 @@ const DepositPage: React.FC = () => {
                 content="کاربر گرامی، از یکسان بودن آدرس و شبکه ی انتقال در ولت مبدا و مقصد اطمینان حاصل فرمایید.
 در صورت مغایرت، امکان از بین رفتن رمزارز مذکور وجود دارد."
               />
-            </>
+            </motion.div>
           )}
-        </div>
+        </AnimatePresence>
       </RulesBox>
     </div>
   );

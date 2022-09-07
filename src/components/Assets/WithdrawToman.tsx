@@ -12,6 +12,7 @@ import useCustomToast from "../../hooks/useCustomToast";
 import { getDepositAssets } from "../../functions/assets";
 import { useQuery } from "@tanstack/react-query";
 import { AssetList } from "../../types/API";
+import { nanoid } from "nanoid";
 
 type PropsT = {
   onRuleClick: (event: MouseEvent) => void;
@@ -74,8 +75,8 @@ const WithdrawToman: React.FC<PropsT> = ({ onRuleClick }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      key="toman_withdraw"
-      transition={{ duration: 0.4, type: "spring" }}
+      transition={{ duration: 0.3, type: "tween" }}
+      key={nanoid()}
       className="w-full flex flex-col gap-7 items-center"
     >
       <div className="w-full flex flex-col gap-4">

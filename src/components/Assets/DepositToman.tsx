@@ -16,6 +16,7 @@ import { useRecoilValue } from "recoil";
 import { statusData } from "../../atoms/status";
 import { httpClient } from "../../axios";
 import useCustomToast from "../../hooks/useCustomToast";
+import { nanoid } from "nanoid";
 
 type PropsT = {
   onRuleClick: (event: MouseEvent) => void;
@@ -68,11 +69,11 @@ const DepositToman: React.FC<PropsT> = ({ onRuleClick }) => {
   const cardsQuery = useQuery(["cards_deposit"], getCards);
   return (
     <motion.div
-      key="toman"
+      key={nanoid()}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.3, type: "tween" }}
       className="w-full flex flex-col gap-4 justify-center items-center"
     >
       <div className="w-full flex flex-col gap-2">

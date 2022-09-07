@@ -14,6 +14,7 @@ import RulesButton from "./RulesButton";
 import * as yup from "yup";
 import { httpClient } from "../../axios";
 import { useNavigate } from "react-router-dom";
+import { nanoid } from "nanoid";
 
 type PropsT = {
   onRuleClick: () => void;
@@ -85,10 +86,11 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
   }, [DepositCryptoFormik.errors]);
   return (
     <motion.div
-      key="crypto"
+      key={nanoid()}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, type: "tween" }}
       className="w-full flex flex-col items-center gap-8"
     >
       <DropboxSelect
