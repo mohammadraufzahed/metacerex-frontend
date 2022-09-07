@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type PropsT = {
   label: string;
-  value: string;
+  value: any;
   onChange: ChangeEventHandler;
   error?: string;
   name: string;
@@ -61,11 +61,11 @@ const Input: React.FC<PropsT> = ({
       <AnimatePresence>
         {error ? (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ height: 0 }}
+            animate={{ height: 16 }}
             transition={{ duration: 0.9, type: "spring" }}
-            exit={{ opacity: 0 }}
-            className="flex flex-row items-center self-start pr-4 gap-2 px-1"
+            exit={{ height: 0 }}
+            className="flex overflow-hiddenمبلغ flex-row items-center self-start pr-4 gap-2 px-1"
           >
             <motion.div
               className="w-2.5 h-2.5 rounded-full"
