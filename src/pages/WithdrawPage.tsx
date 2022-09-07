@@ -7,11 +7,16 @@ import Button from "../components/AuthenticationPage/Button";
 import { FiClock } from "react-icons/fi";
 import WithdrawCrypto from "../components/Assets/WithdrawCrypto";
 import { WarnBox } from "./DepositPage";
+import { useRecoilValue } from "recoil";
+import { userToken } from "../atoms/userToken";
+import LoginRequiredPage from "./LoginRequiredPage";
 
 const WithdrawPage = () => {
   // States
   const [currentForm, setCurrentForm] = useState<"toman" | "crypto">("crypto");
   const [ruleOpen, setRuleOpen] = useState<boolean>(false);
+  const userTokenD = useRecoilValue(userToken);
+  if (!userTokenD) return <LoginRequiredPage />;
   return (
     <div className="flex-auto h-max w-full py-2 px-4 flex flex-row gap-4">
       <ActionsBox>
