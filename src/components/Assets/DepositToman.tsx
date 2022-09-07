@@ -39,7 +39,10 @@ const DepositToman: React.FC<PropsT> = ({ onRuleClick }) => {
       selected_card: yup
         .string()
         .required("لطفا کارت مورد نظر را انتخاب کنید.")
-        .length(16, "لطفا کارت مورد نظر را انتخاب کنید."),
+        .matches(
+          /^0[1-9]{1}[0-9]{1}[1-9]{1}[0-9]{7}$/gi,
+          "لطفا کارت مورد نظر را انتخاب کنید."
+        ),
     }),
     async onSubmit(form) {
       return await httpClient
