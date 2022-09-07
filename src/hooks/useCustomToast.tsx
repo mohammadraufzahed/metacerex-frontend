@@ -12,11 +12,25 @@ export default function useCustomToast(
   toast.custom(
     (t) => (
       <motion.div
-        initial={{ y: t.position?.includes("bottom") ? 100 : -100 }}
-        animate={{ y: 0 }}
+        initial="initial"
+        variants={{
+          initial: { scale: 0, y: t.position?.includes("bottom") ? 100 : -100 },
+          show: {
+            y: 0,
+            scale: 1,
+          },
+          hide: {
+            y: t.position?.includes("bottom") ? "50vh" : "-50vh",
+            scale: 0,
+          },
+        }}
+        transition={{ duration: 1, type: "spring" }}
+        animate={t.visible ? "show" : "hide"}
+        whileTap={{ scale: 0.7 }}
         className={`${
           type == "success" ? "bg-success text-white" : "bg-error text-white"
-        } px-8 py-3 rounded-lg font-vazir font-bold flex flex-row gap-1 items-center justify-center`}
+        } px-8 py-3 cursor-pointer rounded-lg font-vazir font-bold flex flex-row gap-1 items-center justify-center`}
+        onClick={() => toast.dismiss(t.id)}
       >
         {message}
         {type == "success" ? <FaCheck /> : <HiX />}
@@ -24,6 +38,7 @@ export default function useCustomToast(
     ),
     {
       position,
+      duration: 3000,
     }
   );
 }
