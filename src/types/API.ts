@@ -13,6 +13,15 @@ export type AutocompleteAssets = {
   precision: number;
 };
 
+export type AssetList = BaseAsset & {
+  networks: Networks[];
+  balance: string;
+  value_quote: string;
+  value_toman: string;
+  is_depositable?: boolean;
+  is_withdrawable?: boolean;
+};
+
 export type BaseAsset = {
   code: string;
   name?: string;
@@ -108,8 +117,9 @@ export type WsStateEnum = "new" | "read" | "ignored";
 
 export type Networks = {
   name: string;
-  name_detailed: string;
+  name_detailed?: string;
   site_wallet_address: string;
+  has_memo: boolean;
 };
 
 export type NewsArticleDetail = {
