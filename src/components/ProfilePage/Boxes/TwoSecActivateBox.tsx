@@ -32,43 +32,54 @@ export const AnimatedCheckBox: React.FC<AnimatedCheckBoxT> = ({
   active,
   onClick,
   className,
-}) => (
-  <motion.div
-    variants={{
-      active: {
-        background: "rgba(8, 103, 136 1)",
-      },
-      deactive: {
-        background: "rgb(212 212 212)",
-      },
-    }}
-    animate={active ? "active" : "deactive"}
-    className={`w-16 h-9 rounded-2xl cursor-pointer ${className}`}
-    onClick={onClick}
-  >
+}) => {
+  const [disabled, setDisabled] = useState<boolean>(false);
+  return (
     <motion.div
       variants={{
         active: {
-          x: -36,
-          color: "#ffffff",
+          background: "rgba(8, 103, 136 1)",
         },
         deactive: {
-          y: 6,
-          x: -3,
-          color: "rgb(163, 163, 163)",
+          background: "rgb(212 212 212)",
         },
       }}
-      transition={{ duration: 1, type: "spring" }}
       animate={active ? "active" : "deactive"}
-      initial={{ y: 6, x: -3 }}
+      className={`w-16 h-9 rounded-2xl ${className} ${
+        disabled ? "cursor-wait" : "cursor-pointer"
+      }`}
+      onClick={(e) => {
+        if (!disabled) {
+          onClick(e);
+          setDisabled(true);
+          setTimeout(() => setDisabled(false), 900);
+        }
+      }}
     >
-      {!active ? (
-        <BsFillXCircleFill className="text-2xl" />
-      ) : (
-        <AiFillCheckCircle className="text-2xl" />
-      )}
+      <motion.div
+        variants={{
+          active: {
+            x: -36,
+            color: "#ffffff",
+          },
+          deactive: {
+            y: 6,
+            x: -3,
+            color: "rgb(163, 163, 163)",
+          },
+        }}
+        transition={{ duration: 1, type: "spring" }}
+        animate={active ? "active" : "deactive"}
+        initial={{ y: 6, x: -3 }}
+      >
+        {!active ? (
+          <BsFillXCircleFill className="text-2xl" />
+        ) : (
+          <AiFillCheckCircle className="text-2xl" />
+        )}
+      </motion.div>
     </motion.div>
-  </motion.div>
-);
+  );
+};
 
 export default TwoSecActivateBox;
