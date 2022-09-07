@@ -10,9 +10,14 @@ import { useNavigate } from "react-router-dom";
 type PropsT = {
   fieldUpdater: any;
   card_value: string;
+  error?: string;
 };
 
-const CardSelectBox: React.FC<PropsT> = ({ fieldUpdater, card_value }) => {
+const CardSelectBox: React.FC<PropsT> = ({
+  fieldUpdater,
+  card_value,
+  error,
+}) => {
   // States
   const navigate = useNavigate();
   // Queries
@@ -50,12 +55,12 @@ const CardSelectBox: React.FC<PropsT> = ({ fieldUpdater, card_value }) => {
                     background: "rgba(8 103 136 0)",
                   },
                 }}
-                animate={card_value == item.number ? "selected" : "idle"}
+                animate={card_value == item.sheba ? "selected" : "idle"}
                 whileHover="hover"
                 whileTap="selected"
                 onTap={() =>
-                  card_value !== item.number
-                    ? fieldUpdater("selected_card", item.number)
+                  card_value !== item.sheba
+                    ? fieldUpdater("selected_card", item.sheba)
                     : fieldUpdater("selected_card", "")
                 }
                 className="w-4 cursor-pointer h-4 border-2 rounded-full border-primary-700"
@@ -72,6 +77,21 @@ const CardSelectBox: React.FC<PropsT> = ({ fieldUpdater, card_value }) => {
       ) : (
         <NotFound text="کارت بانکی یافت نشد" />
       )}
+      <motion.span
+        variants={{
+          show: {
+            height: 15,
+          },
+          hidden: {
+            height: 0,
+          },
+        }}
+        initial="hidden"
+        animate={error ? "show" : "hidden"}
+        className="text-error font-vazir font-normal text-xs mr-1"
+      >
+        {error}
+      </motion.span>
       <motion.div
         initial={{ scale: 1 }}
         whileHover={{ scale: 1.02 }}
