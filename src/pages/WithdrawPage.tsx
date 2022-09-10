@@ -137,7 +137,7 @@ type UnorderListItemT = {
   text: string;
 };
 
-const UnorderListItem: React.FC<UnorderListItemT> = ({ text }) => (
+export const UnorderListItem: React.FC<UnorderListItemT> = ({ text }) => (
   <div className="font-vazir font-normal items-start flex flex-row gap-2 text-sm">
     <div className="w-[3px] h-[3px] rounded-full bg-black mt-2" />
     <span>{text}</span>

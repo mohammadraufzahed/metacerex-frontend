@@ -15,7 +15,9 @@ const PersonalInformationForm: React.FC = () => {
   const [userProfileD, setUserProfile] = useRecoilState(userProfile);
   // Queries
   const identityData = useQuery(["identityDataFetcher"], getIdentity, {
-    networkMode: "offlineFirst",
+    networkMode: "online",
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
   // Effects
   useEffect(() => {
