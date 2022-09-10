@@ -86,7 +86,6 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
   }, [DepositCryptoFormik.errors]);
   return (
     <motion.div
-      key={nanoid()}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

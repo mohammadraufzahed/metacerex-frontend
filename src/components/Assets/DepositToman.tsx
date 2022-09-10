@@ -72,7 +72,6 @@ const DepositToman: React.FC<PropsT> = ({ onRuleClick }) => {
   const cardsQuery = useQuery(["cards_deposit"], getCards);
   return (
     <motion.div
-      key={nanoid()}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

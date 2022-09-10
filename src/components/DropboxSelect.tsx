@@ -23,7 +23,7 @@ const DropboxSelect: React.FC<PropsT> = ({
   onChange,
 }) => {
   // States
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   return (
     <motion.div
@@ -65,12 +65,16 @@ const DropboxSelect: React.FC<PropsT> = ({
       </div>
       <div className="relative mb-2 w-full">
         <Input
+          type="text"
           isPrimary
           id={`search_${nanoid()}`}
           name={`search_${nanoid()}`}
           label=""
           value={search}
-          onChange={({ currentTarget }) => setSearch(currentTarget.value)}
+          onChange={({ currentTarget }) => {
+            setOpen(false);
+            setSearch(currentTarget.value);
+          }}
         />
         <Search className="absolute top-4 left-2" />
       </div>

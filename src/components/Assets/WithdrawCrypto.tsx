@@ -93,7 +93,6 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3, type: "tween" }}
-      key={nanoid()}
       className="w-full flex flex-col gap-7 items-center"
     >
       <DropboxSelect
