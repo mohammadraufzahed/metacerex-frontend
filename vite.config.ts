@@ -3,17 +3,7 @@ import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 import path from "node:path";
 
-const prodAlias = {
-  "@tanstack/react-query-devtools": path.resolve(
-    __dirname,
-    "node_modules",
-    "@tanstack",
-    "react-query-devtools",
-    "build",
-    "cjs",
-    "noop.js"
-  ),
-};
+const prodAlias = {};
 const devAlias = {};
 
 // https://vitejs.dev/config/
