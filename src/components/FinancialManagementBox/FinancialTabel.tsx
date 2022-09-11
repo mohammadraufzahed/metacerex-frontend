@@ -2,9 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import { financialBoxStatus } from "../../atoms/financialBoxStatus";
+import { userToken } from "../../atoms/userToken";
+import LoginRequiredPage from "../../pages/LoginRequiredPage";
 
 const FinancialTabel: React.FC = () => {
   const financialBoxStat = useRecoilValue(financialBoxStatus);
+  const userTokenD = useRecoilValue(userToken);
   const containerAnimation = {
     open: {
       height: 450,
@@ -26,7 +29,7 @@ const FinancialTabel: React.FC = () => {
   };
   return (
     <motion.div
-      className="w-full bg-gray-50 overflow-hidden border-t-[1px]"
+      className="w-full flex bg-gray-50 overflow-hidden border-t-[1px]"
       initial={{ height: 0 }}
       variants={containerAnimation}
       animate={
@@ -40,7 +43,7 @@ const FinancialTabel: React.FC = () => {
       }
       transition={{ duration: 1 }}
     >
-      ss
+      {!userTokenD ? <LoginRequiredPage /> : <></>}
     </motion.div>
   );
 };
