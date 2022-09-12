@@ -13,6 +13,36 @@ export type AutocompleteAssets = {
   precision: number;
 };
 
+export type OrdersOpen = {
+  id: number;
+  symbol: number;
+  asset: {
+    code: string;
+    name?: string;
+    name_farsi?: string;
+    icon?: string;
+  };
+  side: "BUY" | "SELL";
+  type:
+    | "LIMIT"
+    | "MARKET"
+    | "STOP_LOSS"
+    | "STOP_LOSS_LIMIT"
+    | "TAKE_PROFIT"
+    | "TAKE_PROFIT_LIMIT"
+    | "LIMIT_MAKER";
+  quantity?: number;
+  price?: number;
+  added_on: string;
+  updated_on: string;
+  progress: number;
+  fee_total?: string;
+};
+
+export type PaginatedOrdersOpen = Paginated & {
+  results: OrdersOpen[];
+};
+
 export type AssetList = BaseAsset & {
   networks: Networks[];
   balance: string;
