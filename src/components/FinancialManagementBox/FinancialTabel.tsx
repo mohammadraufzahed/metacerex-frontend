@@ -1,49 +1,93 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import { financialBoxStatus } from "../../atoms/financialBoxStatus";
 import { userToken } from "../../atoms/userToken";
 import LoginRequiredPage from "../../pages/LoginRequiredPage";
+import { TabItem } from "./TabItem";
+import OpenOrderTable from "./tables/OpenOrderTable";
 
 const FinancialTabel: React.FC = () => {
+  // States
   const financialBoxStat = useRecoilValue(financialBoxStatus);
   const userTokenD = useRecoilValue(userToken);
-  const containerAnimation = {
-    open: {
-      height: 450,
-      borderTopColor: "rgba(0 0 0 1)",
-    },
-    close: {
-      height: 0,
-      borderTopColor: "rgba(0 0 0 0)",
-    },
-    max: {
-      height: 960,
-      borderTopColor: "rgba(0 0 0 1)",
-    },
-    maxMobile: {
-      height: "82.3vh",
-      bottom: 0,
-      left: 0,
-    },
-  };
+  const [currentTab, setCurrentTap] = useState<
+    "open_order" | "order_history" | "transaction_history"
+  >("open_order");
   return (
     <motion.div
-      className="w-full flex bg-gray-50 overflow-hidden border-t-[1px]"
       initial={{ height: 0 }}
-      variants={containerAnimation}
-      animate={
-        financialBoxStat == "open"
-          ? "open"
-          : financialBoxStat == "max"
-          ? "max"
-          : financialBoxStat == "mobileOpen"
-          ? "maxMobile"
-          : "close"
-      }
+      variants={{
+        max: {
+          height: "85vh",
+        },
+        open: {
+          height: "42vh",
+        },
+        mobileOpen: {
+          height: "79vh",
+        },
+      }}
+      animate={financialBoxStat}
       transition={{ duration: 1 }}
+      className="w-full flex flex-col overflow-y-scroll bg-gray-50 overflow-x-hidden border-t-[1px] px-4"
     >
-      {!userTokenD ? <LoginRequiredPage /> : <></>}
+      <div className="px-2 relative py-4 flex flex-auto flex-col h-full w-full">
+        {!userTokenD ? (
+          <LoginRequiredPage />
+        ) : (
+          <div className="w-full">
+            <div className="w-full justify-between flex flex-row">
+              <div className=" flex flex-row gap-4">
+                <TabItem
+                  text="سفارشات باز"
+                  onTap={() => setCurrentTap("open_order")}
+                  active={currentTab == "open_order"}
+                />
+                <TabItem
+                  text="تاریخچه سفارشات"
+                  onTap={() => setCurrentTap("order_history")}
+                  active={currentTab == "order_history"}
+                />
+                <TabItem
+                  text="تاریخچه تراکنش"
+                  onTap={() => setCurrentTap("transaction_history")}
+                  active={currentTab == "transaction_history"}
+                />
+              </div>
+              <motion.div
+                variants={{
+                  initial: {
+                    y: 0,
+                    scale: 1,
+                  },
+                  hover: {
+                    y: -3,
+                  },
+                  tap: {
+                    y: -5,
+                    scale: 1.05,
+                  },
+                }}
+                initial="initial"
+                whileHover="hover"
+                whileTap="tap"
+                className="fixed bottom-20 left-[28%] lg:relative lg:bottom-1 lg:left-0 bg-white flex self-center flex-row gap-2 items-center border-[1px] border-primary-700 rounded-2xl py-2 px-4"
+              >
+                <span className="font-light font-vazir text-sm text-primary-700">
+                  دریافت خروجی اکسل
+                </span>
+                <img src="/svgs/excel.svg" />
+              </motion.div>
+            </div>
+            <div className="flex-auto py-3.5 h-full scrollbar-vertical overflow-scroll bg-neutral-200">
+              <AnimatePresence mode="wait">
+                {currentTab == "open_order" ? <OpenOrderTable /> : null}
+              </AnimatePresence>
+            </div>
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 };
