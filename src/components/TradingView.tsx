@@ -7,28 +7,22 @@ import { financialBoxStatus } from "../atoms/financialBoxStatus";
 const TradingView: React.FC = () => {
   const financialBoxStat = useRecoilValue(financialBoxStatus);
   const containerAnimation = {
-    hideDesktop: {
+    max: {
       height: 0,
     },
-    hideMobile: {
-      height: 0,
-      display: "none",
+    idle: {
+      height: "86vh",
     },
-    show: {
-      flex: 1,
+    open: {
+      height: "42vh",
     },
   };
   return (
     <motion.div
       variants={containerAnimation}
       initial={{}}
-      animate={
-        financialBoxStat == "max"
-          ? "hideDesktop"
-          : financialBoxStat == "mobileOpen"
-          ? "hideMobile"
-          : "show"
-      }
+      animate={financialBoxStat}
+      className="flex-a"
       transition={{ duration: 1 }}
     >
       <AdvancedChart
