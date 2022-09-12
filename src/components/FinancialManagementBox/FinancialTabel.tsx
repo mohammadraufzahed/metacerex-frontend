@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import { financialBoxStatus } from "../../atoms/financialBoxStatus";
@@ -6,10 +6,16 @@ import { userToken } from "../../atoms/userToken";
 import LoginRequiredPage from "../../pages/LoginRequiredPage";
 import { TabItem } from "./TabItem";
 import OpenOrderTable from "./tables/OpenOrderTable";
+import OrderHistoryTable from "./tables/OrderHistoryTable";
+import Loading from "../Loading";
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFetch from "../ErrorFetch";
 
 const FinancialTabel: React.FC = () => {
   // States
   const financialBoxStat = useRecoilValue(financialBoxStatus);
+  const [orderHistorySearch, setOrderHistorySearch] = useState<string>("");
   const userTokenD = useRecoilValue(userToken);
   const [currentTab, setCurrentTap] = useState<
     "open_order" | "order_history" | "transaction_history"
@@ -80,10 +86,27 @@ const FinancialTabel: React.FC = () => {
                 <img src="/svgs/excel.svg" />
               </motion.div>
             </div>
-            <div className="flex-auto py-3.5 h-full scrollbar-vertical overflow-scroll bg-neutral-200">
-              <AnimatePresence mode="wait">
-                {currentTab == "open_order" ? <OpenOrderTable /> : null}
-              </AnimatePresence>
+            <div className="flex-auto py-3.5 h-full flex flex-col overflow-hidden gap-2 relative bg-neutral-200">
+              <Suspense fallback={<Loading />}>
+                <QueryErrorResetBoundary>
+                  {({ reset }) => (
+                    <ErrorBoundary
+                      onReset={reset}
+                      fallbackRender={({ resetErrorBoundary }) => (
+                        <ErrorFetch resetErrorBoundary={resetErrorBoundary} />
+                      )}
+                    >
+                      <AnimatePresence mode="wait">
+                        {currentTab == "open_order" ? (
+                          <OpenOrderTable />
+                        ) : currentTab == "order_history" ? (
+                          <OrderHistoryTable />
+                        ) : null}
+                      </AnimatePresence>
+                    </ErrorBoundary>
+                  )}
+                </QueryErrorResetBoundary>
+              </Suspense>
             </div>
           </div>
         )}

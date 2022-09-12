@@ -22,7 +22,9 @@ const columnHelper = createColumnHelper<OrdersOpen>();
 const tableColumns = [
   columnHelper.accessor("side", {
     header: () => "نوع عملیات",
-    cell: (info) => <TCell title={info.getValue()} />,
+    cell: (info) => (
+      <TCell title={info.getValue() == "BUY" ? "خرید" : "فروش"} />
+    ),
     size: 100,
   }),
   columnHelper.accessor("asset", {
@@ -84,50 +86,62 @@ const OpenOrderTable = () => {
   return (
     <>
       {!openOrdersQuery.isFetching ? (
-        <motion.table
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, type: "tween" }}
           className="w-full w-max-full overflow-scroll"
-          width={10000}
         >
-          <thead className="border-b-[1px] border-b-black">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <THead
-                    key={header.id}
-                    colSpan={header.colSpan}
-                    style={{ minWidth: header.getSize(), position: "relative" }}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </THead>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border-b-[1px] border-b-neutral-300">
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </motion.table>
+          <table className="min-w-full">
+            <thead className="border-b-[1px] border-b-black">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <THead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      style={{
+                        minWidth: header.getSize(),
+                        position: "relative",
+                      }}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </THead>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="border-b-[1px] border-b-neutral-300"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </motion.div>
       ) : (
         <Loading />
       )}
-      {(openOrdersQuery.data && openOrdersQuery.data.previous) ||
+      {(openOrdersQuery.data &&
+        !openOrdersQuery.isFetching &&
+        openOrdersQuery.data.previous) ||
       openOrdersQuery.data?.next ? (
         <div className="mx-auto w-max flex flex-row gap-3 my-4">
           <PaginationButton

@@ -13,30 +13,43 @@ export type AutocompleteAssets = {
   precision: number;
 };
 
-export type OrdersOpen = {
-  id: number;
-  symbol: number;
-  asset: {
-    code: string;
-    name?: string;
-    name_farsi?: string;
-    icon?: string;
-  };
-  side: "BUY" | "SELL";
-  type:
-    | "LIMIT"
-    | "MARKET"
-    | "STOP_LOSS"
-    | "STOP_LOSS_LIMIT"
-    | "TAKE_PROFIT"
-    | "TAKE_PROFIT_LIMIT"
-    | "LIMIT_MAKER";
-  quantity?: number;
-  price?: number;
+export type OrderStatus = "OPEN" | "CANCELED" | "REJECTED" | "EXPIRED" | "DONE";
+
+export type OrderType = "INSTANT" | "MAIN";
+
+export type OrderHistory = {
+  order_id: string;
   added_on: string;
-  updated_on: string;
-  progress: number;
+  asset: Asset;
+  icon: string;
+  type: OrderType;
+  asset_unit_price_toman?: string;
+  quantity: string;
+  amount_toman?: string;
   fee_total?: string;
+  state: OrderStatus;
+};
+
+export type PaginatedOrderHistory = Paginated & {
+  results: OrderHistory[];
+};
+
+export type Asset = {
+  code: string;
+  name?: string;
+  name_farsi?: string;
+  icon: string;
+};
+
+export type OrdersOpen = {
+  asset: Asset;
+  side: "BUY" | "SELL";
+  order_id: string;
+  type: OrderType;
+  quantity: number;
+  added_on: string;
+  quantity_value_usdt: string;
+  quantity_value_toman: string;
 };
 
 export type PaginatedOrdersOpen = Paginated & {
