@@ -14,6 +14,7 @@ import { OrderHistory } from "../../../types/API";
 import Loading from "../../Loading";
 import PaginationButton from "../../PaginationButton";
 import { TCell, THead } from "../../Wallet/WalletTableUtils";
+import TablePaginationButtons from "../TablePaginationButtons";
 
 const columnHelper = createColumnHelper<OrderHistory>();
 const columns = [
@@ -172,25 +173,13 @@ const OrderHistoryTable: React.FC<PropsT> = ({}) => {
           </table>
         </motion.div>
       )}
-      {(orderHistoryQuery.data &&
-        !orderHistoryQuery.isFetching &&
-        orderHistoryQuery.data.previous) ||
-      orderHistoryQuery.data?.next ? (
-        <div className="mx-auto w-max flex flex-row gap-3 my-4">
-          <PaginationButton
-            text="بعدی"
-            onClick={() => setPaginated((paginated) => paginated + API_LIMIT)}
-            disabled={orderHistoryQuery.data && !orderHistoryQuery.data.next}
-          />
-          <PaginationButton
-            onClick={() => setPaginated((paginated) => paginated - API_LIMIT)}
-            text="قبلی"
-            disabled={
-              orderHistoryQuery.data && !orderHistoryQuery.data.previous
-            }
-          />
-        </div>
-      ) : null}
+      <TablePaginationButtons
+        query={orderHistoryQuery}
+        nextPaginated={() => setPaginated((paginated) => paginated + API_LIMIT)}
+        previousePaginated={() =>
+          setPaginated((paginated) => paginated - API_LIMIT)
+        }
+      />
     </>
   );
 };

@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import PaginationButton from "../../PaginationButton";
 import { API_LIMIT } from "../../../constants/APILimit";
 import Loading from "../../Loading";
+import TablePaginationButtons from "../TablePaginationButtons";
 
 const columnHelper = createColumnHelper<OrdersOpen>();
 
@@ -139,23 +140,13 @@ const OpenOrderTable = () => {
       ) : (
         <Loading />
       )}
-      {(openOrdersQuery.data &&
-        !openOrdersQuery.isFetching &&
-        openOrdersQuery.data.previous) ||
-      openOrdersQuery.data?.next ? (
-        <div className="mx-auto w-max flex flex-row gap-3 my-4">
-          <PaginationButton
-            text="بعدی"
-            onClick={() => setPaginated((paginated) => paginated + API_LIMIT)}
-            disabled={openOrdersQuery.data && !openOrdersQuery.data.next}
-          />
-          <PaginationButton
-            onClick={() => setPaginated((paginated) => paginated - API_LIMIT)}
-            text="قبلی"
-            disabled={openOrdersQuery.data && !openOrdersQuery.data.previous}
-          />
-        </div>
-      ) : null}
+      <TablePaginationButtons
+        query={openOrdersQuery}
+        nextPaginated={() => setPaginated((paginated) => paginated + API_LIMIT)}
+        previousePaginated={() =>
+          setPaginated((paginated) => paginated - API_LIMIT)
+        }
+      />
     </>
   );
 };
