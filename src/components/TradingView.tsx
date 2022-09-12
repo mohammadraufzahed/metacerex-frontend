@@ -11,7 +11,7 @@ const TradingView: React.FC = () => {
       height: 0,
     },
     idle: {
-      height: "86vh",
+      height: "85.5vh",
     },
     open: {
       height: "42vh",

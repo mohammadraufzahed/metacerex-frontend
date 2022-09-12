@@ -24,7 +24,7 @@ const FinancialBar: React.FC = () => {
       ? setFinancialBoxStat("mobileOpen")
       : setFinancialBoxStat("open");
   return (
-    <div className="flex flex-row z-50 justify-between bg-neutral-50 px-6 py-3 rounded-t-lg">
+    <div className="flex w-full flex-row z-50 justify-between bg-neutral-50 px-6 py-3 rounded-t-lg">
       <motion.span
         className="font-vazir font-bold text-xl cursor-pointer transition-all duration-300 text-black hover:drop-shadow-sm"
         onClick={openOnClickHandler}

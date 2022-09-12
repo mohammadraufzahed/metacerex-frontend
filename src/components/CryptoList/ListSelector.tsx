@@ -30,7 +30,7 @@ const ListSelector: React.FC = () => {
             <ErrorFetch resetErrorBoundary={resetErrorBoundary} />
           )}
         >
-          <div className="relative lg:max-h-[440px] lg:min-h-[440px] lg:overflow-y-hidden">
+          <div className="relative lg:h-[49.5vh] lg:overflow-hidden">
             <ListContainerMobile />
             <ListContainerDesktop />
           </div>

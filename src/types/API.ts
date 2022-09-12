@@ -56,6 +56,20 @@ export type PaginatedOrdersOpen = Paginated & {
   results: OrdersOpen[];
 };
 
+export type TransactionHistory = {
+  nanoid: string;
+  added_on: string;
+  asset: Asset;
+  type: "DEPOSIT" | "WITHDRAW";
+  quantity: string;
+  state: "NEW" | "PROGRESS" | "DONE" | "CANCELLED" | "REJECTED";
+  description: string;
+};
+
+export type PaginatedTransactionHistory = Paginated & {
+  results: TransactionHistory[];
+};
+
 export type AssetList = BaseAsset & {
   networks: Networks[];
   balance: string;

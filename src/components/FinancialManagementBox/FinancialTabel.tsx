@@ -26,10 +26,10 @@ const FinancialTabel: React.FC = () => {
       initial={{ height: 0 }}
       variants={{
         max: {
-          height: "85vh",
+          height: "85.9vh",
         },
         open: {
-          height: "42vh",
+          height: "43.5vh",
         },
         mobileOpen: {
           height: "79vh",
@@ -79,7 +79,7 @@ const FinancialTabel: React.FC = () => {
                 initial="initial"
                 whileHover="hover"
                 whileTap="tap"
-                className="fixed bottom-20 left-[28%] lg:relative lg:bottom-1 lg:left-0 bg-white flex self-center flex-row gap-2 items-center border-[1px] border-primary-700 rounded-2xl py-2 px-4"
+                className="fixed cursor-pointer bottom-28 left-0 right-0 mx-auto w-max z-50 lg:relative lg:left-[unset] lg:right-[unset] lg:mx-0 lg:bottom-1 bg-white flex self-center flex-row gap-2 items-center border-[1px] border-primary-700 rounded-2xl py-2 px-4"
               >
                 <span className="font-light font-vazir text-sm text-primary-700">
                   دریافت خروجی اکسل

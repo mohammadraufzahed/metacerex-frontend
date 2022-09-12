@@ -30,9 +30,9 @@ const ListPage: React.FC = () => {
       <Helmet>
         <title>صرافی - لیست ارز ها</title>
       </Helmet>
-      <div className="flex-auto max-h-screen w-full h-max-full flex flex-col pt-4 max-w-[2000px]">
+      <div className="flex-auto max-h-screen w-full h-max-full flex flex-col pt-4 max-w-[1600px] 2xl:mx-auto">
         <div className="w-full flex flex-col flex-auto pb-5 md:px-4 lg:grid lg:grid-cols-12 lg:gap-x-2 lg:justify-center lg:max-h-[1060px]">
-          <div className="lg:col-span-5 xl:col-span-3 gap-2 xl:flex xl:flex-col">
+          <div className="lg:col-span-5 gap-2 xl:col-span-4 xl:flex xl:flex-col">
             <ErrorBoundary fallback={<Error />}>
               <Suspense fallback={<Loading />}>
                 <ListSelector />
@@ -44,7 +44,7 @@ const ListPage: React.FC = () => {
               </Suspense>
             </ErrorBoundary>
           </div>
-          <div className="w-full flex-auto mt-1 lg:mt-0 lg:col-span-7 xl:col-span-9 flex flex-col max-h-full relative">
+          <div className="w-full flex-auto mt-1 lg:mt-0 lg:col-span-7 flex xl:col-span-8 flex-col max-h-full relative">
             <TradingView />
             <FinancialManagementBox />
           </div>

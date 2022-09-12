@@ -34,7 +34,7 @@ type TCellT = {
 };
 
 export const TCell: React.FC<TCellT> = ({ title }) => (
-  <span className="font-vazir font-normal text-base flex justify-center items-center w-full py-4">
+  <span className="font-vazir font-normal text-center text-base flex justify-center items-center w-full py-4">
     {title}
   </span>
 );

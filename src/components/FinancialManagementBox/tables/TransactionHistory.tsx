@@ -53,6 +53,7 @@ const columns = [
   columnHelper.accessor("description", {
     header: "توضیحات",
     cell: (info) => <TCell title={info.getValue()} />,
+    size: 220,
   }),
 ];
 

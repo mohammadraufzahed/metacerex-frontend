@@ -19,7 +19,7 @@ const NewsBox: React.FC = () => {
             <ErrorFetch resetErrorBoundary={resetErrorBoundary} />
           )}
         >
-          <div className="hidden bg-neutral-50 mt-3 flex-auto rounded-lg lg:flex flex-col items-center justify-evenly pt-8 gap-6">
+          <div className="hidden bg-neutral-50 mt-3 rounded-lg h-[39.5vh] overflow-hidden lg:flex flex-col items-center justify-evenly pt-8 gap-6">
             {data?.slice(0, 2).map((item) => (
               <NewsItem key={item.pk} {...item} />
             ))}
