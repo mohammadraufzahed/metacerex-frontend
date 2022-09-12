@@ -45,7 +45,6 @@ const Login: React.FC = () => {
               "success",
               "شما با موفقیت وارد شدید"
             );
-            navigate("/dashboard/list", { replace: true });
           }
         });
     },
