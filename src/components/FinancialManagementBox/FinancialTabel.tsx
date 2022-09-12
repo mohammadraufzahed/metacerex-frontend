@@ -11,6 +11,7 @@ import Loading from "../Loading";
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFetch from "../ErrorFetch";
+import TransactionHistory from "./tables/TransactionHistory";
 
 const FinancialTabel: React.FC = () => {
   // States
@@ -36,7 +37,7 @@ const FinancialTabel: React.FC = () => {
       }}
       animate={financialBoxStat}
       transition={{ duration: 1 }}
-      className="w-full flex flex-col overflow-y-scroll bg-gray-50 overflow-x-hidden border-t-[1px] px-4"
+      className="w-full flex flex-col overflow-y-scroll scrollbar-vertical bg-gray-50 overflow-x-hidden border-t-[1px] px-4"
     >
       <div className="px-2 relative py-4 flex flex-auto flex-col h-full w-full">
         {!userTokenD ? (
@@ -86,7 +87,7 @@ const FinancialTabel: React.FC = () => {
                 <img src="/svgs/excel.svg" />
               </motion.div>
             </div>
-            <div className="flex-auto py-3.5 h-full flex flex-col overflow-hidden gap-2 relative bg-neutral-200">
+            <div className="flex-auto py-3.5 h-full flex flex-col overflow-hidden scrollbar-vertical gap-2 relative bg-neutral-200">
               <Suspense fallback={<Loading />}>
                 <QueryErrorResetBoundary>
                   {({ reset }) => (
@@ -101,7 +102,9 @@ const FinancialTabel: React.FC = () => {
                           <OpenOrderTable />
                         ) : currentTab == "order_history" ? (
                           <OrderHistoryTable />
-                        ) : null}
+                        ) : (
+                          <TransactionHistory />
+                        )}
                       </AnimatePresence>
                     </ErrorBoundary>
                   )}
