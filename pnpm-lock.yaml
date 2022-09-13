@@ -4,6 +4,7 @@ specifiers:
   '@tanstack/react-query': ^4.2.1
   '@tanstack/react-query-devtools': ^4.2.1
   '@tanstack/react-table': ^8.5.13
+  '@types/jalaali-js': ^1.1.0
   '@types/node': ^18.7.13
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
@@ -19,6 +20,7 @@ specifiers:
   formik: ^2.2.9
   framer-motion: ^7.1.0
   hamburger-react: ^2.5.0
+  jalaali-js: ^1.2.6
   localforage: ^1.10.0
   nanoid: ^4.0.0
   postcss: ^8.4.16
@@ -53,6 +55,7 @@ dependencies:
   formik: 2.2.9_react@18.2.0
   framer-motion: 7.2.1_biqbaboplfbrettd7655fr4n2y
   hamburger-react: 2.5.0_react@18.2.0
+  jalaali-js: 1.2.6
   localforage: 1.10.0
   nanoid: 4.0.0
   react: 18.2.0
@@ -73,6 +76,7 @@ dependencies:
   yup: 0.32.11
 
 devDependencies:
+  '@types/jalaali-js': 1.1.0
   '@types/node': 18.7.14
   '@types/react': 18.0.18
   '@types/react-dom': 18.0.6
@@ -674,6 +678,10 @@ packages:
     dependencies:
       '@types/minimatch': 5.1.2
       '@types/node': 18.7.14
+    dev: true
+
+  /@types/jalaali-js/1.1.0:
+    resolution: {integrity: sha512-C/tbcdjhPllUUKOtaUSPlDdkjJN+k1/5zqqiJiHLpt3gNuIh6I17/3D8T/nPcSSdfCuLTRbhEwjJCapoQveHXQ==}
     dev: true
 
   /@types/keyv/3.1.4:
@@ -2477,6 +2485,10 @@ packages:
       has-to-string-tag-x: 1.4.1
       is-object: 1.0.2
     dev: true
+
+  /jalaali-js/1.2.6:
+    resolution: {integrity: sha512-io974va+Qyu+UfuVX3UIAgJlxLhAMx9Y8VMfh+IG00Js7hXQo1qNQuwSiSa0xxco0SVgx5HWNkaiCcV+aZ8WPw==}
+    dev: false
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

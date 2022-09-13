@@ -21,6 +21,7 @@
     }
   },
   "devDependencies": {
+    "@types/jalaali-js": "^1.1.0",
     "@types/node": "^18.7.13",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
@@ -48,6 +49,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^7.1.0",
     "hamburger-react": "^2.5.0",
+    "jalaali-js": "^1.2.6",
     "localforage": "^1.10.0",
     "nanoid": "^4.0.0",
     "react": "^18.2.0",

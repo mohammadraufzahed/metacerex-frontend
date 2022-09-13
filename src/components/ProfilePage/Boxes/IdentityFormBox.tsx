@@ -12,8 +12,14 @@ import { userProfile } from "../../../atoms/userProfile";
 import MobileAndPhoneVerifyModal from "./MobileAndPhoneVerifyModal";
 import { httpClient } from "../../../axios";
 import useCustomToast from "../../../hooks/useCustomToast";
+import { toGregorian } from "jalaali-js";
+import { useDateToString } from "../../../utils/date";
 
-const IdentityFormBox: React.FC = () => {
+type PropsT = {
+  onUpdate: () => void;
+};
+
+const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
   const [userProfileD, setUserProfile] = useRecoilState(userProfile);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const mobileAndEmailFormik = useFormik({
@@ -111,12 +117,26 @@ const IdentityFormBox: React.FC = () => {
         .nullable(true),
     }),
     async onSubmit(identity): Promise<void> {
-      await setIdentity(identity);
+      const date = identity.birth_date.split("-");
+      const gregorianDate = toGregorian(
+        parseInt(date[0]),
+        parseInt(date[1]),
+        parseInt(date[2])
+      );
+      await setIdentity({
+        ...identity,
+        birth_date: `${gregorianDate.gy}-${gregorianDate.gm}-${gregorianDate.gd}`,
+      });
     },
   });
   useEffect(() => {
     if (userProfileD) {
       identityFormik.setValues(userProfileD);
+      const date = useDateToString(userProfileD.birth_date);
+      identityFormik.setFieldValue(
+        "birth_date",
+        `${date.year}-${date.month_number}-${date.day}`
+      );
     }
   }, [userProfileD]);
   return (
@@ -261,6 +281,7 @@ const IdentityFormBox: React.FC = () => {
             return new Promise(async (resolve) => {
               await identityFormik.submitForm();
               await mobileAndEmailFormik.submitForm();
+              onUpdate();
             });
           }}
           loading={

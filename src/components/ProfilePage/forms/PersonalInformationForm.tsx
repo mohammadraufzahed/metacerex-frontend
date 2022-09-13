@@ -37,7 +37,7 @@ const PersonalInformationForm: React.FC = () => {
         className="w-full py-2 lg:py-8 flex flex-col gap-6 lg:gap-8"
       >
         <InformationAuthStatusBox />
-        <IdentityFormBox />
+        <IdentityFormBox onUpdate={() => identityData.refetch()} />
         <PasswordChangeFormBox />
         <ReferralCodeBox />
       </motion.div>
