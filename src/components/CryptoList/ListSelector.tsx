@@ -1,26 +1,91 @@
-import { QueryErrorResetBoundary, useQuery } from "@tanstack/react-query";
-import React, { lazy, useEffect } from "react";
+import {
+  QueryErrorResetBoundary,
+  useInfiniteQuery,
+  useQuery,
+} from "@tanstack/react-query";
+import React, { lazy, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { screen } from "../../atoms/screen";
 import { tickers } from "../../atoms/tickers";
-import { useTickers } from "../../hooks/useTickers";
+import { tickerSearch } from "../../atoms/tickerSearch";
+import { tickers_fav } from "../../atoms/tickers_fav";
+import { userToken } from "../../atoms/userToken";
+import { API_LIMIT } from "../../constants/APILimit";
+import { getTickers } from "../../hooks/useTickers";
+import { TickerTable } from "../../types/API";
 import ErrorFetch from "../ErrorFetch";
 
 const ListContainerMobile = lazy(() => import("./ListContainer.mobile"));
 const ListContainerDesktop = lazy(() => import("./ListContainer.desktop"));
 
 const ListSelector: React.FC = () => {
-  const tickersQuery = useQuery(["tickers"], useTickers, {
-    staleTime: 60000,
-    refetchIntervalInBackground: true,
-    refetchInterval: 60000,
-  });
-  const screenR = useRecoilValue(screen);
+  const search = useRecoilValue(tickerSearch);
   const [tickersList, setTickersList] = useRecoilState(tickers);
+  const [tickersFavList, setTickersFavList] = useRecoilState(tickers_fav);
+  const [favedEnabled, setFavedEnabled] = useState<boolean>(false);
+  const userTokenD = useRecoilValue(userToken);
+  // Queries
+  const tickersQuery = useInfiniteQuery(
+    ["tickers", search],
+    ({ pageParam }) => getTickers(pageParam, "no", search ?? ""),
+    {
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+      getNextPageParam: (lastPage) => lastPage.next ?? undefined,
+      suspense: false,
+    }
+  );
+  const tickersFavouriteQuery = useInfiniteQuery(
+    ["tickers_favourite", search],
+    ({ pageParam }) => getTickers(pageParam, "yes", search ?? ""),
+    {
+      getNextPageParam: (lastPage) => lastPage.next ?? undefined,
+      enabled: favedEnabled,
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+      suspense: false,
+    }
+  );
+  // Functions
+  const onHitEnd = (e: HTMLDivElement) => {
+    if (e.scrollHeight - e.scrollTop - 1 < e.offsetHeight) {
+      if (tickersQuery.data) {
+        tickersQuery.fetchNextPage();
+      }
+    }
+  };
+  const onHitEndFav = (e: HTMLDivElement) => {
+    if (e.scrollHeight - e.scrollTop - 1 < e.offsetHeight) {
+      if (tickersFavouriteQuery.data) {
+        tickersFavouriteQuery.fetchNextPage();
+      }
+    }
+  };
+  // Effects
   useEffect(() => {
-    setTickersList(tickersQuery.data ?? []);
-  }, [tickersQuery]);
+    if (tickersQuery.data) {
+      const tickers: TickerTable[] = [];
+      tickersQuery.data.pages.map((item) => {
+        item.results.map((item) => tickers.push(item));
+      });
+      setTickersList(tickers);
+    }
+  }, [tickersQuery.data]);
+  useEffect(() => {
+    if (tickersFavouriteQuery.data) {
+      const tickers: TickerTable[] = [];
+      tickersFavouriteQuery.data.pages.map((item) => {
+        item.results.map((item) => tickers.push(item));
+      });
+      setTickersFavList(tickers);
+    }
+  }, [tickersFavouriteQuery.data]);
+  useEffect(() => {
+    if (userTokenD) {
+      setFavedEnabled(true);
+    }
+  }, [userTokenD]);
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
@@ -30,9 +95,15 @@ const ListSelector: React.FC = () => {
             <ErrorFetch resetErrorBoundary={resetErrorBoundary} />
           )}
         >
-          <div className="relative lg:h-[49.5vh] lg:overflow-hidden">
-            <ListContainerMobile />
-            <ListContainerDesktop />
+          <div className="relative h-max lg:h-[49.5vh] lg:overflow-hidden">
+            <ListContainerMobile
+              onScroll={onHitEnd}
+              onScrollFav={onHitEndFav}
+            />
+            <ListContainerDesktop
+              onScroll={onHitEnd}
+              onScrollFav={onHitEndFav}
+            />
           </div>
         </ErrorBoundary>
       )}

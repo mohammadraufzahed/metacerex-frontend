@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import React, { lazy } from "react";
 import { useRecoilValue } from "recoil";
 import { tickers } from "../../atoms/tickers";
@@ -7,19 +8,25 @@ const ListItem = lazy(() => import("./ListItem.mobile"));
 
 type PropsT = {
   title?: string;
+  onScroll: (e: HTMLDivElement) => void;
+  list: TickerTable[];
 };
 
-const ListBox: React.FC<PropsT> = ({ title }) => {
-  const tickersList = useRecoilValue(tickers);
+const ListBox: React.FC<PropsT> = ({ title, onScroll, list }) => {
   return (
-    <div className="flex flex-col pt-6 pr-3 border-b-[1px] border-b-neutral-800 pb-8">
+    <div
+      onScroll={({ currentTarget }) => onScroll(currentTarget)}
+      className="flex flex-col pt-6 h-3/6 max-h-[50%] pr-3 overflow-y-scroll scrollbar-vertical border-b-[1px] border-b-neutral-800 pb-8"
+    >
       <span className="font-vazir font-normal text-sm text-neutral-700">
         {title}
       </span>
       <div className="mt-5 flex flex-col gap-2">
-        {tickersList.map((item, key) => (
-          <ListItem key={key} {...item} />
-        ))}
+        <AnimatePresence mode="wait">
+          {list.map((item, key) => (
+            <ListItem key={key} {...item} />
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );
