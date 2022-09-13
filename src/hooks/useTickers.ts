@@ -1,11 +1,22 @@
 import { httpClient } from "../axios";
-import type { TickerTable } from "../types/API";
+import { API_LIMIT } from "../constants/APILimit";
+import type { PaginatedTickerTable } from "../types/API";
 
-export async function useTickers(): Promise<TickerTable[]> {
-  const request = await httpClient.get("cryptobase/tickers", {
-    params: {
-      quote_asset: "usdt",
-    },
-  });
-  return request.data.results;
+export async function getTickers(
+  pageParams: any,
+  is_faved_only: string = "no",
+  q: string = ""
+): Promise<PaginatedTickerTable> {
+  return await httpClient
+    .get(pageParams ?? "cryptobase/tickers/", {
+      params: pageParams
+        ? null
+        : {
+            quote_asset: "usdt",
+            limit: API_LIMIT,
+            is_faved_only,
+            q,
+          },
+    })
+    .then((res) => res.data);
 }
