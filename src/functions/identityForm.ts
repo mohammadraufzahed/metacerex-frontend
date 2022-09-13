@@ -7,7 +7,7 @@ export async function getIdentity(): Promise<ProfileReadOnly> {
 }
 
 export async function setIdentity(identity: object): Promise<void> {
-  return await httpClient.put("users/profile/", identity).then((data) => {
+  return await httpClient.patch("users/profile/", identity).then((data) => {
     if (data.status === 200) {
       useCustomToast("bottom-right", "success", "اطلاعات با موفقیت ذخیره شد");
     }

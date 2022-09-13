@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { setIdentity } from "../../../functions/identityForm";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
 import Button from "../../AuthenticationPage/Button";
@@ -9,9 +9,57 @@ import { dateReg } from "../../../regex/dateReg";
 import { phoneReg } from "../../../regex/phoneReg";
 import { useRecoilState } from "recoil";
 import { userProfile } from "../../../atoms/userProfile";
+import MobileAndPhoneVerifyModal from "./MobileAndPhoneVerifyModal";
+import { httpClient } from "../../../axios";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 const IdentityFormBox: React.FC = () => {
   const [userProfileD, setUserProfile] = useRecoilState(userProfile);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const mobileAndEmailFormik = useFormik({
+    initialValues: {
+      mobile: "",
+      email: "",
+    },
+    validationSchema: yup.object({
+      email: yup.string().email("ایمیل وارد شده صحیح نمیباشد.").nullable(true),
+      mobile: yup
+        .string()
+        .matches(phoneReg, "شماره تلفن وارد شده صحیح نمیباشد.")
+        .nullable(true),
+    }),
+    async onSubmit({ email, mobile }) {
+      const data: {
+        mobile?: string;
+        email?: string;
+      } = {};
+      if (userProfileD?.is_email_verified != true || email != "") {
+        data.email = email;
+      } else if (userProfileD?.is_mobile_verified != true || mobile != "") {
+        data.mobile = mobile;
+      }
+      if (data.email || data.mobile) {
+        httpClient
+          .post("users/profile/email-mobile/update/", data)
+          .then((res) => {
+            if (res.status == 200) {
+              useCustomToast(
+                "bottom-right",
+                "success",
+                `کد تایید برای ${
+                  userProfileD
+                    ? userProfileD.is_email_verified != true
+                      ? "ایمیل"
+                      : "تلفن"
+                    : ""
+                } شما ارسال شد`
+              );
+              setModalOpen(true);
+            }
+          });
+      }
+    },
+  });
   const identityFormik = useFormik({
     initialValues: {
       first_name: "",
@@ -20,10 +68,8 @@ const IdentityFormBox: React.FC = () => {
       melli_code: "",
       birth_date: "",
       postal_code: "",
-      mobile: "",
       phone: "",
       address: "",
-      email: "",
     },
     validationSchema: yup.object({
       first_name: yup
@@ -52,10 +98,6 @@ const IdentityFormBox: React.FC = () => {
         .string()
         .matches(/^[1-9]\d{9}$/gi, "کدپستی وارد شده صحیح نمیباشد.")
         .nullable(true),
-      mobile: yup
-        .string()
-        .matches(phoneReg, "شماره تلفن وارد شده صحیح نمیباشد.")
-        .nullable(true),
       phone: yup
         .string()
         .required("شماره تلفن ثابت وارد نشده است.")
@@ -67,7 +109,6 @@ const IdentityFormBox: React.FC = () => {
         .string()
         .max(500, "آدرس وارد شده بیشتر از 500 کاراکتر میباشد.")
         .nullable(true),
-      email: yup.string().email("ایمیل وارد شده صحیح نمیباشد.").nullable(true),
     }),
     async onSubmit(identity): Promise<void> {
       await setIdentity(identity);
@@ -163,9 +204,9 @@ const IdentityFormBox: React.FC = () => {
             label="شماره موبایل"
             id="mobile"
             name="mobile"
-            error={identityFormik.errors.mobile}
-            value={identityFormik.values.mobile}
-            onChange={identityFormik.handleChange}
+            error={mobileAndEmailFormik.errors.mobile}
+            value={mobileAndEmailFormik.values.mobile}
+            onChange={mobileAndEmailFormik.handleChange}
             disabled={
               userProfileD ? userProfileD.is_mobile_verified == true : false
             }
@@ -202,9 +243,9 @@ const IdentityFormBox: React.FC = () => {
             label="‌ایمیل"
             id="email"
             name="email"
-            error={identityFormik.errors.email}
-            value={identityFormik.values.email}
-            onChange={identityFormik.handleChange}
+            error={mobileAndEmailFormik.errors.email}
+            value={mobileAndEmailFormik.values.email}
+            onChange={mobileAndEmailFormik.handleChange}
             disabled={
               userProfileD ? userProfileD.is_email_verified == true : false
             }
@@ -216,10 +257,21 @@ const IdentityFormBox: React.FC = () => {
         <Button
           text="ذخیره"
           className="sm:mt-14 self-center sm:self-end py-4 px-16"
-          onClick={identityFormik.submitForm}
-          loading={identityFormik.isSubmitting}
+          onClick={() => {
+            return new Promise(async (resolve) => {
+              await identityFormik.submitForm();
+              await mobileAndEmailFormik.submitForm();
+            });
+          }}
+          loading={
+            identityFormik.isSubmitting || mobileAndEmailFormik.isSubmitting
+          }
         />
       </div>
+      <MobileAndPhoneVerifyModal
+        active={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </ProfileFormLayout>
   );
 };

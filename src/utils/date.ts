@@ -1,15 +1,15 @@
-export const persianToEnglish = (text: string) =>
-  text.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-
 type irDateT = string;
 
 export function useDateToString(date: string) {
   const enDate = new Date(date);
-  const irDate: irDateT[] = enDate.toLocaleDateString("fa-ir").split("/");
+  const irDate: irDateT[] = enDate
+    .toLocaleDateString("fa-IR-u-nu-latn")
+    .split("/");
   return {
-    year: persianToEnglish(irDate[0]),
-    month: months[persianToEnglish(irDate[1])],
-    day: persianToEnglish(irDate[2]),
+    year: irDate[0],
+    month: months[irDate[1]],
+    month_number: parseInt(irDate[1]) < 10 ? "0" + irDate[1] : irDate[1],
+    day: parseInt(irDate[2]) < 10 ? "0" + irDate[2] : irDate[2],
     hours: enDate.getHours(),
     minute: enDate.getMinutes(),
   };
