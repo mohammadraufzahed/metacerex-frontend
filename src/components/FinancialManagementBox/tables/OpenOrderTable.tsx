@@ -92,7 +92,7 @@ const OpenOrderTable = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, type: "tween" }}
-          className="w-full w-max-full overflow-scroll"
+          className="w-full w-max-full overflow-scroll scrollbar-vertical"
         >
           <table className="min-w-full">
             <thead className="border-b-[1px] border-b-black">
