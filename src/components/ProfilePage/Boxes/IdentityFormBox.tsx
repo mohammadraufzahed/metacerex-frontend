@@ -137,6 +137,10 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
         "birth_date",
         `${date.year}-${date.month_number}-${date.day}`
       );
+      mobileAndEmailFormik.setValues({
+        email: userProfileD.email,
+        mobile: userProfileD.mobile,
+      });
     }
   }, [userProfileD]);
   return (
