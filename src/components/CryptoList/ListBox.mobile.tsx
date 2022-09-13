@@ -3,6 +3,7 @@ import React, { lazy } from "react";
 import { useRecoilValue } from "recoil";
 import { tickers } from "../../atoms/tickers";
 import type { TickerTable } from "../../types/API";
+import NotFound from "../NotFound";
 
 const ListItem = lazy(() => import("./ListItem.mobile"));
 
@@ -21,13 +22,17 @@ const ListBox: React.FC<PropsT> = ({ title, onScroll, list }) => {
       <span className="font-vazir font-normal text-sm text-neutral-700">
         {title}
       </span>
-      <div className="mt-5 flex flex-col gap-2">
-        <AnimatePresence mode="wait">
-          {list.map((item, key) => (
-            <ListItem key={key} {...item} />
-          ))}
-        </AnimatePresence>
-      </div>
+      {list.length == 0 ? (
+        <NotFound text="هیچ ارزی پیدا نشد" />
+      ) : (
+        <div className="mt-5 flex flex-col gap-2">
+          <AnimatePresence mode="wait">
+            {list.map((item, key) => (
+              <ListItem key={key} {...item} />
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 };

@@ -21,14 +21,16 @@ const ListContainerDesktop = lazy(() => import("./ListContainer.desktop"));
 
 const ListSelector: React.FC = () => {
   const search = useRecoilValue(tickerSearch);
+  const [actualSearch, setActualSearch] = useState<string>("");
+  const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [tickersList, setTickersList] = useRecoilState(tickers);
   const [tickersFavList, setTickersFavList] = useRecoilState(tickers_fav);
   const [favedEnabled, setFavedEnabled] = useState<boolean>(false);
   const userTokenD = useRecoilValue(userToken);
   // Queries
   const tickersQuery = useInfiniteQuery(
-    ["tickers", search],
-    ({ pageParam }) => getTickers(pageParam, "no", search ?? ""),
+    ["tickers", actualSearch],
+    ({ pageParam }) => getTickers(pageParam, "no", actualSearch),
     {
       refetchOnMount: true,
       refetchOnWindowFocus: true,
@@ -37,8 +39,8 @@ const ListSelector: React.FC = () => {
     }
   );
   const tickersFavouriteQuery = useInfiniteQuery(
-    ["tickers_favourite", search],
-    ({ pageParam }) => getTickers(pageParam, "yes", search ?? ""),
+    ["tickers_favourite", actualSearch],
+    ({ pageParam }) => getTickers(pageParam, "yes", actualSearch),
     {
       getNextPageParam: (lastPage) => lastPage.next ?? undefined,
       enabled: favedEnabled,
@@ -63,6 +65,10 @@ const ListSelector: React.FC = () => {
     }
   };
   // Effects
+  useEffect(() => {
+    clearTimeout(timer);
+    setTimer(setTimeout(() => setActualSearch(search ?? ""), 150));
+  }, [search]);
   useEffect(() => {
     if (tickersQuery.data) {
       const tickers: TickerTable[] = [];

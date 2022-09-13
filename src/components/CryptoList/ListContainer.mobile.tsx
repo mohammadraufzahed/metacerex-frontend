@@ -45,14 +45,16 @@ const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
   };
   // Effects
   useEffect(() => {
-    const ticker = [...tickersAll, ...tickersFav].filter(
-      (item) => item.base_asset.code == tradingview
-    );
-    if (ticker.length == 0) {
-      setCurrentTicker(tickersAll[1]);
-      setTradingview(tickersAll[1].base_asset.code);
-    } else {
-      setCurrentTicker(ticker[0]);
+    if (tickersAll.length != 0 || tickersFav.length !== 0) {
+      const ticker = [...tickersAll, ...tickersFav].filter(
+        (item) => item.base_asset.code == tradingview
+      );
+      if (ticker.length == 0 && tickersAll.length !== 0) {
+        setCurrentTicker(tickersAll[1]);
+        setTradingview(tickersAll[1].base_asset.code);
+      } else if (ticker.length > 0) {
+        setCurrentTicker(ticker[0]);
+      }
     }
   }, [tradingview, tickersAll]);
   return (

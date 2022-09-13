@@ -13,7 +13,7 @@ type PropsT = {
   onScrollFav: (e: HTMLDivElement) => void;
 };
 
-const ListContainer: React.FC<PropsT> = ({ onScroll }) => {
+const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
   const [menu, setMenu] = useState<"all" | "fav">("all");
   const userTokenD = useRecoilValue(userToken);
   const favList = useRecoilValue(tickers_fav);
@@ -40,7 +40,7 @@ const ListContainer: React.FC<PropsT> = ({ onScroll }) => {
             <SearchBox />
             <ListBox
               list={menu == "all" ? list : favList}
-              onScroll={onScroll}
+              onScroll={menu == "all" ? onScroll : onScrollFav}
             />
           </>
         )}
