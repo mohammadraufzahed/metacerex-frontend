@@ -227,10 +227,11 @@ export type ProfileReadOnly = {
   email: string;
   mobile: string;
   phone: string;
-  is_mobile_verified: boolean;
+  is_mobile_verified: boolean | null;
+  is_email_verified: boolean | null;
   melli_code: string;
-  is_identity_verified: boolean;
-  is_shetab_cards_verified: boolean;
+  is_identity_verified: boolean | null;
+  is_shetab_cards_verified: boolean | null;
   referral_code: string;
   referred_by: ReferredByReadOnly;
   balance_toman: number;

@@ -5,12 +5,48 @@ import PersonalCard from "../../../svgs/PersonalCard";
 import Input from "../../Input";
 import Button from "../../AuthenticationPage/Button";
 import { UnorderListItem } from "../../../pages/WithdrawPage";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { httpClient } from "../../../axios";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 type PropsT = {
   onSuccess: () => void;
 };
 
 const AuthProcessData: React.FC<PropsT> = ({ onSuccess }) => {
+  // States
+  const form = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      melli_code: "",
+      file: "",
+    },
+    async onSubmit({ file, firstName, lastName, melli_code }): Promise<void> {
+      return await httpClient
+        .put("users/verify/identity/", null, {
+          params: {
+            melli_code,
+            first_name: firstName,
+            lastName: lastName,
+            verify_photo: file,
+          },
+          headers: {
+            "Content-Type": "application/x-www-from-urlencoded",
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            useCustomToast(
+              "bottom-right",
+              "success",
+              "درخواست شما با موفقیت ثبت شد"
+            );
+          }
+        });
+    },
+  });
   // States
   const [level, setLevel] = useState<1 | 2>(1);
   return (
@@ -35,9 +71,28 @@ const AuthProcessData: React.FC<PropsT> = ({ onSuccess }) => {
       <div className="w-full max-w-7xl xl:mx-auto">
         <AnimatePresence mode="wait">
           {level == 1 ? (
-            <FormOne onSuccess={() => setLevel(2)} />
+            <FormOne
+              onSuccess={(firstName, lastName, melli_code) => {
+                setLevel(2);
+                form.setFieldValue("firstName", firstName);
+                form.setFieldValue("lastName", lastName);
+                form.setFieldValue("melli_code", melli_code);
+              }}
+            />
           ) : (
-            <FormTwo onSuccess={onSuccess} />
+            <FormTwo
+              onSuccess={(file: string) => {
+                return new Promise(async (resolve) => {
+                  form.setFieldValue("file", file);
+                  alert(true);
+                  await form.submitForm().then(() => {
+                    onSuccess();
+                    resolve("");
+                  });
+                });
+              }}
+              loading={form.isSubmitting}
+            />
           )}
         </AnimatePresence>
       </div>
@@ -46,10 +101,29 @@ const AuthProcessData: React.FC<PropsT> = ({ onSuccess }) => {
 };
 
 type FormOneT = {
-  onSuccess: () => void;
+  onSuccess: (firstName: string, lastName: string, melli_code: string) => void;
 };
 
 const FormOne: React.FC<FormOneT> = ({ onSuccess }) => {
+  // States
+  const form = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      melli_code: "",
+    },
+    validationSchema: yup.object({
+      firstName: yup.string().required("نام وارد نشده است."),
+      lastName: yup.string().required("نام خانوادگی وارد نشده است."),
+      melli_code: yup
+        .string()
+        .required("کد ملی وارد نشده است")
+        .matches(/^([0-9]){10}$/gi, "کد ملی وارد شده معتبر نمیباشد"),
+    }),
+    async onSubmit({ firstName, lastName, melli_code }) {
+      onSuccess(firstName, lastName, melli_code);
+    },
+  });
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -64,9 +138,33 @@ const FormOne: React.FC<FormOneT> = ({ onSuccess }) => {
         شناسایی و اطلاعات کارت بانکی خود را را وارد کنید.
       </p>
       <div className="w-full grid grid-cols-1 mt-4 gap-10 sm:grid-cols-2 xl:grid-cols-3">
-        <Input label="نام منطبق با کارت شناسایی" fullWidth />
-        <Input label="نام و نام خانوادگی منطبق با کارت شناسایی" fullWidth />
         <Input
+          id="firstName"
+          name="firstName"
+          type="text"
+          onChange={form.handleChange}
+          value={form.values.firstName}
+          error={form.errors.firstName}
+          label="نام منطبق با کارت شناسایی"
+          fullWidth
+        />
+        <Input
+          id="lastName"
+          name="lastName"
+          type="text"
+          onChange={form.handleChange}
+          value={form.values.lastName}
+          error={form.errors.lastName}
+          label="نام و نام خانوادگی منطبق با کارت شناسایی"
+          fullWidth
+        />
+        <Input
+          id="melli_code"
+          name="melli_code"
+          type="text"
+          onChange={form.handleChange}
+          value={form.values.melli_code}
+          error={form.errors.melli_code}
           label="کد ملی یا کد فراگیر اتباع"
           fullWidth
           className="sm:col-span-2 xl:col-span-1"
@@ -75,17 +173,29 @@ const FormOne: React.FC<FormOneT> = ({ onSuccess }) => {
       <Button
         text="تایید و ادامه"
         className="px-10 lg:px-16"
-        onClick={onSuccess}
+        onClick={form.submitForm}
       />
     </motion.div>
   );
 };
 
 type FormTwoT = {
-  onSuccess: () => void;
+  onSuccess: (file: string) => void;
+  loading?: boolean;
 };
 
-const FormTwo: React.FC<FormTwoT> = ({ onSuccess }) => {
+const FormTwo: React.FC<FormTwoT> = ({ onSuccess, loading }) => {
+  const form = useFormik({
+    initialValues: {
+      file: "",
+    },
+    validationSchema: yup.object({
+      file: yup.mixed().required("عکس انتخاب نشده است."),
+    }),
+    onSubmit({ file }) {
+      onSuccess(file);
+    },
+  });
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -141,7 +251,14 @@ const FormTwo: React.FC<FormTwoT> = ({ onSuccess }) => {
             transition={{ duration: 0.5, type: "spring" }}
             className=""
           >
-            <input type="file" id="file" className="hidden" />
+            <input
+              accept="image/png, image/gif, image/jpeg"
+              type="file"
+              id="file"
+              onChange={form.handleChange}
+              value={form.values.file}
+              className="hidden"
+            />
             <label
               htmlFor="file"
               className="px-10 py-2 cursor-pointer bg-primary-700 font-vazir font-normal text-base text-white rounded-lg"
@@ -154,8 +271,24 @@ const FormTwo: React.FC<FormTwoT> = ({ onSuccess }) => {
           </p>
         </div>
       </div>
+      <motion.span
+        variants={{
+          hide: {
+            opacity: 0,
+          },
+          show: {
+            opacity: 1,
+          },
+        }}
+        initial="hide"
+        animate={form.errors.file ? "show" : "hide"}
+        className="font-vazir text-base text-error"
+      >
+        لطفا عکس خود را انتخاب کنید!
+      </motion.span>
       <Button
-        onClick={onSuccess}
+        onClick={form.submitForm}
+        loading={loading}
         text="تایید احراز هویت"
         className="px-10 lg:px-16 mt-10"
       />
