@@ -89,6 +89,9 @@ const IdentityFormBox: React.FC = () => {
             error={identityFormik.errors.first_name}
             value={identityFormik.values.first_name}
             onChange={identityFormik.handleChange}
+            disabled={
+              userProfileD ? userProfileD.is_identity_verified == true : false
+            }
             type="text"
             fullWidth
             isPrimary
@@ -101,6 +104,9 @@ const IdentityFormBox: React.FC = () => {
             error={identityFormik.errors.last_name}
             value={identityFormik.values.last_name}
             onChange={identityFormik.handleChange}
+            disabled={
+              userProfileD ? userProfileD.is_identity_verified == true : false
+            }
             type="text"
             fullWidth
             isPrimary
@@ -124,6 +130,9 @@ const IdentityFormBox: React.FC = () => {
             error={identityFormik.errors.melli_code}
             value={identityFormik.values.melli_code}
             onChange={identityFormik.handleChange}
+            disabled={
+              userProfileD ? userProfileD.is_identity_verified == true : false
+            }
             type="text"
             fullWidth
             isPrimary
@@ -157,6 +166,9 @@ const IdentityFormBox: React.FC = () => {
             error={identityFormik.errors.mobile}
             value={identityFormik.values.mobile}
             onChange={identityFormik.handleChange}
+            disabled={
+              userProfileD ? userProfileD.is_mobile_verified == true : false
+            }
             type="text"
             fullWidth
             isPrimary
@@ -193,6 +205,9 @@ const IdentityFormBox: React.FC = () => {
             error={identityFormik.errors.email}
             value={identityFormik.values.email}
             onChange={identityFormik.handleChange}
+            disabled={
+              userProfileD ? userProfileD.is_email_verified == true : false
+            }
             type="text"
             fullWidth
             isPrimary
