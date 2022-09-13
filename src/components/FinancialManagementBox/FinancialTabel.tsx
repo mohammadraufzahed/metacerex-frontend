@@ -12,6 +12,7 @@ import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFetch from "../ErrorFetch";
 import TransactionHistory from "./tables/TransactionHistory";
+import { httpClient } from "../../axios";
 
 const FinancialTabel: React.FC = () => {
   // States
@@ -21,6 +22,28 @@ const FinancialTabel: React.FC = () => {
   const [currentTab, setCurrentTap] = useState<
     "open_order" | "order_history" | "transaction_history"
   >("open_order");
+  const xlsxUrls = {
+    open_order: "spot/orders/open/",
+    order_history: "spot/orders/history/",
+    transaction_history: "spot/transactions/history/",
+  };
+  const onXlsxClick = () => {
+    const url = xlsxUrls[currentTab];
+    httpClient
+      .get(url, {
+        params: {
+          format: "xlsx",
+        },
+        responseType: "blob",
+      })
+      .then((res) => {
+        const href = URL.createObjectURL(res.data);
+        const link = document.createElement("a");
+        link.href = href;
+        link.setAttribute("download", "report.xlsx");
+        link.click();
+      });
+  };
   return (
     <motion.div
       initial={{ height: 0 }}
@@ -79,6 +102,7 @@ const FinancialTabel: React.FC = () => {
                 initial="initial"
                 whileHover="hover"
                 whileTap="tap"
+                onTap={onXlsxClick}
                 className="fixed cursor-pointer bottom-28 left-0 right-0 mx-auto w-max z-50 lg:relative lg:left-[unset] lg:right-[unset] lg:mx-0 lg:bottom-1 bg-white flex self-center flex-row gap-2 items-center border-[1px] border-primary-700 rounded-2xl py-2 px-4"
               >
                 <span className="font-light font-vazir text-sm text-primary-700">
