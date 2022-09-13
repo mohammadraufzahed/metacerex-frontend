@@ -22,11 +22,10 @@ const WithdrawToman: React.FC<PropsT> = ({ onRuleClick }) => {
   // States
   const [wallet, setWallet] = useState<AssetList>();
   const withdrawTomanFormik = useFormik({
-    initialValues: { amount: 0, selected_card: "", full: false },
+    initialValues: { amount: 0, selected_card: 0, full: false },
     validationSchema: yup.object({
       amount: yup
         .number()
-        .min(100000, "حداقل برداشت ۱۰۰ هزار تومان میباشد")
         .max(
           Math.min(wallet ? parseFloat(wallet.balance) : 50000000, 50000000),
           `حداکثر برداشت ${
@@ -34,7 +33,7 @@ const WithdrawToman: React.FC<PropsT> = ({ onRuleClick }) => {
           } میلیون تومان میباشد`
         ),
       full: yup.boolean(),
-      selected_card: yup.string().required("لطفا یک کارت را انتخاب فرمایید"),
+      selected_card: yup.number().required("لطفا یک کارت را انتخاب فرمایید"),
     }),
     async onSubmit(props) {
       if (!props.amount && !props.full) {

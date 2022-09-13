@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 type PropsT = {
   fieldUpdater: any;
-  card_value: string;
+  card_value: number;
   error?: string;
 };
 
@@ -55,12 +55,12 @@ const CardSelectBox: React.FC<PropsT> = ({
                     background: "rgba(8 103 136 0)",
                   },
                 }}
-                animate={card_value == item.sheba ? "selected" : "idle"}
+                animate={card_value == item.id ? "selected" : "idle"}
                 whileHover="hover"
                 whileTap="selected"
                 onTap={() =>
-                  card_value !== item.sheba
-                    ? fieldUpdater("selected_card", item.sheba)
+                  card_value !== item.id
+                    ? fieldUpdater("selected_card", item.id)
                     : fieldUpdater("selected_card", "")
                 }
                 className="w-4 cursor-pointer h-4 border-2 rounded-full border-primary-700"

@@ -29,7 +29,7 @@ const DepositToman: React.FC<PropsT> = ({ onRuleClick }) => {
   const tomanDepositFormik = useFormik({
     initialValues: {
       amount: 0,
-      selected_card: "",
+      selected_card: 0,
     },
     validationSchema: yup.object({
       amount: yup
@@ -37,12 +37,8 @@ const DepositToman: React.FC<PropsT> = ({ onRuleClick }) => {
         .required("مقدار واریزی وارد نشده است.")
         .min(100000, "حداقل واریزی ۱۰۰ هزار تومان میباشد"),
       selected_card: yup
-        .string()
-        .required("لطفا کارت مورد نظر را انتخاب کنید.")
-        .matches(
-          /^0[1-9]{1}[0-9]{1}[1-9]{1}[0-9]{7}$/gi,
-          "لطفا کارت مورد نظر را انتخاب کنید."
-        ),
+        .number()
+        .required("لطفا کارت مورد نظر را انتخاب کنید."),
     }),
     async onSubmit(form) {
       return await httpClient
