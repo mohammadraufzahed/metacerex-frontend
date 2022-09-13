@@ -297,9 +297,12 @@ export type TickerTable = {
     icon: string;
     precision: number;
   };
-  quote_asset?: QuoteAssetEnum;
   price?: string;
   price_toman: string;
+};
+
+export type PaginatedTickerTable = Paginated & {
+  results: TickerTable[];
 };
 
 export type TokenRefresh = {
