@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import MaxMin from "../../svgs/MaxMin";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { financialBoxStatus } from "../../atoms/financialBoxStatus";
-import { screen } from "../../atoms/screen";
+import { screen } from "../../signals/screen";
 
 const FinancialBar: React.FC = () => {
   const [financialBoxStat, setFinancialBoxStat] =
     useRecoilState(financialBoxStatus);
-  const screenR = useRecoilValue(screen);
   const arrowAnimation = {
     open: { rotate: 0 },
     close: {
@@ -17,10 +16,10 @@ const FinancialBar: React.FC = () => {
   };
   const openOnClickHandler = () =>
     financialBoxStat == "open" || financialBoxStat == "mobileOpen"
-      ? screenR.width < 1060
+      ? screen.value.width < 1060
         ? setFinancialBoxStat("idleMobile")
         : setFinancialBoxStat("idle")
-      : screenR.width < 1060
+      : screen.value.width < 1060
       ? setFinancialBoxStat("mobileOpen")
       : setFinancialBoxStat("open");
   return (
@@ -47,7 +46,7 @@ const FinancialBar: React.FC = () => {
           className="cursor-pointer w-max"
           onClick={() =>
             financialBoxStat == "max" || financialBoxStat == "mobileOpen"
-              ? screenR.width < 1060
+              ? screen.value.width < 1060
                 ? setFinancialBoxStat("idleMobile")
                 : setFinancialBoxStat("idle")
               : setFinancialBoxStat("max")

@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import Navigation from "./Navigation";
 import { RecoilRoot } from "recoil";
-import RecoilNexus from "recoil-nexus";
 import Loading from "./components/Loading";
 // Css Files
 import "./styles/global.scss";
@@ -22,7 +21,6 @@ const App: React.FC = () => {
       <ErrorBoundary fallback={<Error />}>
         <QueryClientProvider client={queryClient}>
           <RecoilRoot>
-            <RecoilNexus />
             <Navigation />
             <Toaster />
           </RecoilRoot>

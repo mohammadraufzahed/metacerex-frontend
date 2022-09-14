@@ -1,9 +1,11 @@
 import React, { lazy, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { screen } from "./atoms/screen";
 import LogoutPage from "./pages/LogoutPage";
+import { OnchainPage } from "./pages/OnchainPage";
 import PageNotFound from "./pages/PageNotFound";
+import { signal } from "@preact/signals-react";
+import { screen } from "./signals/screen";
 
 const DepositPage = lazy(() => import("./pages/DepositPage"));
 const WithdrawPage = lazy(() => import("./pages/WithdrawPage"));
@@ -31,10 +33,9 @@ const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
 const ListPage = lazy(() => import("./pages/ListPage"));
 
 const Navigation: React.FC = () => {
-  const [screenR, setScreenR] = useRecoilState(screen);
   useEffect(() => {
     const resize = () =>
-      setScreenR({
+      (screen.value = {
         width: window.innerWidth,
         height: window.innerHeight,
       });
@@ -84,6 +85,7 @@ const Navigation: React.FC = () => {
                 <Route path=":currency" element={<WithdrawPage />} />
               </Route>
             </Route>
+            <Route path="onchain" element={<OnchainPage />} />
             <Route path="logout" element={<LogoutPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>

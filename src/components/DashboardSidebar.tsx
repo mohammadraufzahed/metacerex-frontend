@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { showSidebar } from "../atoms/showSidebar";
-import { screen } from "../atoms/screen";
+import { screen } from "../signals/screen";
 const ElementOne = lazy(() => import("../svgs/ElementOne"));
 const Layer = lazy(() => import("../svgs/Layer"));
 const Profile = lazy(() => import("../svgs/Profile"));
@@ -96,7 +96,6 @@ const SidebarBoxData: SidebarBoxDataT = {
 
 const DashboardSidebar: React.FC = () => {
   const [show, setShow] = useRecoilState(showSidebar);
-  const screenR = useRecoilValue(screen);
   const ContainerVariant = {
     show: {
       translateX: 0,
@@ -108,8 +107,8 @@ const DashboardSidebar: React.FC = () => {
   const showHandlerResize = (width: number) =>
     width >= 1024 ? setShow(true) : setShow(false);
   useEffect(() => {
-    showHandlerResize(screenR.width);
-  }, [screenR]);
+    showHandlerResize(screen.value.width);
+  }, [screen.value]);
   return (
     <motion.div
       className="w-[170px] min-h-screen h-full z-50 py-5 bg-neutral-50 absolute lg:relative lg:min-w-[3rem] lg:max-w-[3rem] overflow-x-hidden"

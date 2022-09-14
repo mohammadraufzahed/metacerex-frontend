@@ -1,6 +1,5 @@
 import axios, { AxiosError } from "axios";
 import type { AxiosInstance } from "axios";
-import { getRecoil, setRecoil } from "recoil-nexus";
 import { userToken } from "./atoms/userToken";
 import useCustomToast from "./hooks/useCustomToast";
 import { CustomTokenObtain } from "./types/API";
@@ -33,11 +32,13 @@ httpClient.interceptors.response.use(
         err.response.status === 401 &&
         err.response.data.errors.code == "token_not_valid"
       ) {
-        const userTokenObject = getRecoil(userToken);
-        if (userTokenObject?.refresh) {
+        const userTokenObject: { userToken: CustomTokenObtain } = JSON.parse(
+          sessionStorage.getItem("userToken") ?? ""
+        );
+        if (userTokenObject.userToken && userTokenObject.userToken.refresh) {
           await httpClient
             .post("users/token/refresh/", {
-              refresh: userTokenObject.refresh,
+              refresh: userTokenObject.userToken.refresh,
             })
             .then((data) => {
               if (data.data.access) {

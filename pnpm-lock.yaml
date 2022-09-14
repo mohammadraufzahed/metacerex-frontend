@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@preact/signals-react': ^1.0.1
   '@tanstack/react-query': ^4.2.1
   '@tanstack/react-query-devtools': ^4.2.1
   '@tanstack/react-table': ^8.5.13
@@ -48,6 +49,7 @@ specifiers:
   yup: ^0.32.11
 
 dependencies:
+  '@preact/signals-react': 1.0.1_react@18.2.0
   '@tanstack/react-query': 4.2.3_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.2.3_7jugwuuqrrr4f74u7dtzjsintq
   '@tanstack/react-table': 8.5.13_biqbaboplfbrettd7655fr4n2y
@@ -474,6 +476,19 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
     dev: true
+
+  /@preact/signals-core/1.1.0:
+    resolution: {integrity: sha512-HrEPNtgbiJutQFVpNu4La2qD1XRmpG3hRY5Zgyhz/Uo/4Pv1s40saQQ83cmnpNk1SabgWKo+IreYC0mHg+mFDg==}
+    dev: false
+
+  /@preact/signals-react/1.0.1_react@18.2.0:
+    resolution: {integrity: sha512-o9FrWQdl5CT3yqTGBydWHKJhm38qmJqoHgzUjxZbKWNd209pRE7SRv8kDc1VVfUVIrfyfumrrA7MZ2yBLizp6w==}
+    peerDependencies:
+      react: 17.x || 18.x
+    dependencies:
+      '@preact/signals-core': 1.1.0
+      react: 18.2.0
+    dev: false
 
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
