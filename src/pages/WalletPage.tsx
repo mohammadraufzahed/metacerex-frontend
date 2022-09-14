@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
 import Button from "../components/AuthenticationPage/Button";
@@ -13,7 +14,7 @@ const WalletPage: React.FC = () => {
   const userTokenD = useRecoilValue(userToken);
 
   // Conditions
-  // if (!userTokenD) return <LoginRequiredPage />;
+  if (!userTokenD) return <Navigate to="/auth" replace />;
   return (
     <div className="py-6 px-4 flex flex-col gap-7 flex-auto max-w-[1600px] 2xl:mx-auto lg:gap-10">
       <div className="w-full flex flex-col gap-6 lg:flex-row-reverse">

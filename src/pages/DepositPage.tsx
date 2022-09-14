@@ -2,7 +2,6 @@ import React, { Suspense, useState } from "react";
 import ActionsBox from "../components/Assets/ActionsBox";
 import DepositToman from "../components/Assets/DepositToman";
 import Button from "../components/AuthenticationPage/Button";
-import LoginRequiredPage from "./LoginRequiredPage";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
 import RulesBox from "../components/Assets/RulesBox";
@@ -14,6 +13,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import Error from "../components/Error";
 import { motion } from "framer-motion";
 import { nanoid } from "nanoid";
+import { Navigate } from "react-router-dom";
 
 const DepositPage: React.FC = () => {
   // States
@@ -21,7 +21,7 @@ const DepositPage: React.FC = () => {
   const [showRules, setShowRules] = useState<boolean>(false);
   const [currentForm, setCurrentForm] = useState<"toman" | "crypto">("crypto");
   // Conditions
-  if (!userTokenD) return <LoginRequiredPage />;
+  if (!userTokenD) return <Navigate to="/auth" replace />;
   return (
     <div className="flex-auto h-max w-full py-2 px-4 flex flex-row gap-4">
       <ActionsBox>

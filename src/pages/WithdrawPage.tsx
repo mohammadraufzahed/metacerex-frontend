@@ -14,6 +14,7 @@ import Loading from "../components/Loading";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "../components/Error";
 import { nanoid } from "nanoid";
+import { Navigate } from "react-router-dom";
 
 const WithdrawPage = () => {
   // States
@@ -21,7 +22,7 @@ const WithdrawPage = () => {
   const [ruleOpen, setRuleOpen] = useState<boolean>(false);
   const userTokenD = useRecoilValue(userToken);
   // Condition
-  if (!userTokenD) return <LoginRequiredPage />;
+  if (!userTokenD) return <Navigate to="/auth" replace />;
   return (
     <div className="flex-auto h-max w-full py-2 px-4 flex flex-row gap-4">
       <ActionsBox>

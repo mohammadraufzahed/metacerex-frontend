@@ -2,14 +2,12 @@ import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import React, { lazy, Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
 import MenuItem from "../components/AuthenticationPage/MenuItem";
 import ErrorFetch from "../components/ErrorFetch";
 import Loading from "../components/Loading";
-
-const LoginRequiredPage = lazy(() => import("../pages/LoginRequiredPage"));
 
 const ProfileLayout: React.FC = () => {
   // States
@@ -17,7 +15,7 @@ const ProfileLayout: React.FC = () => {
   const location = useLocation();
   const userTokenObject = useRecoilValue(userToken);
   // Authentication check
-  if (!userTokenObject) return <LoginRequiredPage />;
+  if (!userTokenObject) return <Navigate to="/auth" replace />;
 
   return (
     <div className="flex-auto flex flex-col px-4 py-10 lg:px-8">
