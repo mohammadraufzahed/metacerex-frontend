@@ -44,7 +44,7 @@ export const cryptoboxAtom = atom<boolean>({
   default: false,
 });
 export const starAtom = atom<boolean>({
-  key: "onchain_sidebar",
+  key: "onchain_star",
   default: false,
 });
 
