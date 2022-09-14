@@ -6,12 +6,10 @@ import {
 import React, { lazy, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { screen } from "../../atoms/screen";
 import { tickers } from "../../atoms/tickers";
 import { tickerSearch } from "../../atoms/tickerSearch";
 import { tickers_fav } from "../../atoms/tickers_fav";
 import { userToken } from "../../atoms/userToken";
-import { API_LIMIT } from "../../constants/APILimit";
 import { getTickers } from "../../hooks/useTickers";
 import { TickerTable } from "../../types/API";
 import ErrorFetch from "../ErrorFetch";

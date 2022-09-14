@@ -1,11 +1,10 @@
 import React, { lazy, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import { screen } from "./atoms/screen";
 import LogoutPage from "./pages/LogoutPage";
-import { OnchainPage } from "./pages/OnchainPage";
+import OnchainPage from "./pages/OnchainPage";
 import PageNotFound from "./pages/PageNotFound";
-import { signal } from "@preact/signals-react";
-import { screen } from "./signals/screen";
 
 const DepositPage = lazy(() => import("./pages/DepositPage"));
 const WithdrawPage = lazy(() => import("./pages/WithdrawPage"));
@@ -33,9 +32,10 @@ const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
 const ListPage = lazy(() => import("./pages/ListPage"));
 
 const Navigation: React.FC = () => {
+  const [screenD, setScreen] = useRecoilState(screen);
   useEffect(() => {
     const resize = () =>
-      (screen.value = {
+      setScreen({
         width: window.innerWidth,
         height: window.innerHeight,
       });

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { signal, useSignal } from "@preact/signals-react";
 import { motion } from "framer-motion";
 import OnchainContent from "../components/Onchain/OnchainContent";
 import Search from "../svgs/Search";
-import { FaArrowLeft } from "react-icons/fa";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { screen } from "../signals/screen";
 import { HiX } from "react-icons/hi";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
+import { screen } from "../atoms/screen";
 
 type data = {
   name: string;
@@ -36,17 +35,30 @@ const fakeData: data[] = [
   }),
 ];
 
-export const sidebarSignal = signal<boolean>(false);
-export const starSignal = signal<boolean>(false);
-export const cryptoDropbox = signal<boolean>(false);
+export const sidebarAtom = atom<boolean>({
+  key: "onchain_sidebar",
+  default: false,
+});
+export const cryptoboxAtom = atom<boolean>({
+  key: "onchain_sidebar",
+  default: false,
+});
+export const starAtom = atom<boolean>({
+  key: "onchain_sidebar",
+  default: false,
+});
 
-export const OnchainPage = () => {
+const OnchainPage = () => {
+  // States
+  const screenD = useRecoilValue(screen);
+  const [sidebar, setSidebar] = useRecoilState(sidebarAtom);
+  const [cryptobox, setCryptobox] = useRecoilState(cryptoboxAtom);
   // Effects
   useEffect(() => {
-    if (screen.value.width > 1024 && sidebarSignal.value != true) {
-      sidebarSignal.value = true;
+    if (screenD.width > 1024 && sidebar != true) {
+      setSidebar(true);
     }
-  }, [screen.value]);
+  }, [screenD]);
   return (
     <div className="flex-auto flex py-2 gap-4 px-4 max-w-[1600px] 2xl:mx-auto 2xl:gap-10">
       <motion.div
@@ -60,7 +72,7 @@ export const OnchainPage = () => {
             display: "none",
           },
         }}
-        animate={sidebarSignal.value ? "show" : "hide"}
+        animate={sidebar ? "show" : "hide"}
         transition={{ duration: 0.5 }}
         className="absolute z-[60] h-[99vh] w-8/12 top-0 right-0 overflow-hidden scrollbar-vertical rounded-t-xl drop-shadow-md bg-neutral-50 lg:right-14 xl:right-[unset] xl:top-[unset] xl:w-6/12 xl:h-3/6 xl:relative"
       >
@@ -69,7 +81,7 @@ export const OnchainPage = () => {
             <HiX
               className="text-2xl text-primary-700 "
               onClick={() => {
-                sidebarSignal.value = false;
+                setSidebar(false);
               }}
             />
           </div>
@@ -80,12 +92,12 @@ export const OnchainPage = () => {
             }}
             transition={{ duration: 0.4, type: "tween" }}
             initial="close"
-            animate={cryptoDropbox.value ? "open" : "close"}
+            animate={cryptobox ? "open" : "close"}
             className="overflow-y-hidden relative"
           >
             <div
               className="w-full h-[46.23px] cursor-pointer flex items-center justify-between border-[1px] py-2.5 px-4"
-              onClick={() => (cryptoDropbox.value = !cryptoDropbox.value)}
+              onClick={() => setCryptobox((cryptobox) => !cryptobox)}
             >
               <motion.img
                 variants={{
@@ -97,7 +109,7 @@ export const OnchainPage = () => {
                   },
                 }}
                 initial="initial"
-                animate={cryptoDropbox.value ? "open" : "initial"}
+                animate={cryptobox ? "open" : "initial"}
                 src="/svgs/arrow-down.svg"
               />
               <div className="flex flex-row items-center gap-2">
@@ -125,7 +137,7 @@ export const OnchainPage = () => {
                     initial="initial"
                     whileHover="hover"
                     whileTap="tap"
-                    onTap={() => (cryptoDropbox.value = false)}
+                    onTap={() => setCryptobox(false)}
                     className="w-full font-vazir font-normal cursor-pointer text-base flex items-center justify-end px-4 py-2 gap-1"
                     key={key}
                   >
@@ -294,3 +306,5 @@ const OnchainItem: React.FC<OnchainItemT> = ({ data }) => {
     </div>
   );
 };
+
+export default OnchainPage;
