@@ -54,7 +54,7 @@ const WalletPage: React.FC = () => {
     setTimer(setTimeout(() => setCurrectSearch(search), 200));
   }, [search]);
   return (
-    <div className="py-6 px-4 flex flex-col gap-7 flex-auto max-w-[1600px] 2xl:mx-auto lg:gap-10">
+    <div className="py-6 px-4 flex flex-col gap-7 flex-auto max-w-[95vw] overflow-hidden lg:gap-10">
       <div className="w-full flex flex-col gap-6 lg:flex-row-reverse">
         <div className="w-full flex flex-col gap-6 lg:w-5/12">
           <div className="grid grid-cols-2 items-center justify-center w-full">
@@ -111,7 +111,7 @@ const WalletPage: React.FC = () => {
               onChange={({ currentTarget }) => {
                 setSearch((currentTarget as HTMLInputElement).value);
               }}
-              className="w-full h-8 rounded-lg placeholder:opacity-0 lg:placeholder:opacity-100 p-2 text-base font-vazir font-normal placeholder:text-neutral-700 outline-none border-[1px] border-primary-700 text-neutral-700"
+              className="w-full h-8 rounded-lg placeholder:opacity-0 lg:placeholder:opacity-100 p-2 text-base font-vazir font-normal py-5 placeholder:text-neutral-700 outline-none border-[1px] border-primary-700 text-neutral-700"
               placeholder="جستجو در میان همه ارز ها"
             />
             <Search className="absolute left-2 stroke-neutral-800 bottom-1 lg:hidden" />

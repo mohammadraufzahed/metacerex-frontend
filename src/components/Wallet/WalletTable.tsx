@@ -124,8 +124,8 @@ const WalletTable: React.FC<PropsT> = ({ wallets }) => {
   });
 
   return (
-    <div className="hidden w-full lg:flex gap-10 flex-col bg-neutral-50 py-6 rounded-lg">
-      <table className="w-full">
+    <div className="hidden w-[92.5vw] lg:flex gap-10 flex-col bg-neutral-50 py-6 overflow-x-scroll rounded-lg">
+      <table className="min-w-full max-w-max">
         <thead className="border-b-[1px] border-b-black">
           {walletTable.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
