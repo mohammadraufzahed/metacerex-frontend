@@ -14,7 +14,7 @@ const ActionsBox: React.FC<PropsT> = ({ children }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full flex flex-col items-center gap-6 bg-neutral-50 px-2 py-4 rounded-2xl lg:max-w-[440px] lg:min-h-[750px] mx-auto md:mx-0 md:py-6 md:px-5">
+    <div className="w-full flex flex-col items-center gap-6 bg-neutral-50 px-2 py-4 rounded-2xl lg:max-w-[440px] lg:min-h-[750px] lg:max-h-[900px] mx-auto md:mx-0 md:py-6 md:px-5">
       <div className="w-full grid grid-cols-2">
         <MenuItem
           text={

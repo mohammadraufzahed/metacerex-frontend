@@ -91,9 +91,9 @@ const WithdrawPage = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, type: "tween" }}
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-4 lg:max-h-[900px] overflow-hidden"
             >
-              <div className="w-full bg-neutral-50 py-10 px-2 rounded-2xl flex flex-col gap-10 xl:flex-row items-center md:px-14 md:py-16">
+              <div className="w-full bg-neutral-50 py-10 px-2 rounded-2xl flex flex-col gap-10 xl:flex-row items-center md:px-14 md:py-8 md:h-[400px]">
                 <div className="flex flex-col gap-10">
                   <strong className="font-vazir font-bold text-sm">
                     مراحل برداشت رمزارز :
@@ -114,7 +114,7 @@ const WithdrawPage = () => {
                     </span>
                   </div>
                 </div>
-                <div className="w-5/12 mx-auto xl:min-w-[300px]">
+                <div className="block md:hidden xl:block mx-auto md:min-w-[300px]">
                   <img src="/svgs/astronaut.svg" className="w-full" />
                 </div>
               </div>

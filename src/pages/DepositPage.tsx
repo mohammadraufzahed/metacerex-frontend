@@ -23,7 +23,7 @@ const DepositPage: React.FC = () => {
   // Conditions
   if (!userTokenD) return <Navigate to="/auth" replace />;
   return (
-    <div className="flex-auto h-max w-full py-2 px-4 flex flex-row gap-4">
+    <div className="flex-auto h-max w-full py-2 px-4 flex flex-row gap-4 lg:max-h-[900px] overflow-hidden">
       <ActionsBox>
         <div className="w-full place-items-center grid grid-cols-2">
           <Button
@@ -65,7 +65,7 @@ const DepositPage: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, type: "tween" }}
-              className="flex flex-col w-full gap-14"
+              className="flex flex-col w-full gap-4"
             >
               <WarnBox content="کاربر گرامی، قبل از واریز تومان، از احراز شدن کارت بانکی خود در حساب کاربری اطمینان حاصل نمایید." />
               <WarnBox content="در صورت استفاده از VPN، تراکنش توسط بانک لغو خواهد شد." />
@@ -79,7 +79,7 @@ const DepositPage: React.FC = () => {
               transition={{ duration: 0.3, type: "tween" }}
               className="flex flex-col w-full gap-14"
             >
-              <div className="w-full bg-neutral-50 py-10 px-2 rounded-2xl flex flex-col gap-10 xl:flex-row items-center md:px-14 md:py-16">
+              <div className="w-full bg-neutral-50 py-10 px-2 rounded-2xl flex flex-col gap-10 xl:flex-row items-center md:px-14 md:py-2">
                 <div className="flex flex-col gap-10">
                   <strong className="font-vazir font-bold text-sm">
                     مراحل واریز رمزارز :
