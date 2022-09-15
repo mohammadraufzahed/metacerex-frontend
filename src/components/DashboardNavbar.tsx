@@ -13,7 +13,7 @@ const DashboardNavbar: React.FC = () => {
   const userTokenObject = useRecoilValue(userToken);
   const navigate = useNavigate();
   return (
-    <nav className="w-full flex flex-row-reverse justify-between bg-neutral-50 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] lg:flex-row lg:px-8 border-b-[1px] border-primary-700">
+    <nav className="w-screen fixed z-[200] flex flex-row-reverse justify-between bg-neutral-50 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] lg:flex-row lg:px-8 border-b-[1px] border-primary-700">
       <div className="flex flex-row gap-16 items-center h-full lg:flex-auto">
         <div className="flex flex-row items-center gap-5">
           <img

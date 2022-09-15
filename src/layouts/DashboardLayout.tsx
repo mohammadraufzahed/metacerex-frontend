@@ -29,7 +29,7 @@ const DashboardLayout: React.FC = () => {
       </header>
       <main className="min-h-screen max-h-max h-full overflow-y-scroll scrollbar-vertical flex flex-row min-w-screen bg-background-50">
         <DashboardSidebar />
-        <div className="flex-auto min-h-screen h-full flex">
+        <div className="flex-auto min-h-screen h-full flex py-16 px-12">
           <Suspense fallback={<Loading />}>
             <Outlet />
           </Suspense>
