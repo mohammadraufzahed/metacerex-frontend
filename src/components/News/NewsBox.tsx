@@ -2,6 +2,7 @@ import { QueryErrorResetBoundary, useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import React, { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useNavigate } from "react-router-dom";
 import { useNews } from "../../hooks/useNews";
 import ArrowLeft from "../../svgs/ArrowLeft";
 import { NewsArticleList } from "../../types/API";
@@ -11,7 +12,9 @@ import NotFound from "../NotFound";
 const NewsItem = lazy(() => import("./NewsItem"));
 
 const NewsBox: React.FC = () => {
+  // States
   const { data } = useQuery(["posts"], useNews);
+  const navigate = useNavigate();
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
@@ -40,6 +43,7 @@ const NewsBox: React.FC = () => {
                     repeatType: "reverse",
                     duration: 1,
                   }}
+                  onTap={() => navigate("/news", { replace: true })}
                 />
                 <span className="max-h-max max-wmax">مشاهده همه خبرها</span>
                 <ArrowLeft className="stroke-primary-500" width={20} />
