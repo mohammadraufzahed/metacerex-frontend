@@ -17,10 +17,10 @@ const FinancialBar: React.FC = () => {
   };
   const openOnClickHandler = () =>
     financialBoxStat == "open" || financialBoxStat == "mobileOpen"
-      ? screenD.width < 1060
+      ? screenD.width < 1024
         ? setFinancialBoxStat("idleMobile")
         : setFinancialBoxStat("idle")
-      : screenD.width < 1060
+      : screenD.width < 1024
       ? setFinancialBoxStat("mobileOpen")
       : setFinancialBoxStat("open");
   return (
@@ -47,7 +47,7 @@ const FinancialBar: React.FC = () => {
           className="cursor-pointer w-max"
           onClick={() =>
             financialBoxStat == "max" || financialBoxStat == "mobileOpen"
-              ? screenD.width < 1060
+              ? screenD.width < 1024
                 ? setFinancialBoxStat("idleMobile")
                 : setFinancialBoxStat("idle")
               : setFinancialBoxStat("max")

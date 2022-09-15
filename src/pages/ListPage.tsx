@@ -20,7 +20,7 @@ const ListPage: React.FC = () => {
     useRecoilState(financialBoxStatus);
   const screenD = useRecoilValue(screen);
   useEffect(() => {
-    if (screenD.width < 1060) {
+    if (screenD.width < 1024) {
       setFinancialBoxStat("idleMobile");
     } else {
       setFinancialBoxStat("idle");
