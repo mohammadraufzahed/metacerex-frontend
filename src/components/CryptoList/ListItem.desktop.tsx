@@ -13,9 +13,9 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
       animate={{ x: 0 }}
       exit={{ x: "50vw" }}
       whileHover={{
-        scale: 1.02,
+        scale: 1.005,
       }}
-      whileTap={{ scale: 1.03 }}
+      whileTap={{ scale: 1.01 }}
       key={base_asset.name}
       transition={{ duration: 0.3, type: "tween" }}
       onTap={() => {
