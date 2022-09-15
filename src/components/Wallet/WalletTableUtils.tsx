@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Wallet } from "../../types/API";
+import { useNavigate } from "react-router-dom";
 
 type THeadT = {
   children: React.ReactNode;
@@ -39,7 +41,13 @@ export const TCell: React.FC<TCellT> = ({ title }) => (
   </span>
 );
 
-export const TAction: React.FC = () => {
+type TActionT = {
+  wallet: Wallet;
+};
+
+export const TAction: React.FC<TActionT> = ({ wallet }) => {
+  // States
+  const navigate = useNavigate();
   return (
     <div className="w-full flex justify-center items-center pl-10">
       <div className="grid grid-cols-4 items-center place w-max gap-x-6">
@@ -48,6 +56,7 @@ export const TAction: React.FC = () => {
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1.04 }}
+          onTap={() => navigate(`/dashboard/buy`, { replace: true })}
         >
           خرید
         </motion.button>
@@ -56,6 +65,7 @@ export const TAction: React.FC = () => {
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1.04 }}
+          onTap={() => navigate(`/dashboard/sell`, { replace: true })}
         >
           فروش
         </motion.button>
@@ -74,6 +84,11 @@ export const TAction: React.FC = () => {
             color: "#ffffff",
           }}
           whileTap={{ scale: 1.04 }}
+          onTap={() =>
+            navigate(`/dashboard/asset/deposit`, {
+              replace: true,
+            })
+          }
         >
           واریز
         </motion.button>
@@ -92,6 +107,11 @@ export const TAction: React.FC = () => {
             color: "#ffffff",
           }}
           whileTap={{ scale: 1.04 }}
+          onTap={() =>
+            navigate(`/dashboard/asset/withdraw`, {
+              replace: true,
+            })
+          }
         >
           برداشت
         </motion.button>

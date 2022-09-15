@@ -238,6 +238,19 @@ export type ProfileReadOnly = {
   cards: UserCardsReadonly[];
 };
 
+export type Wallet = {
+  is_faved: boolean;
+  asset: Asset;
+  amount: number;
+  value: number;
+  price_buy: number;
+  price_sell: number;
+};
+
+export type PaginatedWallet = Paginated & {
+  results: Wallet[];
+};
+
 export type UserCardsReadonly = {
   number: string;
   sheba: string;

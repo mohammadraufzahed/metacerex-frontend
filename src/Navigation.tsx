@@ -76,14 +76,8 @@ const Navigation: React.FC = () => {
                 path=""
                 element={<Navigate to="/dashboard/asset/deposit" />}
               />
-              <Route path="deposit">
-                <Route path="" element={<DepositPage />} />
-                <Route path=":currency" element={<DepositPage />} />
-              </Route>
-              <Route path="withdraw">
-                <Route path="" element={<WithdrawPage />} />
-                <Route path=":currency" element={<WithdrawPage />} />
-              </Route>
+              <Route path="deposit" element={<DepositPage />} />
+              <Route path="withdraw" element={<WithdrawPage />} />
             </Route>
             <Route path="onchain" element={<OnchainPage />} />
             <Route path="logout" element={<LogoutPage />} />

@@ -48,23 +48,12 @@ const SidebarBoxData: SidebarBoxDataT = {
       Icon: EmptyWallet,
       href: "/dashboard/wallet",
     },
-    {
-      text: "تاریخچه",
-      Icon: Calendar,
-      href: "/dashboard/history",
-    },
   ],
   2: [
     {
-      text: "واچ لیست",
-      Icon: ArchiveBook,
-      href: "/dashboard/watchlist",
-      onlyMobile: true,
-    },
-    {
       text: "مدیریت حساب",
       Icon: HomeTrendUp,
-      href: "/dashboard/settings/profile",
+      href: "/dashboard/profile/information",
       onlyMobile: true,
     },
     {
@@ -73,19 +62,8 @@ const SidebarBoxData: SidebarBoxDataT = {
       href: "/news",
       onlyMobile: true,
     },
-    {
-      text: "ارتباط با ما",
-      Icon: CallIncome,
-      href: "/dashboard/contactus",
-      onlyMobile: true,
-    },
   ],
   3: [
-    {
-      text: "پشتیبانی",
-      Icon: Message,
-      href: "/dashboard/support",
-    },
     {
       text: "خروج",
       Icon: Login,

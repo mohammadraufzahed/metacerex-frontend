@@ -13,7 +13,7 @@ import Input from "../Input";
 import RulesButton from "./RulesButton";
 import * as yup from "yup";
 import { httpClient } from "../../axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 type PropsT = {

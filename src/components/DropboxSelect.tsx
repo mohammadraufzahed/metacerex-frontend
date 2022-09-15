@@ -72,8 +72,7 @@ const DropboxSelect: React.FC<PropsT> = ({
           label=""
           value={search}
           onChange={({ currentTarget }) => {
-            setOpen(false);
-            setSearch(currentTarget.value);
+            setSearch((currentTarget as HTMLInputElement).value);
           }}
         />
         <Search className="absolute top-4 left-2" />

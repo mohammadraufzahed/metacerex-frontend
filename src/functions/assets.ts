@@ -14,7 +14,7 @@ export async function getDepositAssets(): Promise<AssetList[]> {
     .then((data) => data.data);
 }
 
-export async function setFavAsset(asset: string): Promise<void> {
+export async function setFavAsset(asset: string) {
   await httpClient
     .put("cryptobase/asset/fave/", {
       asset,
@@ -31,7 +31,7 @@ export async function setFavAsset(asset: string): Promise<void> {
             : "از ارزهای منتخب حذف شد."
         }`;
         useCustomToast("bottom-right", "success", message);
-        return status.is_faved;
+        return res;
       }
     });
 }
