@@ -23,7 +23,7 @@ const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
       <div className="hidden w-full lg:flex flex-row gap-2">
         <MenuItem
           active={menu == "all"}
-          text="محبوب ترین ارز ها"
+          text="لیست ارز ها"
           onTap={() => setMenu("all")}
         />
         <MenuItem

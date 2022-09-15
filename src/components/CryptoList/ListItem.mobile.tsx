@@ -61,7 +61,7 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
       className="font-vazir font-normal text-xs grid grid-cols-3 place-content-between border-b-[1px] border-b-neutral-300 pb-2"
     >
       <div className="flex flex-row gap-3 items-center text-neutral-900 place-self-start">
-        <img src={base_asset.icon} width={20} />
+        <img src={base_asset.icon} width={16} />
         <span>{base_asset.name}</span>
       </div>
       <motion.span

@@ -32,8 +32,8 @@ const ListPage: React.FC = () => {
         <title>صرافی - لیست ارز ها</title>
       </Helmet>
       <div className="flex-auto max-h-screen w-full h-max-full flex flex-col pt-4 max-w-[1600px] 2xl:mx-auto">
-        <div className="w-full flex flex-col flex-auto pb-5 md:px-4 lg:grid lg:grid-cols-12 lg:gap-x-2 lg:justify-center lg:max-h-[1060px]">
-          <div className="lg:col-span-5 gap-2 xl:col-span-4 xl:flex xl:flex-col">
+        <div className="w-full flex flex-col flex-auto pb-5 md:px-4 lg:grid lg:grid-cols-12 lg:gap-4 lg:justify-center ">
+          <div className="lg:col-span-5 gap-2 xl:col-span-4 xl:flex xl:flex-col lg:max-w-[440px]">
             <ErrorBoundary fallback={<Error />}>
               <Suspense fallback={<Loading />}>
                 <ListSelector />
