@@ -60,7 +60,7 @@ const OnchainPage = () => {
     }
   }, [screenD]);
   return (
-    <div className="flex-auto flex py-2 gap-4 px-4 max-w-[1600px] 2xl:mx-auto 2xl:gap-10">
+    <div className="flex-auto flex py-2 gap-4 px-4">
       <motion.div
         variants={{
           show: {
@@ -74,7 +74,7 @@ const OnchainPage = () => {
         }}
         animate={sidebar ? "show" : "hide"}
         transition={{ duration: 0.5 }}
-        className="absolute z-[60] h-[99vh] w-8/12 top-0 right-0 overflow-hidden scrollbar-vertical rounded-t-xl drop-shadow-md bg-neutral-50 lg:right-14 xl:right-[unset] xl:top-[unset] xl:w-6/12 xl:h-3/6 xl:relative"
+        className="absolute z-[60] h-[99vh] w-8/12 top-0 right-0 overflow-hidden scrollbar-vertical rounded-t-xl drop-shadow-md bg-neutral-50 lg:right-14 xl:right-[unset] xl:top-[unset] xl:w-6/12 xl:relative lg:max-w-[500px] lg:h-[82.5vh]"
       >
         <div className="w-full py-4 px-2 flex flex-col gap-4 border-b-[1px] border-black">
           <div className="w-full flex flex-row justify-end items-center cursor-pointer xl:hidden">
