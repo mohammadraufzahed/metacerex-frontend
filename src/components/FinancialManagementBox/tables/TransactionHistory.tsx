@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import type { TransactionHistory as TransactionHistoryType } from "../../../types/API";
-import { TCell, THead } from "../../Wallet/WalletTableUtils";
+import { TCell, THead, TTitleCell } from "../../Wallet/WalletTableUtils";
 import { useQuery } from "@tanstack/react-query";
 import { getTransactionHistory } from "../../../functions/history";
 import Loading from "../../Loading";
@@ -26,6 +26,18 @@ const columns = [
     cell: (info) => (
       <TCell title={new Date(info.getValue()).toLocaleDateString("fa-ir")} />
     ),
+  }),
+  columnHelper.accessor("asset", {
+    header: () => "ارز",
+    cell: (info) => {
+      const asset = info.getValue();
+      return (
+        <TTitleCell
+          name={asset.name ? asset.name : asset.name_farsi ?? ""}
+          icon={asset.icon}
+        />
+      );
+    },
   }),
   columnHelper.accessor("quantity", {
     header: () => "مقدار",
