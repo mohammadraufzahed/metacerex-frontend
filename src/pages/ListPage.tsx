@@ -33,19 +33,14 @@ const ListPage: React.FC = () => {
       </Helmet>
       <div className="flex-auto h-max w-full flex flex-col pt-4">
         <div className="w-full flex flex-col flex-auto pb-5 md:px-4 lg:flex-row lg:gap-4 lg:overflow-hidden lg:max-h-[90vh] lg:justify-center ">
-          <div className="xl:flex xl:flex-col lg:max-w-[440px]">
+          <div className="xl:flex xl:flex-col lg:w-8/12 xl:min-w-[440px] lg:max-w-[440px]">
             <ErrorBoundary fallback={<Error />}>
               <Suspense fallback={<Loading />}>
                 <ListSelector />
               </Suspense>
             </ErrorBoundary>
-            <ErrorBoundary fallback={<Error />}>
-              <Suspense fallback={<Loading />}>
-                <NewsBox />
-              </Suspense>
-            </ErrorBoundary>
           </div>
-          <div className="w-full flex-auto mt-1 lg:mt-0 lg:col-span-7 flex xl:col-span-8 flex-col max-h-full relative">
+          <div className="w-full h-[80vh] flex-auto mt-1 lg:h-[88.2vh] lg:mt-0 lg:col-span-7 flex xl:col-span-8 flex-col max-h-full relative">
             <TradingView />
             <FinancialManagementBox />
           </div>
