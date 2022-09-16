@@ -127,7 +127,7 @@ const OrderHistoryTable: React.FC<PropsT> = ({}) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, type: "tween" }}
-          className="w-full overflow-x-auto scrollbar-vertical"
+          className="w-full overflow-x-scroll scrollbar-vertical"
         >
           <table className="min-w-full">
             <thead className="border-b-[1px] border-b-black">

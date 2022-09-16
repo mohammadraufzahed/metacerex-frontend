@@ -25,7 +25,7 @@ type TTitleCell = {
 };
 
 export const TTitleCell: React.FC<TTitleCell> = ({ name, icon }) => (
-  <div className="w-full flex flex-row font-vazir font-normal items-center justify-center gap-3 text-base py-7">
+  <div className="w-full flex flex-row font-vazir font-normal items-center justify-center gap-3 text-base py-4">
     {icon ? <img src={icon} className="w-5" /> : null}
     {name}
   </div>
@@ -52,7 +52,7 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
     <div className="w-full flex justify-center items-center pl-10">
       <div className="grid grid-cols-4 items-center place w-max gap-x-6">
         <motion.button
-          className="bg-success rounded-lg py-2 w-[63px] font-vazir font-normal text-base text-white"
+          className="bg-success rounded-lg py-1.5 w-[63px] font-vazir font-normal text-base text-white"
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1.04 }}
@@ -61,7 +61,7 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
           خرید
         </motion.button>
         <motion.button
-          className="bg-error rounded-lg py-2 w-[72px] font-vazir font-normal text-base text-white"
+          className="bg-error rounded-lg py-1.5 w-[72px] font-vazir font-normal text-base text-white"
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1.04 }}
@@ -70,7 +70,7 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
           فروش
         </motion.button>
         <motion.button
-          className="rounded-lg py-2 w-[61px] font-vazir font-normal text-base"
+          className="rounded-lg py-1.5 w-[61px] font-vazir font-normal text-base"
           initial={{
             scale: 1,
             color: "rgb(8, 103, 136)",
@@ -93,7 +93,7 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
           واریز
         </motion.button>
         <motion.button
-          className="rounded-lg py-2 w-[81px] font-vazir font-normal text-base"
+          className="rounded-lg py-1.5 w-[81px] font-vazir font-normal text-base"
           initial={{
             scale: 1,
             color: "rgb(8, 103, 136)",

@@ -51,19 +51,16 @@ const walletTableColumns = [
         </motion.div>
       );
     },
-    size: 110,
+    maxSize: 80,
+    minSize: 70,
   }),
   columnHelper.accessor("asset", {
     header: () => "نام ارز",
-    size: 120,
+    maxSize: 100,
+    minSize: 90,
     cell: (info) => {
       const value = info.getValue();
-      return (
-        <TTitleCell
-          name={value.name ? value.name ?? "" : value.name_farsi ?? ""}
-          icon={value.icon}
-        />
-      );
+      return <TTitleCell name={value.code} icon={value.icon} />;
     },
   }),
   columnHelper.accessor("amount", {
@@ -72,7 +69,8 @@ const walletTableColumns = [
       const value = info.getValue();
       return <TCell title={value ? value.toString() : "0"} />;
     },
-    size: 110,
+    maxSize: 60,
+    minSize: 50,
   }),
   columnHelper.accessor("value", {
     header: () => "ارزش",
@@ -80,7 +78,8 @@ const walletTableColumns = [
       const value = info.getValue();
       return <TCell title={value ? value.toString() : "0"} />;
     },
-    size: 80,
+    maxSize: 60,
+    minSize: 50,
   }),
   columnHelper.accessor("price_buy", {
     header: () => "قیمت خرید",
@@ -88,7 +87,8 @@ const walletTableColumns = [
       const value = info.getValue();
       return <TCell title={value ? value.toString() : "0"} />;
     },
-    size: 120,
+    maxSize: 60,
+    minSize: 50,
   }),
   columnHelper.accessor("price_sell", {
     header: () => "قیمت فروش",
@@ -96,7 +96,8 @@ const walletTableColumns = [
       const value = info.getValue();
       return <TCell title={value ? value.toString() : "0"} />;
     },
-    size: 120,
+    maxSize: 60,
+    minSize: 50,
   }),
   columnHelper.display({
     id: "actions",
@@ -105,8 +106,8 @@ const walletTableColumns = [
       // console.dir(info.row._getAllCellsByColumnId());
       return <TAction wallet={info.row.original} />;
     },
-    maxSize: 20,
-    size: 40,
+    maxSize: 60,
+    minSize: 50,
   }),
 ];
 
@@ -124,9 +125,10 @@ const WalletTable: React.FC<PropsT> = ({ wallets }) => {
   });
 
   return (
-    <div className="hidden w-[92.5vw] lg:flex gap-10 flex-col bg-neutral-50 py-6 overflow-x-scroll rounded-lg">
-      <table className="min-w-full max-w-max">
-        <thead className="border-b-[1px] border-b-black">
+    <div className="hidden relative w-[92.5vw] lg:flex gap-10 flex-col bg-neutral-50 py-6 overflow-x-scroll rounded-lg">
+      <table className="min-w-max w-full mx-auto">
+        <thead className="">
+          <div className="absolute w-screen left-0 h-[1px] bg-shades-100 top-16"></div>
           {walletTable.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
