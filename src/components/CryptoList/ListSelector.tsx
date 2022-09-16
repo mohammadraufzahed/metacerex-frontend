@@ -99,7 +99,7 @@ const ListSelector: React.FC = () => {
             <ErrorFetch resetErrorBoundary={resetErrorBoundary} />
           )}
         >
-          <div className="relative h-max lg:h-[89.5vh] lg:overflow-hidden">
+          <div className="relative h-max lg:h-full lg:overflow-hidden">
             <ListContainerMobile
               onScroll={onHitEnd}
               onScrollFav={onHitEndFav}
