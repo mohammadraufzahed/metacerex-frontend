@@ -1,1 +1,1 @@
-export const API_LIMIT = 15;
+export const API_LIMIT = 30;

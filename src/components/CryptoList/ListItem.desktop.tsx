@@ -24,7 +24,7 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
         }
       }}
       onDoubleClick={() => setFavAsset(base_asset.code)}
-      className='font-vazir cursor-pointer font-normal relative text-xs text-neutral-900 after:content-[""] after:w-full after:h-[1px] after:bg-neutral-200 after:absolute after:left-0 after:-bottom-2'
+      className='font-vazir cursor-pointer font-normal relative h-[23px] text-xs text-neutral-900 after:content-[""] after:w-full after:h-[1px] after:bg-neutral-200 after:absolute after:left-0 after:-bottom-2'
     >
       <td className="flex flex-row items-center self-start justify-start">
         <img src={base_asset.icon} width={14} />
