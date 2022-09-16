@@ -32,7 +32,7 @@ const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
           onTap={() => setMenu("fav")}
         />
       </div>
-      <div className="hidden lg:flex bg-neutral-50 px-5 py-6 rounded-lg flex-col gap-5">
+      <div className="hidden lg:flex bg-neutral-50 px-5 py-6 rounded-lg flex-col gap-5 lg:h-[84vh]">
         {menu == "fav" && !userTokenD ? (
           <LoginRequiredPage />
         ) : (

@@ -78,11 +78,7 @@ const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
             width={28}
           />
           <span className="text-neutral-900">
-            {currentTicker
-              ? currentTicker.base_asset.name != ""
-                ? currentTicker.base_asset.name
-                : currentTicker.base_asset.name_farsi
-              : ""}
+            {currentTicker ? currentTicker.base_asset.code : ""}
           </span>
         </div>
         <div>

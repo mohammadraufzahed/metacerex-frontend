@@ -29,7 +29,7 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
       <td className="flex flex-row items-center self-start justify-start">
         <img src={base_asset.icon} width={14} />
         <span className="mx-2">{base_asset.name_farsi}</span>
-        {base_asset.name ? <span>{`(${base_asset.name})`}</span> : null}
+        {base_asset.name ? <span>{`(${base_asset.code})`}</span> : null}
       </td>
       <td className="text-center">{price}</td>
       <td className="flex flex-row gap-2 justify-center">
