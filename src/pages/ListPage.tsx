@@ -31,7 +31,7 @@ const ListPage: React.FC = () => {
       <Helmet>
         <title>صرافی - لیست ارز ها</title>
       </Helmet>
-      <div className="flex-auto h-[90vh] w-full flex flex-col pt-4">
+      <div className="flex-auto h-[100vh] w-full flex flex-col pt-4">
         <div className="w-full flex flex-col flex-auto auto-cols-max pb-5 md:px-4 lg:grid lg:grid-cols-12 lg:gap-4 2xl:grid-cols-10 lg:overflow-hidden lg:h-[94vh] lg:max-h-[90vh] lg:justify-center ">
           <div className="w-full xl:flex xl:flex-col lg:col-span-4 2xl:col-span-3 xl:w-full lg:max-w-[440px]">
             <ErrorBoundary fallback={<Error />}>

@@ -8,9 +8,10 @@ const ListItem = lazy(() => import("./ListItem.desktop"));
 type PropsT = {
   onScroll: (e: HTMLDivElement) => void;
   list: TickerTable[];
+  onFavTap: () => void;
 };
 
-const ListBox: React.FC<PropsT> = ({ onScroll, list }) => {
+const ListBox: React.FC<PropsT> = ({ onFavTap, onScroll, list }) => {
   return (
     <div
       onScroll={(e) => onScroll(e.currentTarget)}
@@ -30,7 +31,7 @@ const ListBox: React.FC<PropsT> = ({ onScroll, list }) => {
           <tbody className="h-max">
             <AnimatePresence mode="wait">
               {list.map((item, key) => (
-                <ListItem {...item} key={key} />
+                <ListItem onFavTap={onFavTap} {...item} key={key} />
               ))}
             </AnimatePresence>
           </tbody>

@@ -4,10 +4,16 @@ import type { TickerTable } from "../../types/API";
 import { useRecoilState } from "recoil";
 import { tradingviewAtom } from "../../atoms/tradingviewAtom";
 import { setFavAsset } from "../../functions/assets";
-import { tickers } from "../../atoms/tickers";
-import { tickers_fav } from "../../atoms/tickers_fav";
 
-const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
+type PropsT = {
+  onTapFav: () => void;
+};
+
+const ListItem: React.FC<TickerTable & PropsT> = ({
+  onTapFav,
+  base_asset,
+  price,
+}) => {
   // States
   const growAnimation = {
     up: {
@@ -19,8 +25,6 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
   };
   const [grow, setGrow] = useState<number>(0);
   const [tradingview, setTradingview] = useRecoilState(tradingviewAtom);
-  const [tickersD, setTickers] = useRecoilState(tickers);
-  const [tickersFavD, setTickersFav] = useRecoilState(tickers_fav);
   // Effects
   useEffect(() => {
     const growInterval = setInterval(() => {
@@ -52,11 +56,15 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
       exit="hide"
       whileTap="tap"
       onTap={() => {
-        if (base_asset.code !== "TOMAN") {
-          setTradingview(base_asset.code);
+        if (base_asset) {
+          if (base_asset.code !== "TOMAN") {
+            setTradingview(base_asset.code);
+          }
         }
       }}
-      onDoubleClick={() => setFavAsset(base_asset.code)}
+      onDoubleClick={() => {
+        setFavAsset(base_asset.code).then(() => onTapFav());
+      }}
       transition={{ duration: 0.5, type: "tween" }}
       className="font-vazir font-normal text-xs grid grid-cols-3 place-content-between border-b-[1px] border-b-neutral-300 pb-2"
     >

@@ -7,7 +7,7 @@ export type AutocompleteAssets = {
   networks: {
     name: string;
     name_detailed: string;
-    site_wallet_address: string;
+    exchange_network_address: string;
     has_memo: boolean;
   }[];
   precision: number;
@@ -175,7 +175,7 @@ export type WsStateEnum = "new" | "read" | "ignored";
 export type Networks = {
   name: string;
   name_detailed?: string;
-  site_wallet_address: string;
+  exchange_network_address: string;
   has_memo: boolean;
 };
 

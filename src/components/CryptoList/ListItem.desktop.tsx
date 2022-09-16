@@ -5,7 +5,15 @@ import { tradingviewAtom } from "../../atoms/tradingviewAtom";
 import { setFavAsset } from "../../functions/assets";
 import { TickerTable } from "../../types/API";
 
-const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
+type PropsT = {
+  onFavTap: () => void;
+};
+
+const ListItem: React.FC<TickerTable & PropsT> = ({
+  onFavTap,
+  base_asset,
+  price,
+}) => {
   const [tradingview, setTradingview] = useRecoilState(tradingviewAtom);
   return (
     <motion.tr
@@ -23,13 +31,16 @@ const ListItem: React.FC<TickerTable> = ({ base_asset, price }) => {
           setTradingview(base_asset.code);
         }
       }}
-      onDoubleClick={() => setFavAsset(base_asset.code)}
+      onDoubleClick={() => {
+        setFavAsset(base_asset.code).then(() => {
+          onFavTap();
+        });
+      }}
       className='font-vazir cursor-pointer font-normal relative h-[23px] text-xs text-neutral-900 after:content-[""] after:w-full after:h-[1px] after:bg-neutral-200 after:absolute after:left-0 after:-bottom-2'
     >
       <td className="flex flex-row items-center self-start justify-start">
         <img src={base_asset.icon} width={14} />
         <span className="mx-2">{base_asset.code}</span>
-        {base_asset.name ? <span>{`(${base_asset.code})`}</span> : null}
       </td>
       <td className="text-center">{price}</td>
       <td className="flex flex-row gap-2 justify-center">

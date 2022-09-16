@@ -15,9 +15,14 @@ const ListBoxMobile = lazy(() => import("./ListBox.mobile"));
 type PropsT = {
   onScroll: (e: HTMLDivElement) => void;
   onScrollFav: (e: HTMLDivElement) => void;
+  onTapFav: () => void;
 };
 
-const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
+const ListContainer: React.FC<PropsT> = ({
+  onTapFav,
+  onScroll,
+  onScrollFav,
+}) => {
   // States
   const financialBoxStat = useRecoilValue(financialBoxStatus);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -102,10 +107,15 @@ const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
         <SearchBox />
         {/* Mobile Version */}
         <div className="flex-auto flex flex-col h-full overflow-">
-          <ListBoxMobile list={tickersAll} onScroll={onScroll} />
+          <ListBoxMobile
+            onTapFav={onTapFav}
+            list={tickersAll.length == 0 ? [] : tickersAll}
+            onScroll={onScroll}
+          />
           {userTokenD ? (
             <ListBoxMobile
-              list={tickersFav}
+              onTapFav={onTapFav}
+              list={tickersFav.length == 0 ? [] : tickersFav}
               onScroll={onScrollFav}
               title="مورد علاقه شما"
             />

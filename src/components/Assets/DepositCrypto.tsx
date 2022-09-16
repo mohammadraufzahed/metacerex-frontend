@@ -168,7 +168,7 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
         </span>
         <div className="w-full mt-6 border-[1px] rounded-lg border-primary-700">
           <span className="w-full border-b-2 border-primary-700 flex flex-row items-center justify-center font-vazir font-normal text-base px-2 py-3 text-primary-700">
-            {selectedNetwork ? selectedNetwork.site_wallet_address : "-"}
+            {selectedNetwork ? selectedNetwork.exchange_network_address : "-"}
           </span>
           <div className="w-full py-3.5 px-3 flex flex-row justify-between items-center">
             {currentCurrency ? (
@@ -184,7 +184,7 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
               onClick={() => {
                 if (selectedNetwork) {
                   navigator.clipboard.writeText(
-                    selectedNetwork.site_wallet_address
+                    selectedNetwork.exchange_network_address
                   );
                   setCopied(1);
                   setTimeout(() => setCopied(0), 2500);

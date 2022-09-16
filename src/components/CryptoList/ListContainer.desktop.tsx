@@ -11,9 +11,14 @@ import LoginRequiredPage from "../../pages/LoginRequiredPage";
 type PropsT = {
   onScroll: (e: HTMLDivElement) => void;
   onScrollFav: (e: HTMLDivElement) => void;
+  onFavTap: () => void;
 };
 
-const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
+const ListContainer: React.FC<PropsT> = ({
+  onFavTap,
+  onScroll,
+  onScrollFav,
+}) => {
   const [menu, setMenu] = useState<"all" | "fav">("all");
   const userTokenD = useRecoilValue(userToken);
   const favList = useRecoilValue(tickers_fav);
@@ -39,6 +44,7 @@ const ListContainer: React.FC<PropsT> = ({ onScroll, onScrollFav }) => {
           <>
             <SearchBox />
             <ListBox
+              onFavTap={onFavTap}
               list={menu == "all" ? list : favList}
               onScroll={menu == "all" ? onScroll : onScrollFav}
             />

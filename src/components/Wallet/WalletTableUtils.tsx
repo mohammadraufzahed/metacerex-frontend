@@ -11,7 +11,7 @@ type THeadT = {
 
 export const THead: React.FC<THeadT> = ({ children, style, colSpan }) => (
   <th
-    className="font-vazir font-bold text-base p-2"
+    className="font-vazir font-bold text-sm p-2"
     style={style}
     colSpan={colSpan}
   >
@@ -25,7 +25,7 @@ type TTitleCell = {
 };
 
 export const TTitleCell: React.FC<TTitleCell> = ({ name, icon }) => (
-  <div className="w-full flex flex-row font-vazir font-normal items-center justify-center gap-3 text-base py-4">
+  <div className="w-full flex flex-row font-vazir font-normal items-center justify-center gap-3 text-sm py-4">
     {icon ? <img src={icon} className="w-5" /> : null}
     {name}
   </div>
@@ -36,7 +36,7 @@ type TCellT = {
 };
 
 export const TCell: React.FC<TCellT> = ({ title }) => (
-  <span className="font-vazir font-normal text-center text-base flex justify-center items-center w-full py-4">
+  <span className="font-vazir font-normal text-center text-sm flex justify-center items-center w-full py-4">
     {title}
   </span>
 );
@@ -51,24 +51,28 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
   return (
     <div className="w-full flex justify-center items-center pl-10">
       <div className="grid grid-cols-4 items-center place w-max gap-x-6">
-        <motion.button
-          className="bg-success rounded-lg py-1.5 w-[63px] font-vazir font-normal text-base text-white"
-          initial={{ scale: 1 }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 1.04 }}
-          onTap={() => navigate(`/dashboard/buy`, { replace: true })}
-        >
-          خرید
-        </motion.button>
-        <motion.button
-          className="bg-error rounded-lg py-1.5 w-[72px] font-vazir font-normal text-base text-white"
-          initial={{ scale: 1 }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 1.04 }}
-          onTap={() => navigate(`/dashboard/sell`, { replace: true })}
-        >
-          فروش
-        </motion.button>
+        {wallet.asset.code == "TOMAN" ? null : (
+          <>
+            <motion.button
+              className="bg-success rounded-lg py-1.5 w-[63px] font-vazir font-normal text-base text-white"
+              initial={{ scale: 1 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 1.04 }}
+              onTap={() => navigate(`/dashboard/buy`, { replace: true })}
+            >
+              خرید
+            </motion.button>
+            <motion.button
+              className="bg-error rounded-lg py-1.5 w-[72px] font-vazir font-normal text-base text-white"
+              initial={{ scale: 1 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 1.04 }}
+              onTap={() => navigate(`/dashboard/sell`, { replace: true })}
+            >
+              فروش
+            </motion.button>
+          </>
+        )}
         <motion.button
           className="rounded-lg py-1.5 w-[61px] font-vazir font-normal text-base"
           initial={{

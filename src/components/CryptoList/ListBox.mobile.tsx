@@ -11,9 +11,10 @@ type PropsT = {
   title?: string;
   onScroll: (e: HTMLDivElement) => void;
   list: TickerTable[];
+  onTapFav: () => void;
 };
 
-const ListBox: React.FC<PropsT> = ({ title, onScroll, list }) => {
+const ListBox: React.FC<PropsT> = ({ onTapFav, title, onScroll, list }) => {
   return (
     <div
       onScroll={({ currentTarget }) => onScroll(currentTarget)}
@@ -28,7 +29,7 @@ const ListBox: React.FC<PropsT> = ({ title, onScroll, list }) => {
         <div className="mt-5 flex flex-col gap-2">
           <AnimatePresence mode="wait">
             {list.map((item, key) => (
-              <ListItem key={key} {...item} />
+              <ListItem onTapFav={onTapFav} key={key} {...item} />
             ))}
           </AnimatePresence>
         </div>

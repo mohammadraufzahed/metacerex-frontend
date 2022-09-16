@@ -13,12 +13,12 @@ const TradingView: React.FC = () => {
       height: 0,
     },
     idle: {
-      height: "81.5vh",
-      maxHeight: "81.5vh",
+      height: "84.5vh",
+      maxHeight: "84.5vh",
     },
     open: {
-      height: "44vh",
-      maxHeight: "44vh",
+      height: "47vh",
+      maxHeight: "47vh",
     },
   };
   return (

@@ -47,6 +47,7 @@ const ListSelector: React.FC = () => {
       suspense: false,
     }
   );
+  const tickerFavReset = () => tickersFavouriteQuery.refetch();
   // Functions
   const onHitEnd = (e: HTMLDivElement) => {
     if (e.scrollHeight - e.scrollTop - 1 < e.offsetHeight) {
@@ -101,12 +102,14 @@ const ListSelector: React.FC = () => {
         >
           <div className="relative h-max lg:h-full lg:overflow-hidden">
             <ListContainerMobile
+              onTapFav={tickerFavReset}
               onScroll={onHitEnd}
               onScrollFav={onHitEndFav}
             />
             <ListContainerDesktop
               onScroll={onHitEnd}
               onScrollFav={onHitEndFav}
+              onFavTap={tickerFavReset}
             />
           </div>
         </ErrorBoundary>
