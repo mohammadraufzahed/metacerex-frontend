@@ -50,12 +50,15 @@ const FinancialTabel: React.FC = () => {
       variants={{
         max: {
           height: "79.9vh",
+          maxHeight: "79.9vh",
         },
         open: {
           height: "37.5vh",
+          maxHeight: "37.5vh",
         },
         mobileOpen: {
           height: "79vh",
+          maxHeight: "79vh",
         },
       }}
       animate={financialBoxStat}
