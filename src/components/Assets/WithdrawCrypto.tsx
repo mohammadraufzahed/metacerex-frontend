@@ -134,7 +134,7 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
             list={assetsQuery.data
               .filter((item) => item.code == withdrawFormik.values.asset)[0]
               .networks.map((item) => ({
-                text: item.name,
+                text: item.name ?? "",
                 value: item.name,
                 memo: item.has_memo,
               }))}

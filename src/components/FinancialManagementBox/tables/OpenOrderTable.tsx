@@ -17,6 +17,8 @@ import PaginationButton from "../../PaginationButton";
 import { API_LIMIT } from "../../../constants/APILimit";
 import Loading from "../../Loading";
 import TablePaginationButtons from "../TablePaginationButtons";
+import { httpClient } from "../../../axios";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 const columnHelper = createColumnHelper<OrdersOpen>();
 
@@ -52,6 +54,37 @@ const tableColumns = [
     header: () => "تعداد",
     size: 150,
     cell: (info) => <TCell title={info.getValue()?.toString() ?? ""} />,
+  }),
+  columnHelper.display({
+    id: "cancell",
+    header: () => "عملیات",
+    cell: (info) => (
+      <div className="w-full flex items-center justify-center">
+        <motion.button
+          className="bg-error rounded-lg py-1.5 w-[70px] font-vazir font-normal text-base text-white"
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 1.04 }}
+          onTap={() => {
+            httpClient
+              .delete("spot/orders/main/cancel", {
+                params: { order_id: info.row.original.order_id },
+              })
+              .then((res) => {
+                if (res.status == 204) {
+                  useCustomToast(
+                    "bottom-right",
+                    "success",
+                    "درخواست شما با موفقیت انجام شد."
+                  );
+                }
+              });
+          }}
+        >
+          لغو
+        </motion.button>
+      </div>
+    ),
   }),
 ];
 

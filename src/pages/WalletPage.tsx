@@ -88,16 +88,16 @@ const WalletPage: React.FC = () => {
           <span className="font-vazir font-bold text-sm lg:text-2xl lg:font-normal">
             ارز های محبوب شما
           </span>
-          <div className="w-full flex flex-col items-center justify-start gap-2 lg:flex-row lg:w-max">
-            {tickersFavouriteQuery.data &&
-            tickersFavouriteQuery.data.results.length != 0 ? (
-              tickersFavouriteQuery.data.results.map((item, key) => (
+          {tickersFavouriteQuery.data &&
+          tickersFavouriteQuery.data.results.length != 0 ? (
+            <div className="w-full flex flex-col items-center justify-start gap-2 lg:flex-row lg:w-max">
+              {tickersFavouriteQuery.data.results.map((item, key) => (
                 <WalletPopularCurrency key={key} ticker={item} />
-              ))
-            ) : (
-              <WalletPopularCurrencyNotFound />
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <WalletPopularCurrencyNotFound />
+          )}
         </div>
       </div>
       <div className="w-full flex-auto flex flex-col gap-7">
