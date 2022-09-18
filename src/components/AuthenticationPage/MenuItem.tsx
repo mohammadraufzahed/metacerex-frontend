@@ -6,18 +6,25 @@ type PropsT = {
   text: string | React.ReactNode;
   active: boolean;
   onClick: MouseEventHandler;
+  activeColor?: string;
   only?: "desktop" | "mobile";
 };
 
-const MenuItem: React.FC<PropsT> = ({ text, active, onClick, only }) => {
+const MenuItem: React.FC<PropsT> = ({
+  text,
+  active,
+  onClick,
+  only,
+  activeColor,
+}) => {
   const spanAnimation = {
     initial: {
       borderBottomColor: "#a3a3a3",
       color: "#a3a3a3",
     },
     active: {
-      borderBottomColor: "#086788",
-      color: "#086788",
+      borderBottomColor: activeColor ?? "#086788",
+      color: activeColor ?? "#086788",
     },
   };
   return (

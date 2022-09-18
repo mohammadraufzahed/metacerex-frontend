@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { lazy, Suspense, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import { Outlet } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { statusData } from "../atoms/status";
@@ -29,7 +28,7 @@ const DashboardLayout: React.FC = () => {
       </header>
       <main className="min-h-screen max-h-max h-full overflow-y-scroll scrollbar-vertical flex flex-row min-w-screen bg-background-50">
         <DashboardSidebar />
-        <div className="flex-auto min-h-screen h-full flex px-2 py-16 lg:pr-12">
+        <div className="flex-auto min-h-screen h-full flex px-2 py-16 lg:pr-14">
           <Suspense fallback={<Loading />}>
             <Outlet />
           </Suspense>
