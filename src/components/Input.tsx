@@ -16,6 +16,7 @@ type PropsT = {
   className?: string;
   isPrimary?: boolean;
   disabled?: boolean;
+  placeholder?: string;
 };
 
 const Input: React.FC<PropsT> = ({
@@ -31,6 +32,7 @@ const Input: React.FC<PropsT> = ({
   className,
   isPrimary,
   disabled,
+  placeholder,
 }) => {
   return (
     <div
@@ -57,6 +59,7 @@ const Input: React.FC<PropsT> = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
+        placeholder={placeholder}
       />
       <AnimatePresence>
         {error ? (

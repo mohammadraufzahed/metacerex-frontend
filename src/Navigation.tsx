@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { screen } from "./atoms/screen";
 import PageNotFound from "./pages/PageNotFound";
+import TransactionPage from "./pages/TransactionPage";
 
 const BuyPage = lazy(() => import("./pages/BuyPage"));
 const LogoutPage = lazy(() => import("./pages/LogoutPage"));
@@ -98,6 +99,7 @@ const Navigation: React.FC = () => {
           </Route>
           <Route path="news" element={<NewsListPage />} />
           <Route path="news/:id/:slug" element={<NewsPage />} />
+          <Route path="transaction" element={<TransactionPage />} />
           <Route path="" element={<PageNotFound />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>

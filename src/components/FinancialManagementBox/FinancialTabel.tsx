@@ -49,8 +49,8 @@ const FinancialTabel: React.FC = () => {
       initial={{ height: 0 }}
       variants={{
         max: {
-          height: "82vh",
-          maxHeight: "82vh",
+          height: "83.5vh",
+          maxHeight: "83.5vh",
         },
         open: {
           height: "37.5vh",

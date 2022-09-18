@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Button from "../components/AuthenticationPage/Button";
 import DropboxSelect from "../components/DropboxSelect";
 import { FinancialManagementBox } from "../components/FinancialManagementBox";
+import Input from "../components/Input";
 import MarketAction from "../components/Market/MarketActionsBox";
 import { AnimatedCheckBox } from "../components/ProfilePage/Boxes/TwoSecActivateBox";
 import RangeSlider from "../components/RangeSlider";
 import TradingView from "../components/TradingView";
 
 const BuyPage = () => {
+  const [trade, setTrade] = useState<"INSTANCE" | "MAIN">("MAIN");
   const [range, setRange] = useState<string>("0");
   return (
     <div className="flex-auto w-full h-full lg:grid lg:grid-cols-12 gap-4 px-4 py-2 2xl:grid-cols-10">
@@ -26,10 +28,12 @@ const BuyPage = () => {
               />
             </div>
           </div>
-          <div className="w-full flex justify-between items-center font-vazir font-normal text-sm">
-            <span>قیمت لحظه ای:</span>
-            <span>785.222.458 تومان</span>
-          </div>
+          {trade == "INSTANCE" ? (
+            <div className="w-full flex justify-between items-center font-vazir font-normal text-sm">
+              <span>قیمت لحظه ای:</span>
+              <span>785.222.458 تومان</span>
+            </div>
+          ) : null}
           <div className="w-full">
             <DropboxSelect
               list={Array(100).fill({
@@ -42,9 +46,30 @@ const BuyPage = () => {
             />
           </div>
           <div className="w-full grid grid-cols-2">
-            <Button text="سریع" className="" fullWidth />
-            <Button text="اصلی" className="" outlined fullWidth />
+            <Button
+              text="سریع"
+              className=""
+              fullWidth
+              outlined={trade !== "INSTANCE"}
+              onClick={() => {
+                setTrade("INSTANCE");
+              }}
+            />
+            <Button
+              text="اصلی"
+              className=""
+              outlined={trade !== "MAIN"}
+              onClick={() => {
+                setTrade("MAIN");
+              }}
+              fullWidth
+            />
           </div>
+          {trade == "MAIN" ? (
+            <div className="w-full">
+              <Input type="string" isPrimary placeholder="قیمت درخواستی شما" />
+            </div>
+          ) : null}
           <div className="flex flex-col gap-2 w-full font-normal font-vazir text-sm">
             <div className="flex flex-row items-center gap-2">
               <img src="/svgs/wallet.svg" width={24} />
