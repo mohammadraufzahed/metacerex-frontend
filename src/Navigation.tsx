@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { screen } from "./atoms/screen";
 import PageNotFound from "./pages/PageNotFound";
+import SellPage from "./pages/SellPage";
 import TransactionPage from "./pages/TransactionPage";
 
 const BuyPage = lazy(() => import("./pages/BuyPage"));
@@ -87,6 +88,7 @@ const Navigation: React.FC = () => {
                 element={<Navigate to="/dashboard/market/buy" replace />}
               />
               <Route path="buy" element={<BuyPage />} />
+              <Route path="sell" element={<SellPage />} />
             </Route>
             <Route path="onchain" element={<OnchainPage />} />
             <Route path="logout" element={<LogoutPage />} />
