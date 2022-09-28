@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery, useQueryClient } from "@tanstack/react-query";
 import { table } from "console";
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -16,7 +16,6 @@ import { getPortfolio, getWallet } from "../functions/wallet";
 import { getTickers } from "../hooks/useTickers";
 import Layer from "../svgs/Layer";
 import Search from "../svgs/Search";
-import { Wallet } from "../types/API";
 
 const WalletPage: React.FC = () => {
   // Refs
@@ -28,6 +27,7 @@ const WalletPage: React.FC = () => {
   const [assetQuote, setAssetQuote] = useState<"usdt" | "toman">("toman");
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [paginated, setPaginated] = useState<number>(0);
+  const queryClient = useQueryClient()
   // Conditions
   if (!userTokenD) return <Navigate to="/auth" replace />;
   // Queries
@@ -78,8 +78,8 @@ const WalletPage: React.FC = () => {
               ای پرتفو
             </span>
             <span>
-              {portfolioQuery.data && portfolioQuery.data.result <= 0
-                ? portfolioQuery.data.result
+              {portfolioQuery.data && portfolioQuery.data.value >= 0
+                ? portfolioQuery.data.value
                 : "-"}
             </span>
           </div>

@@ -2,11 +2,11 @@ import React, { lazy, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { screen } from "./atoms/screen";
+import ExchangeBox from "./components/ExchangeBox";
 import PageNotFound from "./pages/PageNotFound";
-import SellPage from "./pages/SellPage";
 import TransactionPage from "./pages/TransactionPage";
+import MarketLayout from "./layouts/MarketLayout";
 
-const BuyPage = lazy(() => import("./pages/BuyPage"));
 const LogoutPage = lazy(() => import("./pages/LogoutPage"));
 const OnchainPage = lazy(() => import("./pages/OnchainPage"));
 const DepositPage = lazy(() => import("./pages/DepositPage"));
@@ -82,13 +82,13 @@ const Navigation: React.FC = () => {
               <Route path="deposit" element={<DepositPage />} />
               <Route path="withdraw" element={<WithdrawPage />} />
             </Route>
-            <Route path="market">
+            <Route path="market" element={<MarketLayout />}>
               <Route
                 path=""
                 element={<Navigate to="/dashboard/market/buy" replace />}
               />
-              <Route path="buy" element={<BuyPage />} />
-              <Route path="sell" element={<SellPage />} />
+              <Route path="buy" element={<ExchangeBox type="BUY" />} />
+              <Route path="sell" element={<ExchangeBox type="SELL" />} />
             </Route>
             <Route path="onchain" element={<OnchainPage />} />
             <Route path="logout" element={<LogoutPage />} />

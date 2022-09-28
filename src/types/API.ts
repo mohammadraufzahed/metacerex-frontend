@@ -13,6 +13,20 @@ export type AutocompleteAssets = {
   precision: number;
 };
 
+export type AssetBalanceResponse = {
+  balances: AssetBalance[]
+}
+
+export type AssetBalance = {
+  asset: Asset;
+  total_deposits: string;
+  total_withdraws: string;
+  total_buys: string;
+  total_sells: string;
+  total_blocked: string;
+  total_balance: string;
+}
+
 export type OrderStatus = "OPEN" | "CANCELED" | "REJECTED" | "EXPIRED" | "DONE";
 
 export type OrderType = "INSTANT" | "MAIN";

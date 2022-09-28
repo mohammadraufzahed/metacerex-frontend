@@ -6,15 +6,14 @@ import Loading from "./components/Loading";
 import "./styles/global.scss";
 import "./styles/tailwind.css";
 import "./styles/scrollbar.scss";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "./components/Error";
+import queryClient from "./QueryClient";
 
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { suspense: true } },
-});
+
 const App: React.FC = () => {
   return (
     <Suspense fallback={<Loading />}>

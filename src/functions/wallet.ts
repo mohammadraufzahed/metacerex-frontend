@@ -21,6 +21,6 @@ export async function getWallet(
     });
 }
 
-export async function getPortfolio(): Promise<{ result: number }> {
+export async function getPortfolio(): Promise<{ value: number }> {
   return httpClient.get("spot/wallet/portfolio/").then((res) => res.data);
 }

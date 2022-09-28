@@ -1,6 +1,6 @@
 import { httpClient } from "../axios";
 import useCustomToast from "../hooks/useCustomToast";
-import { AssetList } from "../types/API";
+import { AssetBalanceResponse, AssetList } from "../types/API";
 
 export async function getDepositAssets(): Promise<AssetList[]> {
   return await httpClient
@@ -34,4 +34,12 @@ export async function setFavAsset(asset: string) {
         return res;
       }
     });
+}
+
+export async function getAsset(assets: string[]): Promise<AssetBalanceResponse> {
+  return await httpClient.get("spot/wallet/balance/", {
+    params: {
+      assets: assets.join(",")
+    }
+  }).then(res => res.data)
 }
