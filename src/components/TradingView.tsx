@@ -7,7 +7,7 @@ import { tradingviewAtom } from "../atoms/tradingviewAtom";
 
 const TradingView: React.FC = () => {
   const financialBoxStat = useRecoilValue(financialBoxStatus);
-  const tradingviewA = useRecoilValue(tradingviewAtom);
+  const tradingview = useRecoilValue(tradingviewAtom);
   const containerAnimation = {
     max: {
       height: 0,
