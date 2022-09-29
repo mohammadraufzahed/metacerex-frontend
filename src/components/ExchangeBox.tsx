@@ -413,7 +413,6 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
                 !form.values.quantity_all_balance
               )
               .then(() => {
-                alert(form.values.quantity_all_balance);
                 setReqData({
                   ...reqData,
                   balance_percentage: null,
