@@ -1,11 +1,14 @@
 import React, { lazy, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { screen } from "./atoms/screen";
 import ExchangeBox from "./components/ExchangeBox";
 import PageNotFound from "./pages/PageNotFound";
 import TransactionPage from "./pages/TransactionPage";
 import MarketLayout from "./layouts/MarketLayout";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { statusData } from "./atoms/status";
+import HomePage from "./pages/HomePage";
 
 const LogoutPage = lazy(() => import("./pages/LogoutPage"));
 const OnchainPage = lazy(() => import("./pages/OnchainPage"));
@@ -36,6 +39,7 @@ const ListPage = lazy(() => import("./pages/ListPage"));
 
 const Navigation: React.FC = () => {
   const [screenD, setScreen] = useRecoilState(screen);
+  const status = useRecoilValue(statusData);
   useEffect(() => {
     const resize = () =>
       setScreen({
@@ -53,9 +57,10 @@ const Navigation: React.FC = () => {
     };
   }, []);
   return (
-    <>
+    <GoogleOAuthProvider clientId={status ? status.oa2_google_client_id : ""}>
       <Routes>
         <Route path="" element={<DashboardLayout />}>
+          <Route path="" element={<HomePage />} />
           <Route path="dashboard">
             <Route
               path=""
@@ -106,7 +111,7 @@ const Navigation: React.FC = () => {
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
-    </>
+    </GoogleOAuthProvider>
   );
 };
 
