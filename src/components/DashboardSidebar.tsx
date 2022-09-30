@@ -10,12 +10,8 @@ const Layer = lazy(() => import("../svgs/Layer"));
 const Profile = lazy(() => import("../svgs/Profile"));
 const Activity = lazy(() => import("../svgs/Activity"));
 const EmptyWallet = lazy(() => import("../svgs/EmptyWallet"));
-const Calendar = lazy(() => import("../svgs/Calender"));
-const ArchiveBook = lazy(() => import("../svgs/ArchiveBook"));
 const HomeTrendUp = lazy(() => import("../svgs/HomeTrendUp"));
 const Sound = lazy(() => import("../svgs/Sound"));
-const CallIncome = lazy(() => import("../svgs/CallIncome"));
-const Message = lazy(() => import("../svgs/Message"));
 const Login = lazy(() => import("../svgs/Login"));
 
 type SidebarBoxDataT = {
@@ -65,6 +61,12 @@ const SidebarBoxData: SidebarBoxDataT = {
   ],
   3: [
     {
+      text: "اخبار",
+      Icon: Sound,
+      href: "/news",
+      onlyDesk: true,
+    },
+    {
       text: "خروج",
       Icon: Login,
       href: "/dashboard/logout",
@@ -90,15 +92,19 @@ const DashboardSidebar: React.FC = () => {
   }, [screenD]);
   return (
     <motion.div
-      className="w-[170px] min-h-screen h-full z-50 py-5 bg-neutral-50 fixed top-14 lg:min-w-[3rem] lg:max-w-[3rem] overflow-x-hidden"
+      className="w-[170px] h-[93.8vh] flex flex-col lg:justify-between items-center z-50 py-5 bg-neutral-50 fixed top-14 lg:min-w-[3rem] lg:max-w-[3rem] overflow-x-hidden"
       variants={ContainerVariant}
       animate={show ? "show" : "hide"}
       transition={{ type: "tween", duration: 0.4 }}
       initial={{ translateX: 0 }}
     >
-      <SidebarBox items={SidebarBoxData[1]} />
-      <SidebarBox items={SidebarBoxData[2]} />
-      <SidebarBox items={SidebarBoxData[3]} />
+      <div className="w-full">
+        <SidebarBox items={SidebarBoxData[1]} />
+        <SidebarBox items={SidebarBoxData[2]} />
+      </div>
+      <div className="w-full">
+        <SidebarBox items={SidebarBoxData[3]} />
+      </div>
     </motion.div>
   );
 };
@@ -116,6 +122,7 @@ const SidebarBox: React.FC<SidebarBoxT> = ({ items }) => {
           href={item.href}
           key={key}
           onlyMobile={item.onlyMobile}
+          onlyDesk={item.onlyDesk}
         />
       ))}
     </div>
@@ -127,12 +134,14 @@ type SidebarItemT = {
   Icon: LazyExoticComponent<React.FC<SVGProps<SVGSVGElement>>>;
   href: string;
   onlyMobile?: boolean;
+  onlyDesk?: boolean;
 };
 const SidebarItem: React.FC<SidebarItemT> = ({
   text,
   Icon,
   href,
   onlyMobile,
+  onlyDesk,
 }) => {
   const [isActive, setIsActive] = useState(false);
   const link = useRef<HTMLAnchorElement | null>(null);
@@ -149,8 +158,10 @@ const SidebarItem: React.FC<SidebarItemT> = ({
   return (
     <NavLink
       to={href}
-      className={`group w-full flex items-center justify-center ${
-        onlyMobile ? "lg:hidden" : ""
+      className={`group w-full ${
+        onlyDesk && !onlyMobile ? "hidden lg:flex" : "flex"
+      } items-center justify-center ${
+        onlyMobile && !onlyDesk ? "lg:hidden" : ""
       }`}
       ref={link}
     >

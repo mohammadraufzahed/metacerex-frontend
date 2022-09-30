@@ -1,16 +1,16 @@
 import React, { lazy } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { showSidebar } from "../atoms/showSidebar";
-import { userToken } from "../atoms/userToken";
 import { motion } from "framer-motion";
+import { userProfile } from "../atoms/userProfile";
 
 const Hamburger = lazy(() => import("hamburger-react"));
 
 const DashboardNavbar: React.FC = () => {
   const [showDashboardSidebar, setShowDashboardSidebar] =
     useRecoilState(showSidebar);
-  const userTokenObject = useRecoilValue(userToken);
+  const profile = useRecoilValue(userProfile);
   const navigate = useNavigate();
   return (
     <nav className="w-screen fixed z-[200] flex flex-row-reverse justify-between bg-neutral-50 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] lg:flex-row lg:px-8 border-b-[1px] border-primary-700">
@@ -27,17 +27,6 @@ const DashboardNavbar: React.FC = () => {
           </strong>
         </div>
         <div className="hidden lg:flex-auto flex-row items-center gap-6 font-vazir font-bold text-xl text-primary-700 lg:flex h-full">
-          <NavLink
-            to="/news"
-            className={({ isActive }) =>
-              "transition-all duration-300 " +
-              (isActive
-                ? "bg-primary-700 h-full text-white px-5 flex items-center justify-center"
-                : "")
-            }
-          >
-            اخبار
-          </NavLink>
           <NavLink
             to="/contact-us"
             className={({ isActive }) =>
@@ -60,9 +49,9 @@ const DashboardNavbar: React.FC = () => {
             toggled={showDashboardSidebar}
           />
         </div>
-        {userTokenObject ? (
+        {profile ? (
           <span className="hidden lg:block font-vazir font-bold text-base text-primary-700">
-            {userTokenObject.user_display_name}
+            {`${profile.first_name ?? ""} ${profile.last_name ?? ""}`}
           </span>
         ) : (
           <motion.button
