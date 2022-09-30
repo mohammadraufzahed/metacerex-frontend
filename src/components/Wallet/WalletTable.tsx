@@ -103,7 +103,6 @@ const walletTableColumns = [
     id: "actions",
     header: () => "عملیات",
     cell: (info) => {
-      // console.dir(info.row._getAllCellsByColumnId());
       return <TAction wallet={info.row.original} />;
     },
     maxSize: 60,

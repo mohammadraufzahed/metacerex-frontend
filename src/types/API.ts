@@ -314,6 +314,7 @@ export type Status = {
   is_maintenance_mode: boolean;
   allowed_qoute_assets: string[];
   shetab_gateways: string[];
+  oa2_google_client_id: string;
 };
 
 export type TickerTable = {

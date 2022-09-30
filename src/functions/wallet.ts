@@ -16,7 +16,6 @@ export async function getWallet(
       }
     )
     .then((res) => {
-      console.dir(res.request);
       return res.data;
     });
 }

@@ -41,13 +41,13 @@ const Button: React.FC<PropsT> = ({
       variants={buttonVariant}
       animate={loading ? "loading" : "loaded"}
       transition={{ type: "spring", duration: 1 }}
-      className={`cursor-pointer ${
+      className={`${className} cursor-pointer ${
         outlined
           ? "text-primary-700 bg-transparent border-[1px] border-primary-700"
           : "text-shades-0 bg-primary-700"
       } ${
         fullWidth ? "w-11/12" : "w-max"
-      } py-3.5 rounded font-vazir font-bold text-lg ${className}`}
+      } py-3.5 rounded font-vazir font-bold text-lg`}
     >
       <AnimatePresence mode="wait">
         {loading ? (

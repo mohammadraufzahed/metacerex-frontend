@@ -4,27 +4,11 @@ import InformationAuthStatusBox from "../Boxes/InformationAuthStatusBox";
 import PasswordChangeFormBox from "../Boxes/PasswordChangeFormBox";
 import ReferralCodeBox from "../Boxes/ReferralCodeBox";
 import { motion } from "framer-motion";
-import { getIdentity } from "../../../functions/identityForm";
-import { useQuery } from "@tanstack/react-query";
-import { userProfile } from "../../../atoms/userProfile";
-import { useRecoilState } from "recoil";
 import { Helmet } from "react-helmet";
+import { useQueryClient } from "@tanstack/react-query";
 
 const PersonalInformationForm: React.FC = () => {
-  // States
-  const [userProfileD, setUserProfile] = useRecoilState(userProfile);
-  // Queries
-  const identityData = useQuery(["identityDataFetcher"], getIdentity, {
-    networkMode: "online",
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
-  });
-  // Effects
-  useEffect(() => {
-    if (identityData.data) {
-      setUserProfile(identityData.data);
-    }
-  }, [identityData.data]);
+  const queryClient = useQueryClient();
   return (
     <>
       <Helmet>
@@ -37,7 +21,9 @@ const PersonalInformationForm: React.FC = () => {
         className="w-full py-2 lg:py-8 flex flex-col gap-6 lg:gap-8"
       >
         <InformationAuthStatusBox />
-        <IdentityFormBox onUpdate={() => identityData.refetch()} />
+        <IdentityFormBox
+          onUpdate={() => queryClient.refetchQueries(["identityDataFetcher"])}
+        />
         <PasswordChangeFormBox />
         <ReferralCodeBox />
       </motion.div>

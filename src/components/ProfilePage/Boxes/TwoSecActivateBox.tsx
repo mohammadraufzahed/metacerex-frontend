@@ -45,7 +45,7 @@ export const AnimatedCheckBox: React.FC<AnimatedCheckBoxT> = ({
         },
       }}
       animate={active ? "active" : "deactive"}
-      className={`w-16 h-9 rounded-2xl ${className} ${
+      className={`${className} w-16 h-7 rounded-2xl ${
         disabled ? "cursor-wait" : "cursor-pointer"
       }`}
       onClick={(e) => {
@@ -59,23 +59,24 @@ export const AnimatedCheckBox: React.FC<AnimatedCheckBoxT> = ({
       <motion.div
         variants={{
           active: {
-            x: -36,
+            x: -40,
+            y: 4,
             color: "#ffffff",
           },
           deactive: {
-            y: 6,
+            y: 4,
             x: -3,
             color: "rgb(163, 163, 163)",
           },
         }}
         transition={{ duration: 1, type: "spring" }}
         animate={active ? "active" : "deactive"}
-        initial={{ y: 6, x: -3 }}
+        initial={{ y: 4, x: -3 }}
       >
         {!active ? (
-          <BsFillXCircleFill className="text-2xl" />
+          <BsFillXCircleFill className="text-xl" />
         ) : (
-          <AiFillCheckCircle className="text-2xl" />
+          <AiFillCheckCircle className="text-xl" />
         )}
       </motion.div>
     </motion.div>

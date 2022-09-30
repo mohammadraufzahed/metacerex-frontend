@@ -84,7 +84,6 @@ const AuthProcessData: React.FC<PropsT> = ({ onSuccess }) => {
               onSuccess={(file: string) => {
                 return new Promise(async (resolve) => {
                   form.setFieldValue("file", file);
-                  alert(true);
                   await form.submitForm().then(() => {
                     onSuccess();
                     resolve("");

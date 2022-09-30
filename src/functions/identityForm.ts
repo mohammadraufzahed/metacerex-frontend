@@ -3,7 +3,8 @@ import useCustomToast from "../hooks/useCustomToast";
 import type { ProfileReadOnly } from "../types/API";
 
 export async function getIdentity(): Promise<ProfileReadOnly> {
-  return await httpClient.get("users/profile/").then((data) => data.data);
+  return await httpClient.get("users/profile/", {
+  }).then((data) => data.data);
 }
 
 export async function setIdentity(identity: object): Promise<void> {

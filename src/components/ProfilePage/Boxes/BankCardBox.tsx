@@ -38,7 +38,6 @@ type PropsT = {
 };
 
 const BankCardBox: React.FC<PropsT> = ({ card, newCard }) => {
-  console.dir(card);
   const cardFormik = useFormik({
     initialValues: {
       ...card,

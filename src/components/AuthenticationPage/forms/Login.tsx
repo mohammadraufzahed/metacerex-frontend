@@ -15,7 +15,7 @@ import useCustomToast from "../../../hooks/useCustomToast";
 import { Helmet } from "react-helmet";
 
 const Login: React.FC = () => {
-  const [userTokenObject, settokenObject] = useRecoilState(userToken);
+  const [userTokenObject, setToken] = useRecoilState(userToken);
   const navigate = useNavigate();
   const loginFormik = useFormik({
     initialValues: {
@@ -39,12 +39,13 @@ const Login: React.FC = () => {
         .then((res) => {
           if (res.status == 200) {
             const userToken: CustomTokenObtain = res.data;
-            settokenObject(userToken);
+            setToken(userToken);
             useCustomToast(
               "bottom-right",
               "success",
               "شما با موفقیت وارد شدید"
             );
+            window.location.href = window.location.origin + "/dashboard";
           }
         });
     },

@@ -163,7 +163,6 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       const price = parseFloat(exchange ? exchange.price : "0");
       setBaseAmount(isNaN(price) ? 0 : price);
     } else {
-      console.dir(parseFloat(exchange.price));
       if (exchange && activeBase && parseFloat(exchange.price) > 0) {
         form.setFieldValue(
           "quantity",
@@ -313,7 +312,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       <div className="w-full grid grid-cols-2">
         <Button
           text="سریع"
-          className=""
+          className="h-11"
           fullWidth
           outlined={trade !== "INSTANT"}
           onClick={() => {
@@ -322,7 +321,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         />
         <Button
           text="اصلی"
-          className=""
+          className="h-11"
           outlined={trade !== "MAIN"}
           onClick={() => {
             setTrade("MAIN");
@@ -336,7 +335,11 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
             label=""
             id="base_asset_expected_price"
             name="base_asset_expected_price"
-            value={form.values.base_asset_expected_price}
+            value={
+              form.values.base_asset_expected_price > 0
+                ? form.values.base_asset_expected_price
+                : ""
+            }
             onChange={({ currentTarget }) =>
               form.setFieldValue(
                 "base_asset_expected_price",
@@ -349,28 +352,21 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           />
         </div>
       ) : null}
-      <div className="flex flex-col gap-2 w-full font-normal font-vazir text-sm">
+      <div className="flex flex-row items-center justify-between w-full font-normal font-vazir text-sm">
         <div className="flex flex-row items-center gap-2">
           <img src="/svgs/wallet.svg" width={24} />
-          <span>
-            موجودی کیف پول
-            {activeBase
-              ? activeBase.code == "toman"
-                ? "(تومان)"
-                : "(تتر)"
-              : " "}
-            شما
-          </span>
+          <span>موجودی شما</span>
         </div>
         <span className="self-end">
           {activeBase && baseCurrencies.length == 2 ? activeBase.balance : "-"}
-          &nbsp; تومان
+          &nbsp;
+          {activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : ""}
         </span>
       </div>
       <div className="w-full flex items-center justify-between font-vazir text-sm">
         <div className="w-max font-normal flex flex-row gap-2 items-center">
           <img src="/svgs/percentage-square.svg" />
-          <span>درصد خرید از کل موجودی شما</span>
+          <span>درصد موجودی</span>
         </div>
         <div className="w-max flex flex-row gap-4 font-bold">
           <span>
@@ -421,7 +417,6 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
                 });
               });
           }}
-          className=""
         />
       </div>
       <ExchangeRate
