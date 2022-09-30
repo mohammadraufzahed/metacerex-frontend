@@ -56,17 +56,17 @@ const DropboxSelect: React.FC<PropsT> = ({
       <motion.div
         variants={{
           close: {
-            height: 0,
-            maxHeight: 0,
+            opacity: 0,
+            display: "none",
           },
           open: {
-            height: 400,
-            maxHeight: 400,
+            opacity: 1,
+            display: "block",
           },
         }}
         initial="close"
         animate={open ? "open" : "close"}
-        className="w-full drop-shadow-2xl rounded-b-xl z-[300] absolute top-10 bg-neutral-50 overflow-y-hidden"
+        className="w-full drop-shadow-2xl rounded-b-xl h-max max-h-[400px] z-[300] absolute top-10 bg-neutral-50 overflow-y-hidden"
       >
         {enableSearch ? (
           <div className="mb-2 w-full">
