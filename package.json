@@ -6,9 +6,9 @@
   "scripts": {
     "build:tailwind": "tailwindcss -m -i ./src/styles/tailwind.scss -o ./src/styles/tailwind.css",
     "build:client": "vite build --outDir build/",
-    "build": "yarn build:tailwind && yarn build:client",
+    "build": "npm run build:tailwind && npm run build:client",
     "dev:tailwind": "tailwindcss -w -i ./src/styles/tailwind.scss -o ./src/styles/tailwind.css",
-    "dev": "concurrently \"yarn dev:tailwind\" \"vite\"",
+    "dev": "concurrently \"npm run dev:tailwind\" \"vite\"",
     "preview": "vite preview"
   },
   "keywords": [],

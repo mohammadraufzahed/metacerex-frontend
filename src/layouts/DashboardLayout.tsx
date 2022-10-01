@@ -24,7 +24,6 @@ const DashboardLayout: React.FC = () => {
     staleTime: 10 * 60 * 1000,
     refetchInterval: 10 * 60 * 1000,
     refetchIntervalInBackground: true,
-    initialData: statusD,
   });
   const identityData = useQuery(["identityDataFetcher"], getIdentity, {
     networkMode: "online",

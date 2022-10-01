@@ -1,21 +1,20 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { lazy, Suspense, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import GoogleButton from "../components/AuthenticationPage/GoogleButton";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-
-const MenuItem = lazy(
-  () => import("../components/AuthenticationPage/MenuItem")
-);
+import MenuItem from "../components/AuthenticationPage/MenuItem";
 
 const AuthenticationLayout: React.FC = () => {
   const userTokenObject = useRecoilValue(userToken);
   const location = useLocation();
   const navigate = useNavigate();
-  if (userTokenObject && userTokenObject.access)
-    return <Navigate to="/" replace />;
+  useEffect(() => {
+    if (userTokenObject && userTokenObject.access)
+      navigate("/", { replace: true });
+  }, [userTokenObject]);
   return (
     <div className="flex flex-row justify-center items-center h-[93vh] overflow-y-scroll scrollbar-vertical w-full lg:justify-start lg:px-14">
       <div className="flex flex-col bg-neutral-50 overflow-hidden w-11/12 w-max-full mx-2 h-max-full h-max my-2 mb-16 rounded-lg justify-self-center max-w-[360px] px-6 lg:h-max lg:max-w-none lg:w-[30rem]">

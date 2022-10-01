@@ -39,13 +39,25 @@ const Login: React.FC = () => {
         .then((res) => {
           if (res.status == 200) {
             const userToken: CustomTokenObtain = res.data;
-            setToken(userToken);
+            sessionStorage.setItem(
+              "userToken",
+              JSON.stringify({
+                userToken: {
+                  access: res.data.access_token,
+                  refresh: res.data.refresh_token,
+                },
+              })
+            );
             useCustomToast(
               "bottom-right",
               "success",
               "شما با موفقیت وارد شدید"
             );
-            window.location.href = window.location.origin + "/dashboard";
+            setTimeout(
+              () =>
+                (window.location.href = window.location.origin + "/dashboard"),
+              1000
+            );
           }
         });
     },

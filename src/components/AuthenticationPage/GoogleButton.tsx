@@ -19,16 +19,25 @@ const GoogleButton: React.FC = () => {
         })
         .then((res) => {
           if (res.status == 200) {
-            setUserTokenD({
-              access: res.data.access_token,
-              refresh: res.data.refresh_token,
-            });
+            sessionStorage.setItem(
+              "userToken",
+              JSON.stringify({
+                userToken: {
+                  access: res.data.access_token,
+                  refresh: res.data.refresh_token,
+                },
+              })
+            );
             useCustomToast(
               "bottom-right",
               "success",
               "شما با موفقیت وارد شدید"
             );
-            window.location.href = window.location.origin + "/dashboard";
+            setTimeout(
+              () =>
+                (window.location.href = window.location.origin + "/dashboard"),
+              1000
+            );
           } else {
             useCustomToast("bottom-right", "error", "ورود با مشکل مواجه شد");
           }
