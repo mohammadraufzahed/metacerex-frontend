@@ -15,7 +15,7 @@ const NewsPage = () => {
   );
   const navigate = useNavigate();
   return (
-    <div className="flex-auto bg-background-100">
+    <div className="w-full h-[93vh] overflow-y-scroll scrollbar-vertical bg-background-100">
       <Helmet>
         <title>صرافی - {newsQuery.data?.title}</title>
       </Helmet>

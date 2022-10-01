@@ -7,7 +7,7 @@ const TransactionPage = () => {
   const isOk = location.search.includes("payment_status=OK");
   const navigate = useNavigate();
   return (
-    <div className="flex-auto flex flex-col justify-center gap-10 lg:gap-24 items-center">
+    <div className="w-full h-[93vh] flex flex-col justify-center gap-10 lg:gap-24 items-center">
       <img
         className="w-28"
         src={`/svgs/card-tick-${isOk ? "success" : "error"}.svg`}

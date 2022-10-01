@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { tradingviewAtom } from "../../atoms/tradingviewAtom";
 import { setFavAsset } from "../../functions/assets";
@@ -56,6 +57,7 @@ type ButtonT = {
 };
 
 const Button: React.FC<ButtonT> = ({ type }) => {
+  const navigate = useNavigate();
   return (
     <motion.button
       className={`text-white ${
@@ -64,6 +66,13 @@ const Button: React.FC<ButtonT> = ({ type }) => {
       whileHover={{ scale: 1.05 }}
       whileFocus={{ scale: 1.07 }}
       transition={{ type: "spring", duration: 0.5 }}
+      onTap={() => {
+        if (type == "sell") {
+          navigate("/dashboard/market/sell", { replace: true });
+        } else if (type == "buy") {
+          navigate("/dashboard/market/buy", { replace: true });
+        }
+      }}
     >
       {type == "sell" ? "فروش" : "خرید"}
     </motion.button>

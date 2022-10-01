@@ -20,7 +20,7 @@ const AuthenticationLayout: React.FC = () => {
     }
   }, [userTokenObject]);
   return (
-    <div className="flex flex-row justify-center items-center flex-auto lg:justify-start lg:px-14">
+    <div className="flex flex-row justify-center items-center h-[93vh] overflow-y-scroll scrollbar-vertical w-full lg:justify-start lg:px-14">
       <div className="flex flex-col bg-neutral-50 overflow-hidden w-11/12 w-max-full mx-2 h-max-full h-max my-2 mb-16 rounded-lg justify-self-center max-w-[360px] px-6 lg:h-max lg:max-w-none lg:w-[30rem]">
         <div className="w-full h-max grid grid-cols-2 pt-10 place-items-center place-content-center font-vazir font-bold text-lg">
           <MenuItem

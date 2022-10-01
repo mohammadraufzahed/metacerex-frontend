@@ -9,8 +9,8 @@ import TradingView from "../components/TradingView";
 
 const MarketLayout = () => {
   return (
-    <div className="flex-auto w-full h-full lg:grid lg:grid-cols-12 gap-4 px-4 py-2 2xl:grid-cols-10">
-      <div className="w-full lg:h-[90vh] lg:overflow-scroll scrollbar-vertical flex lg:col-span-5 xl:col-span-3 2xl:col-span-2">
+    <div className="w-full h-[93vh] overflow-y-scroll pb-5 scrollbar-vertical lg:grid lg:grid-cols-12 gap-4 px-4 py-2 2xl:grid-cols-10">
+      <div className="w-full flex lg:col-span-5 xl:col-span-3 2xl:col-span-2">
         <MarketAction>
           <Outlet />
         </MarketAction>

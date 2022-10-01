@@ -23,7 +23,7 @@ const DepositPage: React.FC = () => {
   // Conditions
   if (!userTokenD) return <Navigate to="/auth" replace />;
   return (
-    <div className="flex-auto h-max w-full py-2 px-4 flex flex-row gap-4 lg:max-h-[900px] overflow-hidden">
+    <div className="w-full h-[93vh] overflow-y-scroll scrollbar-vertical py-2 px-4 flex flex-row gap-4 lg:max-h-[900px] overflow-hidden">
       <ActionsBox>
         <div className="w-full place-items-center grid grid-cols-2">
           <Button

@@ -14,7 +14,7 @@ const MarketAction: React.FC<PropsT> = ({ children }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full flex-auto min-h-full flex flex-col items-center gap-4 bg-neutral-50 px-2 py-4 rounded-2xl lg:max-w-[440px] lg:min-h-max lg:h-max lg:max-h-max mx-auto md:mx-0 md:py-6 md:px-5">
+    <div className="flex-auto w-full flex flex-col items-center gap-4 bg-neutral-50 px-2 py-4 rounded-2xl lg:max-w-[440px] lg:h-[90vh] lg:overflow-y-scroll scrollbar-vertical mx-auto md:mx-0 md:py-6 md:px-5">
       <div className="w-full grid grid-cols-2">
         <MenuItem
           activeColor="rgba(96, 211, 148 1)"

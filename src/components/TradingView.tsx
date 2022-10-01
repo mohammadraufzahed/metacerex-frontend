@@ -13,12 +13,12 @@ const TradingView: React.FC = () => {
       height: 0,
     },
     idle: {
-      height: "84.5vh",
-      maxHeight: "84.5vh",
+      height: "100%",
+      maxHeight: "100%",
     },
     open: {
-      height: "47vh",
-      maxHeight: "47vh",
+      height: "47%",
+      maxHeight: "47%",
     },
   };
   return (
@@ -35,20 +35,18 @@ const TradingView: React.FC = () => {
             ? tradingview
             : "btc"
           ).toUpperCase()}USDT`,
+          width: "100%",
+          height: "100%",
+          autosize: false,
+          interval: "240",
+          timezone: "Asia/Tehran",
           theme: "light",
-          autosize: true,
-          interval: "D",
-          timezone: "Etc/UTC",
-          hide_side_toolbar: true,
           style: "1",
           locale: "en",
           toolbar_bg: "#f1f3f6",
           enable_publishing: false,
           withdateranges: true,
-          hide_top_toolbar: false,
-          width: "100%",
-          height: "100%",
-          allow_symbol_change: false,
+          hide_side_toolbar: false,
         }}
       />
     </motion.div>

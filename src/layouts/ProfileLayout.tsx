@@ -18,7 +18,7 @@ const ProfileLayout: React.FC = () => {
   if (!userTokenObject) return <Navigate to="/auth" replace />;
 
   return (
-    <div className="flex-auto flex flex-col px-4 py-10 lg:px-8">
+    <div className="w-full min-h-full h-[93vh] max-h-[93vh] scrollbar-vertical overflow-y-scroll flex flex-col px-4 py-10 lg:px-8">
       <div className="w-full grid grid-cols-3 lg:grid-cols-5">
         <MenuItem
           text="اطلاعات هویتی"

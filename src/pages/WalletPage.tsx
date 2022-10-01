@@ -1,4 +1,8 @@
-import { useInfiniteQuery, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { table } from "console";
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -27,7 +31,7 @@ const WalletPage: React.FC = () => {
   const [assetQuote, setAssetQuote] = useState<"usdt" | "toman">("toman");
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [paginated, setPaginated] = useState<number>(0);
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   // Conditions
   if (!userTokenD) return <Navigate to="/auth" replace />;
   // Queries
@@ -54,7 +58,7 @@ const WalletPage: React.FC = () => {
     setTimer(setTimeout(() => setCurrectSearch(search), 200));
   }, [search]);
   return (
-    <div className="py-6 px-4 flex flex-col gap-7 flex-auto max-w-[95vw] overflow-hidden lg:gap-10">
+    <div className="h-[93vh] overflow-y-scroll scrollbar-vertical py-6 px-4 flex flex-col gap-7 flex-auto max-w-[95vw] overflow-hidden lg:gap-10">
       <div className="w-full flex flex-col gap-6 lg:flex-row-reverse">
         <div className="w-full flex flex-col gap-6 lg:w-5/12">
           <div className="grid grid-cols-2 items-center justify-center w-full">

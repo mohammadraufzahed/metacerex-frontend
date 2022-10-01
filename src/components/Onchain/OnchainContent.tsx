@@ -6,7 +6,7 @@ const OnchainContent = () => {
   return (
     <div className="w-full flex flex-col gap-2">
       <OnchainActions />
-      <div className="w-full h-5/6 min-h-[500px] max-h-[800px]">
+      <div className="w-full h-[5/6] min-h-[745px] max-h-[800px]">
         <TradingView />
       </div>
       <div className="w-full bg-neutral-50 font-vazir text-sm lg:text-base rounded-t-lg">

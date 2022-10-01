@@ -37,7 +37,7 @@ const NewsListPage: React.FC = () => {
       <Helmet>
         <title>صرافی - اخبار</title>
       </Helmet>
-      <div className="flex-auto flex flex-col px-4 py-2 gap-4 md:py-4 md:grid md:grid-cols-12 max-w-[1600px] 2xl:mx-auto 2xl:gap-10">
+      <div className="w-full h-[93vh] overflow-y-scroll scrollbar-vertical flex flex-col px-4 py-2 gap-4 md:py-4 md:grid md:grid-cols-12 max-w-[1600px] 2xl:mx-auto 2xl:gap-10">
         <div className="w-full md:col-span-4 xl:col-span-3">
           <NewsSearchBox />
         </div>

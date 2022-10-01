@@ -24,7 +24,7 @@ const WithdrawPage = () => {
   // Condition
   if (!userTokenD) return <Navigate to="/auth" replace />;
   return (
-    <div className="flex-auto h-max w-full py-2 px-4 flex flex-row gap-4">
+    <div className="w-full h-[93vh] overflow-y-scroll scrollbar-vertical py-2 px-4 flex flex-row gap-4">
       <ActionsBox>
         <div className="w-full grid grid-cols-2 place-items-center">
           <Button

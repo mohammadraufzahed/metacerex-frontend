@@ -29,7 +29,7 @@ const MenuItem: React.FC<PropsT> = ({
   };
   return (
     <motion.span
-      className={`w-full text-center font-vazir font-bold text-base sm:text-xl py-3 border-b-2 cursor-pointer ${
+      className={`w-full text-center font-vazir font-bold text-base sm:text-xl min-h-[70px] py-3 border-b-2 cursor-pointer ${
         only ? (only == "desktop" ? "hidden lg:block" : "lg:hidden") : ""
       }`}
       variants={spanAnimation}
