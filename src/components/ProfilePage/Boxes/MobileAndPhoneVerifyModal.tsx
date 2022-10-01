@@ -4,9 +4,9 @@ import { HiX } from "react-icons/hi";
 import Modal from "react-modal";
 import { useRecoilValue } from "recoil";
 import * as yup from "yup";
-import { userProfile } from "../../../atoms/userProfile";
 import { httpClient } from "../../../axios";
 import useCustomToast from "../../../hooks/useCustomToast";
+import { profile } from "../../../signals/profile";
 import Button from "../../AuthenticationPage/Button";
 import Input from "../../Input";
 
@@ -18,7 +18,6 @@ type PropsT = {
 };
 
 const MobileAndPhoneVerifyModal: React.FC<PropsT> = ({ active, onClose }) => {
-  const profile = useRecoilValue(userProfile);
   const form = useFormik({
     initialValues: {
       code: "",
@@ -39,8 +38,8 @@ const MobileAndPhoneVerifyModal: React.FC<PropsT> = ({ active, onClose }) => {
             useCustomToast(
               "bottom-right",
               "success",
-              profile
-                ? profile.is_email_verified !== true
+              profile.value
+                ? profile.value.is_email_verified !== true
                   ? "ایمیل شما با موفقیت تایید شد"
                   : "تلفن همراه شما با موفقیت تایید شد"
                 : ""
@@ -61,8 +60,8 @@ const MobileAndPhoneVerifyModal: React.FC<PropsT> = ({ active, onClose }) => {
       </div>
       <div className="w-full justify-self-center">
         <h1 className="font-vazir font-bold text-2xl text-primary-700">
-          {profile
-            ? profile.is_email_verified != true
+          {profile.value
+            ? profile.value.is_email_verified != true
               ? "تایید ایمیل"
               : "تایید شماره همراه"
             : ""}

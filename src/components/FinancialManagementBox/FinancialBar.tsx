@@ -2,27 +2,25 @@ import React from "react";
 import { motion } from "framer-motion";
 import MaxMin from "../../svgs/MaxMin";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { financialBoxStatus } from "../../atoms/financialBoxStatus";
-import { screen } from "../../atoms/screen";
+import { screen } from "../../signals/screen";
+import { financialbox } from "../../signals/financialBox";
 
 const FinancialBar: React.FC = () => {
-  const [financialBoxStat, setFinancialBoxStat] =
-    useRecoilState(financialBoxStatus);
-  const screenD = useRecoilValue(screen);
   const arrowAnimation = {
     open: { rotate: 0 },
     close: {
       rotate: 180,
     },
   };
+
   const openOnClickHandler = () =>
-    financialBoxStat == "open" || financialBoxStat == "mobileOpen"
-      ? screenD.width < 1024
-        ? setFinancialBoxStat("idleMobile")
-        : setFinancialBoxStat("idle")
-      : screenD.width < 1024
-      ? setFinancialBoxStat("mobileOpen")
-      : setFinancialBoxStat("open");
+    financialbox.value == "open" || financialbox.value == "mobileOpen"
+      ? screen.value.width < 1024
+        ? (financialbox.value = "idleMobile")
+        : (financialbox.value = "idle")
+      : screen.value.width < 1024
+      ? (financialbox.value = "mobileOpen")
+      : (financialbox.value = "open");
   return (
     <div className="flex w-full flex-row z-50 justify-between bg-neutral-50 px-6 py-3 rounded-t-lg">
       <motion.span
@@ -38,7 +36,7 @@ const FinancialBar: React.FC = () => {
           src="/svgs/arrow-down.svg"
           variants={arrowAnimation}
           animate={
-            financialBoxStat == "open" || financialBoxStat == "mobileOpen"
+            financialbox.value == "open" || financialbox.value == "mobileOpen"
               ? "open"
               : "close"
           }
@@ -46,15 +44,17 @@ const FinancialBar: React.FC = () => {
         <div
           className="cursor-pointer w-max"
           onClick={() =>
-            financialBoxStat == "max" || financialBoxStat == "mobileOpen"
-              ? screenD.width < 1024
-                ? setFinancialBoxStat("idleMobile")
-                : setFinancialBoxStat("idle")
-              : setFinancialBoxStat("max")
+            financialbox.value == "max" || financialbox.value == "mobileOpen"
+              ? screen.value.width < 1024
+                ? (financialbox.value = "idleMobile")
+                : (financialbox.value = "idle")
+              : (financialbox.value = "max")
           }
         >
           <MaxMin
-            open={financialBoxStat == "max" || financialBoxStat == "mobileOpen"}
+            open={
+              financialbox.value == "max" || financialbox.value == "mobileOpen"
+            }
           />
         </div>
       </div>

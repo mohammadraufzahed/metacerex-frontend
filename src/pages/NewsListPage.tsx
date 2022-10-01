@@ -1,9 +1,8 @@
+import { signal } from "@preact/signals-react";
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useRecoilValue } from "recoil";
-import { newsSearch } from "../atoms/newsSearch";
 import Loading from "../components/Loading";
 import NewsBlogBox from "../components/News/NewsBlogBox";
 import NewsSearchBox from "../components/News/NewsSearchBox";
@@ -12,11 +11,12 @@ import PaginationButton from "../components/PaginationButton";
 import { API_LIMIT } from "../constants/APILimit";
 import { getNewsPaginated } from "../functions/news";
 
+export const searchQuery = signal("");
+
 const NewsListPage: React.FC = () => {
   // States
   const [page, setPage] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
-  const searchQuery = useRecoilValue(newsSearch);
   // Queries
   const newsQuery = useQuery(
     ["news", page, search],
@@ -27,11 +27,11 @@ const NewsListPage: React.FC = () => {
   );
   // Effects
   useEffect(() => {
-    if (searchQuery !== search) {
+    if (searchQuery.value !== search) {
       setPage(0);
-      setSearch(searchQuery);
+      setSearch(searchQuery.value);
     }
-  }, [searchQuery]);
+  }, [searchQuery.value]);
   return (
     <>
       <Helmet>

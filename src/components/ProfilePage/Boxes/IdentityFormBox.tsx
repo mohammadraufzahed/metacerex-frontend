@@ -8,19 +8,18 @@ import * as yup from "yup";
 import { dateReg } from "../../../regex/dateReg";
 import { phoneReg } from "../../../regex/phoneReg";
 import { useRecoilState } from "recoil";
-import { userProfile } from "../../../atoms/userProfile";
 import MobileAndPhoneVerifyModal from "./MobileAndPhoneVerifyModal";
 import { httpClient } from "../../../axios";
 import useCustomToast from "../../../hooks/useCustomToast";
 import { toGregorian } from "jalaali-js";
 import { useDateToString } from "../../../utils/date";
+import { profile } from "../../../signals/profile";
 
 type PropsT = {
   onUpdate: () => void;
 };
 
 const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
-  const [userProfileD, setUserProfile] = useRecoilState(userProfile);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const mobileAndEmailFormik = useFormik({
     initialValues: {
@@ -39,9 +38,15 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
         mobile?: string;
         email?: string;
       } = {};
-      if (userProfileD?.is_email_verified != true || email != "") {
+      if (
+        (profile.value && profile.value.is_email_verified != true) ||
+        email != ""
+      ) {
         data.email = email;
-      } else if (userProfileD?.is_mobile_verified != true || mobile != "") {
+      } else if (
+        (profile.value && profile.value.is_mobile_verified != true) ||
+        mobile != ""
+      ) {
         data.mobile = mobile;
       }
       if (data.email || data.mobile) {
@@ -53,8 +58,8 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
                 "bottom-right",
                 "success",
                 `کد تایید برای ${
-                  userProfileD
-                    ? userProfileD.is_email_verified != true
+                  profile.value
+                    ? profile.value.is_email_verified != true
                       ? "ایمیل"
                       : "تلفن"
                     : ""
@@ -130,19 +135,19 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
     },
   });
   useEffect(() => {
-    if (userProfileD) {
-      identityFormik.setValues(userProfileD);
-      const date = useDateToString(userProfileD.birth_date);
+    if (profile.value) {
+      identityFormik.setValues(profile.value);
+      const date = useDateToString(profile.value.birth_date);
       identityFormik.setFieldValue(
         "birth_date",
         `${date.year}-${date.month_number}-${date.day}`
       );
       mobileAndEmailFormik.setValues({
-        email: userProfileD.email,
-        mobile: userProfileD.mobile,
+        email: profile.value.email,
+        mobile: profile.value.mobile,
       });
     }
-  }, [userProfileD]);
+  }, [profile.value]);
   return (
     <ProfileFormLayout title="اطلاعات هویتی">
       <div className="w-full h-full flex flex-col gap-6 sm:gap-10">
@@ -155,7 +160,7 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
             value={identityFormik.values.first_name}
             onChange={identityFormik.handleChange}
             disabled={
-              userProfileD ? userProfileD.is_identity_verified == true : false
+              profile.value ? profile.value.is_identity_verified == true : false
             }
             type="text"
             fullWidth
@@ -170,7 +175,7 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
             value={identityFormik.values.last_name}
             onChange={identityFormik.handleChange}
             disabled={
-              userProfileD ? userProfileD.is_identity_verified == true : false
+              profile.value ? profile.value.is_identity_verified == true : false
             }
             type="text"
             fullWidth
@@ -196,7 +201,7 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
             value={identityFormik.values.melli_code}
             onChange={identityFormik.handleChange}
             disabled={
-              userProfileD ? userProfileD.is_identity_verified == true : false
+              profile.value ? profile.value.is_identity_verified == true : false
             }
             type="text"
             fullWidth
@@ -232,7 +237,7 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
             value={mobileAndEmailFormik.values.mobile}
             onChange={mobileAndEmailFormik.handleChange}
             disabled={
-              userProfileD ? userProfileD.is_mobile_verified == true : false
+              profile.value ? profile.value.is_mobile_verified == true : false
             }
             type="text"
             fullWidth
@@ -271,7 +276,7 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
             value={mobileAndEmailFormik.values.email}
             onChange={mobileAndEmailFormik.handleChange}
             disabled={
-              userProfileD ? userProfileD.is_email_verified == true : false
+              profile.value ? profile.value.is_email_verified == true : false
             }
             type="text"
             fullWidth

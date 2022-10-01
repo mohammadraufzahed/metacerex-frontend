@@ -1,22 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { sidebarAtom, starAtom } from "../../pages/OnchainPage";
 import Sidebar from "../../svgs/Sidebar";
 import Star from "../../svgs/Star";
 import Chart from "../../svgs/Chart";
 import Notification from "../../svgs/Notification";
 import OnchainButton from "../../components/Onchain/OnchainButton";
-import { useRecoilState } from "recoil";
+import { sidebar, star } from "../../pages/OnchainPage";
 
 const OnchainActions = () => {
-  const [sidebar, setSidebar] = useRecoilState(sidebarAtom);
-  const [star, setStar] = useRecoilState(starAtom);
   return (
     <div className="flex flex-row items-center gap-6">
       <OnchainButton
         maxContent
         text=""
-        onTap={() => setSidebar((sidebar) => !sidebar)}
+        onTap={() => (sidebar.value = !sidebar.value)}
       >
         <motion.div
           variants={{
@@ -35,10 +32,10 @@ const OnchainActions = () => {
       </OnchainButton>
       <OnchainButton
         text="پسندیدن"
-        active={star}
-        onTap={() => setStar((star) => !star)}
+        active={star.value}
+        onTap={() => (star.value = !star.value)}
       >
-        <Star active={star} />
+        <Star active={star.value} />
       </OnchainButton>
       <OnchainButton text="مقایسه">
         <Chart className="stroke-primary-700" />

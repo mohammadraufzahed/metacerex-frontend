@@ -5,7 +5,8 @@ import Search from "../svgs/Search";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { HiX } from "react-icons/hi";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
-import { screen } from "../atoms/screen";
+import { screen } from "../signals/screen";
+import { signal } from "@preact/signals-react";
 
 type data = {
   name: string;
@@ -35,30 +36,17 @@ const fakeData: data[] = [
   }),
 ];
 
-export const sidebarAtom = atom<boolean>({
-  key: "onchain_sidebar",
-  default: false,
-});
-export const cryptoboxAtom = atom<boolean>({
-  key: "onchain_crypto",
-  default: false,
-});
-export const starAtom = atom<boolean>({
-  key: "onchain_star",
-  default: false,
-});
+export const sidebar = signal<boolean>(false);
+export const cryptobox = signal<boolean>(false);
+export const star = signal<boolean>(false);
 
 const OnchainPage = () => {
-  // States
-  const screenD = useRecoilValue(screen);
-  const [sidebar, setSidebar] = useRecoilState(sidebarAtom);
-  const [cryptobox, setCryptobox] = useRecoilState(cryptoboxAtom);
   // Effects
   useEffect(() => {
-    if (screenD.width > 1024 && sidebar != true) {
-      setSidebar(true);
+    if (screen.value.width > 1024 && sidebar.value != true) {
+      sidebar.value = true;
     }
-  }, [screenD]);
+  }, [screen.value]);
   return (
     <div className="w-full max-h-[92vh] overflow-y-scroll scrollbar-vertical flex py-2 gap-4 px-4">
       <motion.div
@@ -72,7 +60,7 @@ const OnchainPage = () => {
             display: "none",
           },
         }}
-        animate={sidebar ? "show" : "hide"}
+        animate={sidebar.value ? "show" : "hide"}
         transition={{ duration: 0.5 }}
         className="absolute z-[60] h-[99vh] w-8/12 top-[60px] right-0 overflow-hidden scrollbar-vertical rounded-t-xl drop-shadow-md bg-neutral-50 lg:right-14 xl:right-[unset] xl:top-[unset] xl:w-6/12 xl:relative lg:max-w-[500px] lg:h-[86vh]"
       >
@@ -81,7 +69,7 @@ const OnchainPage = () => {
             <HiX
               className="text-2xl text-primary-700 "
               onClick={() => {
-                setSidebar(false);
+                sidebar.value = false;
               }}
             />
           </div>
@@ -92,12 +80,12 @@ const OnchainPage = () => {
             }}
             transition={{ duration: 0.4, type: "tween" }}
             initial="close"
-            animate={cryptobox ? "open" : "close"}
+            animate={cryptobox.value ? "open" : "close"}
             className="overflow-y-hidden relative"
           >
             <div
               className="w-full h-[46.23px] cursor-pointer flex items-center justify-between border-[1px] py-2.5 px-4"
-              onClick={() => setCryptobox((cryptobox) => !cryptobox)}
+              onClick={() => (cryptobox.value = !cryptobox.value)}
             >
               <motion.img
                 variants={{
@@ -109,7 +97,7 @@ const OnchainPage = () => {
                   },
                 }}
                 initial="initial"
-                animate={cryptobox ? "open" : "initial"}
+                animate={cryptobox.value ? "open" : "initial"}
                 src="/svgs/arrow-down.svg"
               />
               <div className="flex flex-row items-center gap-2">
@@ -137,7 +125,7 @@ const OnchainPage = () => {
                     initial="initial"
                     whileHover="hover"
                     whileTap="tap"
-                    onTap={() => setCryptobox(false)}
+                    onTap={() => (cryptobox.value = false)}
                     className="w-full font-vazir font-normal cursor-pointer text-base flex items-center justify-end px-4 py-2 gap-1"
                     key={key}
                   >

@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { tradingviewAtom } from "../../atoms/tradingviewAtom";
 import { setFavAsset } from "../../functions/assets";
+import { tradingview } from "../../signals/tradingview";
 import { TickerTable } from "../../types/API";
 
 type PropsT = {
@@ -15,7 +15,6 @@ const ListItem: React.FC<TickerTable & PropsT> = ({
   base_asset,
   price,
 }) => {
-  const [tradingview, setTradingview] = useRecoilState(tradingviewAtom);
   return (
     <motion.tr
       initial={{ x: "50vw", scale: 1 }}
@@ -29,7 +28,7 @@ const ListItem: React.FC<TickerTable & PropsT> = ({
       transition={{ duration: 0.3, type: "tween" }}
       onTap={() => {
         if (base_asset.code !== "TOMAN") {
-          setTradingview(base_asset.code);
+          tradingview.value = base_asset.code;
         }
       }}
       onDoubleClick={() => {

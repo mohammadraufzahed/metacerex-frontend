@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { userProfile } from "../../../atoms/userProfile";
 import ProfileDelete from "../../../svgs/ProfileDelete";
 import Button from "../../AuthenticationPage/Button";
 import { AnimatePresence, motion } from "framer-motion";
 import AuthProcessOne from "./AuthProcessOne";
 import AuthProcessData from "./AuthProcessData";
+import { profile } from "../../../signals/profile";
 
 const InformationAuthStatusBox: React.FC = () => {
   // States
   const [currentForm, setCurrentForm] = useState<
     "done" | "undone" | "processing" | "processStart" | "processData"
   >("processing");
-  const profile = useRecoilValue(userProfile);
   useEffect(() => {
-    if (profile) {
-      if (profile.is_identity_verified == false) {
+    if (profile.value) {
+      if (profile.value.is_identity_verified == false) {
         setCurrentForm("processing");
-      } else if (profile.is_identity_verified == true) {
+      } else if (profile.value.is_identity_verified == true) {
         setCurrentForm("done");
       } else {
         setCurrentForm("undone");

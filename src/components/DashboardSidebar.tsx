@@ -2,9 +2,9 @@ import React, { lazy, useEffect, useRef, useState } from "react";
 import type { SVGProps, LazyExoticComponent } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { showSidebar } from "../atoms/showSidebar";
-import { screen } from "../atoms/screen";
+import { screen } from "../signals/screen";
+import { effect, signal, useComputed } from "@preact/signals-react";
+
 const ElementOne = lazy(() => import("../svgs/ElementOne"));
 const Layer = lazy(() => import("../svgs/Layer"));
 const Profile = lazy(() => import("../svgs/Profile"));
@@ -13,6 +13,13 @@ const EmptyWallet = lazy(() => import("../svgs/EmptyWallet"));
 const HomeTrendUp = lazy(() => import("../svgs/HomeTrendUp"));
 const Sound = lazy(() => import("../svgs/Sound"));
 const Login = lazy(() => import("../svgs/Login"));
+
+export const showSidebar = signal(false);
+effect(() =>
+  screen.value.width >= 1024
+    ? (showSidebar.value = true)
+    : (showSidebar.value = false)
+);
 
 type SidebarBoxDataT = {
   [key: number]: SidebarItemT[];
@@ -75,8 +82,6 @@ const SidebarBoxData: SidebarBoxDataT = {
 };
 
 const DashboardSidebar: React.FC = () => {
-  const [show, setShow] = useRecoilState(showSidebar);
-  const screenD = useRecoilValue(screen);
   const ContainerVariant = {
     show: {
       translateX: 0,
@@ -85,16 +90,11 @@ const DashboardSidebar: React.FC = () => {
       translateX: "100vw",
     },
   };
-  const showHandlerResize = (width: number) =>
-    width >= 1024 ? setShow(true) : setShow(false);
-  useEffect(() => {
-    showHandlerResize(screenD.width);
-  }, [screenD]);
   return (
     <motion.div
       className="w-[170px] h-[93.2vh] flex flex-col lg:justify-between items-center z-50 py-5 bg-neutral-50 fixed top-14 lg:min-w-[3rem] lg:max-w-[3rem] overflow-x-hidden"
       variants={ContainerVariant}
-      animate={show ? "show" : "hide"}
+      animate={showSidebar.value ? "show" : "hide"}
       transition={{ type: "tween", duration: 0.4 }}
       initial={{ translateX: 0 }}
     >

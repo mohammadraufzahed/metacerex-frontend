@@ -4,8 +4,6 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useRecoilState } from "recoil";
 import { userToken } from "../../atoms/userToken";
 import { httpClient } from "../../axios";
-import { userProfile } from "../../atoms/userProfile";
-import { getIdentity } from "../../functions/identityForm";
 import useCustomToast from "../../hooks/useCustomToast";
 import { useNavigate } from "react-router-dom";
 

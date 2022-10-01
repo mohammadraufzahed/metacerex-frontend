@@ -1,3 +1,4 @@
+import { signal } from "@preact/signals-react";
 import {
   QueryErrorResetBoundary,
   useInfiniteQuery,
@@ -7,18 +8,18 @@ import React, { lazy, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tickers } from "../../atoms/tickers";
-import { tickerSearch } from "../../atoms/tickerSearch";
 import { tickers_fav } from "../../atoms/tickers_fav";
 import { userToken } from "../../atoms/userToken";
 import { getTickers } from "../../hooks/useTickers";
 import { TickerTable } from "../../types/API";
 import ErrorFetch from "../ErrorFetch";
 
+export const tickerSearch = signal<string>("");
+
 const ListContainerMobile = lazy(() => import("./ListContainer.mobile"));
 const ListContainerDesktop = lazy(() => import("./ListContainer.desktop"));
 
 const ListSelector: React.FC = () => {
-  const search = useRecoilValue(tickerSearch);
   const [actualSearch, setActualSearch] = useState<string>("");
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [tickersList, setTickersList] = useRecoilState(tickers);
@@ -66,8 +67,8 @@ const ListSelector: React.FC = () => {
   // Effects
   useEffect(() => {
     clearTimeout(timer);
-    setTimer(setTimeout(() => setActualSearch(search ?? ""), 150));
-  }, [search]);
+    setTimer(setTimeout(() => setActualSearch(tickerSearch.value ?? ""), 150));
+  }, [tickerSearch.value]);
   useEffect(() => {
     if (tickersQuery.data) {
       const tickers: TickerTable[] = [];

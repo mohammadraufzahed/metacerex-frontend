@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Search from "../../svgs/Search";
 import { motion } from "framer-motion";
-import { useRecoilState } from "recoil";
-import { newsSearch } from "../../atoms/newsSearch";
+import { searchQuery } from "../../pages/NewsListPage";
 
 const NewsSearchBox: React.FC = () => {
   // States
-  const [searchText, setSearchText] = useRecoilState(newsSearch);
   const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
   return (
     <div className="bg-neutral-50 rounded-2xl gap-2 flex flex-col w-full px-2 py-4 md:py-10 md:px-4">
@@ -29,10 +27,10 @@ const NewsSearchBox: React.FC = () => {
           placeholder="جستجو در میان همه خبرها"
           className="w-full h-10 rounded-lg pr-10 outline-none font-vazir font-normal text-sm"
           onChange={({ currentTarget }) => {
-            if (searchText !== currentTarget.value) {
+            if (searchQuery.value !== currentTarget.value) {
               clearTimeout(searchTimeout);
               setSearchTimeout(
-                setTimeout(() => setSearchText(currentTarget.value), 400)
+                setTimeout(() => (searchQuery.value = currentTarget.value), 400)
               );
             }
           }}

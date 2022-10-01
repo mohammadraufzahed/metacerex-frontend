@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { userProfile } from "../../../atoms/userProfile";
+import useCustomToast from "../../../hooks/useCustomToast";
 import ProfileFormLayout from "../../../layouts/ProfileFormLayout";
+import { profile } from "../../../signals/profile";
 import AnimatedCopy from "../../../svgs/AnimatedCopy";
 import Input from "../../Input";
 
 const ReferralCodeBox: React.FC = () => {
-  const userProfileD = useRecoilValue(userProfile);
   const [copy, setCopy] = useState<boolean>(false);
   return (
     <ProfileFormLayout title="کد معرف">
@@ -17,7 +17,7 @@ const ReferralCodeBox: React.FC = () => {
             label="کد معرف اختصاصی شما"
             isPrimary
             id=""
-            value={userProfileD?.referral_code ?? ""}
+            value={profile.value ? profile.value.referral_code : ""}
             name=""
             onChange={() => {}}
             type="text"
@@ -30,11 +30,22 @@ const ReferralCodeBox: React.FC = () => {
               copied={copy ? 1 : 0}
               className="stroke-white"
               onClick={() => {
-                navigator.clipboard.writeText(
-                  userProfileD?.referral_code ?? ""
-                );
-                setCopy((copy) => !copy);
-                setTimeout(() => setCopy((copy) => !copy), 2000);
+                if (profile.value) {
+                  navigator.clipboard.writeText(profile.value.referral_code);
+                  setCopy((copy) => !copy);
+                  useCustomToast(
+                    "bottom-right",
+                    "success",
+                    "کد شما با موفقیت کپی شد"
+                  );
+                  setTimeout(() => setCopy((copy) => !copy), 2000);
+                } else {
+                  useCustomToast(
+                    "bottom-right",
+                    "success",
+                    "کد شما با خطا مواجه شد"
+                  );
+                }
               }}
             />
           </button>

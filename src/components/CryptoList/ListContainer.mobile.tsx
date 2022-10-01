@@ -2,13 +2,13 @@ import React, { lazy, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import SearchBox from "./SearchBox";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { financialBoxStatus } from "../../atoms/financialBoxStatus";
 import { tickers } from "../../atoms/tickers";
 import { tickers_fav } from "../../atoms/tickers_fav";
 import { userToken } from "../../atoms/userToken";
 import LoginRequiredPage from "../../pages/LoginRequiredPage";
-import { tradingviewAtom } from "../../atoms/tradingviewAtom";
 import { TickerTable } from "../../types/API";
+import { financialbox } from "../../signals/financialBox";
+import { tradingview } from "../../signals/tradingview";
 
 const ListBoxMobile = lazy(() => import("./ListBox.mobile"));
 
@@ -24,11 +24,9 @@ const ListContainer: React.FC<PropsT> = ({
   onScrollFav,
 }) => {
   // States
-  const financialBoxStat = useRecoilValue(financialBoxStatus);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const tickersAll = useRecoilValue(tickers);
   const tickersFav = useRecoilValue(tickers_fav);
-  const [tradingview, setTradingview] = useRecoilState(tradingviewAtom);
   const [currentTicker, setCurrentTicker] = useState<TickerTable | null>();
   const userTokenD = useRecoilValue(userToken);
   const arrowAnimations = {
@@ -52,11 +50,11 @@ const ListContainer: React.FC<PropsT> = ({
   useEffect(() => {
     if (tickersAll.length != 0 || tickersFav.length !== 0) {
       const ticker = [...tickersAll, ...tickersFav].filter(
-        (item) => item.base_asset.code == tradingview
+        (item) => item.base_asset.code == tradingview.value
       );
       if (ticker.length == 0 && tickersAll.length !== 0) {
         setCurrentTicker(tickersAll[1]);
-        setTradingview(tickersAll[1].base_asset.code);
+        tradingview.value = tickersAll[1].base_asset.code;
       } else if (ticker.length > 0) {
         setCurrentTicker(ticker[0]);
       }
@@ -71,7 +69,7 @@ const ListContainer: React.FC<PropsT> = ({
           display: "none",
         },
       }}
-      animate={financialBoxStat == "mobileOpen" ? "hide" : ""}
+      animate={financialbox.value == "mobileOpen" ? "hide" : ""}
     >
       <div
         className="font-vazir font-normal h-12 text-sm bg-neutral-50 flex flex-row justify-between items-center px-6 cursor-pointer border-b-[1px] border-b-primary-700 lg:hidden"

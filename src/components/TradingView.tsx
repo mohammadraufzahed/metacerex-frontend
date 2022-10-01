@@ -1,13 +1,10 @@
 import React from "react";
 import { AdvancedChart } from "react-tradingview-embed";
 import { motion } from "framer-motion";
-import { financialBoxStatus } from "../atoms/financialBoxStatus";
-import { useRecoilValue } from "recoil";
-import { tradingviewAtom } from "../atoms/tradingviewAtom";
+import { financialbox } from "../signals/financialBox";
+import { tradingview } from "../signals/tradingview";
 
 const TradingView: React.FC = () => {
-  const financialBoxStat = useRecoilValue(financialBoxStatus);
-  const tradingview = useRecoilValue(tradingviewAtom);
   const containerAnimation = {
     max: {
       height: 0,
@@ -25,16 +22,13 @@ const TradingView: React.FC = () => {
     <motion.div
       variants={containerAnimation}
       initial={{}}
-      animate={financialBoxStat}
+      animate={financialbox.value}
       className="flex-a"
       transition={{ duration: 1 }}
     >
       <AdvancedChart
         widgetProps={{
-          symbol: `${(tradingview != ""
-            ? tradingview
-            : "btc"
-          ).toUpperCase()}USDT`,
+          symbol: `${tradingview.value.toUpperCase()}USDT`,
           width: "100%",
           height: "100%",
           autosize: false,

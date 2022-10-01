@@ -3,29 +3,24 @@ import { ErrorBoundary } from "react-error-boundary";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import { FinancialManagementBox } from "../components/FinancialManagementBox";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { financialBoxStatus } from "../atoms/financialBoxStatus";
 
 import { Helmet } from "react-helmet";
-import { screen } from "../atoms/screen";
+import { screen } from "../signals/screen";
+import { financialbox } from "../signals/financialBox";
 
 const TradingView = lazy(() => import("../components/TradingView"));
-const NewsBox = lazy(() => import("../components/News/NewsBox"));
 const ListSelector = lazy(
   () => import("../components/CryptoList/ListSelector")
 );
 
 const ListPage: React.FC = () => {
-  const [financialBoxStat, setFinancialBoxStat] =
-    useRecoilState(financialBoxStatus);
-  const screenD = useRecoilValue(screen);
   useEffect(() => {
-    if (screenD.width < 1024) {
-      setFinancialBoxStat("idleMobile");
+    if (screen.value.width < 1024) {
+      financialbox.value = "idleMobile";
     } else {
-      setFinancialBoxStat("idle");
+      financialbox.value = "idle";
     }
-  }, [screenD]);
+  }, [screen.value]);
   return (
     <>
       <Helmet>

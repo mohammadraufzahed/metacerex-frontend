@@ -1,8 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { tradingviewAtom } from "../atoms/tradingviewAtom";
+import { Outlet } from "react-router-dom";
 import { FinancialManagementBox } from "../components/FinancialManagementBox";
 import MarketAction from "../components/Market/MarketActionsBox";
 import TradingView from "../components/TradingView";

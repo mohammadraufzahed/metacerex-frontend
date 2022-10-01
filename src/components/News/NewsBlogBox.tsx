@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { NewsArticleList } from "../../types/API";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { screen } from "../../atoms/screen";
+import { screen } from "../../signals/screen";
 
 type PropsT = {
   post: NewsArticleList;
@@ -11,7 +11,6 @@ type PropsT = {
 
 const NewsBlogBox: React.FC<PropsT> = ({ post }) => {
   const navigate = useNavigate();
-  const screenD = useRecoilValue(screen);
   return (
     <motion.article
       initial={{ opacity: 0 }}
@@ -32,8 +31,8 @@ const NewsBlogBox: React.FC<PropsT> = ({ post }) => {
             {new Date(post.added_on).toLocaleDateString("fa-ir")}
           </span>
           <h1 className="font-vazir font-bold text-sm">
-            {post.title.slice(0, screenD.width > 690 ? 100 : 60)}
-            {post.title.length > 60 && screenD.width < 690
+            {post.title.slice(0, screen.value.width > 690 ? 100 : 60)}
+            {post.title.length > 60 && screen.value.width < 690
               ? "..."
               : post.title.length > 100
               ? "..."

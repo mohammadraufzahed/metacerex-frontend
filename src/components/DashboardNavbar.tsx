@@ -1,16 +1,13 @@
 import React, { lazy } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { showSidebar } from "../atoms/showSidebar";
+import { useRecoilValue } from "recoil";
 import { motion } from "framer-motion";
-import { userProfile } from "../atoms/userProfile";
+import { showSidebar } from "./DashboardSidebar";
+import { profile } from "../signals/profile";
 
 const Hamburger = lazy(() => import("hamburger-react"));
 
 const DashboardNavbar: React.FC = () => {
-  const [showDashboardSidebar, setShowDashboardSidebar] =
-    useRecoilState(showSidebar);
-  const profile = useRecoilValue(userProfile);
   const navigate = useNavigate();
   return (
     <nav className="w-screen fixed z-[200] flex flex-row-reverse justify-between bg-neutral-50 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] lg:flex-row lg:px-8 border-b-[1px] border-primary-700">
@@ -45,13 +42,15 @@ const DashboardNavbar: React.FC = () => {
           <Hamburger
             rounded={true}
             duration={0.4}
-            onToggle={(e) => setShowDashboardSidebar(e.valueOf())}
-            toggled={showDashboardSidebar}
+            onToggle={(e) => (showSidebar.value = e.valueOf())}
+            toggled={showSidebar.value}
           />
         </div>
-        {profile ? (
+        {profile.value ? (
           <span className="hidden lg:block font-vazir font-bold text-base text-primary-700">
-            {`${profile.first_name ?? ""} ${profile.last_name ?? ""}`}
+            {`${profile.value.first_name ?? ""} ${
+              profile.value.last_name ?? ""
+            }`}
           </span>
         ) : (
           <motion.button

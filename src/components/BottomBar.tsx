@@ -1,10 +1,8 @@
 import React, { lazy } from "react";
 import type { MouseEventHandler, SVGProps, LazyExoticComponent } from "react";
 import { motion } from "framer-motion";
-
-import { useRecoilState } from "recoil";
-import { financialBoxStatus } from "../atoms/financialBoxStatus";
 import { useLocation, useNavigate } from "react-router-dom";
+import { financialbox } from "../signals/financialBox";
 
 const StatusUp = lazy(() => import("../svgs/StatusUp"));
 const EmptyWallet = lazy(() => import("../svgs/EmptyWallet"));
@@ -14,8 +12,6 @@ const Diagram = lazy(() => import("../svgs/Diagram"));
 const BottomBar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [financialBoxStat, setFinancialBoxStat] =
-    useRecoilState(financialBoxStatus);
   return (
     <div className="fixed bottom-0 w-screen grid grid-cols-5 z-20 bg-neutral-50 h-16 lg:hidden">
       <BottomBarItem
@@ -25,13 +21,13 @@ const BottomBar: React.FC = () => {
           if (location.pathname !== "/dashboard/list") {
             navigate("/dashboard/list", { replace: true });
           }
-          if (financialBoxStat == "mobileOpen") {
-            setFinancialBoxStat("idleMobile");
+          if (financialbox.value == "mobileOpen") {
+            financialbox.value = "idleMobile";
           }
         }}
         active={
           location.pathname == "/dashboard/list" &&
-          financialBoxStat !== "mobileOpen"
+          financialbox.value !== "mobileOpen"
         }
       />
 
@@ -42,13 +38,13 @@ const BottomBar: React.FC = () => {
           if (location.pathname !== "/dashboard/list") {
             navigate("/dashboard/list", { replace: true });
           }
-          if (financialBoxStat == "idleMobile") {
-            setFinancialBoxStat("mobileOpen");
+          if (financialbox.value == "idleMobile") {
+            financialbox.value = "mobileOpen";
           }
         }}
         active={
           location.pathname == "/dashboard/list" &&
-          financialBoxStat == "mobileOpen"
+          financialbox.value == "mobileOpen"
         }
       />
       <BottomBarItem

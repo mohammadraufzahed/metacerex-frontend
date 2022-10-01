@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@preact/signals-react': ^1.1.1
   '@react-oauth/google': ^0.2.8
   '@tanstack/react-query': ^4.2.1
   '@tanstack/react-query-devtools': ^4.2.1
@@ -51,6 +52,7 @@ specifiers:
   yup: ^0.32.11
 
 dependencies:
+  '@preact/signals-react': 1.1.1_react@18.2.0
   '@react-oauth/google': 0.2.8_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query': 4.2.3_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.2.3_7jugwuuqrrr4f74u7dtzjsintq
@@ -515,6 +517,19 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
     dev: true
+
+  /@preact/signals-core/1.2.1:
+    resolution: {integrity: sha512-aqzRMNFU1hoQyP4Kb1ldJrUTCnA9vqPDa7qHEQzHJ3upnBOcC2pjmvjAuTqGuY4AVTtUkCQV0FvOCuIQQ2hSdA==}
+    dev: false
+
+  /@preact/signals-react/1.1.1_react@18.2.0:
+    resolution: {integrity: sha512-U5HNWBt4q5pmsZjDOuVcz3OXLQtaBMMSErnTHFohOFQClBqHlVD/hmhayEEO38I9iU71kofhw2ngeWso/GsVMw==}
+    peerDependencies:
+      react: 17.x || 18.x
+    dependencies:
+      '@preact/signals-core': 1.2.1
+      react: 18.2.0
+    dev: false
 
   /@react-oauth/google/0.2.8_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-W3sRcU6kSZMGUOk10Vy5kPZPzvsi7+UpM2MxnT6fMVp+whDMKCVope5R01gwRydK9OI+0rozAARCD2NgrbkV7w==}

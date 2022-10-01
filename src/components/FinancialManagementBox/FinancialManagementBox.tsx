@@ -2,12 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import { useRecoilValue } from "recoil";
-import { financialBoxStatus } from "../../atoms/financialBoxStatus";
 import { FinancialBar, FinancialTable } from "./index";
+import { financialbox } from "../../signals/financialBox";
 
 const FinancialManagementBox: React.FC = () => {
-  const financialBoxStat = useRecoilValue(financialBoxStatus);
-
   return (
     <motion.div
       variants={{
@@ -23,9 +21,9 @@ const FinancialManagementBox: React.FC = () => {
         },
       }}
       initial=""
-      animate={financialBoxStat}
+      animate={financialbox.value}
       className={
-        financialBoxStat == "max" || financialBoxStat == "mobileOpen"
+        financialbox.value == "max" || financialbox.value == "mobileOpen"
           ? ""
           : "mt-1"
       }

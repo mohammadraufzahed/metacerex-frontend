@@ -3,11 +3,11 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { tradingviewAtom } from "../atoms/tradingviewAtom";
 import { userToken } from "../atoms/userToken";
 import { httpClient } from "../axios";
 import { getAsset, getDepositAssets } from "../functions/assets";
 import useCustomToast from "../hooks/useCustomToast";
+import { tradingview } from "../signals/tradingview";
 import { AssetList } from "../types/API";
 import Button from "./AuthenticationPage/Button";
 import DropboxSelect from "./DropboxSelect";
@@ -125,7 +125,6 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
     base_asset_price_usdt: string;
     base_asset_price_toman: string;
   }>();
-  const [tradingview, setTradingview] = useRecoilState(tradingviewAtom);
   // Conditions
   if (!userTokenD) return <Navigate to="/auth/login" replace />;
   // Functions
@@ -305,7 +304,9 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
               (item) => item.code == code
             )[0];
             setActiveAsset(activeAsset);
-            setTradingview(activeAsset ? activeAsset.code : tradingview);
+            tradingview.value = activeAsset
+              ? activeAsset.code
+              : tradingview.value;
           }}
         />
       </div>

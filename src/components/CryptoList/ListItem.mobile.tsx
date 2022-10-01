@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { TickerTable } from "../../types/API";
 import { useRecoilState } from "recoil";
-import { tradingviewAtom } from "../../atoms/tradingviewAtom";
 import { setFavAsset } from "../../functions/assets";
+import { tradingview } from "../../signals/tradingview";
 
 type PropsT = {
   onTapFav: () => void;
@@ -24,7 +24,6 @@ const ListItem: React.FC<TickerTable & PropsT> = ({
     },
   };
   const [grow, setGrow] = useState<number>(0);
-  const [tradingview, setTradingview] = useRecoilState(tradingviewAtom);
   // Effects
   useEffect(() => {
     const growInterval = setInterval(() => {
@@ -58,7 +57,7 @@ const ListItem: React.FC<TickerTable & PropsT> = ({
       onTap={() => {
         if (base_asset) {
           if (base_asset.code !== "TOMAN") {
-            setTradingview(base_asset.code);
+            tradingview.value = base_asset.code;
           }
         }
       }}
