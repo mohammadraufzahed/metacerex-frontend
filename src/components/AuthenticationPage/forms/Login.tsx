@@ -43,8 +43,8 @@ const Login: React.FC = () => {
               "userToken",
               JSON.stringify({
                 userToken: {
-                  access: res.data.access_token,
-                  refresh: res.data.refresh_token,
+                  access: userToken.access,
+                  refresh: userToken.refresh,
                 },
               })
             );

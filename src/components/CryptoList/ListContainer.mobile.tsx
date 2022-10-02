@@ -50,7 +50,8 @@ const ListContainer: React.FC<PropsT> = ({
   useEffect(() => {
     if (tickersAll.length != 0 || tickersFav.length !== 0) {
       const ticker = [...tickersAll, ...tickersFav].filter(
-        (item) => item.base_asset.code == tradingview.value
+        (item) =>
+          item.base_asset.code.toUpperCase() == tradingview.value.toUpperCase()
       );
       if (ticker.length == 0 && tickersAll.length !== 0) {
         setCurrentTicker(tickersAll[1]);
@@ -59,7 +60,7 @@ const ListContainer: React.FC<PropsT> = ({
         setCurrentTicker(ticker[0]);
       }
     }
-  }, [tradingview, tickersAll]);
+  }, [tradingview.value, tickersAll]);
   return (
     <motion.div
       variants={{
