@@ -44,7 +44,9 @@ const DashboardLayout: React.FC = () => {
   useEffect(() => {
     if (user) {
       let wsI = new WebSocket(
-        `wss://staging.saraphi.ir/ws/messaging/notifications/?token=${user.access}`
+        `${import.meta.env.VITE_WS_BASE}messaging/notifications/?token=${
+          user.access
+        }`
       );
       wsI.onopen = () => {
         wsI.send(JSON.stringify({ request: "unread_count" }));
