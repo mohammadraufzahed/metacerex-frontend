@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
 import { profile } from "../signals/profile";
+import { notificationCount } from "../signals/notificationCount";
 
 const BottomBar = lazy(() => import("../components/BottomBar"));
 const DashboardNavbar = lazy(() => import("../components/DashboardNavbar"));
@@ -15,6 +16,7 @@ const DashboardSidebar = lazy(() => import("../components/DashboardSidebar"));
 
 const DashboardLayout: React.FC = () => {
   // States
+  const [ws, setWS] = useState<WebSocket | null>(null);
   const [statusD, setStatus] = useRecoilState(statusData);
   const user = useRecoilValue(userToken);
   const [profileStat, setProfileStat] = useState<boolean>(false);
@@ -39,6 +41,20 @@ const DashboardLayout: React.FC = () => {
       profile.value = identityData.data;
     }
   }, [identityData.data]);
+  useEffect(() => {
+    if (user) {
+      let wsI = new WebSocket(
+        `wss://staging.saraphi.ir/ws/messaging/notifications/?token=${user.access}`
+      );
+      wsI.onopen = () => {
+        wsI.send(JSON.stringify({ request: "unread_count" }));
+      };
+      wsI.onmessage = (e) => {
+        let unread = JSON.parse(e.data);
+        notificationCount.value = unread.unread_count;
+      };
+    }
+  }, [user]);
   // Effects
   useEffect(() => setStatus(statusQuery.data ?? null), [statusQuery.data]);
   return (

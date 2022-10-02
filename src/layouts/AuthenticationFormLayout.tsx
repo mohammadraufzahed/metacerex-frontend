@@ -3,13 +3,11 @@ import { motion } from "framer-motion";
 
 type PropsT = {
   children: React.ReactNode;
-  key: string;
 };
 
-const AuthenticationFormLayout: React.FC<PropsT> = ({ children, key }) => {
+const AuthenticationFormLayout: React.FC<PropsT> = ({ children }) => {
   return (
     <motion.div
-      key={key}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

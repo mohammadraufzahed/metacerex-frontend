@@ -9,6 +9,7 @@ import MarketLayout from "./layouts/MarketLayout";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { statusData } from "./atoms/status";
 import HomePage from "./pages/HomePage";
+import NotificationPage from "./pages/NotificationPage";
 
 const LogoutPage = lazy(() => import("./pages/LogoutPage"));
 const OnchainPage = lazy(() => import("./pages/OnchainPage"));
@@ -65,6 +66,7 @@ const Navigation: React.FC = () => {
               path=""
               element={<Navigate to="/dashboard/list" replace />}
             />
+            <Route path="notification" element={<NotificationPage />} />
             <Route path="list" element={<ListPage />} />
             <Route path="wallet" element={<WalletPage />} />
             <Route path="profile" element={<ProfileLayout />}>

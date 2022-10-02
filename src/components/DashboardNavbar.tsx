@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { motion } from "framer-motion";
 import { showSidebar } from "./DashboardSidebar";
 import { profile } from "../signals/profile";
+import { notificationCount } from "../signals/notificationCount";
 
 const Hamburger = lazy(() => import("hamburger-react"));
 
@@ -47,11 +48,35 @@ const DashboardNavbar: React.FC = () => {
           />
         </div>
         {profile.value ? (
-          <span className="hidden lg:block font-vazir font-bold text-base text-primary-700">
-            {`${profile.value.first_name ?? ""} ${
-              profile.value.last_name ?? ""
-            }`}
-          </span>
+          <div className="flex flex-row items-center justify-center gap-2">
+            <span className="hidden lg:block font-vazir font-bold text-base text-primary-700">
+              {`${profile.value.first_name ?? ""} ${
+                profile.value.last_name ?? ""
+              }`}
+            </span>
+            <div
+              onClick={() =>
+                navigate("/dashboard/notification", { replace: true })
+              }
+              className="cursor-pointer relative"
+            >
+              <img width={24} height={24} src="/svgs/notification.svg" />
+              <motion.div
+                variants={{
+                  initial: {
+                    opacity: 0,
+                  },
+                  open: {
+                    opacity: 1,
+                  },
+                }}
+                initial="initial"
+                animate={notificationCount.value == 0 ? "initial" : "open"}
+                transition={{ duration: 0.2, type: "spring" }}
+                className="absolute bottom-0.5 right-0.5 border-white border-[0.5px] bg-error w-2 h-2 rounded-full"
+              />
+            </div>
+          </div>
         ) : (
           <motion.button
             initial={{ scale: 1 }}

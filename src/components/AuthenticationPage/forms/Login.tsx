@@ -15,8 +15,6 @@ import useCustomToast from "../../../hooks/useCustomToast";
 import { Helmet } from "react-helmet";
 
 const Login: React.FC = () => {
-  const [userTokenObject, setToken] = useRecoilState(userToken);
-  const navigate = useNavigate();
   const loginFormik = useFormik({
     initialValues: {
       identity: "",
@@ -63,7 +61,7 @@ const Login: React.FC = () => {
     },
   });
   return (
-    <AuthenticationFormLayout key="loginForm">
+    <AuthenticationFormLayout>
       <Helmet>
         <title>صرافی - ورود</title>
       </Helmet>

@@ -225,6 +225,10 @@ export type Notifications = {
   added_on: string;
 };
 
+export type PaginatedNotifications = Paginated & {
+  results: Notifications[]
+}
+
 export type PasswordSet = {
   password1: string;
   password2: string;

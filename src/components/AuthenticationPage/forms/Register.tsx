@@ -17,7 +17,7 @@ const Register: React.FC = () => {
       <Helmet>
         <title>صرافی - ثبت نام</title>
       </Helmet>
-      <AuthenticationFormLayout key="registerForm">
+      <AuthenticationFormLayout>
         <AnimatePresence mode="wait">
           {registerData?.status == "register" ? (
             <RegisterFirstStep />
