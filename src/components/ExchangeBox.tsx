@@ -57,13 +57,22 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       if (props.quantity_all_balance) {
         data = { ...data, quantity_all_balance: true };
       } else {
-        data = { ...data, quantity: props.quantity };
+        data = { ...data, quote_asset_quantity: props.quantity };
       }
       if (trade == "MAIN") {
-        data = {
-          ...data,
-          base_asset_expected_price: props.base_asset_expected_price,
-        };
+        if (activeBase) {
+          if (activeBase.code == "TOMAN") {
+            data = {
+              ...data,
+              expected_price_toman: props.base_asset_expected_price,
+            };
+          } else {
+            data = {
+              ...data,
+              expected_price_usdt: props.base_asset_expected_price,
+            };
+          }
+        }
       }
       return await httpClient
         .post(
