@@ -9,7 +9,7 @@ const AuthenticationLayout: React.FC = () => {
   const userTokenObject = sessionStorage.getItem("userToken");
   const location = useLocation();
   const navigate = useNavigate();
-  if (userTokenObject) {
+  if (userTokenObject && JSON.parse(userTokenObject).userToken) {
     return <Navigate to="/dashboard" replace />;
   }
 
