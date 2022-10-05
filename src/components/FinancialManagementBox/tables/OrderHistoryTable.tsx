@@ -34,20 +34,20 @@ const columns = [
       <TCell title={info.getValue() == "INSTANT" ? "سریع" : "اصلی"} />
     ),
   }),
-  columnHelper.accessor("asset_unit_price_toman", {
-    header: () => "قیمت",
+  columnHelper.accessor("base_asset_unit_price_toman", {
+    header: () => "قیمت (تومان)",
     cell: (info) => <TCell title={info.getValue()?.toString() ?? ""} />,
   }),
-  columnHelper.accessor("quantity", {
+  columnHelper.accessor("api_quantity", {
     header: () => "مقدار",
     cell: (info) => <TCell title={info.getValue()} />,
   }),
-  columnHelper.accessor("amount_toman", {
-    header: () => "مبلغ",
+  columnHelper.accessor("value_toman", {
+    header: () => "مبلغ (تومان)",
     cell: (info) => <TCell title={info.getValue()?.toString() ?? ""} />,
   }),
-  columnHelper.accessor("fee_total", {
-    header: () => "کارمزد",
+  columnHelper.accessor("fee_total_toman", {
+    header: () => "کارمزد (تومان)",
     cell: (info) => <TCell title={info.getValue()?.toString() ?? ""} />,
   }),
   columnHelper.accessor("state", {

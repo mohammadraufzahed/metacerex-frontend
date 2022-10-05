@@ -30,7 +30,7 @@ const tableColumns = [
     ),
     size: 100,
   }),
-  columnHelper.accessor("asset", {
+  columnHelper.accessor("base_asset", {
     header: () => "نام ارز",
     size: 170,
     cell: (info) => {
@@ -50,7 +50,7 @@ const tableColumns = [
       <TCell title={new Date(info.getValue()).toLocaleDateString("fa-ir")} />
     ),
   }),
-  columnHelper.accessor("quantity", {
+  columnHelper.accessor("api_quantity", {
     header: () => "تعداد",
     size: 150,
     cell: (info) => <TCell title={info.getValue()?.toString() ?? ""} />,
