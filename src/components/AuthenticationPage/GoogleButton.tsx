@@ -25,6 +25,7 @@ const GoogleButton: React.FC = () => {
                 userToken: {
                   access: res.data.access_token,
                   refresh: res.data.refresh_token,
+                  session_id: res.data.session_id,
                 },
               })
             );

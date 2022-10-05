@@ -43,6 +43,7 @@ const Login: React.FC = () => {
                 userToken: {
                   access: userToken.access,
                   refresh: userToken.refresh,
+                  session_id: userToken.session_id,
                 },
               })
             );

@@ -1,6 +1,5 @@
 import axios, { AxiosError } from "axios";
 import type { AxiosInstance } from "axios";
-import { userToken } from "./atoms/userToken";
 import useCustomToast from "./hooks/useCustomToast";
 import { CustomTokenObtain } from "./types/API";
 
@@ -18,6 +17,7 @@ httpClient.interceptors.request.use((config) => {
       config.headers = {
         ...config.headers,
         Authorization: `Bearer ${user.userToken.access}`,
+        "X-CSID": user.userToken.session_id,
       };
     }
   } catch (e) {}
