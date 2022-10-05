@@ -11,7 +11,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "./components/Error";
-import queryClient from "./QueryClient";
+import { QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { suspense: true, useErrorBoundary: true } },
+});
 
 const App: React.FC = () => {
   return (
