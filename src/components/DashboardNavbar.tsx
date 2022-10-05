@@ -38,7 +38,7 @@ const DashboardNavbar: React.FC = () => {
           </NavLink>
         </div>
       </div>
-      <div>
+      <div className="">
         <div className="lg:hidden">
           <Hamburger
             rounded={true}
@@ -48,7 +48,7 @@ const DashboardNavbar: React.FC = () => {
           />
         </div>
         {profile.value ? (
-          <div className="flex flex-row items-center justify-center gap-2">
+          <div className="hidden lg:flex flex-row items-center justify-center gap-2">
             <span className="hidden lg:block font-vazir font-bold text-base text-primary-700">
               {`${profile.value.first_name ?? ""} ${
                 profile.value.last_name ?? ""
