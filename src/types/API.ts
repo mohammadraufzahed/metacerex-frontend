@@ -14,8 +14,8 @@ export type AutocompleteAssets = {
 };
 
 export type AssetBalanceResponse = {
-  balances: AssetBalance[]
-}
+  balances: AssetBalance[];
+};
 
 export type AssetBalance = {
   asset: Asset;
@@ -25,7 +25,7 @@ export type AssetBalance = {
   total_sells: string;
   total_blocked: string;
   total_balance: string;
-}
+};
 
 export type OrderStatus = "OPEN" | "CANCELED" | "REJECTED" | "EXPIRED" | "DONE";
 
@@ -34,13 +34,14 @@ export type OrderType = "INSTANT" | "MAIN";
 export type OrderHistory = {
   order_id: string;
   added_on: string;
-  asset: Asset;
-  icon: string;
+  base_asset: Asset;
+  quote_asset: Asset;
+  base_asset_unit_price_toman: string;
+  api_quantity: string;
   type: OrderType;
-  asset_unit_price_toman?: string;
-  quantity: string;
-  amount_toman?: string;
-  fee_total?: string;
+  value_toman: string;
+  fee_total_usdt: string;
+  fee_total_toman: string;
   state: OrderStatus;
 };
 
@@ -56,14 +57,15 @@ export type Asset = {
 };
 
 export type OrdersOpen = {
-  asset: Asset;
+  type: OrderType;
   side: "BUY" | "SELL";
   order_id: string;
-  type: OrderType;
-  quantity: number;
+  base_asset: Asset;
+  quote_asset: Asset;
   added_on: string;
-  quantity_value_usdt: string;
-  quantity_value_toman: string;
+  api_quantity: number;
+  value_usdt: string;
+  value_toman: string;
 };
 
 export type PaginatedOrdersOpen = Paginated & {
@@ -131,13 +133,14 @@ export type BuyCreate = {
 
 export type CustomTokenObtain = {
   access: string;
-  refresh?: string;
-  user_display_name?: string;
-  is_password_entered?: boolean;
-  is_mobile_verified?: boolean;
-  is_identity_verified?: boolean;
-  is_shetab_cards_verified?: boolean;
-  username?: string;
+  refresh: string;
+  session_id: string;
+  user_display_name: string;
+  is_password_entered: boolean;
+  is_mobile_verified: boolean;
+  is_identity_verified: boolean;
+  is_shetab_cards_verified: boolean;
+  username: string;
 };
 
 export type DepositStateEnum = "new" | "waiting" | "verified" | "failed";
@@ -226,8 +229,14 @@ export type Notifications = {
 };
 
 export type PaginatedNotifications = Paginated & {
-  results: Notifications[]
-}
+  results: Notifications[];
+};
+
+export type TOTPState = {
+  url: string;
+  secret: string;
+  is_totp_enabled: boolean;
+};
 
 export type PasswordSet = {
   password1: string;
