@@ -9,6 +9,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
 import { profile } from "../signals/profile";
 import { notificationCount } from "../signals/notificationCount";
+import { getTOTPState } from "../functions/toptp";
+import { twofactoryState } from "../atoms/twofactoryState";
+import { useSignal } from "@preact/signals-react";
+import TwoSecSend from "../pages/TwoSecSend";
+import useCustomToast from "../hooks/useCustomToast";
 
 const BottomBar = lazy(() => import("../components/BottomBar"));
 const DashboardNavbar = lazy(() => import("../components/DashboardNavbar"));
@@ -19,13 +24,19 @@ const DashboardLayout: React.FC = () => {
   const [ws, setWS] = useState<WebSocket | null>(null);
   const [statusD, setStatus] = useRecoilState(statusData);
   const user = useRecoilValue(userToken);
-  const [profileStat, setProfileStat] = useState<boolean>(false);
-
+  const [twosec, setTwoSec] = useRecoilState(twofactoryState);
+  const twoTP = useSignal<boolean>(true);
   // Queries
   const statusQuery = useQuery(["status"], getStatus, {
     staleTime: 10 * 60 * 1000,
     refetchInterval: 10 * 60 * 1000,
     refetchIntervalInBackground: true,
+    enabled:
+      user && twoTP.value && !twosec ? false : !twoTP.value ? true : true,
+  });
+  const totpQuery = useQuery(["totp"], getTOTPState, {
+    refetchOnMount: true,
+    enabled: user && user.access ? true : false,
   });
   const identityData = useQuery(["identityDataFetcher"], getIdentity, {
     networkMode: "online",
@@ -33,7 +44,7 @@ const DashboardLayout: React.FC = () => {
     refetchOnMount: true,
     refetchInterval: 60000,
     staleTime: 60000,
-    enabled: user && user.access ? true : false,
+    enabled: user && user.access ? (twoTP.value ? twosec : true) : false,
   });
   // Effects
   useEffect(() => {
@@ -59,6 +70,23 @@ const DashboardLayout: React.FC = () => {
   }, [user]);
   // Effects
   useEffect(() => setStatus(statusQuery.data ?? null), [statusQuery.data]);
+  useEffect(() => {
+    if (totpQuery.data) twoTP.value = totpQuery.data.is_totp_enabled;
+  }, [totpQuery.data]);
+  // States
+  if (user && twoTP.value && !twosec)
+    return (
+      <TwoSecSend
+        onSuccess={() => {
+          setTwoSec(true);
+          useCustomToast(
+            "bottom-right",
+            "success",
+            "کد شما با موفقیت تایید شد."
+          );
+        }}
+      />
+    );
   return (
     <div className="flex pb-16 flex-col w-screen min-h-max h-max max-h-max max-w-[100vw] overflow-hidden scrollbar-vertical lg:pb-0">
       <header>
