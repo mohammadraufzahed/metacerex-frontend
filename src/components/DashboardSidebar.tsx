@@ -3,9 +3,10 @@ import type { SVGProps, LazyExoticComponent } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { screen } from "../signals/screen";
-import { effect, signal, useComputed } from "@preact/signals-react";
+import { effect, signal } from "@preact/signals-react";
 
 const ElementOne = lazy(() => import("../svgs/ElementOne"));
+const Notification = lazy(() => import("../svgs/Notification"));
 const Layer = lazy(() => import("../svgs/Layer"));
 const Profile = lazy(() => import("../svgs/Profile"));
 const Activity = lazy(() => import("../svgs/Activity"));
@@ -57,6 +58,12 @@ const SidebarBoxData: SidebarBoxDataT = {
       text: "مدیریت حساب",
       Icon: HomeTrendUp,
       href: "/dashboard/profile/information",
+      onlyMobile: true,
+    },
+    {
+      text: "اعلان ها",
+      href: "/dashboard/notification",
+      Icon: Notification,
       onlyMobile: true,
     },
     {
