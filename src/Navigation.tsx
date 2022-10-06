@@ -10,6 +10,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { statusData } from "./atoms/status";
 import HomePage from "./pages/HomePage";
 import NotificationPage from "./pages/NotificationPage";
+import AtiPage from "./pages/AtiPage";
 
 const LogoutPage = lazy(() => import("./pages/LogoutPage"));
 const OnchainPage = lazy(() => import("./pages/OnchainPage"));
@@ -60,6 +61,7 @@ const Navigation: React.FC = () => {
     <GoogleOAuthProvider clientId={status ? status.oa2_google_client_id : ""}>
       <Routes>
         <Route path="" element={<DashboardLayout />}>
+          <Route path="ati" element={<AtiPage />} />
           <Route path="" element={<HomePage />} />
           <Route path="dashboard">
             <Route

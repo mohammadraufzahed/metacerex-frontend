@@ -28,7 +28,9 @@ const ExchangeRate: React.FC<PropsT> = ({
       } justify-around h-24 border-primary-500 p-4  border-2 rounded-lg`}
     >
       <div className="w-full grid px-14 grid-cols-2 font-vazir text-sm">
-        {!flip || disabled ? (
+        {flip || disabled ? (
+          <span className="font-bold  w-max">{baseValue}</span>
+        ) : (
           <input
             className="font-bold min-w-full w-max max-w-max bg-transparent outline-none"
             type="number"
@@ -39,14 +41,14 @@ const ExchangeRate: React.FC<PropsT> = ({
               )
             }
           />
-        ) : (
-          <span className="font-bold  w-max">{baseValue}</span>
         )}
         <span className="font-normal w-full text-left">{baseName}</span>
       </div>
       <div className="w-full h-[2px] bg-primary-500" />
       <div className="w-full flex px-14 justify-between items-center font-vazir text-sm">
-        {flip || disabled ? (
+        {!flip || disabled ? (
+          <span className="font-bold  w-max">{assetValue}</span>
+        ) : (
           <input
             className="font-bold w-full  bg-transparent outline-none"
             type="number"
@@ -58,8 +60,6 @@ const ExchangeRate: React.FC<PropsT> = ({
             }
             step={0.01}
           />
-        ) : (
-          <span className="font-bold  w-max">{assetValue}</span>
         )}
         <span className="font-normal">{assetName}</span>
       </div>

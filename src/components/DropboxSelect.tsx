@@ -1,3 +1,4 @@
+import { useSignal } from "@preact/signals-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
@@ -9,6 +10,7 @@ type PropsT = {
   hasMemo?: boolean;
   onChange: (name: string) => void;
   enableSearch?: boolean;
+  maxHeight?: number;
   list: {
     text: string | undefined;
     value: string;
@@ -23,15 +25,16 @@ const DropboxSelect: React.FC<PropsT> = ({
   list,
   onChange,
   enableSearch = true,
+  maxHeight = 400,
 }) => {
   // States
-  const [open, setOpen] = useState<boolean>(false);
+  const open = useSignal<boolean>(false);
   const [search, setSearch] = useState<string>("");
   return (
     <div className="w-full relative h-10 flex flex-col">
       <div
         className="w-full cursor-pointer flex flex-row px-4 py-2 items-center justify-between border-b-[1px] border-b-primary-700"
-        onClick={() => setOpen((open) => !open)}
+        onClick={() => (open.value = !open.value)}
       >
         <span className="font-vazir font-normal text-sm">{placeholder}</span>
         {hasMemo ? (
@@ -47,7 +50,7 @@ const DropboxSelect: React.FC<PropsT> = ({
             },
           }}
           initial="close"
-          animate={open ? "open" : "close"}
+          animate={open.value ? "open" : "close"}
           transition={{ duration: 0.4, type: "spring" }}
           width={20}
           src="/svgs/arrow-down.svg"
@@ -62,11 +65,13 @@ const DropboxSelect: React.FC<PropsT> = ({
           open: {
             opacity: 1,
             display: "block",
+            maxHeight,
+            overflowY: "scroll",
           },
         }}
         initial="close"
-        animate={open ? "open" : "close"}
-        className="w-full drop-shadow-2xl rounded-b-xl h-max max-h-[400px] z-[300] absolute top-10 bg-neutral-50 overflow-y-hidden"
+        animate={open.value ? "open" : "close"}
+        className={`w-full drop-shadow-2xl rounded-b-xl h-max z-[300] absolute top-10 bg-neutral-50 overflow-y-hidden`}
       >
         {enableSearch ? (
           <div className="mb-2 w-full">
@@ -84,7 +89,7 @@ const DropboxSelect: React.FC<PropsT> = ({
             <Search className="absolute top-4 left-2" />
           </div>
         ) : null}
-        <div className="bg-neutral-50 flex flex-col max-h-[340px] overflow-y-scroll scrollbar-vertical">
+        <div className={`bg-neutral-50 flex flex-col`}>
           <AnimatePresence mode="sync">
             {list
               .filter(
@@ -106,7 +111,7 @@ const DropboxSelect: React.FC<PropsT> = ({
                   key={key}
                   onTap={() => {
                     onChange(item.value);
-                    setOpen(false);
+                    open.value = false;
                   }}
                 >
                   {item.icon ? <img src={item.icon} width={24} /> : null}

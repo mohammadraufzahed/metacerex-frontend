@@ -38,7 +38,7 @@ const DepositToman: React.FC<PropsT> = ({ onRuleClick }) => {
           amount_toman: form.amount,
           gateway: statusD?.shetab_gateways[0][0],
           short_desc: "",
-          card_number: form.selected_card,
+          card_id: form.selected_card,
           callback_url: window.location.origin + "/transaction",
         })
         .then((res) => {

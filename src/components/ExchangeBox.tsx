@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userToken } from "../atoms/userToken";
 import { httpClient } from "../axios";
@@ -29,8 +29,8 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       quantity: 0,
       quantity_percentage: "0",
       quantity_all_balance: false,
-      base_asset: "",
-      quote_asset: "",
+      base_asset_code: "",
+      quote_asset_code: "",
       base_asset_expected_price: 0,
     },
     async onSubmit(props) {
@@ -51,11 +51,11 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         return;
       }
       let data: any = {
-        base_asset: props.base_asset,
-        quote_asset: props.quote_asset,
+        base_asset: props.base_asset_code,
+        quote_asset: props.quote_asset_code,
       };
       if (props.quantity_all_balance) {
-        data = { ...data, quantity_all_balance: true };
+        data = { ...data, quote_asset_quantity_all_balance: true };
       } else {
         data = { ...data, quote_asset_quantity: props.quantity };
       }
@@ -107,6 +107,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   }>();
   const [baseAmount, setBaseAmount] = useState<number>(0);
   const userTokenD = useRecoilValue(userToken);
+  const navigate = useNavigate();
   const [reqData, setReqData] = useState<{
     order_side: "BUY" | "SELL";
     base_asset: string;
@@ -137,7 +138,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   // Conditions
   if (!userTokenD) return <Navigate to="/auth/login" replace />;
   // Functions
-  const connetToWs = () => {
+  function connectToWS() {
     const user = JSON.parse(sessionStorage.getItem("userToken") ?? "");
     if (user.userToken) {
       const wsTemp = new WebSocket(
@@ -163,29 +164,53 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           setExchange(data);
         }
       };
+      wsTemp.onclose = () => {
+        connectToWS();
+      };
       setWs(wsTemp);
     }
-  };
+  }
   useEffect(() => {
-    if (reqData.calc_type == "BASE") {
-      const price = parseFloat(exchange ? exchange.price : "0");
-      setBaseAmount(isNaN(price) ? 0 : price);
-    } else {
-      if (exchange && activeBase && parseFloat(exchange.price) > 0) {
-        form.setFieldValue(
-          "quantity",
-          activeBase.code == "TOMAN"
-            ? (
-                parseFloat(exchange.price) /
-                parseFloat(exchange.base_asset_price_toman)
-              ).toFixed(8)
-            : (
-                parseFloat(exchange.price) /
-                parseFloat(exchange.base_asset_price_usdt)
-              ).toFixed(8)
-        );
+    if (exchange && activeBase) {
+      if (reqData.calc_type == "BASE" || reqData.balance_percentage) {
+        setBaseAmount(parseFloat(parseFloat(exchange.price).toFixed(6)));
+        if (reqData.balance_percentage) {
+          form.setFieldValue(
+            "quantity",
+            (
+              parseFloat(exchange.price) /
+              parseFloat(exchange.base_asset_price_usdt)
+            ).toFixed(6)
+          );
+        }
       } else {
-        form.setFieldValue("quantity", 0);
+        if (activeBase.code == "TOMAN") {
+          form.setFieldValue(
+            "quantity",
+            (
+              parseFloat(exchange.price) /
+              parseFloat(exchange.base_asset_price_toman)
+            ).toFixed(6)
+          );
+        } else {
+          form.setFieldValue(
+            "quantity",
+            (
+              parseFloat(exchange.price) /
+              parseFloat(exchange.base_asset_price_usdt)
+            ).toFixed(6)
+          );
+        }
+      }
+      if (!reqData.balance_percentage) {
+        if (activeBase.balance >= parseFloat(exchange.price)) {
+          form.setFieldValue(
+            "quantity_percentage",
+            (activeBase.balance / parseFloat(exchange.price)).toFixed(6)
+          );
+        } else {
+          form.setFieldValue("quantity_percentage", 0);
+        }
       }
     }
   }, [exchange]);
@@ -196,13 +221,13 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
     if (activeAsset) {
       setReqData((reqData) => ({ ...reqData, base_asset: activeAsset.code }));
 
-      form.setFieldValue("base_asset", activeAsset.code);
+      form.setFieldValue("base_asset_code", activeAsset.code);
     }
   }, [activeAsset]);
   useEffect(() => {
     if (activeBase) {
       setReqData((reqData) => ({ ...reqData, quote_asset: activeBase.code }));
-      form.setFieldValue("quote_asset", activeBase.code);
+      form.setFieldValue("quote_asset_code", activeBase.code);
     }
   }, [activeBase]);
   useEffect(() => {
@@ -223,7 +248,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       });
     }
     if (ws == undefined || ws.readyState == WebSocket.CLOSED) {
-      connetToWs();
+      connectToWS();
     }
     return () => {
       if (ws && ws.readyState == WebSocket.OPEN) {
@@ -248,7 +273,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       ws.close();
       setWs(undefined);
       setReqData({ ...reqData, order_side: type });
-      connetToWs();
+      connectToWS();
       form.resetForm();
       setActiveAsset(undefined);
       setActiveBase(undefined);
@@ -368,7 +393,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           <span>موجودی شما</span>
         </div>
         <span className="self-end">
-          {activeBase && baseCurrencies.length == 2 ? activeBase.balance : "-"}
+          {activeBase ? activeBase.balance : "-"}
           &nbsp;
           {activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : ""}
         </span>
@@ -398,6 +423,8 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
             setReqData({
               ...reqData,
               calc_type: "QUOTE",
+              base_asset: activeBase ? activeBase.code : "",
+              quote_asset: activeAsset ? activeAsset.code : "",
               quantity: null,
               use_total_balance: null,
               balance_percentage: form.values.quantity_percentage,
@@ -487,8 +514,13 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         }
         fullWidth
         onClick={() => {
-          form.submitForm();
+          if (activeBase && activeBase.balance <= 0) {
+            navigate("/dashboard/asset/deposit", { replace: true });
+          } else {
+            form.submitForm();
+          }
         }}
+        loading={form.isSubmitting}
         className={
           type == "SELL"
             ? activeAsset && parseFloat(activeAsset.balance) == 0
