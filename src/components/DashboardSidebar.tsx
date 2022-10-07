@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { screen } from "../signals/screen";
 import { effect, signal } from "@preact/signals-react";
 
+const StatusUp = lazy(() => import("../svgs/StatusUp"));
 const ElementOne = lazy(() => import("../svgs/ElementOne"));
 const Notification = lazy(() => import("../svgs/Notification"));
 const Layer = lazy(() => import("../svgs/Layer"));
@@ -46,6 +47,11 @@ const SidebarBoxData: SidebarBoxDataT = {
       text: "بازار",
       Icon: Activity,
       href: "/dashboard/market",
+    },
+    {
+      text: "آتی",
+      Icon: StatusUp,
+      href: "/ati",
     },
     {
       text: "کیف پول",

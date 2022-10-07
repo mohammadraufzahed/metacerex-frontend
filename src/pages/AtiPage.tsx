@@ -11,8 +11,8 @@ const AtiPage = () => {
   const selectedPercentage = useSignal<string | null>(null);
   return (
     <div className="w-full max-h-[83vh] pb-3 overflow-y-scroll scrollbar-vertical font-vazir grid grid-cols-1 gap-3 lg:grid-cols-2 lg:overflow-y-hidden">
-      <div className="w-full bg-neutral-50 rounded-lg">
-        <div className="w-full p-2 border-b-[1px] border-neutral-300 drop-shadow-md">
+      <div className="w-full bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 rounded-lg">
+        <div className="w-full p-2 border-b-[1px] border-neutral-300 dark:border-neutral-600 drop-shadow-md">
           <span className="text-base font-bold">توضیحات</span>
         </div>
         <div className="w-full p-3 max-h-[67vh] overflow-y-scroll scrollbar-vertical md:h-[93vh]">
@@ -92,21 +92,27 @@ const AtiPage = () => {
             پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
           </p>
         </div>
-        <div className="w-full px-2 py-6 flex flex-row items-center justify-start gap-2 drop-shadow-2xl border-t-[1px] border-neutral-300">
+        <div className="w-full px-2 bg-pri py-6 flex flex-row items-center justify-start gap-2 drop-shadow-2xl border-t-[1px] border-neutral-300 dark:border-neutral-600">
           <motion.div
             variants={{
               initial: {
-                background: "rgb(255 255 255)",
+                background:
+                  colorMode.value == "dark"
+                    ? "rgba(64, 64, 64, 0)"
+                    : "rgb(255 255 255)",
               },
               active: {
-                background: "rgb(8 103 136)",
+                background:
+                  colorMode.value == "dark"
+                    ? "rgba(36, 196, 249, 1)"
+                    : "rgb(8 103 136)",
               },
             }}
             initial="initial"
             onTap={() => (descAccept.value = !descAccept.value)}
             animate={descAccept.value ? "active" : "initial"}
             transition={{ duration: 0.4, type: "spring" }}
-            className="w-6 h-6 rounded-sm cursor-pointer"
+            className="w-6 h-6 rounded-sm cursor-pointer border-[1px] border-transparent dark:border-primary-700"
           />
           <span className="font-normal text-base">
             با تمامی مفاد ذکر شده موافقم.
@@ -115,17 +121,23 @@ const AtiPage = () => {
       </div>
       <div className="w-full h-full gap-4 max-h-max lg:overflow-y-hidden items-center lg:min-w-[400px]">
         <div
-          className={`w-full relative h-max py-7 px-4 flex flex-col gap-4 max-w-full overflow-x-hidden bg-neutral-50 rounded-lg lg:h-[70%] ${
+          className={`w-full relative h-max py-7 px-4 flex flex-col gap-4 max-w-full overflow-x-hidden bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50  rounded-lg lg:h-[70%] ${
             descAccept ? "lg:overflow-y-scroll" : "lg:overflow-y-hidden"
           } scrollbar-vertical`}
         >
           <motion.div
             variants={{
               initial: {
-                backgroundColor: "rgb(163 163 163 / 0.6)",
+                backgroundColor:
+                  colorMode.value == "dark"
+                    ? "rgba(23, 23, 23, 0.6)"
+                    : "rgba(163, 163, 163, 0.6)",
               },
               active: {
-                backgroundColor: "rgb(163 163 163 / 0)",
+                backgroundColor:
+                  colorMode.value == "dark"
+                    ? "rgba(23, 23, 23, 0)"
+                    : "rgb(163, 163, 163, 0)",
                 display: "none",
               },
             }}
@@ -151,9 +163,9 @@ const AtiPage = () => {
               </span>
               <img width={200} height={200} src="/svgs/profile.svg" />
             </div>
-            <div className="w-full min-w-[250px] h-max flex flex-col gap-4 items-center border-dashed border-2 border-primary-700 py-10 xl:justify-self-end max-w-[50%] xl:py-12">
+            <div className="w-full min-w-[250px] h-max flex flex-col gap-4 items-center border-dashed border-2 border-primary-700 dark:border-primary-500 py-7 xl:justify-self-end max-w-[50%] xl:py-12">
               {isPicSelected.value ? (
-                <img src="/images/personal.png" className="w-11/12" />
+                <img src="/images/personal.png" className="w-[150px]" />
               ) : (
                 <>
                   <img
@@ -179,12 +191,12 @@ const AtiPage = () => {
                     />
                     <label
                       htmlFor="file"
-                      className="px-10 py-2 cursor-pointer bg-primary-700 font-vazir font-normal text-base text-white rounded-lg"
+                      className="px-10 py-2 cursor-pointer bg-primary-700 dark:bg-primary-500 font-vazir font-normal text-base text-neutral-50 dark:text-neutral-900 rounded-lg"
                     >
                       بارگزاری تصویر
                     </label>
                   </motion.div>
-                  <p className="font-vazir font-light text-xs text-center text-primary-700">
+                  <p className="font-vazir font-light text-xs text-center text-primary-700 dark:text-primary-500">
                     فایل انتخابی باید از نوع تصویر بوده و حجم آن کمتر از 2
                     مگابایت باشد
                   </p>
@@ -193,14 +205,20 @@ const AtiPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-full relative grid grid-cols-1 lg:grid-cols-2 gap-x-3 rounded-lg px-2 py-4 flex-auto bg-neutral-50 mt-3 lg:h-[28%] lg:overflow-y-hidden">
+        <div className="w-full relative grid grid-cols-1 lg:grid-cols-2 gap-x-3 rounded-lg px-2 py-4 flex-auto bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 mt-3 lg:h-[28%] lg:overflow-y-hidden">
           <motion.div
             variants={{
               initial: {
-                backgroundColor: "rgb(163 163 163 / 0.6)",
+                backgroundColor:
+                  colorMode.value == "dark"
+                    ? "rgba(23, 23, 23, 0.6)"
+                    : "rgba(163, 163, 163, 0.6)",
               },
               active: {
-                backgroundColor: "rgb(163 163 163 / 0)",
+                backgroundColor:
+                  colorMode.value == "dark"
+                    ? "rgba(23, 23, 23, 0)"
+                    : "rgb(163, 163, 163, 0)",
                 display: "none",
               },
             }}
