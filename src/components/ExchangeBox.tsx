@@ -7,6 +7,7 @@ import { userToken } from "../atoms/userToken";
 import { httpClient } from "../axios";
 import { getAsset, getDepositAssets } from "../functions/assets";
 import useCustomToast from "../hooks/useCustomToast";
+import { colorMode } from "../signals/colorMode";
 import { tradingview } from "../signals/tradingview";
 import { AssetList } from "../types/API";
 import Button from "./AuthenticationPage/Button";
@@ -281,7 +282,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   }, [type]);
   return (
     <>
-      <div className="w-full py-1 flex flex-row items-center justify-between">
+      <div className="w-full py-1 flex flex-row items-center justify-between text-neutral-900 dark:text-neutral-50">
         <span className="font-vazir font-normal text-sm">مبنای معامله:</span>
         <div className="relative w-7/12">
           <DropboxSelect
@@ -310,7 +311,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         </div>
       </div>
       {trade == "INSTANT" ? (
-        <div className="w-full flex justify-between items-center font-vazir font-normal text-sm">
+        <div className="w-full flex justify-between items-center font-vazir font-normal text-sm text-neutral-900 dark:text-neutral-50">
           <span>قیمت لحظه ای:</span>
           <span>
             {exchange && activeBase
@@ -387,9 +388,9 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           />
         </div>
       ) : null}
-      <div className="flex flex-row items-center justify-between w-full font-normal font-vazir text-sm">
+      <div className="flex flex-row items-center justify-between w-full font-normal font-vazir text-sm text-neutral-900 dark:text-neutral-50">
         <div className="flex flex-row items-center gap-2">
-          <img src="/svgs/wallet.svg" width={24} />
+          <img src={`/svgs/wallet-${colorMode.value}.svg`} width={24} />
           <span>موجودی شما</span>
         </div>
         <span className="self-end">
@@ -398,9 +399,9 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           {activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : ""}
         </span>
       </div>
-      <div className="w-full flex items-center justify-between font-vazir text-sm">
+      <div className="w-full flex items-center justify-between font-vazir text-sm text-neutral-900 dark:text-neutral-50">
         <div className="w-max font-normal flex flex-row gap-2 items-center">
-          <img src="/svgs/percentage-square.svg" />
+          <img src={`/svgs/percentage-square-${colorMode.value}.svg`} />
           <span>درصد موجودی</span>
         </div>
         <div className="w-max flex flex-row gap-4 font-bold">
@@ -435,7 +436,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           max="100"
         />
       </div>
-      <div className="w-full flex items-center justify-between font-vazir font-normal text-sm">
+      <div className="w-full flex items-center justify-between font-vazir font-normal text-sm text-neutral-900 dark:text-neutral-50">
         <span>خرید با همه موجودی</span>
         <AnimatedCheckBox
           active={form.values.quantity_all_balance}
@@ -485,7 +486,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           });
         }}
       />
-      <div className="w-full flex items-center justify-between font-vazir font-light text-xs">
+      <div className="w-full flex items-center justify-between font-vazir font-light text-xs text-neutral-900 dark:text-neutral-50">
         <span>کارمزد</span>
         <span>
           {exchange && !isNaN(exchange.fee) ? exchange.fee ?? "-" : "-"}
@@ -493,7 +494,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           {activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : ""}
         </span>
       </div>
-      <div className="w-full flex items-center justify-between font-vazir font-light text-xs">
+      <div className="w-full flex items-center justify-between font-vazir font-light text-xs text-neutral-900 dark:text-neutral-50">
         <span>دریافتی</span>
         <span>
           {exchange && !isNaN(exchange.value) ? exchange.value ?? "-" : "-"}
@@ -535,7 +536,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         className={`font-vazir font-light text-xs w-max max-w-full self-start transition-colors duration-300  text-justify ${
           activeBase && activeBase.balance == 0
             ? "text-warning"
-            : "text-neutral-700"
+            : "text-neutral-700 dark:text-neutral-50"
         }`}
       >
         {activeBase && activeBase.balance == 0

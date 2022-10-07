@@ -2,6 +2,7 @@ import { useSignal } from "@preact/signals-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
+import { colorMode } from "../signals/colorMode";
 import Search from "../svgs/Search";
 import Input from "./Input";
 
@@ -33,7 +34,7 @@ const DropboxSelect: React.FC<PropsT> = ({
   return (
     <div className="w-full relative h-10 flex flex-col">
       <div
-        className="w-full cursor-pointer flex flex-row px-4 py-2 items-center justify-between border-b-[1px] border-b-primary-700"
+        className="w-full cursor-pointer flex flex-row px-4 py-2 items-center justify-between border-b-[1px] border-b-primary-700 dark:border-b-primary-500 text-neutral-900 dark:text-neutral-50"
         onClick={() => (open.value = !open.value)}
       >
         <span className="font-vazir font-normal text-sm">{placeholder}</span>
@@ -53,7 +54,7 @@ const DropboxSelect: React.FC<PropsT> = ({
           animate={open.value ? "open" : "close"}
           transition={{ duration: 0.4, type: "spring" }}
           width={20}
-          src="/svgs/arrow-down.svg"
+          src={`/svgs/arrow-down-${colorMode.value}.svg`}
         />
       </div>
       <motion.div
@@ -71,7 +72,7 @@ const DropboxSelect: React.FC<PropsT> = ({
         }}
         initial="close"
         animate={open.value ? "open" : "close"}
-        className={`w-full drop-shadow-2xl rounded-b-xl h-max z-[300] absolute top-10 bg-neutral-50 overflow-y-hidden`}
+        className={`w-full drop-shadow-2xl rounded-b-xl h-max z-[300] absolute top-10 bg-neutral-50 dark:bg-neutral-900 overflow-y-hidden`}
       >
         {enableSearch ? (
           <div className="mb-2 w-full">
@@ -85,11 +86,12 @@ const DropboxSelect: React.FC<PropsT> = ({
               onChange={({ currentTarget }) => {
                 setSearch((currentTarget as HTMLInputElement).value);
               }}
+              className="text-neutral-900 placeholder:text-neutral-900 dark:text-neutral-50 dark:placeholder:text-neutral-50"
             />
-            <Search className="absolute top-4 left-2" />
+            <Search className="absolute stroke-neutral-900 dark:stroke-neutral-50 top-4 left-2" />
           </div>
         ) : null}
-        <div className={`bg-neutral-50 flex flex-col`}>
+        <div className={`bg-neutral-50 dark:bg-neutral-900 flex flex-col`}>
           <AnimatePresence mode="sync">
             {list
               .filter(
@@ -101,10 +103,26 @@ const DropboxSelect: React.FC<PropsT> = ({
               )
               .map((item, key) => (
                 <motion.div
-                  initial={{ x: 430, background: "rgb(250 250 250)" }}
-                  whileHover={{ background: "rgb(245, 245, 245)" }}
-                  whileTap={{ background: "rgb(229, 229, 229)" }}
-                  className="w-full cursor-pointer font-vazir text-primary-700 px-2 py-2 border-b-[1px] font-bold flex flex-row items-center gap-2"
+                  initial={{
+                    x: 430,
+                    background:
+                      colorMode.value == "dark"
+                        ? "rgba(28 28 28 1)"
+                        : "rgb(250 250 250)",
+                  }}
+                  whileHover={{
+                    background:
+                      colorMode.value == "dark"
+                        ? "rgba(28 28 28 0.5)"
+                        : "rgb(245, 245, 245)",
+                  }}
+                  whileTap={{
+                    background:
+                      colorMode.value == "dark"
+                        ? "rgba(28 28 28 1)"
+                        : "rgb(229, 229, 229)",
+                  }}
+                  className="w-full cursor-pointer  font-vazir text-primary-700 dark:text-primary-500 px-2 py-2 border-b-[1px] font-bold flex flex-row items-center gap-2"
                   animate={{ x: 0 }}
                   exit={{ x: 430 }}
                   transition={{ duration: 0.4, type: "tween" }}

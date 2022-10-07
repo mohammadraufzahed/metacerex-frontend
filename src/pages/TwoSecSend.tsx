@@ -26,8 +26,8 @@ const TwoSecSend: React.FC<PropsT> = ({ onSuccess }) => {
     },
   });
   return (
-    <div className="font-vazir w-screen h-screen bg-background-100">
-      <div className="w-full h-full max-w-sm mx-auto px-6 flex flex-col items-center justify-center ">
+    <div className="font-vazir w-screen h-screen bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50">
+      <div className="w-full h-full max-w-sm mx-auto px-6 flex flex-col items-center justify-center">
         <h1 className="text-base">لطفا کد دو عاملی خود را وارد کنید.</h1>
         <Input
           id="otp"

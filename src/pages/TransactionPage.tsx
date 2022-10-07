@@ -1,18 +1,28 @@
 import React from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import Button from "../components/AuthenticationPage/Button";
+import { colorMode } from "../signals/colorMode";
 
 const TransactionPage = () => {
   const location = useLocation();
   const isOk = location.search.includes("payment_status=OK");
   const navigate = useNavigate();
+  if (!location.search.includes("payment_status"))
+    return <Navigate to="/dashboard" replace />;
   return (
     <div className="w-full h-[93vh] flex flex-col justify-center gap-10 lg:gap-24 items-center">
       <img
         className="w-28"
-        src={`/svgs/card-tick-${isOk ? "success" : "error"}.svg`}
+        src={`/svgs/card-tick-${isOk ? "success" : "error"}-${
+          colorMode.value
+        }.svg`}
       />
-      <span className="font-vazir font-bold text-2xl lg:text-3xl">
+      <span className="font-vazir font-bold text-2xl lg:text-3xl text-neutral-900 dark:text-neutral-50">
         {isOk ? "پرداخت با موفقیت انجام شد" : "خطا در عملیات پرداخت"}
       </span>
       <div className="flex flex-col items-center gap-10 lg:flex-row">

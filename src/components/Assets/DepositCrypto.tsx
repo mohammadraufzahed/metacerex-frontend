@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
-import { getItem } from "localforage";
 import React, { useEffect, useState } from "react";
 import { getDepositAssets } from "../../functions/assets";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -13,8 +12,8 @@ import Input from "../Input";
 import RulesButton from "./RulesButton";
 import * as yup from "yup";
 import { httpClient } from "../../axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
+import { colorMode } from "../../signals/colorMode";
 
 type PropsT = {
   onRuleClick: () => void;
@@ -135,18 +134,20 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
         />
       ) : null}
       <div className="w-full flex flex-row items-center justify-between font-vazir font-normal text-sm">
-        <div className="w-max flex flex-row items-center gap-2.5">
-          <img src="/svgs/wallet.svg" width={20} />
+        <div className="w-max flex flex-row items-center gap-2.5 text-neutral-900 dark:text-neutral-50">
+          <img src={`/svgs/wallet-${colorMode.value}.svg`} width={20} />
           <span>
             {currentCurrency
               ? `موجودی کیف پول شما`
               : "لطفا ارز مورد نظر را انتخاب کنید."}
           </span>
         </div>
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2 text-neutral-900 dark:text-neutral-50">
           {currentCurrency ? (
             <>
-              <span>{currentCurrency.balance}</span>
+              <span>
+                {currentCurrency.balance ? currentCurrency.balance : "-"}
+              </span>
               <span>
                 {currentCurrency.name_farsi
                   ? currentCurrency.name_farsi
@@ -158,19 +159,19 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
           )}
         </div>
       </div>
-      <div className="flex flex-col w-full items-center justify-between">
+      <div className="flex flex-col w-full text-neutral-900 dark:text-neutral-50 items-center justify-between">
         <div className="flex flex-row gap-2.5 items-center self-start">
-          <img src="/svgs/wallet-money.svg" />
+          <img src={`/svgs/wallet-${colorMode.value}.svg`} />
           <span className="font-vazir font-normal text-base ">آدرس ولت</span>
         </div>
         <span className="w-full font-light font-vazir mt-2 text-xs">
           آدرس ولت در شبکه انتقال مورد نظر خود را کپی کنید
         </span>
-        <div className="w-full mt-6 border-[1px] rounded-lg border-primary-700">
-          <span className="w-full border-b-2 border-primary-700 flex flex-row items-center justify-center font-vazir font-normal text-base px-2 py-3 text-primary-700">
+        <div className="w-full mt-6 border-[1px] rounded-lg border-primary-700 dark:border-primary-500">
+          <span className="w-full border-b-2 border-primary-700 dark:border-primary-500 flex flex-row items-center justify-center font-vazir font-normal text-base px-2 py-3 text-primary-700 dark:text-primary-500">
             {selectedNetwork ? selectedNetwork.exchange_network_address : "-"}
           </span>
-          <div className="w-full py-3.5 px-3 flex flex-row justify-between items-center">
+          <div className="w-full text-neutral-900 dark:text-neutral-50 py-3.5 px-3 flex flex-row justify-between items-center">
             {currentCurrency ? (
               <span></span>
             ) : (
@@ -179,7 +180,7 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
               </span>
             )}
             <AnimatedCopy
-              className="stroke-neutral-400 cursor-pointer"
+              className="stroke-neutral-900 dark:stroke-neutral-50 cursor-pointer"
               copied={copied}
               onClick={() => {
                 if (selectedNetwork) {
@@ -209,9 +210,9 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col text-neutral-900 dark:text-neutral-50">
         <div className="flex flex-row items-center gap-2.5">
-          <img src="/svgs/scroll.svg" width={24} />
+          <img src={`/svgs/scroll-${colorMode.value}.svg`} width={24} />
           <span className="font-vazir font-normal text-base">
             کد تراکنش (Hash)
           </span>
@@ -230,7 +231,7 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
           isPrimary
           fullWidth
         />
-        <span className="font-vazir font-light text-xs mt-4 text-neutral-700">
+        <span className="font-vazir font-light text-xs mt-4 text-neutral-700 dark:text-neutral-200">
           کاربر گرامی، ثبت کد تراکنش (txid یا hash) برای واریز رمز ارز اجباری
           است. لطفا دقت فرمایید که کد تراکنش صحیح را تا حداکثر 2 ساعت پس از
           واریز در بخش مربوط به کد تراکنش ثبت نمایید. در غیر این صورت آبا‌ن‌تتر

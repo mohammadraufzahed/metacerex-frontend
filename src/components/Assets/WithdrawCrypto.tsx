@@ -12,7 +12,7 @@ import * as yup from "yup";
 import useCustomToast from "../../hooks/useCustomToast";
 import { httpClient } from "../../axios";
 import { useNavigate } from "react-router-dom";
-import { nanoid } from "nanoid";
+import { colorMode } from "../../signals/colorMode";
 
 type PropsT = {
   onRuleClick: (event: MouseEvent) => void;
@@ -126,7 +126,7 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
       />
       {assetsQuery.data && withdrawFormik.values.asset != "" ? (
         <div className="w-full flex flex-col gap-4">
-          <div className="flex flex-row gap-2 items-center font-vazir font-normal text-sm">
+          <div className="flex flex-row text-neutral-900 dark:text-neutral-50 gap-2 items-center font-vazir font-normal text-sm">
             <img src="/svgs/hierarchy.svg" width={16} />
             <span>شبکه ها</span>
           </div>
@@ -154,9 +154,9 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
           />
         </div>
       ) : null}
-      <div className="w-full flex flex-col gap-4">
+      <div className="w-full flex flex-col gap-4 text-neutral-900 dark:text-neutral-50">
         <div className="flex flex-row gap-2 items-center font-vazir font-normal text-sm">
-          <img src="/svgs/empty-wallet-change.svg" width={16} />
+          <img src={`/svgs/wallet-${colorMode.value}.svg`} width={16} />
           <span>آدرس ولت مقصد</span>
         </div>
         <Input
@@ -170,14 +170,14 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
           isPrimary
           fullWidth
         />
-        <span className="font-vazir font-light text-xs text-neutral-700">
+        <span className="font-vazir font-light text-xs text-neutral-700 dark:text-neutral-200">
           این آدرس مربوط به انتقال در شبکه است
         </span>
       </div>
       {hasMemo ? (
-        <div className="w-full flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-4 text-neutral-900 dark:text-neutral-50">
           <div className="flex flex-row gap-2 items-center font-vazir font-normal text-sm">
-            <img src="/svgs/warning.svg" width={16} />
+            <img src={`/svgs/warning-${colorMode.value}.svg`} width={16} />
             <span>مموی خود را با دقت وارد کنید</span>
           </div>
           <Input
@@ -193,7 +193,7 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
           />
         </div>
       ) : null}
-      <div className="w-full flex flex-col gap-4">
+      <div className="w-full flex flex-col gap-4 text-neutral-900 dark:text-neutral-50">
         <span className="font-vazir font-normal text-base">
           مبلغ مورد نظر جهت برداشت
         </span>
@@ -210,12 +210,12 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
             isPrimary
             fullWidth
           />
-          <span className="font-vazir font-normal text-base text-neutral-700 absolute left-2 top-4">
+          <span className="font-vazir font-normal text-base text-neutral-700 dark:text-neutral-200 absolute left-2 top-4">
             تومان
           </span>
         </div>
       </div>
-      <div className="w-full flex flex-row justify-between items-center">
+      <div className="w-full flex flex-row justify-between items-center text-neutral-900 dark:text-neutral-50">
         <span className="font-vazir font-normal text-base">
           برداشت همه موجودی
         </span>

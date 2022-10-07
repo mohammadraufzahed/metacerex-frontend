@@ -24,7 +24,7 @@ const InformationAuthStatusBox: React.FC = () => {
     }
   }, [profile]);
   return (
-    <div className="font-vazir bg-neutral-50 rounded-2xl flex flex-col items-center justify-center gap-10 py-3 lg:flex-row lg:justify-between lg:px-8 lg:py-6">
+    <div className="font-vazir bg-neutral-50 dark:bg-neutral-900 rounded-2xl flex flex-col items-center justify-center gap-10 py-3 lg:flex-row lg:justify-between lg:px-8 lg:py-6">
       {currentForm == "done" ||
       currentForm == "undone" ||
       currentForm == "processing" ? (
@@ -39,7 +39,7 @@ const InformationAuthStatusBox: React.FC = () => {
                   : "stroke-error"
               } text-2xl scale-125`}
             />
-            <div className="font-bold flex flex-row gap-2 text-sm">
+            <div className="font-bold flex flex-row gap-2 text-sm text-neutral-900 dark:text-neutral-50">
               <span>وضعیت احراز هویت:</span>
               <span>
                 {currentForm == "done"
@@ -57,7 +57,7 @@ const InformationAuthStatusBox: React.FC = () => {
                 className="px-12 py-3"
                 onClick={() => setCurrentForm("processStart")}
               />
-              <span className="font-normal text-sm text-primary-700">
+              <span className="font-normal text-sm text-primary-700 dark:text-primary-500">
                 آموزش احراز هویت
               </span>
             </div>

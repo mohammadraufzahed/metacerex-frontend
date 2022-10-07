@@ -9,6 +9,7 @@ import LoginRequiredPage from "../../pages/LoginRequiredPage";
 import { TickerTable } from "../../types/API";
 import { financialbox } from "../../signals/financialBox";
 import { tradingview } from "../../signals/tradingview";
+import { colorMode } from "../../signals/colorMode";
 
 const ListBoxMobile = lazy(() => import("./ListBox.mobile"));
 
@@ -73,7 +74,7 @@ const ListContainer: React.FC<PropsT> = ({
       animate={financialbox.value == "mobileOpen" ? "hide" : ""}
     >
       <div
-        className="font-vazir font-normal h-12 text-sm bg-neutral-50 flex flex-row justify-between items-center px-6 cursor-pointer border-b-[1px] border-b-primary-700 lg:hidden"
+        className="font-vazir font-normal h-12 text-sm bg-neutral-50 dark:bg-neutral-900 flex flex-row justify-between items-center px-6 cursor-pointer border-b-[1px] border-b-primary-700 lg:hidden"
         onClick={() => setOpenMenu(!openMenu)}
       >
         <div className="flex items-center flex-row gap-3">
@@ -81,13 +82,13 @@ const ListContainer: React.FC<PropsT> = ({
             src={currentTicker ? currentTicker.base_asset.icon : ""}
             width={28}
           />
-          <span className="text-neutral-900">
+          <span className="text-neutral-900 dark:text-neutral-50">
             {currentTicker ? currentTicker.base_asset.code : ""}
           </span>
         </div>
         <div>
           <motion.img
-            src="/svgs/arrow-down.svg"
+            src={`/svgs/arrow-down-${colorMode.value}.svg`}
             alt="Arrow SVG"
             variants={arrowAnimations}
             animate={openMenu ? "rotate" : "normal"}
@@ -99,7 +100,7 @@ const ListContainer: React.FC<PropsT> = ({
         variants={boxAnimation}
         initial={{ height: 0 }}
         animate={openMenu ? "show" : "hide"}
-        className="z-10 flex flex-col absolute w-full bg-neutral-50 overflow-x-hidden px-3 lg:hidden scrollbar-vertical"
+        className="z-10 flex flex-col absolute w-full bg-neutral-50 dark:bg-neutral-900 overflow-x-hidden px-3 lg:hidden scrollbar-vertical"
         transition={{ duration: 0.8, type: "tween" }}
       >
         <div className="mt-4" />

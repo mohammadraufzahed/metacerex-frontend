@@ -40,7 +40,9 @@ const Select: React.FC<PropsT> = ({
     >
       <label
         className={`font-vazir flex flex-row ${
-          isPrimary ? "text-primary-700" : "text-shades-100"
+          isPrimary
+            ? "text-primary-700 dark:text-primary-500"
+            : "text-neutral-900 dark:text-neutral-50"
         } items-center gap-1 font-bold text-sm self-start`}
         htmlFor={id}
       >
@@ -49,8 +51,10 @@ const Select: React.FC<PropsT> = ({
       </label>
       <select
         className={`w-full h-10 outline-none border-[1px] ${
-          isPrimary ? "border-primary-700" : "border-shades-100"
-        } rounded-[4px] font-vazir font-normal text-base text-neutral-600 bg-white px-2 cursor-pointer`}
+          isPrimary
+            ? "border-primary-700 dark:border-primary-500"
+            : "border-neutral-900 dark:border-neutral-50"
+        } rounded-[4px] font-vazir font-normal text-base text-neutral-900 dark:text-neutral-50 bg-neutral-50 dark:bg-neutral-900 px-2 cursor-pointer`}
         id={id}
         name={name}
         value={value}

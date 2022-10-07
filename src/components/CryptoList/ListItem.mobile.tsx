@@ -67,7 +67,7 @@ const ListItem: React.FC<TickerTable & PropsT> = ({
       transition={{ duration: 0.5, type: "tween" }}
       className="font-vazir font-normal text-xs grid grid-cols-3 place-content-between border-b-[1px] border-b-neutral-300 pb-2"
     >
-      <div className="flex flex-row gap-3 items-center text-neutral-900 place-self-start">
+      <div className="flex flex-row gap-3 items-center text-neutral-900 dark:text-neutral-50 place-self-start">
         <img src={base_asset.icon} width={16} />
         <span>{base_asset.code}</span>
       </div>
@@ -78,7 +78,7 @@ const ListItem: React.FC<TickerTable & PropsT> = ({
       >
         {grow}%
       </motion.span>
-      <span className="place-self-end">{price}</span>
+      <span className="place-self-end dark:text-neutral-50">{price}</span>
     </motion.div>
   );
 };

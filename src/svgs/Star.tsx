@@ -29,7 +29,7 @@ const Star = (props: SVGProps<SVGSVGElement> & PropsT) => (
       strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="stroke-primary-700"
+      className="stroke-primary-700 dark:stroke-primary-500"
     />
   </svg>
 );

@@ -20,7 +20,7 @@ const ListBox: React.FC<PropsT> = ({ onTapFav, title, onScroll, list }) => {
       onScroll={({ currentTarget }) => onScroll(currentTarget)}
       className="flex flex-col pt-6 h-3/6 max-h-[50%] pr-3 overflow-y-scroll scrollbar-vertical border-b-[1px] border-b-neutral-800 pb-8"
     >
-      <span className="font-vazir font-normal text-sm text-neutral-700">
+      <span className="font-vazir font-normal text-sm text-neutral-700 dark:text-neutral-50">
         {title}
       </span>
       {list.length == 0 ? (

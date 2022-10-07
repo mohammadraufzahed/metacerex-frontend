@@ -27,7 +27,7 @@ const OnchainActions = () => {
           initial="initial"
           animate={sidebar ? "active" : "initial"}
         >
-          <Sidebar className="stroke-primary-700" />
+          <Sidebar className="stroke-primary-700 dark:stroke-primary-500" />
         </motion.div>
       </OnchainButton>
       <OnchainButton
@@ -38,10 +38,10 @@ const OnchainActions = () => {
         <Star active={star.value} />
       </OnchainButton>
       <OnchainButton text="مقایسه">
-        <Chart className="stroke-primary-700" />
+        <Chart className="stroke-primary-700 dark:stroke-primary-500" />
       </OnchainButton>
       <OnchainButton text="ایجاد یادآور">
-        <Notification className="stroke-primary-700" />
+        <Notification className="stroke-primary-700 dark:stroke-primary-500" />
       </OnchainButton>
     </div>
   );

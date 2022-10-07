@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { colorMode } from "../../signals/colorMode";
 
 type PropsT = {
   active?: boolean;
@@ -12,13 +13,22 @@ export const TabItem: React.FC<PropsT> = ({ active, onTap, text }) => {
     <motion.div
       variants={{
         active: {
-          background: "rgb(229 229 229)",
+          background:
+            colorMode.value == "dark"
+              ? "rgba(38 38 38 1)"
+              : "rgba(229 229 229 1)",
         },
         deactive: {
-          background: "rgba(229 229 229 0)",
+          background:
+            colorMode.value == "dark"
+              ? "rgba(38 38 38 0)"
+              : "rgba(229 229 229 0)",
         },
         hover: {
-          background: "rgba(229 229 229 0.8)",
+          background:
+            colorMode.value == "dark"
+              ? "rgba(38 38 38 0.8)"
+              : "rgba(229 229 229 0.8)",
         },
       }}
       initial="deactive"
@@ -27,15 +37,21 @@ export const TabItem: React.FC<PropsT> = ({ active, onTap, text }) => {
       whileTap="active"
       onTapStart={onTap}
       transition={{ duration: 0.2, type: "tween" }}
-      className="py-2 h-max cursor-pointer px-2 sm:px-6 rounded-t-2xl"
+      className="py-2 h-max  cursor-pointer px-2 sm:px-6 rounded-t-2xl"
     >
       <motion.span
         variants={{
           active: {
-            color: "rgb(8 103 136)",
+            color:
+              colorMode.value == "dark"
+                ? "rgba(36, 196, 249 1)"
+                : "rgba(8 103 136 1)",
           },
           deactive: {
-            color: "rgba(82, 82, 82 0.8)",
+            color:
+              colorMode.value == "dark"
+                ? "rgba(36, 196, 249 0.4)"
+                : "rgba(8 103 136 0.4)",
           },
         }}
         initial="deactive"

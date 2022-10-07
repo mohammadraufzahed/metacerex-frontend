@@ -20,7 +20,7 @@ const NewsBlogBox: React.FC<PropsT> = ({ post }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, type: "tween" }}
       onClick={() => navigate(`/news/${post.pk}/${post.slug}`)}
-      className="w-full cursor-pointer h-[235px] bg-neutral-50 rounded-lg p-2 md:h-max md:p-4"
+      className="w-full cursor-pointer h-[235px] bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 rounded-lg p-2 md:h-max md:p-4"
     >
       <div className="flex flex-row h-max gap-4">
         <div className="w-[64px] h-[64px] md:min-w-[300px] md:min-h-[168px]">

@@ -16,6 +16,7 @@ import { httpClient } from "../../../axios";
 import Input from "../../Input";
 import { useRecoilState } from "recoil";
 import { twofactoryState } from "../../../atoms/twofactoryState";
+import { colorMode } from "../../../signals/colorMode";
 
 Modal.setAppElement("#root");
 
@@ -28,7 +29,7 @@ const TwoSecActivateBox: React.FC = () => {
   const [totpState, setTotpState] = useRecoilState(twofactoryState);
   const loading = useSignal<boolean>(false);
   const totpCode = useSignal<string>("");
-  const type = useSignal<"enable" | "disable">("disable");
+  const type = useSignal<"enable" | "disable">("enable");
   // Queries
   const totpQuery = useQuery(["totp"], getTOTPState, {
     refetchOnMount: true,
@@ -41,10 +42,10 @@ const TwoSecActivateBox: React.FC = () => {
     }
   }, [totpQuery.data]);
   return (
-    <div className="flex flex-col bg-gray-50 w-full rounded-2xl items-center justify-center py-2 gap-4 md:flex-row md:justify-between md:px-8 md:py-7">
+    <div className="flex flex-col bg-neutral-50 dark:bg-neutral-900 w-full rounded-2xl items-center justify-center py-2 gap-4 md:flex-row md:justify-between md:px-8 md:py-7">
       <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:gap-7">
         <img src="/svgs/2af.svg" width={32} height={32} />
-        <div className="font-vazir font-bold text-sm">
+        <div className="font-vazir font-bold text-sm text-neutral-900 dark:text-neutral-50">
           <span>احراز هویت دو عاملی: </span>
           <span>غیر فعال</span>
         </div>
@@ -84,40 +85,44 @@ const TwoSecActivateBox: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, type: "tween" }}
-          className="absolute bottom-0 w-[90vw] h-[80vh] top-[60px] left-0 right-0 mx-auto scrollbar-vertical text-shades-100/70 flex flex-col items-center bg-background-50/80 drop-shadow-lg rounded-3xl py-16 outline-none border-0 px-4 font-vazir  overflow-y-scroll  lg:h-[90vh] justify-center"
+          className="absolute bottom-0 w-[90vw] h-[80vh] top-[60px] left-0 right-0 mx-auto scrollbar-vertical text-shades-100/70 flex flex-col items-center bg-neutral-50/80 dark:bg-neutral-900/80 drop-shadow-lg rounded-3xl py-16 outline-none border-0 px-4 font-vazir  overflow-y-scroll  lg:h-[90vh] justify-center"
         >
           <BsX
-            className="text-3xl absolute right-4 top-5 cursor-pointer"
+            className="text-3xl absolute right-4 top-5 cursor-pointer text-neutral-900 dark:text-neutral-50"
             onClick={() => (modalOpen.value = false)}
           />
-          <h1 className="text-2xl font-extrabold md:text-3xl">
+          <h1 className="text-2xl font-extrabold md:text-3xl text-neutral-900 dark:text-neutral-50">
             {type.value == "enable"
               ? "فعال سازی کد شناسایی دوعاملی"
               : "غیر فعال سازی کد شناسایی دوعاملی"}
           </h1>
           <div
-            className={`w-max h-max p-4 rounded-2xl drop-shadow-md bg-white flex flex-col items-center gap-4 mt-10 lg:mt-14 ${
+            className={`w-max h-max p-4 rounded-2xl drop-shadow-md bg-neutral-50 dark:bg-neutral-900 flex flex-col items-center gap-4 mt-10 lg:mt-14 ${
               type.value == "disable" ? "hidden" : ""
             }`}
           >
             <QRCodeSVG
+              bgColor={colorMode.value == "dark" ? "" : "#ffffff"}
+              fgColor={colorMode.value == "dark" ? "#ffffff" : "#171717"}
               value={totp.value ? totp.value.url : ""}
-              className="w-[200px] h-[200px] md:w-[300px] md:h-[300px]"
+              className="w-[200px] stroke-ne h-[200px] bg-neu md:w-[300px] md:h-[300px]"
             />
-            <p className="font-bold text-base">لطفا کد بالا را اسکن کنید</p>
+            <p className="font-bold text-base text-neutral-900 dark:text-neutral-50">
+              لطفا کد بالا را اسکن کنید
+            </p>
           </div>
           <div
             className={`flex flex-col mt-6 gap-3 items-center ${
               type.value == "disable" ? "hidden" : ""
             }`}
           >
-            <p className="">
-              درصورت نیاز میتونید با استفاده از کد زیر این ویژگی رو فعال کنید:{" "}
+            <p className="text-neutral-900 dark:text-neutral-50">
+              درصورت نیاز میتونید با استفاده از کد زیر این ویژگی رو فعال کنید:
             </p>
-            <div className="w-full min-w-max max-w-max gap-4 bg-white drop-shadow-md font-normal flex flex-row justify-between py-2 px-7 rounded-lg">
+            <div className="w-full min-w-max max-w-max gap-4 bg-neutral-50 dark:bg-neutral-900 drop-shadow-md font-normal flex flex-row justify-between py-2 px-7 rounded-lg text-neutral-900 dark:text-neutral-50">
               <span>{totp.value ? totp.value.secret : ""}</span>
               <AnimatedCopy
-                className="cursor-pointer"
+                className="cursor-pointer stroke-neutral-900 dark:stroke-neutral-50"
                 copied={copied.value}
                 onClick={() => {
                   navigator.clipboard.writeText(
@@ -198,14 +203,18 @@ export const AnimatedCheckBox: React.FC<AnimatedCheckBoxT> = ({
     <motion.div
       variants={{
         active: {
-          background: "rgba(8, 103, 136 1)",
+          background:
+            colorMode.value == "dark" ? "rgb(36 196 249)" : "rgb(8 103 136)",
         },
         deactive: {
-          background: "rgb(212 212 212)",
+          background:
+            colorMode.value == "dark"
+              ? "rgba(229 229 229 0)"
+              : "rgb(212 212 212)",
         },
       }}
       animate={active ? "active" : "deactive"}
-      className={`${className} w-16 h-7 rounded-2xl ${
+      className={`${className} border-transparent dark:border-primary-500 border-[1px] w-16 h-7 rounded-2xl ${
         disabled ? "cursor-wait" : "cursor-pointer"
       }`}
       onClick={(e) => {
@@ -221,12 +230,18 @@ export const AnimatedCheckBox: React.FC<AnimatedCheckBoxT> = ({
           active: {
             x: -40,
             y: 4,
-            color: "#ffffff",
+            color:
+              colorMode.value == "dark"
+                ? "rgb(255, 255, 255)"
+                : "rgb(250 250 250)",
           },
           deactive: {
             y: 4,
             x: -3,
-            color: "rgb(163, 163, 163)",
+            color:
+              colorMode.value == "dark"
+                ? "rgb(255, 255, 255)"
+                : "rgb(163, 163, 163)",
           },
         }}
         transition={{ duration: 1, type: "spring" }}

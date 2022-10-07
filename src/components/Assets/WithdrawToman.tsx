@@ -12,7 +12,6 @@ import useCustomToast from "../../hooks/useCustomToast";
 import { getDepositAssets } from "../../functions/assets";
 import { useQuery } from "@tanstack/react-query";
 import { AssetList } from "../../types/API";
-import { nanoid } from "nanoid";
 
 type PropsT = {
   onRuleClick: (event: MouseEvent) => void;
@@ -78,7 +77,7 @@ const WithdrawToman: React.FC<PropsT> = ({ onRuleClick }) => {
       className="w-full flex flex-col gap-7 items-center"
     >
       <div className="w-full flex flex-col gap-4">
-        <div className="font-vazir font-normal text-base w-full flex flex-row justify-between items-center">
+        <div className="font-vazir font-normal text-base w-full flex flex-row justify-between items-center text-neutral-900 dark:text-neutral-50">
           <span>مبلغ مورد نظر جهت برداشت</span>
           <span>
             {wallet?.balance}
@@ -98,13 +97,13 @@ const WithdrawToman: React.FC<PropsT> = ({ onRuleClick }) => {
             isPrimary
           />
           <span
-            className={`font-vazir font-normal text-base text-neutral-700 absolute left-2 top-4`}
+            className={`font-vazir font-normal text-base text-neutral-700 dark:text-neutral-200 absolute left-2 top-4`}
           >
             تومان
           </span>
         </div>
       </div>
-      <div className="w-full flex flex-row justify-between items-center">
+      <div className="w-full flex flex-row justify-between items-center text-neutral-900 dark:text-neutral-50">
         <span className="font-vazir font-normal text-base">
           برداشت همه موجودی
         </span>
@@ -119,7 +118,7 @@ const WithdrawToman: React.FC<PropsT> = ({ onRuleClick }) => {
           className="h-8"
         />
       </div>
-      <div className="w-full flex flex-row justify-between items-center font-vazir font-normal text-base">
+      <div className="w-full flex flex-row justify-between items-center font-vazir font-normal text-base text-neutral-900 dark:text-neutral-50">
         <span>مبلغ برداشتی</span>
         <span>{withdrawTomanFormik.values.amount} تومان</span>
       </div>

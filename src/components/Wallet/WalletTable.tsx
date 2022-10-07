@@ -124,10 +124,10 @@ const WalletTable: React.FC<PropsT> = ({ wallets }) => {
   });
 
   return (
-    <div className="hidden relative w-[92.5vw] lg:flex gap-10 flex-col bg-neutral-50 py-6 overflow-x-scroll rounded-lg">
+    <div className="hidden relative w-[92.5vw] lg:flex gap-10 flex-col bg-neutral-50 dark:bg-neutral-900 py-6 overflow-x-scroll rounded-lg">
       <table className="min-w-max w-full mx-auto">
         <thead className="">
-          <div className="absolute w-screen left-0 h-[1px] bg-shades-100 top-16"></div>
+          <div className="absolute w-screen left-0 h-[1px] bg-neutral-900 dark:bg-neutral-50 top-16"></div>
           {walletTable.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -149,7 +149,10 @@ const WalletTable: React.FC<PropsT> = ({ wallets }) => {
         </thead>
         <tbody>
           {walletTable.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="border-b-[1px] border-b-neutral-300">
+            <tr
+              key={row.id}
+              className="border-b-[1px] border-b-neutral-800 dark:border-b-neutral-50"
+            >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

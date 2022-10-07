@@ -61,7 +61,7 @@ const FinancialTabel: React.FC = () => {
       }}
       animate={financialbox.value}
       transition={{ duration: 1 }}
-      className="w-full flex flex-col overflow-y-scroll scrollbar-vertical bg-gray-50 overflow-x-hidden border-t-[1px] px-4"
+      className="w-full flex flex-col overflow-y-scroll scrollbar-vertical bg-neutral-50 dark:bg-neutral-900 overflow-x-hidden border-t-[1px] px-4"
     >
       <div className="px-2 relative py-4 flex flex-auto flex-col h-full w-full">
         {!userTokenD ? (
@@ -104,15 +104,15 @@ const FinancialTabel: React.FC = () => {
                 whileHover="hover"
                 whileTap="tap"
                 onTap={onXlsxClick}
-                className="fixed cursor-pointer bottom-28 left-0 right-0 mx-auto w-max z-50 lg:relative lg:left-[unset] lg:right-[unset] lg:mx-0 lg:bottom-1 bg-white flex self-center flex-row gap-2 items-center border-[1px] border-primary-700 rounded-2xl py-2 px-4"
+                className="fixed cursor-pointer bottom-28 left-0 right-0 mx-auto w-max z-50 lg:relative lg:left-[unset] lg:right-[unset] lg:mx-0 lg:bottom-1 bg-neutral-50 dark:bg-neutral-900 flex self-center flex-row gap-2 items-center border-[1px] border-primary-700 dark:border-primary-500 rounded-2xl py-2 px-4"
               >
-                <span className="font-light font-vazir text-sm text-primary-700">
+                <span className="font-light font-vazir text-sm text-primary-700 dark:text-primary-500">
                   دریافت خروجی اکسل
                 </span>
                 <img src="/svgs/excel.svg" />
               </motion.div>
             </div>
-            <div className="flex-auto py-3.5 h-full flex flex-col overflow-hidden scrollbar-vertical gap-2 relative bg-neutral-200">
+            <div className="flex-auto py-3.5 h-full flex flex-col overflow-hidden scrollbar-vertical gap-2 relative bg-neutral-200 dark:bg-neutral-800">
               <Suspense fallback={<Loading />}>
                 <QueryErrorResetBoundary>
                   {({ reset }) => (

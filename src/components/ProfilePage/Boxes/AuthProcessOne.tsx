@@ -4,6 +4,7 @@ import AnimatedCopy from "../../../svgs/AnimatedCopy";
 import { TiWarningOutline } from "react-icons/ti";
 import { UnorderListItem } from "../../../pages/WithdrawPage";
 import Button from "../../AuthenticationPage/Button";
+import { colorMode } from "../../../signals/colorMode";
 
 type PropsT = {
   onStartClick: () => void;
@@ -16,7 +17,7 @@ const AuthProcessOne: React.FC<PropsT> = ({ onStartClick }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4, type: "tween" }}
-      className="w-full h-full py-3 px-5 flex flex-col items-center lg:px-16 lg:py-20"
+      className="w-full h-full text-neutral-900 dark:text-neutral-50 py-3 px-5 flex flex-col items-center lg:px-16 lg:py-20"
     >
       <div className="flex flex-col gap-8 w-full items-center lg:flex-row-reverse">
         <img src="/svgs/verify-process-1.svg" />
@@ -34,7 +35,7 @@ const AuthProcessOne: React.FC<PropsT> = ({ onStartClick }) => {
               مراحل انجام احراز هویت
             </span>
             <div className="flex flex-row gap-4 items-center">
-              <img src="/svgs/copy-alone.svg" />
+              <img src={`/svgs/copy-alone-${colorMode.value}.svg`} />
               <span className="font-vazir font-normal text-base">
                 مرحله اول : وارد کردن اطلاعات هویتی و بانکی
               </span>

@@ -20,7 +20,7 @@ const LoginHistoryBox = () => {
   return (
     <ProfileFormLayout title="تاریخچه ورود">
       <table className="w-full">
-        <thead className="border-b-[1px] border-b-black pb-2 text-center0">
+        <thead className="border-b-[1px] text-neutral-900 dark:text-neutral-50 border-b-neutral-900 dark:border-b-neutral-50 pb-2 text-center0">
           <TableHead text="تاریخ" className="w-1/2 md:w-auto" />
           <TableHead text="نوع عملیات" className="w-1/2 md:w-auto" />
           <TableHead text="آی پی" className="hidden md:table-cell" />
@@ -34,7 +34,7 @@ const LoginHistoryBox = () => {
                 "fa-ir"
               );
               return (
-                <tr className=" border-b-[1px] border-b-neutral-300">
+                <tr className=" border-b-[1px] border-b-neutral-300 dark:border-b-neutral-600">
                   <TableTD text={persianDate} />
                   <TableTD text={action} />
                   <TableTD
@@ -74,7 +74,7 @@ type TableHeadT = {
 
 const TableHead: React.FC<TableHeadT> = ({ text, className }) => (
   <th
-    className={`font-vazir font-normal text-center text-base ${className}`}
+    className={`font-vazir font-normal text-center text-neutral-900 dark:text-neutral-50 text-base ${className}`}
     colSpan={1}
   >
     {text}
@@ -88,7 +88,7 @@ type TableTDType = {
 
 const TableTD: React.FC<TableTDType> = ({ text, className }) => (
   <td
-    className={`text-center font-vazir font-light text-xs text-neutral-900 py-4 ${className}`}
+    className={`text-center font-vazir font-light text-xs text-neutral-900 dark:text-neutral-50 py-4 ${className}`}
   >
     {text}
   </td>

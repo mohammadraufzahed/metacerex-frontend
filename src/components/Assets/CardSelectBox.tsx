@@ -6,6 +6,7 @@ import { getCards } from "../../functions/cards";
 import NotFound from "../../components/NotFound";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { colorMode } from "../../signals/colorMode";
 
 type PropsT = {
   fieldUpdater: any;
@@ -24,9 +25,9 @@ const CardSelectBox: React.FC<PropsT> = ({
   const cardsQuery = useQuery(["cards_deposit"], getCards);
   return (
     <div className="w-full flex flex-col gap-2">
-      <span className="font-vazir flex flex-row items-center gap-2.5 font-normal text-sm">
-        <HiOutlineCreditCard className="text-xl" /> کارت های بانکی تایید شده شما
-        :
+      <span className="font-vazir flex flex-row items-center gap-2.5 font-normal text-sm text-neutral-900 dark:text-neutral-50">
+        <HiOutlineCreditCard className="text-xl" />
+        کارت های بانکی تایید شده شما :
       </span>
       {cardsQuery.data && cardsQuery.data.results ? (
         cardsQuery.data.results.map((item, key) => {
@@ -46,13 +47,22 @@ const CardSelectBox: React.FC<PropsT> = ({
                 initial="idle"
                 variants={{
                   selected: {
-                    background: "rgba(8 103 136 1)",
+                    background:
+                      colorMode.value == "dark"
+                        ? "rgba(36 196 249 1)"
+                        : "rgba(8 103 136 1)",
                   },
                   hover: {
-                    background: "rgba(8 103 136 0.5)",
+                    background:
+                      colorMode.value == "dark"
+                        ? "rgba(36 196 249 0.5)"
+                        : "rgba(8 103 136 0.5)",
                   },
                   idle: {
-                    background: "rgba(8 103 136 0)",
+                    background:
+                      colorMode.value == "dark"
+                        ? "rgba(36 196 249 0)"
+                        : "rgba(8 103 136 0)",
                   },
                 }}
                 animate={card_value == item.id ? "selected" : "idle"}
@@ -63,10 +73,10 @@ const CardSelectBox: React.FC<PropsT> = ({
                     ? fieldUpdater("selected_card", item.id)
                     : fieldUpdater("selected_card", "")
                 }
-                className="w-4 cursor-pointer h-4 border-2 rounded-full border-primary-700"
+                className="w-4 cursor-pointer h-4 border-2 rounded-full border-primary-700 dark:border-primary-500"
               />
               <span
-                className="font-vazir mt-1 h-max font-bold text-primary-700 text-sm"
+                className="font-vazir mt-1 h-max font-bold text-primary-700 dark:text-primary-500 text-sm"
                 dir="ltr"
               >
                 {currectCard.slice(0, -1)}
@@ -97,10 +107,10 @@ const CardSelectBox: React.FC<PropsT> = ({
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 1.05 }}
         onTap={() => navigate("/dashboard/profile/cards", { replace: true })}
-        className="w-max flex flex-row gap-2.5 cursor-pointer text-primary-700 font-vazir font-light text-xs  items-center"
+        className="w-max flex flex-row gap-2.5 cursor-pointer text-primary-700 dark:text-primary-500 font-vazir font-light text-xs  items-center"
       >
         <IoAddCircleOutline className="text-xl" />
-        <span className="border-b-[1px] border-primary-700/50 pb-0.5">
+        <span className="border-b-[1px] border-primary-700/50 dark:border-primary-500/50 pb-0.5">
           افزودن کارت بانکی جدید
         </span>
       </motion.div>

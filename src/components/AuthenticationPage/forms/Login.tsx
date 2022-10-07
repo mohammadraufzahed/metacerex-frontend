@@ -13,6 +13,7 @@ import { userToken } from "../../../atoms/userToken";
 import { useNavigate } from "react-router-dom";
 import useCustomToast from "../../../hooks/useCustomToast";
 import { Helmet } from "react-helmet";
+import { colorMode } from "../../../signals/colorMode";
 
 const Login: React.FC = () => {
   const loginFormik = useFormik({
@@ -97,6 +98,7 @@ const Login: React.FC = () => {
             loginFormik.setFieldValue("captcha", false);
           }
         }}
+        theme={colorMode.value}
         sitekey={import.meta.env.VITE_GOOGLE_RECAPTCHA_SITEKEY}
       />
       <Button

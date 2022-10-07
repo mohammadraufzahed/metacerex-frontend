@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { API_LIMIT } from "../../../constants/APILimit";
 import { getOrderHistory } from "../../../functions/history";
+import { colorMode } from "../../../signals/colorMode";
 import Search from "../../../svgs/Search";
 import { OrderHistory } from "../../../types/API";
 import Loading from "../../Loading";
@@ -100,13 +101,22 @@ const OrderHistoryTable: React.FC<PropsT> = ({}) => {
         <motion.input
           variants={{
             initial: {
-              borderColor: "rgba(163, 163, 163 0)",
+              borderColor:
+                colorMode.value == "dark"
+                  ? "rgba(163, 163, 163, 0)"
+                  : "rgba(163, 163, 163 0)",
             },
             focus: {
-              borderColor: "rgba(163, 163, 163 1)",
+              borderColor:
+                colorMode.value == "dark"
+                  ? "rgba(163, 163, 163, 0)"
+                  : "rgba(163, 163, 163 1)",
             },
             hover: {
-              borderColor: "rgba(163, 163, 163 0.7)",
+              borderColor:
+                colorMode.value == "dark"
+                  ? "rgba(163, 163, 163, 0)"
+                  : "rgba(163, 163, 163 0.7)",
             },
           }}
           initial="initial"
@@ -114,10 +124,10 @@ const OrderHistoryTable: React.FC<PropsT> = ({}) => {
           whileHover="hover"
           value={search}
           onChange={({ currentTarget }) => setSearch(currentTarget.value)}
-          className="w-full border-neu h-full border-[1px] rounded-lg font-vazir font-normal text-sm px-10 outline-none"
+          className="w-full h-full border-[1px] rounded-lg font-vazir placeholder:dark:text-neutral-50 font-normal text-sm px-10 outline-none bg-neutral-50 dark:bg-neutral-900"
           placeholder="جستجو در تاریخچه سفارشات"
         />
-        <Search className="absolute top-2 right-6 stroke-neutral-600" />
+        <Search className="absolute top-2 right-6 stroke-neutral-600 dark:stroke-neutral-50" />
       </motion.div>
       {orderHistoryQuery.isFetching ? (
         <Loading />
@@ -130,7 +140,7 @@ const OrderHistoryTable: React.FC<PropsT> = ({}) => {
           className="w-full overflow-x-scroll scrollbar-vertical"
         >
           <table className="min-w-full">
-            <thead className="border-b-[1px] border-b-black">
+            <thead className="border-b-[1px] border-b-neutral-900 dark:border-b-neutral-50">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
@@ -157,7 +167,7 @@ const OrderHistoryTable: React.FC<PropsT> = ({}) => {
               {table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className="border-b-[1px] border-b-neutral-300"
+                  className="border-b-[1px] border-b-neutral-300 dark:border-b-neutral-50"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id}>

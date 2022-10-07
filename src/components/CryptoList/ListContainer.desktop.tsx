@@ -7,6 +7,7 @@ import { tickers_fav } from "../../atoms/tickers_fav";
 import { tickers } from "../../atoms/tickers";
 import { userToken } from "../../atoms/userToken";
 import LoginRequiredPage from "../../pages/LoginRequiredPage";
+import { colorMode } from "../../signals/colorMode";
 
 type PropsT = {
   onScroll: (e: HTMLDivElement) => void;
@@ -37,7 +38,7 @@ const ListContainer: React.FC<PropsT> = ({
           onTap={() => setMenu("fav")}
         />
       </div>
-      <div className="hidden lg:flex bg-neutral-50 px-5 py-6 rounded-lg flex-col gap-5 lg:h-full">
+      <div className="hidden lg:flex bg-neutral-50 dark:bg-neutral-900 px-5 py-6 rounded-l-lg flex-col gap-5 lg:h-full">
         {menu == "fav" && !userTokenD ? (
           <LoginRequiredPage />
         ) : (
@@ -65,13 +66,22 @@ const MenuItem: React.FC<MenuItemT> = ({ active, onTap, text }) => (
   <motion.div
     variants={{
       active: {
-        background: "rgba(250 250 250 1)",
+        background:
+          colorMode.value == "dark"
+            ? "rgba(23 23 23 1)"
+            : "rgba(250 250 250 1)",
       },
       deactive: {
-        background: "rgba(250 250 250 0.6)",
+        background:
+          colorMode.value == "dark"
+            ? "rgba(23 23 23 0.6)"
+            : "rgba(250 250 250 0.6)",
       },
       hover: {
-        background: "rgba(250 250 250 1.8)",
+        background:
+          colorMode.value == "dark"
+            ? "rgba(23 23 23 1.8)"
+            : "rgba(250 250 250 1)",
       },
     }}
     initial="active"
@@ -81,7 +91,9 @@ const MenuItem: React.FC<MenuItemT> = ({ active, onTap, text }) => (
     onTap={onTap}
     className="w-max cursor-pointer px-4 py-2 rounded-t-2xl"
   >
-    <span className="font-vazir font-normal text-base">{text}</span>
+    <span className="font-vazir font-normal text-base dark:text-shades-0">
+      {text}
+    </span>
   </motion.div>
 );
 

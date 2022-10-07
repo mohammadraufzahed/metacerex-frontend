@@ -14,7 +14,7 @@ const ActionsBox: React.FC<PropsT> = ({ children }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-[84vh] flex flex-col items-center gap-6 bg-neutral-50 px-2 py-4 rounded-2xl lg:max-w-[440px] lg:min-h-[750px] lg:max-h-[900px] mx-auto md:mx-0 md:py-6 md:px-5 overflow-y-scroll scrollbar-vertical">
+    <div className="w-full h-[84vh] flex flex-col items-center gap-6 bg-neutral-50 dark:bg-neutral-900 px-2 py-4 rounded-2xl lg:max-w-[440px] lg:min-h-[750px] lg:max-h-[900px] mx-auto md:mx-0 md:py-6 md:px-5 overflow-y-scroll scrollbar-vertical">
       <div className="w-full grid grid-cols-2">
         <MenuItem
           text={
@@ -22,8 +22,8 @@ const ActionsBox: React.FC<PropsT> = ({ children }) => {
               <CardRecive
                 className={
                   location.pathname === "/dashboard/asset/deposit"
-                    ? "stroke-primary-700"
-                    : "stroke-neutral-400"
+                    ? "stroke-primary-700 dark:stroke-primary-500"
+                    : "stroke-neutral-400 dark:stroke-neutral-800"
                 }
               />
               واریز

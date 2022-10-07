@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { httpClient } from "../../../axios";
 import useCustomToast from "../../../hooks/useCustomToast";
+import { colorMode } from "../../../signals/colorMode";
 
 type PropsT = {
   onSuccess: () => void;
@@ -58,17 +59,21 @@ const AuthProcessData: React.FC<PropsT> = ({ onSuccess }) => {
       className="w-full flex flex-col items-center px-3 gap-8 lg:gap-16 lg:px-16"
     >
       <div className="w-full flex max-w-[500px] flex-row justify-between items-center">
-        <div className="bg-secondary-500 rounded-full p-1 flex flex-row items-center justify-center">
-          <UserSquare className="stroke-primary-700" />
+        <div className="bg-secondary-500 dark:bg-secondary-700 rounded-full p-1 flex flex-row items-center justify-center">
+          <UserSquare className="stroke-primary-700 dark:stroke-primary-500" />
         </div>
         <div className="w-8/12 sm:w-10/12 h-[1px] bg-neutral-300" />
-        <div className="bg-secondary-500 rounded-full p-1 flex flex-row items-center justify-center">
+        <div className="bg-secondary-500 dark:bg-secondary-700 rounded-full p-1 flex flex-row items-center justify-center">
           <PersonalCard
-            className={level == 2 ? `stroke-primary-700` : `stroke-neutral-300`}
+            className={
+              level == 2
+                ? `stroke-primary-700 dark:stroke-primary-500`
+                : `stroke-neutral-300 dark:stroke-neutral-600`
+            }
           />
         </div>
       </div>
-      <div className="w-full max-w-7xl xl:mx-auto">
+      <div className="w-full max-w-7xl xl:mx-auto text-neutral-900 dark:text-neutral-50">
         <AnimatePresence mode="wait">
           {level == 1 ? (
             <FormOne
@@ -241,8 +246,8 @@ const FormTwo: React.FC<FormTwoT> = ({ onSuccess, loading }) => {
             </p>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-4 items-center border-dashed border-2 border-primary-700 py-10 xl:justify-self-end max-w-[411px] xl:py-32">
-          <img src="/svgs/gallery.svg" className="mb-5" />
+        <div className="w-full flex flex-col gap-4 items-center border-dashed border-2 border-primary-700 dark:border-primary-500 py-10 xl:justify-self-end max-w-[411px] xl:py-32">
+          <img src={`/svgs/gallery-${colorMode.value}.svg`} className="mb-5" />
           <motion.div
             initial={{ y: 0 }}
             whileHover={{ y: -2 }}
@@ -260,12 +265,12 @@ const FormTwo: React.FC<FormTwoT> = ({ onSuccess, loading }) => {
             />
             <label
               htmlFor="file"
-              className="px-10 py-2 cursor-pointer bg-primary-700 font-vazir font-normal text-base text-white rounded-lg"
+              className="px-10 py-2 cursor-pointer bg-primary-700 stroke-pr dark:bg-primary-500 font-vazir font-normal text-base text-neutral-50 dark:text-neutral-900 rounded-lg"
             >
               بارگزاری تصویر
             </label>
           </motion.div>
-          <p className="font-vazir font-light text-xs text-center text-primary-700">
+          <p className="font-vazir font-light text-xs text-center text-primary-700 dark:text-primary-500">
             فایل انتخابی باید از نوع تصویر بوده و حجم آن کمتر از 2 مگابایت باشد
           </p>
         </div>

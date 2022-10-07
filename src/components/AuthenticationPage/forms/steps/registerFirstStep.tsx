@@ -14,6 +14,7 @@ import { useRecoilState } from "recoil";
 import { registerAtom } from "../../../../atoms/registerAtom";
 import ReCAPTCHA from "react-google-recaptcha";
 import useCustomToast from "../../../../hooks/useCustomToast";
+import { colorMode } from "../../../../signals/colorMode";
 
 const RegisterFirstStep: React.FC = () => {
   const [registerData, setRegisterData] = useRecoilState(registerAtom);
@@ -141,6 +142,7 @@ const RegisterFirstStep: React.FC = () => {
             registerFormik.setFieldValue("captcha", false);
           }
         }}
+        theme={colorMode.value}
         sitekey={import.meta.env.VITE_GOOGLE_RECAPTCHA_SITEKEY}
       />
       <RulesCheckbox

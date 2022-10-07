@@ -53,13 +53,13 @@ const MobileAndPhoneVerifyModal: React.FC<PropsT> = ({ active, onClose }) => {
     <Modal
       isOpen={active}
       onRequestClose={onClose}
-      className="mx-auto  mt-[4.666667%] max-w-2xl w-11/12 h-max gap-4 bg-neutral-100 rounded-2xl shadow-xl flex flex-col items-center py-5 px-4"
+      className="mx-auto  mt-[4.666667%] max-w-2xl w-11/12 h-max gap-4 bg-neutral-100 dark:bg-neutral-800 rounded-2xl shadow-xl flex flex-col items-center py-5 px-4"
     >
       <div className="w-full h-full" onClick={onClose}>
-        <HiX className="text-3xl transition-all duration-300 text-neutral-400 hover:text-neutral-500 focus:text-neutral-500 cursor-pointer" />
+        <HiX className="text-3xl transition-all duration-300 text-neutral-400 dark:text-neutral-500 cursor-pointer" />
       </div>
       <div className="w-full justify-self-center">
-        <h1 className="font-vazir font-bold text-2xl text-primary-700">
+        <h1 className="font-vazir font-bold text-2xl text-primary-700 dark:text-primary-500">
           {profile.value
             ? profile.value.is_email_verified != true
               ? "تایید ایمیل"

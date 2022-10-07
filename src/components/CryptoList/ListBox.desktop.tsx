@@ -21,8 +21,8 @@ const ListBox: React.FC<PropsT> = ({ onFavTap, onScroll, list }) => {
         <NotFound text="هیچ ارزی پیدا نشد" />
       ) : (
         <table className=" table-auto h-max w-full max-h-min border-spacing-y-5 border-separate">
-          <thead className="w-full border-b-neutral-900 border-b-[1px]">
-            <tr className='w-full font-vazir relative font-bold text-base after:content-[""] after:w-full after:h-[1px] after:bg-neutral-900 after:absolute after:left-0 after:-bottom-2'>
+          <thead className="w-full border-b-neutral-900 dark:border-b-neutral-50 border-b-[1px]">
+            <tr className='w-full font-vazir relative font-bold text-base after:content-[""] after:w-full after:h-[1px] after:bg-neutral-900 after:dark:bg-neutral-50 dark:text-neutral-50 after:absolute after:left-0 after:-bottom-2'>
               <th className="text-center">نماد</th>
               <th className="text-center">قیمت</th>
               <th className="text-center">عملیات</th>

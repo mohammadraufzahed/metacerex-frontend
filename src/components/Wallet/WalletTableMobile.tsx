@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { TAction } from "./WalletTableUtils";
 import { Wallet } from "../../types/API";
 import { useNavigate } from "react-router-dom";
+import { colorMode } from "../../signals/colorMode";
 
 type PropsT = {
   wallets: Wallet[];
@@ -11,8 +12,8 @@ type PropsT = {
 
 const WalletTableMobile: React.FC<PropsT> = ({ wallets, quote }) => {
   return (
-    <div className="lg:hidden flex p-2 flex-col bg-neutral-50 gap-4 w-full">
-      <div className="flex flex-row font-vazir font-bold text-sm w-full justify-between items-center border-b-neutral-600 border-b-[1px] pb-2">
+    <div className="lg:hidden flex p-2 flex-col bg-neutral-50 dark:bg-neutral-900 gap-4 w-full">
+      <div className="flex flex-row font-vazir font-bold text-sm w-full justify-between items-center border-b-neutral-600 dark:border-b-neutral-100 text-neutral-900 dark:text-neutral-50 border-b-[1px] pb-2">
         <span>نماد</span>
         <span>مقدار</span>
         <span>عملیات</span>
@@ -52,25 +53,27 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
     >
       <div
         className={`flex flex-row items-center justify-between h-10 border-b-[1px] ${
-          open ? "border-b-transparent" : "border-b-neutral-300"
+          open
+            ? "border-b-transparent"
+            : "border-b-neutral-300 dark:border-b-neutral-600"
         }`}
         onClick={() => setOpen((open) => !open)}
       >
-        <div className="flex flex-row gap-2 items-center w-max font-vazir font-normal text-primary-700 text-sm">
+        <div className="flex flex-row gap-2 items-center w-max font-vazir font-normal text-primary-700 dark:text-primary-500 text-sm">
           {item.asset.icon ? (
             <img
               src={item.asset.icon}
-              className="shadow-secondary-700 shadow-sm"
+              className="shadow-secondary-700 dark:shadow-none shadow-sm"
               width={18}
             />
           ) : null}
           <span>{item.asset.name}</span>
         </div>
-        <span className="font-vazir font-bold text-sm text-primary-700">
+        <span className="font-vazir font-bold text-sm text-primary-700 dark:text-primary-500">
           {item.amount ? item.amount : "-"}
         </span>
         <motion.img
-          src="/svgs/arrow-down.svg"
+          src={`/svgs/arrow-down-${colorMode.value}.svg`}
           variants={{
             open: {
               rotate: 180,
@@ -86,19 +89,19 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
       </div>
       <div className="w-full flex flex-col gap-5">
         <div className="w-full flex flex-col gap-4 items-center py-2 px-7">
-          <div className="flex font-vazir font-normal text-sm text-primary-700 w-full items-center justify-between">
+          <div className="flex font-vazir font-normal text-sm text-primary-700 dark:text-primary-500 w-full items-center justify-between">
             <span>ارزش</span>
             <span className="text-center">{item.value ? item.value : "-"}</span>
             <span>{quote == "toman" ? "تومان" : "تتر"}</span>
           </div>
-          <div className="flex font-vazir font-normal text-sm text-primary-700 w-full items-center justify-between">
+          <div className="flex font-vazir font-normal text-sm text-primary-700 dark:text-primary-500 w-full items-center justify-between">
             <span>قیمت خرید</span>
             <span className="text-center w-max">
               {item.price_buy ? item.price_buy : "-"}
             </span>
             <span>{quote == "toman" ? "تومان" : "تتر"}</span>
           </div>
-          <div className="flex font-vazir font-normal text-sm text-primary-700 w-full items-center justify-between">
+          <div className="flex font-vazir font-normal text-sm text-primary-700 dark:text-primary-500 w-full items-center justify-between">
             <span>قیمت فروش</span>
             <span className="text-center">
               {item.price_sell ? item.price_sell : "-"}
@@ -110,7 +113,7 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
           {item.asset.code !== "TOMAN" ? (
             <>
               <motion.button
-                className="bg-success rounded-lg py-2 w-[51px] font-vazir font-normal text-sm text-white"
+                className="bg-success rounded-lg py-2 w-[51px] font-vazir font-normal text-sm text-neutral-50 dark:text-neutral-900"
                 initial={{ scale: 1 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 1.04 }}
@@ -119,7 +122,7 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
                 خرید
               </motion.button>
               <motion.button
-                className="bg-error rounded-lg py-2 w-[59px] font-vazir font-normal text-sm text-white"
+                className="bg-error rounded-lg py-2 w-[59px] font-vazir font-normal text-sm text-neutral-50 dark:text-neutral-900"
                 initial={{ scale: 1 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 1.04 }}
@@ -133,14 +136,23 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
             className="rounded-lg py-2 w-[49px] font-vazir font-normal text-sm"
             initial={{
               scale: 1,
-              color: "rgb(8, 103, 136)",
+              color:
+                colorMode.value == "dark"
+                  ? "rgb(36, 196, 249)"
+                  : "rgb(8, 103, 136)",
               borderWidth: 1,
-              borderColor: "rgb(8, 103, 136)",
+              borderColor:
+                colorMode.value == "dark"
+                  ? "rgb(36, 196, 249)"
+                  : "rgb(8, 103, 136)",
               background: "rgba(0 0 0 0)",
             }}
             whileHover={{
               scale: 1.02,
-              background: "rgb(8, 103, 136)",
+              background:
+                colorMode.value == "dark"
+                  ? "rgb(36, 196, 249)"
+                  : "rgb(8, 103, 136)",
               color: "#ffffff",
             }}
             whileTap={{ scale: 1.04 }}
@@ -152,14 +164,23 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
             className="rounded-lg py-2 w-[67px] font-vazir font-normal text-sm"
             initial={{
               scale: 1,
-              color: "rgb(8, 103, 136)",
+              color:
+                colorMode.value == "dark"
+                  ? "rgb(36, 196, 249)"
+                  : "rgb(8, 103, 136)",
               borderWidth: 1,
-              borderColor: "rgb(8, 103, 136)",
+              borderColor:
+                colorMode.value == "dark"
+                  ? "rgb(36, 196, 249)"
+                  : "rgb(8, 103, 136)",
               background: "rgba(0 0 0 0)",
             }}
             whileHover={{
               scale: 1.02,
-              background: "rgb(8, 103, 136)",
+              background:
+                colorMode.value == "dark"
+                  ? "rgb(36, 196, 249)"
+                  : "rgb(8, 103, 136)",
               color: "#ffffff",
             }}
             whileTap={{ scale: 1.04 }}

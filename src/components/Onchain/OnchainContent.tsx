@@ -9,11 +9,13 @@ const OnchainContent = () => {
       <div className="w-full h-[5/6] min-h-[745px] max-h-[800px]">
         <TradingView />
       </div>
-      <div className="w-full bg-neutral-50 font-vazir text-sm lg:text-base rounded-t-lg">
-        <div className="w-full p-2 border-b-[1px] border-black">
-          <span className="font-bold">مشخصات متریک</span>
+      <div className="w-full bg-neutral-50 dark:bg-neutral-900 font-vazir text-sm lg:text-base rounded-t-lg">
+        <div className="w-full p-2 border-b-[1px] border-neutral-900 dark:border-neutral-50">
+          <span className="font-bold text-neutral-900 dark:text-neutral-50">
+            مشخصات متریک
+          </span>
         </div>
-        <div className="p-4 flex flex-col gap-6">
+        <div className="p-4 flex text-neutral-900 dark:text-neutral-50 flex-col gap-6">
           <p className="font-normal text-justify">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
             استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در

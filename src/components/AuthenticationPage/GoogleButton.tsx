@@ -6,6 +6,7 @@ import { userToken } from "../../atoms/userToken";
 import { httpClient } from "../../axios";
 import useCustomToast from "../../hooks/useCustomToast";
 import { useNavigate } from "react-router-dom";
+import { colorMode } from "../../signals/colorMode";
 
 const GoogleButton: React.FC = () => {
   // State
@@ -49,12 +50,18 @@ const GoogleButton: React.FC = () => {
     <motion.button
       type="button"
       initial={{ scale: 1, borderWidth: 1, borderColor: "rgba(0 0 0 0)" }}
-      whileHover={{ scale: 1.02, borderColor: "#086788" }}
-      className="w-full rounded mb-10 mt-5 flex gap-5 flex-row bg-white py-4 items-center justify-center"
+      whileHover={{
+        scale: 1.02,
+        borderColor:
+          colorMode.value == "dark"
+            ? "rgba(36, 196, 249 1)"
+            : "rgba(8, 103, 136 1)",
+      }}
+      className="w-full rounded mb-10 mt-5 flex gap-5 flex-row bg-neutral-50 dark:bg-neutral-900 py-4 items-center justify-center"
       onTap={() => login()}
     >
       <img src="/svgs/google.svg" width={23} />
-      <span className="font-vazir font-bold text-xl text-neutral-400">
+      <span className="font-vazir font-bold text-xl text-neutral-400 dark:text-neutral-50">
         ورود با گوگل
       </span>
     </motion.button>

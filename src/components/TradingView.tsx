@@ -3,6 +3,7 @@ import { AdvancedChart } from "react-tradingview-embed";
 import { motion } from "framer-motion";
 import { financialbox } from "../signals/financialBox";
 import { tradingview } from "../signals/tradingview";
+import { colorMode } from "../signals/colorMode";
 
 const TradingView: React.FC = () => {
   const containerAnimation = {
@@ -34,7 +35,7 @@ const TradingView: React.FC = () => {
           autosize: false,
           interval: "240",
           timezone: "Asia/Tehran",
-          theme: "light",
+          theme: colorMode.value,
           style: "1",
           locale: "en",
           toolbar_bg: "#f1f3f6",

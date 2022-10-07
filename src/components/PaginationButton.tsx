@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import type { MouseEventHandler } from "react";
 import React from "react";
+import { colorMode } from "../signals/colorMode";
 
 type PaginationButtonT = {
   text: string;
@@ -16,13 +17,22 @@ const PaginationButton: React.FC<PaginationButtonT> = ({
   <motion.button
     variants={{
       enabled: {
-        background: "rgba(226 232 240 1)",
+        background:
+          colorMode.value == "dark"
+            ? "rgba(38, 38, 38 1)"
+            : "rgba(226 232 240 1)",
       },
       disabled: {
-        background: "rgba(226 232 240 0.5)",
+        background:
+          colorMode.value == "dark"
+            ? "rgba(38, 38, 38 0.5)"
+            : "rgba(226 232 240 0.5)",
       },
       tap: {
-        background: "rgba(203, 213, 225 1)",
+        background:
+          colorMode.value == "dark"
+            ? "rgba(38, 38, 38 1)"
+            : "rgba(203, 213, 225 1)",
       },
     }}
     animate={disabled ? "disabled" : "enabled"}
@@ -30,7 +40,7 @@ const PaginationButton: React.FC<PaginationButtonT> = ({
     disabled={disabled ? true : false}
     whileTap="tap"
     onClick={onClick}
-    className=" font-vazir px-2 py-1 rounded font-light text-sm text-neutral-900 cursor-pointer disabled:cursor-default"
+    className=" font-vazir bg-ne px-2 py-1 rounded font-light text-sm text-neutral-900 dark:text-neutral-50 cursor-pointer disabled:cursor-default"
   >
     {text}
   </motion.button>

@@ -30,7 +30,7 @@ const RulesBox: React.FC<PropsT> = ({ children, onClose, show }) => {
         }}
         transition={{ duration: 1.1, type: "spring" }}
         animate={show ? "open" : "initial"}
-        className="bg-neutral-50 flex flex-col gap-10 items-center justify-start py-14 px-2 overflow-y-scroll overflow-x-hidden md:hidden"
+        className="bg-neutral-50 dark:bg-neutral-900 flex flex-col gap-10 items-center justify-start py-14 px-2 overflow-y-scroll overflow-x-hidden md:hidden"
       >
         {children}
         <Button text="بستن" onClick={onClose} outlined className="w-16 h-9" />

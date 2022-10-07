@@ -61,7 +61,7 @@ const tableColumns = [
     cell: (info) => (
       <div className="w-full flex items-center justify-center">
         <motion.button
-          className="bg-error rounded-lg py-1.5 w-[70px] font-vazir font-normal text-base text-white"
+          className="bg-error rounded-lg py-1.5 w-[70px] font-vazir font-normal text-base text-neutral-50 dark:text-neutral-900"
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1.04 }}
@@ -128,7 +128,7 @@ const OpenOrderTable = () => {
           className="w-full w-max-full overflow-scroll scrollbar-vertical"
         >
           <table className="min-w-full">
-            <thead className="border-b-[1px] border-b-black">
+            <thead className="border-b-[1px] border-neutral-900 dark:border-b-neutral-50">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
@@ -153,10 +153,7 @@ const OpenOrderTable = () => {
             </thead>
             <tbody>
               {table.getRowModel().rows.map((row) => (
-                <tr
-                  key={row.id}
-                  className="border-b-[1px] border-b-neutral-300"
-                >
+                <tr key={row.id} className="border-b-[1px] border-b-neutral-50">
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id}>
                       {flexRender(

@@ -15,7 +15,7 @@ const AuthenticationLayout: React.FC = () => {
 
   return (
     <div className="flex flex-row justify-center items-center h-[93vh] overflow-y-scroll scrollbar-vertical w-full lg:justify-start lg:px-14">
-      <div className="flex flex-col bg-neutral-50 overflow-hidden w-11/12 w-max-full mx-2 h-max-full h-max my-2 mb-16 rounded-lg justify-self-center max-w-[360px] px-6 lg:h-max lg:max-w-none lg:w-[30rem]">
+      <div className="flex flex-col bg-neutral-50 dark:bg-neutral-900 overflow-hidden w-11/12 w-max-full mx-2 h-max-full h-max my-2 mb-16 rounded-lg justify-self-center max-w-[360px] px-6 lg:h-max lg:max-w-none lg:w-[30rem]">
         <div className="w-full h-max grid grid-cols-2 pt-10 place-items-center place-content-center font-vazir font-bold text-lg">
           <MenuItem
             text="ورود"
@@ -34,12 +34,12 @@ const AuthenticationLayout: React.FC = () => {
           </AnimatePresence>
         </Suspense>
         <div className="w-full flex place-items-center place-content-center gap-2">
-          <div className="w-5/12 h-[1px] bg-neutral-400" />
-          <span className="font-vazir font-normal text-2xl text-neutral-400">
+          <div className="w-5/12 h-[1px] bg-neutral-400 dark:bg-neutral-50" />
+          <span className="font-vazir font-normal text-2xl text-neutral-400 dark:text-neutral-50">
             یا
           </span>
 
-          <div className="w-5/12 h-[1px] bg-neutral-400" />
+          <div className="w-5/12 h-[1px] bg-neutral-400 dark:bg-neutral-50" />
         </div>
         <GoogleButton />
       </div>

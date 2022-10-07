@@ -15,7 +15,7 @@ const NewsPage = () => {
   );
   const navigate = useNavigate();
   return (
-    <div className="w-full h-[93vh] overflow-y-scroll scrollbar-vertical bg-background-100">
+    <div className="w-full h-[93vh] overflow-y-scroll scrollbar-vertical bg-background-50 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-50">
       <Helmet>
         <title>صرافی - {newsQuery.data?.title}</title>
       </Helmet>
@@ -23,7 +23,7 @@ const NewsPage = () => {
         initial={{ scale: 1 }}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 1.04 }}
-        className="flex py-2 px-1 flex-row gap-4 items-center justify-center w-max font-vazir font-bold text-base cursor-pointer text-primary-700 md:pt-12 md:px-16 max-w-[1600px] 2xl:w-full 2xl:mx-auto 2xl:justify-start"
+        className="flex py-2 px-1 flex-row gap-4 items-center justify-center w-max font-vazir font-bold text-base cursor-pointer text-primary-700 dark:text-primary-500 md:pt-12 md:px-16 max-w-[1600px] 2xl:w-full 2xl:mx-auto 2xl:justify-start"
         onClick={() =>
           navigate("/news", {
             replace: true,

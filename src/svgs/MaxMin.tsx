@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { SVGProps } from "react";
 import { motion } from "framer-motion";
+import { colorMode } from "../signals/colorMode";
 
 const MaxMin = (
   props: SVGProps<SVGSVGElement> & {
@@ -29,7 +30,9 @@ const MaxMin = (
         }}
         variants={animateVariant}
         animate={props.open ? "min" : "max"}
-        stroke="#292D32"
+        className={
+          colorMode.value == "dark" ? "stroke-neutral-50" : "stroke-neutral-900"
+        }
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"

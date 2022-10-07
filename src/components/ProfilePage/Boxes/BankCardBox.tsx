@@ -97,7 +97,7 @@ const BankCardBox: React.FC<PropsT> = ({ card, newCard }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5, type: "spring" }}
-        className="bg-gray-50 overflow-hidden w-full px-2 py-6 flex flex-col gap-10 items-center justify-center rounded-2xl md:flex-row"
+        className="bg-neutral-50 dark:bg-neutral-900 overflow-hidden w-full px-2 py-6 flex flex-col gap-10 items-center justify-center rounded-2xl md:flex-row"
       >
         <div className="w-full grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-10 md:grid-cols-3">
           <Select

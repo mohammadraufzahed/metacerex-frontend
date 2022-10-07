@@ -38,15 +38,9 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
         mobile?: string;
         email?: string;
       } = {};
-      if (
-        (profile.value && profile.value.is_email_verified != true) ||
-        email != ""
-      ) {
+      if (profile.value && profile.value.is_email_verified != true) {
         data.email = email;
-      } else if (
-        (profile.value && profile.value.is_mobile_verified != true) ||
-        mobile != ""
-      ) {
+      } else if (profile.value && profile.value.is_mobile_verified != true) {
         data.mobile = mobile;
       }
       if (data.email || data.mobile) {

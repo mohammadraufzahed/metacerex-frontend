@@ -13,6 +13,7 @@ import { getTransactionHistory } from "../../../functions/history";
 import Loading from "../../Loading";
 import { API_LIMIT } from "../../../constants/APILimit";
 import TablePaginationButtons from "../TablePaginationButtons";
+import { colorMode } from "../../../signals/colorMode";
 
 const columnHelper = createColumnHelper<TransactionHistoryType>();
 
@@ -98,7 +99,7 @@ const TransactionHistory = () => {
   return (
     <>
       <div className="px-6 py-4">
-        <div className="w-full rounded-lg px-2 py-4 flex flex-col justify-between items-center gap-3 lg:flex-row lg:px-6 border-shades-100 border-[1px]">
+        <div className="w-full rounded-lg px-2 py-4 flex flex-col justify-between items-center gap-3 lg:flex-row lg:px-6 border-neutral-900 dark:border-neutral-50 border-[1px] text-neutral-900 dark:text-neutral-50">
           <span className="hidden lg:block font-vazir font-normal text-base">
             فیلتر سریع
           </span>
@@ -223,13 +224,18 @@ const FilterItem: React.FC<PropsT> = ({ active, text, onClick }) => (
   <motion.span
     variants={{
       active: {
-        borderColor: "rgba(0 0 0 1)",
+        borderColor:
+          colorMode.value == "dark" ? "rgba(250, 250, 250 1)" : "rgba(0 0 0 1)",
       },
       deactive: {
-        borderColor: "rgba(0 0 0 0)",
+        borderColor:
+          colorMode.value == "dark" ? "rgba(250, 250, 250 0)" : "rgba(0 0 0 0)",
       },
       hover: {
-        borderColor: "rgba(0 0 0 0.5)",
+        borderColor:
+          colorMode.value == "dark"
+            ? "rgba(250, 250, 250 0.5)"
+            : "rgba(0 0 0 0.5)",
       },
     }}
     initial="deactive"

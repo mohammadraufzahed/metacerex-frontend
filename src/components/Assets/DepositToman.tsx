@@ -66,7 +66,7 @@ const DepositToman: React.FC<PropsT> = ({ onRuleClick }) => {
       className="w-full flex flex-col gap-4 justify-center items-center"
     >
       <div className="w-full flex flex-col gap-2">
-        <span className="font-vazir font-normal text-sm">
+        <span className="font-vazir font-normal text-sm text-neutral-900 dark:text-neutral-50">
           مبلغ مورد نظر جهت واریز
         </span>
         <Input

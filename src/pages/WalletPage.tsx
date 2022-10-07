@@ -76,10 +76,10 @@ const WalletPage: React.FC = () => {
               onClick={() => setAssetQuote("usdt")}
             />
           </div>
-          <div className="font-vazir font-bold text-sm text-primary-700 bg-neutral-50 py-3 px-5 rounded flex flex-row justify-between items-center drop-shadow lg:py-9 lg:px-2 lg:text-base">
+          <div className="font-vazir font-bold text-sm text-primary-700 dark:text-primary-500 bg-neutral-50 dark:bg-neutral-900 py-3 px-5 rounded flex flex-row justify-between items-center drop-shadow lg:py-9 lg:px-2 lg:text-base">
             <span className="flex flex-row gap-3 items-center justify-center">
-              <Layer className="stroke-primary-700 hidden md:block" /> ارزش لحظه
-              ای پرتفو
+              <Layer className="stroke-primary-700 dark:stroke-primary-500 hidden md:block" />
+              ارزش لحظه ای پرتفو
             </span>
             <span>
               {portfolioQuery.data && portfolioQuery.data.value >= 0
@@ -89,7 +89,7 @@ const WalletPage: React.FC = () => {
           </div>
         </div>
         <div className="w-full flex flex-col gap-2 lg:flex-auto lg:gap-7 lg:justify-between overflow-x-scroll scrollbar-vertical lg:w-2/12">
-          <span className="font-vazir font-bold text-sm lg:text-2xl lg:font-normal">
+          <span className="font-vazir font-bold text-sm lg:text-2xl lg:font-normal text-neutral-900 dark:text-neutral-50">
             ارز های محبوب شما
           </span>
           {tickersFavouriteQuery.data &&
@@ -106,7 +106,7 @@ const WalletPage: React.FC = () => {
       </div>
       <div className="w-full flex-auto flex flex-col gap-7">
         <div className="flex flex-row w-full items-center justify-between">
-          <span className="font-vazir font-bold text-sm lg:text-2xl lg:font-normal">
+          <span className="font-vazir font-bold text-sm lg:text-2xl lg:font-normal text-neutral-900 dark:text-neutral-50">
             همه ارزها
           </span>
           <div className="w-8/12 relative lg:max-w-[612px]">
@@ -115,7 +115,7 @@ const WalletPage: React.FC = () => {
               onChange={({ currentTarget }) => {
                 setSearch((currentTarget as HTMLInputElement).value);
               }}
-              className="w-full h-8 rounded-lg placeholder:opacity-0 lg:placeholder:opacity-100 p-2 text-base font-vazir font-normal py-5 placeholder:text-neutral-700 outline-none border-[1px] border-primary-700 text-neutral-700"
+              className="w-full h-8 rounded-lg placeholder:opacity-0 lg:placeholder:opacity-100 p-2 text-base font-vazir font-normal py-5 placeholder:text-neutral-900 text-neutral-900 dark:text-neutral-50 dark:placeholder:text-neutral-50 dark:bg-neutral-900 outline-none border-[1px] border-primary-700 dark:border-primary-500"
               placeholder="جستجو در میان همه ارز ها"
             />
             <Search className="absolute left-2 stroke-neutral-800 bottom-1 lg:hidden" />

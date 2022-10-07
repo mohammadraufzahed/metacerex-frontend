@@ -36,7 +36,7 @@ const ListItem: React.FC<TickerTable & PropsT> = ({
           onFavTap();
         });
       }}
-      className='font-vazir cursor-pointer font-normal relative h-[23px] text-xs text-neutral-900 after:content-[""] after:w-full after:h-[1px] after:bg-neutral-200 after:absolute after:left-0 after:-bottom-2'
+      className='font-vazir cursor-pointer font-normal relative h-[23px] text-xs text-neutral-900 dark:text-neutral-50 after:content-[""] after:w-full after:h-[1px] after:bg-neutral-200 after:absolute after:left-0 after:-bottom-2'
     >
       <td className="flex flex-row items-center self-start justify-start">
         <img src={base_asset.icon} width={14} />
@@ -59,7 +59,7 @@ const Button: React.FC<ButtonT> = ({ type }) => {
   const navigate = useNavigate();
   return (
     <motion.button
-      className={`text-white ${
+      className={`text-white dark:text-neutral-900 ${
         type == "buy" ? "bg-success" : "bg-error"
       } rounded-3xl px-4 py-0.5`}
       whileHover={{ scale: 1.05 }}

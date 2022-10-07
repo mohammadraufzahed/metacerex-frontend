@@ -99,7 +99,7 @@ const DashboardSidebar: React.FC = () => {
   };
   return (
     <motion.div
-      className="w-[170px] h-[93.2vh] flex flex-col lg:justify-between items-center z-50 py-5 bg-neutral-50 fixed top-14 lg:min-w-[3rem] lg:max-w-[3rem] overflow-x-hidden"
+      className="w-[170px] h-[94vh] flex flex-col lg:justify-between items-center z-50 py-5 bg-neutral-50 dark:bg-neutral-900 fixed top-14 lg:min-w-[3rem] lg:max-w-[3rem] overflow-x-hidden"
       variants={ContainerVariant}
       animate={showSidebar.value ? "show" : "hide"}
       transition={{ type: "tween", duration: 0.4 }}
@@ -121,7 +121,7 @@ type SidebarBoxT = {
 };
 const SidebarBox: React.FC<SidebarBoxT> = ({ items }) => {
   return (
-    <div className="w-full my-0 border-b-neutral-200 border-b-[1px] lg:border-transparent">
+    <div className="w-full my-0 border-b-neutral-200 dark:border-b-neutral-700 border-b-[1px] lg:border-transparent">
       {items.map((item, key) => (
         <SidebarItem
           text={item.text}
@@ -170,19 +170,22 @@ const SidebarItem: React.FC<SidebarItemT> = ({
       } items-center justify-center ${
         onlyMobile && !onlyDesk ? "lg:hidden" : ""
       }`}
+      title={text}
       ref={link}
     >
       <div
         className={`flex-1 flex flex-row h-10 items-center pr-6 lg:pr-0 lg:justify-center gap-3 font-vazir font-light text-sm ${
           isActive
-            ? "bg-primary-700 text-neutral-50 lg:bg-neutral-200"
-            : "text-primary-700"
+            ? "bg-primary-700 text-neutral-50 lg:bg-neutral-200 lg:dark:bg-neutral-700"
+            : "text-primary-700 dark:text-primary-500"
         }`}
       >
         <Icon
           className={`${
-            isActive ? "stroke-neutral-50" : "stroke-primary-700"
-          } lg:stroke-primary-700`}
+            isActive
+              ? "stroke-neutral-50"
+              : "stroke-primary-700 dark:stroke-primary-500"
+          } lg:stroke-primary-700 lg:dark:stroke-primary-500`}
         />
         <span className="lg:hidden w-max">{text}</span>
       </div>

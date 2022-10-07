@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import Button from "../components/AuthenticationPage/Button";
 import DropboxSelect from "../components/DropboxSelect";
+import { colorMode } from "../signals/colorMode";
 
 const AtiPage = () => {
   const descAccept = useSignal<boolean>(false);
@@ -155,7 +156,10 @@ const AtiPage = () => {
                 <img src="/images/personal.png" className="w-11/12" />
               ) : (
                 <>
-                  <img src="/svgs/gallery.svg" className="mb-5" />
+                  <img
+                    src={`/svgs/gallery-${colorMode.value}.svg`}
+                    className="mb-5"
+                  />
                   <motion.div
                     initial={{ y: 0 }}
                     whileHover={{ y: -2 }}

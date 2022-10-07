@@ -3,6 +3,7 @@ import type { MouseEventHandler, SVGProps, LazyExoticComponent } from "react";
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import { financialbox } from "../signals/financialBox";
+import { colorMode } from "../signals/colorMode";
 
 const StatusUp = lazy(() => import("../svgs/StatusUp"));
 const EmptyWallet = lazy(() => import("../svgs/EmptyWallet"));
@@ -13,7 +14,7 @@ const BottomBar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   return (
-    <div className="fixed bottom-0 w-screen grid grid-cols-5 z-20 bg-neutral-50 h-16 lg:hidden">
+    <div className="fixed bottom-0 w-screen grid grid-cols-5 z-20 bg-neutral-50 dark:bg-neutral-900 h-16 lg:hidden">
       <BottomBarItem
         title="چارت"
         Icon={Diagram}
@@ -50,20 +51,20 @@ const BottomBar: React.FC = () => {
       <BottomBarItem
         title="بازار"
         Icon={BitcoinConvert}
-        onClick={() => {}}
-        active={false}
+        onClick={() => navigate("/dashboard/market", { replace: true })}
+        active={location.pathname.startsWith("/dashboard/market")}
       />
       <BottomBarItem
         title="آتی"
         Icon={StatusUp}
-        onClick={() => {}}
-        active={false}
+        onClick={() => navigate("/ati", { replace: true })}
+        active={location.pathname == "/ati"}
       />
       <BottomBarItem
         title="کیف پول"
         Icon={EmptyWallet}
-        onClick={() => {}}
-        active={false}
+        onClick={() => navigate("/dashboard/wallet")}
+        active={location.pathname == "/dashboard/wallet"}
       />
     </div>
   );
@@ -89,7 +90,8 @@ const BottomBarItem: React.FC<BottomBarItemT> = ({
       initial={{ backgroundColor: "rgba(0 0 0 0)" }}
       variants={{
         active: {
-          backgroundColor: "#086788",
+          backgroundColor:
+            colorMode.value == "dark" ? "rgb(36 196 249)" : "rgb(8 103 136)",
         },
         normal: {
           backgroundColor: "rgba(0 0 0 0)",
@@ -97,10 +99,18 @@ const BottomBarItem: React.FC<BottomBarItemT> = ({
       }}
       animate={active ? "active" : "normal"}
     >
-      <Icon className={`${active ? "stroke-white" : "stroke-primary-700"}`} />
+      <Icon
+        className={`${
+          active
+            ? "stroke-neutral-50 dark:stroke-neutral-900"
+            : "stroke-primary-700 dark:stroke-primary-500"
+        }`}
+      />
       <span
         className={`font-vazir font-light text-[10px] sm:text-sm ${
-          active ? "text-white" : "text-primary-700"
+          active
+            ? "text-white dark:text-neutral-900"
+            : "text-primary-700 dark:text-primary-500"
         }`}
       >
         {title}

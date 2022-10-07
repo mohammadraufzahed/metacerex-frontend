@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { colorMode } from "../../signals/colorMode";
 
 type OnchainButtonT = {
   children?: React.ReactNode;
@@ -30,7 +31,10 @@ const OnchainButton: React.FC<OnchainButtonT> = ({
           y: -2,
         },
         active: {
-          background: "rgba(8 103 136 1)",
+          background:
+            colorMode.value == "dark"
+              ? "rgba(36, 196, 249, 1)"
+              : "rgba(8 103 136 1)",
         },
       }}
       onTap={onTap}
@@ -38,7 +42,7 @@ const OnchainButton: React.FC<OnchainButtonT> = ({
       whileHover="hover"
       whileTap="tap"
       animate={active ? "active" : "initial"}
-      className={`py-2 border-[1px] w-12  flex flex-row items-center justify-center gap-2.5 rounded-lg border-primary-700 ${
+      className={`py-2 border-[1px] w-12  flex flex-row items-center justify-center gap-2.5 rounded-lg border-primary-700 dark:border-primary-500 ${
         maxContent ? "lg:w-max lg:px-10" : "lg:w-44"
       }`}
     >
@@ -46,7 +50,10 @@ const OnchainButton: React.FC<OnchainButtonT> = ({
       <motion.span
         variants={{
           initial: {
-            color: "rgba(8 103 136 1)",
+            color:
+              colorMode.value == "dark"
+                ? "rgba(36, 196, 249, 1)"
+                : "rgba(8 103 136 1)",
           },
           active: {
             color: "rgba(255, 255, 255 1)",

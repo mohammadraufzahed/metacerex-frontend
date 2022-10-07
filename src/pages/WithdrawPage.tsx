@@ -61,15 +61,15 @@ const WithdrawPage = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, type: "tween" }}
-              className="flex flex-col w-full gap-12 rounded-lg bg-neutral-50 py-10 md:px-3"
+              className="flex flex-col w-full gap-12 rounded-lg bg-neutral-50 dark:bg-neutral-900 py-10 md:px-3"
             >
-              <div className="flex flex-row self-start gap-2 items-center text-primary-700">
+              <div className="flex flex-row self-start gap-2 items-center text-primary-700 dark:text-primary-500">
                 <FiClock className="text-2xl" />
                 <span className="font-vazir font-bold text-sm">
                   زمان بندی واریز به حساب
                 </span>
               </div>
-              <div className="flex flex-col gap-9">
+              <div className="flex flex-col gap-9 text-neutral-900 dark:text-neutral-50">
                 <UnorderListItem text="برداشت تومان تا قبل از ساعت 18 عصر، در همان روز تسویه می شود." />
                 <UnorderListItem text="برداشت های ثبت شده در روزهای تعطیل، در اولین روز کاری بعد از تعطیلات با اولین سیکل پایا طبق زمان بندی ارسال می شوند." />
                 <span className="font-vazir font-normal text-sm self-start">
@@ -93,7 +93,7 @@ const WithdrawPage = () => {
               transition={{ duration: 0.3, type: "tween" }}
               className="flex flex-col gap-4 lg:max-h-[900px] overflow-hidden"
             >
-              <div className="w-full bg-neutral-50 py-10 px-2 rounded-2xl flex flex-col gap-10 xl:flex-row items-center md:px-14 md:py-8 md:h-[400px]">
+              <div className="w-full bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 py-10 px-2 rounded-2xl flex flex-col gap-10 xl:flex-row items-center md:px-14 md:py-8 md:h-[400px]">
                 <div className="flex flex-col gap-10">
                   <strong className="font-vazir font-bold text-sm">
                     مراحل برداشت رمزارز :
@@ -140,7 +140,7 @@ type UnorderListItemT = {
 
 export const UnorderListItem: React.FC<UnorderListItemT> = ({ text }) => (
   <div className="font-vazir font-normal items-start flex flex-row gap-2 text-sm">
-    <div className="w-[3px] h-[3px] rounded-full bg-black mt-2" />
+    <div className="w-[3px] h-[3px] rounded-full bg-neutral-900 dark:bg-neutral-50 mt-2" />
     <span>{text}</span>
   </div>
 );

@@ -9,6 +9,7 @@ import NotFound from "../components/NotFound";
 import PaginationButton from "../components/PaginationButton";
 import { API_LIMIT } from "../constants/APILimit";
 import getNotification from "../functions/notification";
+import { colorMode } from "../signals/colorMode";
 import { useDateToString } from "../utils/date";
 
 const NotificationPage = () => {
@@ -71,10 +72,14 @@ type NotificationProps = {
 const Notification: React.FC<NotificationProps> = ({ body, date }) => {
   const persianDate = useDateToString(date);
   return (
-    <div className="w-full gap-4 font-vazir rounded-2xl drop-shadow-xl h-max flex flex-col items-start p-8 justify-center bg-neutral-50">
+    <div className="w-full gap-4 font-vazir rounded-2xl drop-shadow-xl h-max flex flex-col items-start p-8 justify-center bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50">
       <span className="text-base font-normal">{`${persianDate.year}/${persianDate.month_number}/${persianDate.day}`}</span>
       <div className="flex flex-row items-center justify-start w-full gap-4">
-        <img className="self-center" src="/svgs/notification-bing.svg" alt="" />
+        <img
+          className="self-center"
+          src={`/svgs/notification-bing-${colorMode.value}.svg`}
+          alt=""
+        />
         <p className="font-normal text-sm md:text-base">{body}</p>
       </div>
     </div>

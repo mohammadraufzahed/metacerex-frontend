@@ -1,13 +1,11 @@
 import { QueryErrorResetBoundary, useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import React, { lazy, Suspense } from "react";
+import React, { lazy } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useNavigate } from "react-router-dom";
 import { useNews } from "../../hooks/useNews";
 import ArrowLeft from "../../svgs/ArrowLeft";
-import { NewsArticleList } from "../../types/API";
 import ErrorFetch from "../ErrorFetch";
-import Loading from "../Loading";
 import NotFound from "../NotFound";
 const NewsItem = lazy(() => import("./NewsItem"));
 
@@ -23,7 +21,7 @@ const NewsBox: React.FC = () => {
             <ErrorFetch resetErrorBoundary={resetErrorBoundary} />
           )}
         >
-          <div className="w-full h-[45.5vh] overflow-scroll scrollbar-vertical hidden bg-neutral-50 mt-3 rounded-lg lg:block ">
+          <div className="w-full h-[45.5vh] overflow-scroll scrollbar-vertical hidden bg-neutral-50 dark:bg-neutral-900  mt-3 rounded-lg lg:block text-neutral-900 dark:text-neutral-50">
             <div className="h-[37.5vh] min-h-[400px] lg:flex flex-col items-center justify-evenly pt-8 gap-6">
               {data ? (
                 data.map((item) => <NewsItem key={item.pk} {...item} />)

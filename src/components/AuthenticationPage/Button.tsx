@@ -43,8 +43,8 @@ const Button: React.FC<PropsT> = ({
       transition={{ type: "spring", duration: 1 }}
       className={`${className} cursor-pointer ${
         outlined
-          ? "text-primary-700 bg-transparent border-[1px] border-primary-700"
-          : "text-shades-0 bg-primary-700"
+          ? "text-primary-700 dark:text-primary-500 bg-transparent border-[1px] border-primary-700 dark:border-primary-500"
+          : "text-neutral-50 dark:text-neutral-900 bg-primary-700 dark:bg-primary-500"
       } ${
         fullWidth ? "w-11/12" : "w-max"
       } py-3.5 rounded font-vazir font-bold text-lg`}
