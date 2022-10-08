@@ -28,7 +28,9 @@ export default function useCustomToast(
         animate={t.visible ? "show" : "hide"}
         whileTap={{ scale: 0.7 }}
         className={`${
-          type == "success" ? "bg-success text-white" : "bg-error text-white"
+          type == "success"
+            ? "bg-success text-neutral-50 dark:text-neutral-900"
+            : "bg-error text-neutral-50 dark:text-neutral-900"
         } px-8 py-3 cursor-pointer rounded-lg font-vazir font-bold flex flex-row gap-1 items-center justify-center`}
         onClick={() => toast.dismiss(t.id)}
       >

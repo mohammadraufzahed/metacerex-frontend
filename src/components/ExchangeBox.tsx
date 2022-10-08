@@ -526,10 +526,10 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           type == "SELL"
             ? activeAsset && parseFloat(activeAsset.balance) == 0
               ? "bg-primary-500"
-              : "bg-error"
+              : "bg-error dark:bg-error"
             : activeBase && activeBase.balance == 0
             ? "bg-primary-500"
-            : "bg-success"
+            : "bg-success dark:bg-success"
         }
       />
       <span
