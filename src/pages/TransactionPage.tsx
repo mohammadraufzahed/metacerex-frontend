@@ -1,11 +1,8 @@
-import React from "react";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import React, { useEffect } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { httpClient } from "../axios";
 import Button from "../components/AuthenticationPage/Button";
+import useCustomToast from "../hooks/useCustomToast";
 import { colorMode } from "../signals/colorMode";
 
 const TransactionPage = () => {
@@ -14,6 +11,32 @@ const TransactionPage = () => {
   const navigate = useNavigate();
   if (!location.search.includes("payment_status"))
     return <Navigate to="/dashboard" replace />;
+  useEffect(() => {
+    if (!import.meta.env.PROD) {
+      const data = location.search
+        .replace("?", "")
+        .split("&")
+        .map((item) => item.split("="));
+      const token = data.filter((item) => item[0] == "token")[0][1];
+      const payment_status = data.filter(
+        (item) => item[0] == "payment_status"
+      )[0][1];
+      httpClient
+        .post("shetab/deposit/verify/", {
+          token,
+          payment_status,
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            useCustomToast(
+              "bottom-right",
+              "success",
+              "واریز شما با موفقیت تایید شد"
+            );
+          }
+        });
+    }
+  }, []);
   return (
     <div className="w-full h-[93vh] flex flex-col justify-center gap-10 lg:gap-24 items-center">
       <img

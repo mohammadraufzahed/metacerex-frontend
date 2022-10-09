@@ -1,19 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import React, { Ref, RefObject, useState } from "react";
-import { getWallet } from "../../functions/wallet";
+import React, { useState } from "react";
 import Star from "../../svgs/Star";
 import { Wallet } from "../../types/API";
 import { TAction, TCell, TTitleCell, THead } from "./WalletTableUtils";
 import { motion } from "framer-motion";
 import { setFavAsset } from "../../functions/assets";
-import PaginationButton from "../PaginationButton";
-import { API_LIMIT } from "../../constants/APILimit";
+import { useQueryClient } from "@tanstack/react-query";
 
 const columnHelper = createColumnHelper<Wallet>();
 const walletTableColumns = [
@@ -23,7 +20,8 @@ const walletTableColumns = [
     cell: (info) => {
       const [isFaved, setIsFaved] = useState<boolean>(
         info.row.original.is_faved
-      );
+      ); // States
+      const queryClient = useQueryClient();
       return (
         <motion.div
           variants={{
@@ -43,6 +41,7 @@ const walletTableColumns = [
           onTap={() => {
             setFavAsset(info.row.original.asset.code).then((res) => {
               setIsFaved((isFaved) => !isFaved);
+              queryClient.refetchQueries(["tickers_favourite"]);
             });
           }}
           className="w-full cursor-pointer flex items-center justify-center"

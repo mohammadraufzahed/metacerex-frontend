@@ -31,11 +31,22 @@ const WalletPage: React.FC = () => {
   const [assetQuote, setAssetQuote] = useState<"usdt" | "toman">("toman");
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [paginated, setPaginated] = useState<number>(0);
-  const queryClient = useQueryClient();
   // Conditions
   if (!userTokenD) return <Navigate to="/auth" replace />;
   // Queries
-  const portfolioQuery = useQuery(["portfolio"], getPortfolio);
+  const portfolioQuery = useQuery(
+    ["portfolio", assetQuote],
+    () => getPortfolio(assetQuote),
+    {
+      refetchInterval: 60000,
+      staleTime: 60000,
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+      refetchOnReconnect: true,
+      refetchIntervalInBackground: true,
+      cacheTime: 60000,
+    }
+  );
   const walletQuery = useQuery(
     ["wallet", paginated, currectSearch, assetQuote],
     () => getWallet(paginated, currectSearch, assetQuote),
@@ -63,7 +74,7 @@ const WalletPage: React.FC = () => {
         <div className="w-full flex flex-col gap-6 lg:w-5/12">
           <div className="grid grid-cols-2 items-center justify-center w-full">
             <Button
-              text="مبنای قیمت ریال"
+              text="مبنای قیمت تومان"
               fullWidth
               outlined={assetQuote !== "toman"}
               onClick={() => setAssetQuote("toman")}

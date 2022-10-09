@@ -20,6 +20,14 @@ export async function getWallet(
     });
 }
 
-export async function getPortfolio(): Promise<{ value: number }> {
-  return httpClient.get("spot/wallet/portfolio/").then((res) => res.data);
+export async function getPortfolio(
+  quote_asset: string
+): Promise<{ value: number }> {
+  return httpClient
+    .get("spot/wallet/portfolio/", {
+      params: {
+        quote_asset,
+      },
+    })
+    .then((res) => res.data);
 }
