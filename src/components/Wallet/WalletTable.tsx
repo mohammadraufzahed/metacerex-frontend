@@ -41,7 +41,10 @@ const walletTableColumns = [
           onTap={() => {
             setFavAsset(info.row.original.asset.code).then((res) => {
               setIsFaved((isFaved) => !isFaved);
-              queryClient.refetchQueries(["tickers_favourite"]);
+              queryClient.refetchQueries(["tickers_favourite"], {
+                type: "active",
+                exact: true,
+              });
             });
           }}
           className="w-full cursor-pointer flex items-center justify-center"

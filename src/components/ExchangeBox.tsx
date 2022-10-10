@@ -219,9 +219,15 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   const assetsQuery = useQuery(["assets_list"], getDepositAssets);
   // Effects
   useEffect(() => {
+    if (assetsQuery.data && !activeAsset) {
+      const btc = assetsQuery.data.filter((item) => item.code == "BTC")[0];
+      setActiveAsset(btc);
+    }
+  }, [assetsQuery.data]);
+  useEffect(() => {
     if (activeAsset) {
       setReqData((reqData) => ({ ...reqData, base_asset: activeAsset.code }));
-
+      setExchange(undefined);
       form.setFieldValue("base_asset_code", activeAsset.code);
     }
   }, [activeAsset]);
@@ -229,6 +235,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
     if (activeBase) {
       setReqData((reqData) => ({ ...reqData, quote_asset: activeBase.code }));
       form.setFieldValue("quote_asset_code", activeBase.code);
+      setExchange(undefined);
     }
   }, [activeBase]);
   useEffect(() => {
@@ -246,6 +253,13 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
             },
           ]);
         });
+        const toman = bases.balances.filter(
+          (item) => item.asset.code == "TOMAN"
+        )[0];
+        setActiveBase({
+          balance: parseInt(toman.total_balance),
+          code: toman.asset.code,
+        });
       });
     }
     if (ws == undefined || ws.readyState == WebSocket.CLOSED) {
@@ -259,14 +273,14 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
     };
   }, []);
   useEffect(() => {
-    if (
-      (reqData.balance_percentage ||
-        reqData.quantity ||
-        reqData.use_total_balance) &&
-      ws != undefined &&
-      ws.readyState == WebSocket.OPEN
-    ) {
-      ws.send(JSON.stringify(reqData));
+    if (ws != undefined) {
+      if (ws.readyState == WebSocket.OPEN) {
+        ws.send(JSON.stringify(reqData));
+      } else {
+        ws.onopen = () => {
+          ws.send(JSON.stringify(reqData));
+        };
+      }
     }
   }, [reqData]);
   useEffect(() => {
@@ -282,6 +296,29 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   }, [type]);
   return (
     <>
+      <div className="w-full">
+        <DropboxSelect
+          list={
+            assetsQuery.data
+              ? assetsQuery.data.map((item) => ({
+                  text: item.code,
+                  icon: item.icon,
+                  value: item.code,
+                }))
+              : []
+          }
+          placeholder={activeAsset ? activeAsset.code : "رمز ارز"}
+          onChange={(code) => {
+            const activeAsset = assetsQuery.data?.filter(
+              (item) => item.code == code
+            )[0];
+            setActiveAsset(activeAsset);
+            tradingview.value = activeAsset
+              ? activeAsset.code
+              : tradingview.value;
+          }}
+        />
+      </div>
       <div className="w-full py-1 flex flex-row items-center justify-between text-neutral-900 dark:text-neutral-50">
         <span className="font-vazir font-normal text-sm">مبنای معامله:</span>
         <div className="relative w-7/12">
@@ -316,35 +353,20 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           <span>
             {exchange && activeBase
               ? activeBase.code == "TOMAN"
-                ? `${exchange.base_asset_price_toman} تومان`
-                : `${exchange.base_asset_price_usdt} تتر`
+                ? `${
+                    isNaN(exchange.base_asset_price_toman)
+                      ? 0
+                      : exchange.base_asset_price_toman
+                  } تومان`
+                : `${
+                    isNaN(exchange.base_asset_price_usdt)
+                      ? 0
+                      : exchange.base_asset_price_usdt
+                  } تتر`
               : "-"}
           </span>
         </div>
       ) : null}
-      <div className="w-full">
-        <DropboxSelect
-          list={
-            assetsQuery.data
-              ? assetsQuery.data.map((item) => ({
-                  text: item.code,
-                  icon: item.icon,
-                  value: item.code,
-                }))
-              : []
-          }
-          placeholder={activeAsset ? activeAsset.code : "رمز ارز"}
-          onChange={(code) => {
-            const activeAsset = assetsQuery.data?.filter(
-              (item) => item.code == code
-            )[0];
-            setActiveAsset(activeAsset);
-            tradingview.value = activeAsset
-              ? activeAsset.code
-              : tradingview.value;
-          }}
-        />
-      </div>
       <div className="w-full grid grid-cols-2">
         <Button
           text="سریع"
@@ -408,6 +430,8 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           <span>
             {form.values.quantity_all_balance
               ? "100"
+              : isNaN(form.values.quantity_percentage)
+              ? 0
               : form.values.quantity_percentage}
           </span>
           <span>%</span>
@@ -458,7 +482,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         />
       </div>
       <ExchangeRate
-        assetValue={form.values.quantity}
+        assetValue={isNaN(form.values.quantity) ? 0 : form.values.quantity}
         assetOnChange={(number) => {
           form.setFieldValue("quantity", number);
           setReqData({
@@ -474,7 +498,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         baseName={
           activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : "-"
         }
-        baseValue={baseAmount}
+        baseValue={isNaN(baseAmount) ? 0 : baseAmount}
         baseOnChange={(number) => {
           setBaseAmount(number);
           setReqData({
@@ -502,7 +526,6 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           {activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : ""}
         </span>
       </div>
-
       <Button
         text={
           type == "SELL"
