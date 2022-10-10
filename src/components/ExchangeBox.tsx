@@ -23,7 +23,7 @@ type PropsT = {
 
 const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   // States
-  const [trade, setTrade] = useState<"INSTANT" | "MAIN">("MAIN");
+  const [trade, setTrade] = useState<"INSTANT" | "MAIN">("INSTANT");
   // Forms
   const form = useFormik({
     initialValues: {

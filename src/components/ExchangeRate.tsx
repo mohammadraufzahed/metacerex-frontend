@@ -20,7 +20,7 @@ const ExchangeRate: React.FC<PropsT> = ({
   baseName,
   disabled,
 }) => {
-  const [flip, setFlip] = useState<boolean>(false);
+  const [flip, setFlip] = useState<boolean>(true);
   return (
     <div
       className={`w-full relative gap-2 flex ${

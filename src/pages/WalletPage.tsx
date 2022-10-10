@@ -105,7 +105,7 @@ const WalletPage: React.FC = () => {
           </span>
           {tickersFavouriteQuery.data &&
           tickersFavouriteQuery.data.results.length != 0 ? (
-            <div className="w-full flex flex-col items-center justify-start gap-2 lg:flex-row lg:w-max overflow-x-scroll lg:max-w-[50vw]">
+            <div className="w-full flex flex-col items-center justify-start gap-2 lg:flex-row lg:w-max overflow-x-scroll scrollbar-vertical lg:max-w-[50vw]">
               {tickersFavouriteQuery.data.results.map((item, key) => (
                 <WalletPopularCurrency key={key} ticker={item} />
               ))}
