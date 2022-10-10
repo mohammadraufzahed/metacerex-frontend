@@ -14,7 +14,7 @@ const AuthenticationFormLayout: React.FC<PropsT> = ({ children }) => {
       transition={{
         duration: 0.5,
       }}
-      className="mx-0 my-8 flex flex-col items-center gap-6 lg:gap-8 h-full max-h-[55vh] scrollbar-vertical overflow-y-scroll"
+      className="mx-0 my-8 flex flex-col items-center gap-6 lg:gap-8 h-full"
     >
       {children}
     </motion.div>

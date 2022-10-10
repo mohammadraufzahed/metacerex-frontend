@@ -14,8 +14,8 @@ const AuthenticationLayout: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-row justify-center items-center h-[93vh] overflow-y-scroll scrollbar-vertical w-full lg:justify-start lg:px-14">
-      <div className="flex flex-col bg-neutral-50 dark:bg-neutral-900 overflow-hidden w-11/12 w-max-full mx-2 h-max-full h-max my-2 mb-16 rounded-lg justify-self-center max-w-[360px] px-6 lg:h-max lg:max-w-none lg:w-[30rem]">
+    <div className="flex flex-row justify-center items-center lg:h-[93vh] overflow-y-scroll scrollbar-vertical w-full lg:justify-start lg:px-14">
+      <div className="flex flex-col bg-neutral-50 dark:bg-neutral-900 overflow-hidden w-11/12 w-max-full mx-2 h-max-full h-[79vh] my-2 mb-16 rounded-lg justify-self-center max-w-[360px] px-6 lg:max-w-none lg:w-[30rem] lg:h-[94vh] overflow-y-scroll scrollbar-vertical">
         <div className="w-full h-max grid grid-cols-2 pt-10 place-items-center place-content-center font-vazir font-bold text-lg">
           <MenuItem
             text="ورود"
@@ -43,7 +43,7 @@ const AuthenticationLayout: React.FC = () => {
         </div>
         <GoogleButton />
       </div>
-      <div className="hidden max-w-[600px] w-11/12 mr-4 mx-auto xl:mr-auto lg:flex items-center justify-center">
+      <div className="hidden max-w-[600px] min-h-max w-11/12 mr-4 mx-auto xl:mr-auto lg:flex items-center justify-center">
         <img src="/svgs/login-image.svg" alt="" />
       </div>
     </div>

@@ -25,7 +25,7 @@ const ExchangeRate: React.FC<PropsT> = ({
     <div
       className={`w-full relative gap-2 flex ${
         flip ? "flex-col-reverse" : "flex-col"
-      } justify-around h-24 border-primary-500 p-4  border-2 rounded-lg text-neutral-900 dark:text-neutral-50`}
+      } justify-around h-24 border-primary-500 min-w-[330px] p-4  border-2 rounded-lg text-neutral-900 dark:text-neutral-50`}
     >
       <div className="w-full grid px-14 grid-cols-2 font-vazir text-sm">
         {flip || disabled ? (

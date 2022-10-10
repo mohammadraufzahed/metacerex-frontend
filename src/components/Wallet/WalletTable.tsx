@@ -150,6 +150,11 @@ const WalletTable: React.FC<PropsT> = ({ wallets }) => {
           ))}
         </thead>
         <tbody>
+          <tr>
+            <td>
+              <div className="h-1" />
+            </td>
+          </tr>
           {walletTable.getRowModel().rows.map((row) => (
             <tr
               key={row.id}

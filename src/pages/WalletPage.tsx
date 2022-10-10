@@ -59,7 +59,7 @@ const WalletPage: React.FC = () => {
     () => getTickers(undefined, "yes", ""),
     {
       refetchOnMount: true,
-      refetchOnWindowFocus: true,
+      refetchOnReconnect: true,
       suspense: true,
     }
   );
@@ -87,7 +87,7 @@ const WalletPage: React.FC = () => {
               onClick={() => setAssetQuote("usdt")}
             />
           </div>
-          <div className="font-vazir font-bold text-sm text-primary-700 dark:text-primary-500 bg-neutral-50 dark:bg-neutral-900 py-3 px-5 rounded flex flex-row justify-between items-center drop-shadow lg:py-9 lg:px-2 lg:text-base">
+          <div className="font-vazir font-bold text-sm text-primary-700 dark:text-primary-500 bg-neutral-50 dark:bg-neutral-900 py-3 px-5 rounded flex flex-row justify-between items-center drop-shadow lg:py-7 lg:px-2 lg:text-base">
             <span className="flex flex-row gap-3 items-center justify-center">
               <Layer className="stroke-primary-700 dark:stroke-primary-500 hidden md:block" />
               ارزش لحظه ای پرتفو
@@ -99,13 +99,13 @@ const WalletPage: React.FC = () => {
             </span>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-2 lg:flex-auto lg:gap-7 lg:justify-between overflow-x-scroll scrollbar-vertical lg:w-2/12">
+        <div className="w-full flex flex-col gap-2 lg:flex-auto lg:gap-7 lg:justify-between overflow-x-hidden lg:w-[50vw]">
           <span className="font-vazir font-bold text-sm lg:text-2xl lg:font-normal text-neutral-900 dark:text-neutral-50">
             ارز های محبوب شما
           </span>
           {tickersFavouriteQuery.data &&
           tickersFavouriteQuery.data.results.length != 0 ? (
-            <div className="w-full flex flex-col items-center justify-start gap-2 lg:flex-row lg:w-max">
+            <div className="w-full flex flex-col items-center justify-start gap-2 lg:flex-row lg:w-max overflow-x-scroll lg:max-w-[50vw]">
               {tickersFavouriteQuery.data.results.map((item, key) => (
                 <WalletPopularCurrency key={key} ticker={item} />
               ))}

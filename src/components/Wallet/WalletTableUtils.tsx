@@ -50,8 +50,16 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
   // States
   const navigate = useNavigate();
   return (
-    <div className="w-full flex justify-center items-center pl-10">
-      <div className="grid grid-cols-4 items-center place w-max gap-x-6">
+    <div
+      className={`w-full flex ${
+        wallet.asset.code == "TOMAN" ? "justify-end pl-16" : "justify-center"
+      } items-center pl-10`}
+    >
+      <div
+        className={`grid ${
+          wallet.asset.code == "TOMAN" ? "grid-cols-2 w-max" : "grid-cols-4"
+        } items-center w-max gap-x-6`}
+      >
         {wallet.asset.code == "TOMAN" ? null : (
           <>
             <motion.button

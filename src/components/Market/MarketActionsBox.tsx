@@ -34,7 +34,7 @@ const MarketAction: React.FC<PropsT> = ({ children }) => {
           onClick={() => navigate("/dashboard/market/buy")}
         />
         <MenuItem
-          activeColor="rgba(238, 96, 85 1)"
+          activeColor="rgba(242, 54, 69, 1)"
           text={
             <div className="flex w-full items-center justify-center gap-3">
               <CardSend
