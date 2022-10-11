@@ -327,7 +327,11 @@ export type Status = {
   is_maintenance_mode: boolean;
   allowed_qoute_assets: string[];
   shetab_gateways: string[];
+  identification_methods: string[];
+  active_identification_methods: string[];
+  register_request_expires_in_seconds: number;
   oa2_google_client_id: string;
+  fee_percentage_total: number;
 };
 
 export type TickerTable = {

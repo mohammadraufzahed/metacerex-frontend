@@ -1,9 +1,43 @@
 import { useSignal } from "@preact/signals-react";
 import { motion } from "framer-motion";
-import React from "react";
+import styled from "styled-components";
 import Button from "../components/AuthenticationPage/Button";
 import DropboxSelect from "../components/DropboxSelect";
 import { colorMode } from "../signals/colorMode";
+
+const Overlay = styled(motion.div)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 300;
+`;
+
+export const AnimatedOverlay: React.FC<{ accepted: boolean }> = ({
+  accepted,
+}) => (
+  <Overlay
+    variants={{
+      initial: {
+        backgroundColor:
+          colorMode.value == "dark"
+            ? "rgba(23, 23, 23, 0.6)"
+            : "rgba(163, 163, 163, 0.6)",
+      },
+      active: {
+        backgroundColor:
+          colorMode.value == "dark"
+            ? "rgba(23, 23, 23, 0)"
+            : "rgb(163, 163, 163, 0)",
+        display: "none",
+      },
+    }}
+    initial="initial"
+    animate={accepted ? "active" : "initial"}
+    transition={{ duration: 0.3, type: "tween" }}
+  />
+);
 
 const AtiPage = () => {
   const descAccept = useSignal<boolean>(false);
@@ -125,27 +159,7 @@ const AtiPage = () => {
             descAccept ? "lg:overflow-y-scroll" : "lg:overflow-y-hidden"
           } scrollbar-vertical`}
         >
-          <motion.div
-            variants={{
-              initial: {
-                backgroundColor:
-                  colorMode.value == "dark"
-                    ? "rgba(23, 23, 23, 0.6)"
-                    : "rgba(163, 163, 163, 0.6)",
-              },
-              active: {
-                backgroundColor:
-                  colorMode.value == "dark"
-                    ? "rgba(23, 23, 23, 0)"
-                    : "rgb(163, 163, 163, 0)",
-                display: "none",
-              },
-            }}
-            initial="initial"
-            animate={descAccept.value ? "active" : "initial"}
-            transition={{ duration: 0.3, type: "tween" }}
-            className="absolute top-0 left-0 w-full h-full"
-          />
+          <AnimatedOverlay accepted={descAccept.value} />
           <span className="font-bold text-base">متن تعهد نامه</span>
           <p className="font-normal text-base">
             اینجانب .......... با کد ملی ......... قصد معامله با سایت آبانتتر به
@@ -206,29 +220,7 @@ const AtiPage = () => {
           </div>
         </div>
         <div className="w-full relative grid grid-cols-1 lg:grid-cols-2 gap-x-3 rounded-lg px-2 py-4 flex-auto bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 mt-3 lg:h-[28%] lg:overflow-y-hidden">
-          <motion.div
-            variants={{
-              initial: {
-                backgroundColor:
-                  colorMode.value == "dark"
-                    ? "rgba(23, 23, 23, 0.6)"
-                    : "rgba(163, 163, 163, 0.6)",
-              },
-              active: {
-                backgroundColor:
-                  colorMode.value == "dark"
-                    ? "rgba(23, 23, 23, 0)"
-                    : "rgb(163, 163, 163, 0)",
-                display: "none",
-              },
-            }}
-            initial="initial"
-            animate={
-              descAccept.value && isPicSelected.value ? "active" : "initial"
-            }
-            transition={{ duration: 0.3, type: "tween" }}
-            className="absolute z-50 top-0 left-0 w-full min-h-full h-full"
-          />
+          <AnimatedOverlay accepted={descAccept.value && isPicSelected.value} />
           <div className="flex flex-col gap-6">
             <span className="font-bold text-base">درصد از دارایی</span>
             <p className="font-normal text-xs">

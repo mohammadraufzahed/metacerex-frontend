@@ -1,8 +1,10 @@
+import { useSignal } from "@preact/signals-react";
 import { useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { statusData } from "../atoms/status";
 import { userToken } from "../atoms/userToken";
 import { httpClient } from "../axios";
 import { getAsset, getDepositAssets } from "../functions/assets";
@@ -15,8 +17,6 @@ import DropboxSelect from "./DropboxSelect";
 import ExchangeRate from "./ExchangeRate";
 import Input from "./Input";
 import { AnimatedCheckBox } from "./ProfilePage/Boxes/TwoSecActivateBox";
-import RangeSlider from "./RangeSlider";
-
 type PropsT = {
   type: "SELL" | "BUY";
 };
@@ -24,11 +24,13 @@ type PropsT = {
 const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   // States
   const [trade, setTrade] = useState<"INSTANT" | "MAIN">("INSTANT");
+  const lastCalcType = useSignal<"quote" | "base">("base");
+  const quoteAssetAmount = useSignal<number>(0);
+  const status = useRecoilValue(statusData);
   // Forms
   const form = useFormik({
     initialValues: {
       quantity: 0,
-      quantity_percentage: "0",
       quantity_all_balance: false,
       base_asset_code: "",
       quote_asset_code: "",
@@ -106,115 +108,62 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
     code: string;
     balance: number;
   }>();
-  const [baseAmount, setBaseAmount] = useState<number>(0);
   const userTokenD = useRecoilValue(userToken);
   const navigate = useNavigate();
-  const [reqData, setReqData] = useState<{
-    order_side: "BUY" | "SELL";
-    base_asset: string;
-    quote_asset: string;
-    calc_type: "BASE" | "QUOTE";
-    quantity: string | null;
-    balance_percentage: string | null;
-    use_total_balance: boolean | null;
-  }>({
-    order_side: type,
-    base_asset: "",
-    quote_asset: "",
-    calc_type: "BASE",
-    quantity: "0",
-    balance_percentage: null,
-    use_total_balance: null,
-  });
   const [exchange, setExchange] = useState<{
-    value: string;
-    fee: string;
-    price: string;
-    balance_toman: string;
-    balance_usdt: string;
-    unit_price_usdt_toman: string;
-    base_asset_price_usdt: string;
-    base_asset_price_toman: string;
+    usdt: number;
+    toman: number;
   }>();
   // Conditions
   if (!userTokenD) return <Navigate to="/auth/login" replace />;
   // Functions
-  function connectToWS() {
-    const user = JSON.parse(sessionStorage.getItem("userToken") ?? "");
-    if (user.userToken) {
-      const wsTemp = new WebSocket(
-        `${import.meta.env.VITE_WS_BASE}spot/order/?token=${
-          user.userToken.access
-        }`
-      );
-      wsTemp.onopen = () => {};
-      wsTemp.onmessage = (event: any): any => {
-        const data:
-          | {
-              value: string;
-              fee: string;
-              price: string;
-              balance_toman: string;
-              balance_usdt: string;
-              unit_price_usdt_toman: string;
-              base_asset_price_usdt: string;
-              base_asset_price_toman: string;
-            }
-          | undefined = JSON.parse(event.data);
-        if (data) {
-          setExchange(data);
-        }
-      };
-      wsTemp.onclose = () => {
-        connectToWS();
-      };
-      setWs(wsTemp);
-    }
+  function connectToWS(currency: string) {
+    const wsTemp = new WebSocket(
+      `${import.meta.env.VITE_WS_BASE}cryptobase/asset/price/?asset=${currency}`
+    );
+    wsTemp.onmessage = (event: any): any => {
+      const prices: { usdt: any; toman: any } = JSON.parse(event.data);
+      setExchange({
+        toman: parseFloat(prices.toman),
+        usdt: parseFloat(prices.usdt),
+      });
+    };
+    setWs(wsTemp);
   }
-  useEffect(() => {
+  const setQuantity = (number: number) => {
     if (exchange && activeBase) {
-      if (reqData.calc_type == "BASE" || reqData.balance_percentage) {
-        setBaseAmount(parseFloat(parseFloat(exchange.price).toFixed(6)));
-        if (reqData.balance_percentage) {
-          form.setFieldValue(
-            "quantity",
-            (
-              parseFloat(exchange.price) /
-              parseFloat(exchange.base_asset_price_usdt)
-            ).toFixed(6)
-          );
-        }
+      if (trade == "MAIN") {
+        form.setFieldValue(
+          "quantity",
+          (number / form.values.base_asset_expected_price).toFixed(6)
+        );
       } else {
-        if (activeBase.code == "TOMAN") {
-          form.setFieldValue(
-            "quantity",
-            (
-              parseFloat(exchange.price) /
-              parseFloat(exchange.base_asset_price_toman)
-            ).toFixed(6)
-          );
-        } else {
-          form.setFieldValue(
-            "quantity",
-            (
-              parseFloat(exchange.price) /
-              parseFloat(exchange.base_asset_price_usdt)
-            ).toFixed(6)
-          );
-        }
-      }
-      if (!reqData.balance_percentage) {
-        if (activeBase.balance >= parseFloat(exchange.price)) {
-          form.setFieldValue(
-            "quantity_percentage",
-            (activeBase.balance / parseFloat(exchange.price)).toFixed(6)
-          );
-        } else {
-          form.setFieldValue("quantity_percentage", 0);
-        }
+        const base: "toman" | "usdt" = activeBase.code.toLowerCase();
+        form.setFieldValue("quantity", (number / exchange[base]).toFixed(6));
       }
     }
-  }, [exchange]);
+  };
+  const setQuoteQuantity = (number: number) => {
+    if (exchange && activeBase) {
+      if (trade == "MAIN") {
+        quoteAssetAmount.value = parseFloat(
+          (form.values.base_asset_expected_price * number).toFixed(6)
+        );
+      } else {
+        const base: "toman" | "usdt" = activeBase.code.toLowerCase();
+        quoteAssetAmount.value = parseFloat(
+          (exchange[base] * number).toFixed(6)
+        );
+      }
+    }
+  };
+  useEffect(() => {
+    if (lastCalcType.value == "quote") {
+      setQuantity(quoteAssetAmount.value);
+    } else {
+      setQuoteQuantity(form.values.quantity);
+    }
+  }, [exchange, form.values.base_asset_expected_price, trade]);
   // Queries
   const assetsQuery = useQuery(["assets_list"], getDepositAssets);
   // Effects
@@ -226,16 +175,18 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   }, [assetsQuery.data]);
   useEffect(() => {
     if (activeAsset) {
-      setReqData((reqData) => ({ ...reqData, base_asset: activeAsset.code }));
       setExchange(undefined);
       form.setFieldValue("base_asset_code", activeAsset.code);
+      if (ws) {
+        ws.close();
+        setWs(undefined);
+        connectToWS(activeAsset.code);
+      }
     }
   }, [activeAsset]);
   useEffect(() => {
     if (activeBase) {
-      setReqData((reqData) => ({ ...reqData, quote_asset: activeBase.code }));
       form.setFieldValue("quote_asset_code", activeBase.code);
-      setExchange(undefined);
     }
   }, [activeBase]);
   useEffect(() => {
@@ -262,9 +213,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         });
       });
     }
-    if (ws == undefined || ws.readyState == WebSocket.CLOSED) {
-      connectToWS();
-    }
+    connectToWS("btc");
     return () => {
       if (ws && ws.readyState == WebSocket.OPEN) {
         ws.close();
@@ -273,25 +222,8 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
     };
   }, []);
   useEffect(() => {
-    if (ws != undefined) {
-      if (ws.readyState == WebSocket.OPEN) {
-        ws.send(JSON.stringify(reqData));
-      } else {
-        ws.onopen = () => {
-          ws.send(JSON.stringify(reqData));
-        };
-      }
-    }
-  }, [reqData]);
-  useEffect(() => {
     if (ws && ws.readyState == WebSocket.OPEN) {
-      ws.close();
-      setWs(undefined);
-      setReqData({ ...reqData, order_side: type });
-      connectToWS();
       form.resetForm();
-      setActiveAsset(undefined);
-      setActiveBase(undefined);
     }
   }, [type]);
   return (
@@ -353,16 +285,8 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           <span>
             {exchange && activeBase
               ? activeBase.code == "TOMAN"
-                ? `${
-                    isNaN(exchange.base_asset_price_toman)
-                      ? 0
-                      : exchange.base_asset_price_toman
-                  } تومان`
-                : `${
-                    isNaN(exchange.base_asset_price_usdt)
-                      ? 0
-                      : exchange.base_asset_price_usdt
-                  } تتر`
+                ? `${exchange.toman} تومان`
+                : `${exchange.usdt} تتر`
               : "-"}
           </span>
         </div>
@@ -437,29 +361,6 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           <span>%</span>
         </div>
       </div>
-      <div className="w-full">
-        <RangeSlider
-          value={form.values.quantity_percentage}
-          onChange={({ currentTarget }) => {
-            form.setFieldValue(
-              "quantity_percentage",
-              (currentTarget as HTMLInputElement).value
-            );
-            setReqData({
-              ...reqData,
-              calc_type: "QUOTE",
-              base_asset: activeBase ? activeBase.code : "",
-              quote_asset: activeAsset ? activeAsset.code : "",
-              quantity: null,
-              use_total_balance: null,
-              balance_percentage: form.values.quantity_percentage,
-            });
-          }}
-          disabled={form.values.quantity_all_balance}
-          min="0"
-          max="100"
-        />
-      </div>
       <div className="w-full flex items-center justify-between font-vazir font-normal text-sm text-neutral-900 dark:text-neutral-50">
         <span>خرید با همه موجودی</span>
         <AnimatedCheckBox
@@ -485,35 +386,29 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         assetValue={isNaN(form.values.quantity) ? 0 : form.values.quantity}
         assetOnChange={(number) => {
           form.setFieldValue("quantity", number);
-          setReqData({
-            ...reqData,
-            balance_percentage: null,
-            use_total_balance: null,
-            quantity: number.toString(),
-            calc_type: "BASE",
-          });
+          lastCalcType.value = "base";
+          setQuoteQuantity(number);
         }}
         disabled={form.values.quantity_all_balance}
         assetName={activeAsset ? activeAsset.code : "-"}
         baseName={
           activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : "-"
         }
-        baseValue={isNaN(baseAmount) ? 0 : baseAmount}
+        baseValue={quoteAssetAmount.value || 0}
         baseOnChange={(number) => {
-          setBaseAmount(number);
-          setReqData({
-            ...reqData,
-            balance_percentage: null,
-            use_total_balance: null,
-            quantity: number.toString(),
-            calc_type: "QUOTE",
-          });
+          if (activeBase && exchange) {
+            quoteAssetAmount.value = number;
+            lastCalcType.value = "quote";
+            setQuantity(number);
+          }
         }}
       />
       <div className="w-full flex items-center justify-between font-vazir font-light text-xs text-neutral-900 dark:text-neutral-50">
         <span>کارمزد</span>
         <span>
-          {exchange && !isNaN(exchange.fee) ? exchange.fee ?? "-" : "-"}
+          {status && !isNaN(quoteAssetAmount.value)
+            ? quoteAssetAmount.value * status.fee_percentage_total
+            : "-"}
           &nbsp;
           {activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : ""}
         </span>
@@ -521,7 +416,12 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       <div className="w-full flex items-center justify-between font-vazir font-light text-xs text-neutral-900 dark:text-neutral-50">
         <span>دریافتی</span>
         <span>
-          {exchange && !isNaN(exchange.value) ? exchange.value ?? "-" : "-"}
+          {!isNaN(quoteAssetAmount.value) && status
+            ? (
+                quoteAssetAmount.value -
+                quoteAssetAmount.value * status.fee_percentage_total
+              ).toFixed(6)
+            : "-"}
           &nbsp;
           {activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : ""}
         </span>

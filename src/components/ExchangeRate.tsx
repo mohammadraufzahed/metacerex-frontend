@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { AnimatedOverlay } from "../pages/AtiPage";
 
 type PropsT = {
   baseValue: number;
@@ -27,6 +28,7 @@ const ExchangeRate: React.FC<PropsT> = ({
         flip ? "flex-col-reverse" : "flex-col"
       } justify-around h-24 border-primary-500 min-w-[330px] p-4  border-2 rounded-lg text-neutral-900 dark:text-neutral-50`}
     >
+      <AnimatedOverlay accepted={!disabled} />
       <div className="w-full grid px-14 grid-cols-2 font-vazir text-sm">
         {flip || disabled ? (
           <span className="font-bold  w-max">{baseValue}</span>
