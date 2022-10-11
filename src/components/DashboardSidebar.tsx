@@ -6,6 +6,7 @@ import { screen } from "../signals/screen";
 import { effect, signal } from "@preact/signals-react";
 
 const StatusUp = lazy(() => import("../svgs/StatusUp"));
+const CallIncome = lazy(() => import("../svgs/CallIncome"));
 const ElementOne = lazy(() => import("../svgs/ElementOne"));
 const Notification = lazy(() => import("../svgs/Notification"));
 const Layer = lazy(() => import("../svgs/Layer"));
@@ -71,6 +72,12 @@ const SidebarBoxData: SidebarBoxDataT = {
       href: "/dashboard/notification",
       Icon: Notification,
       onlyMobile: true,
+    },
+    {
+      text: "تماس باما",
+      href: "/contact-us",
+      onlyMobile: true,
+      Icon: CallIncome,
     },
     {
       text: "اخبار",

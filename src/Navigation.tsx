@@ -11,6 +11,7 @@ import { statusData } from "./atoms/status";
 import HomePage from "./pages/HomePage";
 import NotificationPage from "./pages/NotificationPage";
 import AtiPage from "./pages/AtiPage";
+import ContactUsPage from "./pages/ContactUsPage";
 
 const LogoutPage = lazy(() => import("./pages/LogoutPage"));
 const OnchainPage = lazy(() => import("./pages/OnchainPage"));
@@ -102,6 +103,7 @@ const Navigation: React.FC = () => {
             <Route path="logout" element={<LogoutPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
+          <Route path="contact-us" element={<ContactUsPage />} />
           <Route path="auth" element={<AuthenticationLayout />}>
             <Route path="" element={<Navigate to="/auth/login" replace />} />
             <Route path="login" element={<Login />} />

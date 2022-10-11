@@ -345,7 +345,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           {activeBase ? (activeBase.code == "TOMAN" ? "تومان" : "تتر") : ""}
         </span>
       </div>
-      <div className="w-full flex items-center justify-between font-vazir text-sm text-neutral-900 dark:text-neutral-50">
+      {/* <div className="w-full flex items-center justify-between font-vazir text-sm text-neutral-900 dark:text-neutral-50">
         <div className="w-max font-normal flex flex-row gap-2 items-center">
           <img src={`/svgs/percentage-square-${colorMode.value}.svg`} />
           <span>درصد موجودی</span>
@@ -360,7 +360,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
           </span>
           <span>%</span>
         </div>
-      </div>
+      </div> */}
       <div className="w-full flex items-center justify-between font-vazir font-normal text-sm text-neutral-900 dark:text-neutral-50">
         <span>خرید با همه موجودی</span>
         <AnimatedCheckBox
