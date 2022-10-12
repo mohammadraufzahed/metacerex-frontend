@@ -57,25 +57,12 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         base_asset: props.base_asset_code,
         quote_asset: props.quote_asset_code,
       };
-      if (props.quantity_all_balance) {
-        data = { ...data, quote_asset_quantity_all_balance: true };
-      } else {
-        data = { ...data, quote_asset_quantity: props.quantity };
-      }
+      data = { ...data, quote_asset_quantity: props.quantity };
       if (trade == "MAIN") {
-        if (activeBase) {
-          if (activeBase.code == "TOMAN") {
-            data = {
-              ...data,
-              expected_price_toman: props.base_asset_expected_price,
-            };
-          } else {
-            data = {
-              ...data,
-              expected_price_usdt: props.base_asset_expected_price,
-            };
-          }
-        }
+        data = {
+          ...data,
+          expected_price: props.base_asset_expected_price,
+        };
       }
       return await httpClient
         .post(
@@ -98,6 +85,13 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   const [activeAsset, setActiveAsset] = useState<AssetList>();
   const [ws, setWs] = useState<WebSocket>();
   const [baseCurrencies, setBaseCurrencies] = useState<
+    {
+      name: string;
+      balance: number;
+      value: string;
+    }[]
+  >([]);
+  const [assets, setAssets] = useState<
     {
       name: string;
       balance: number;
@@ -182,8 +176,34 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
         setWs(undefined);
         connectToWS(activeAsset.code);
       }
+      const found = assets.filter((item) => item.value == activeAsset.code);
+      if (!found.length) {
+        getAsset([activeAsset.code]).then((bases) => {
+          bases.balances.map((item) => {
+            setAssets((assets) => [
+              ...assets,
+              {
+                name: item.asset.name_farsi
+                  ? item.asset.name_farsi
+                  : item.asset.code,
+                balance: parseInt(item.total_balance),
+                value: item.asset.code,
+              },
+            ]);
+          });
+        });
+      }
     }
   }, [activeAsset]);
+  useEffect(() => {
+    if (form.values.quantity_all_balance && activeAsset) {
+      const currentBalance: number = assets.filter(
+        (item) => item.value == activeAsset.code
+      )[0].balance;
+      lastCalcType.value = "base";
+      setQuantity(currentBalance);
+    }
+  }, [form.values.quantity_all_balance]);
   useEffect(() => {
     if (activeBase) {
       form.setFieldValue("quote_asset_code", activeBase.code);
