@@ -39,7 +39,7 @@ const columns = [
     header: () => "قیمت (تومان)",
     cell: (info) => <TCell title={info.getValue()?.toString() ?? ""} />,
   }),
-  columnHelper.accessor("api_quantity", {
+  columnHelper.accessor("base_asset_quote", {
     header: () => "مقدار",
     cell: (info) => <TCell title={info.getValue()} />,
   }),

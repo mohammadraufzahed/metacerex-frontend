@@ -50,7 +50,7 @@ const tableColumns = [
       <TCell title={new Date(info.getValue()).toLocaleDateString("fa-ir")} />
     ),
   }),
-  columnHelper.accessor("api_quantity", {
+  columnHelper.accessor("base_asset_quote", {
     header: () => "تعداد",
     size: 150,
     cell: (info) => <TCell title={info.getValue()?.toString() ?? ""} />,

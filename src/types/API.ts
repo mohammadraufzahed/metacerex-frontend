@@ -37,7 +37,7 @@ export type OrderHistory = {
   base_asset: Asset;
   quote_asset: Asset;
   base_asset_unit_price_toman: string;
-  api_quantity: string;
+  base_asset_quote: string;
   type: OrderType;
   value_toman: string;
   fee_total_usdt: string;
@@ -63,7 +63,7 @@ export type OrdersOpen = {
   base_asset: Asset;
   quote_asset: Asset;
   added_on: string;
-  api_quantity: number;
+  base_asset_quote: number;
   value_usdt: string;
   value_toman: string;
 };

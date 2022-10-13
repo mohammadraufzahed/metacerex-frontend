@@ -1,4 +1,14 @@
-import React from "react";
+import { motion } from "framer-motion";
+import React, { ReactText } from "react";
+import { IconType } from "react-icons";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTelegram,
+  FaTwitter,
+  FaWhatsapp,
+} from "react-icons/fa";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { colorMode } from "../signals/colorMode";
@@ -56,6 +66,45 @@ const ContactItem: React.FC<{
   </div>
 );
 
+const SocialIcons: React.FC<{ Icon: IconType }> = ({ Icon }) => (
+  <motion.div
+    variants={{
+      initial: {
+        scale: 1,
+        y: 0,
+      },
+      hover: {
+        scale: 1.03,
+        y: -1.5,
+      },
+      tap: {
+        scale: 1.03,
+        y: -3,
+      },
+    }}
+    initial="initial"
+    whileHover="hover"
+    whileTap="tap"
+    className="bg-primary-700 dark:bg-primary-500 cursor-pointer text-neutral-50 dark:text-neutral-900 p-1.5 rounded-sm"
+  >
+    <Icon />
+  </motion.div>
+);
+
+const SocialIconsBox: React.FC = () => (
+  <div className="flex flex-row items-center gap-4">
+    <span className="font-vazir font-normal text-base">
+      ما را در شبکه های اجتماعی دنبال کنید
+    </span>
+    <SocialIcons Icon={FaLinkedinIn} />
+    <SocialIcons Icon={FaWhatsapp} />
+    <SocialIcons Icon={FaTelegram} />
+    <SocialIcons Icon={FaTwitter} />
+    <SocialIcons Icon={FaInstagram} />
+    <SocialIcons Icon={FaFacebookF} />
+  </div>
+);
+
 const ContactUsPage: React.FC = () => {
   return (
     <Container className="scrollbar-vertical">
@@ -95,7 +144,7 @@ const ContactUsPage: React.FC = () => {
               light: "/svgs/call-light.svg",
             }}
             text="۰۲۱- ۴۴۴۴۵۵۷۷"
-          />{" "}
+          />
           <ContactItem
             icon={{
               dark: "/svgs/mail-dark.svg",
@@ -103,6 +152,7 @@ const ContactUsPage: React.FC = () => {
             }}
             text="info@mobydex.com"
           />
+          <SocialIconsBox />
         </div>
       </Box>
     </Container>
