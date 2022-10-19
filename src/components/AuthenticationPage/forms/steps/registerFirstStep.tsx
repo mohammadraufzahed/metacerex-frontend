@@ -154,9 +154,7 @@ const RegisterFirstStep: React.FC = () => {
       />
       <Button
         text="ثبت نام"
-        onClick={() => {
-          registerFormik.submitForm();
-        }}
+        onClick={registerFormik.submitForm}
         loading={registerFormik.isSubmitting}
         fullWidth
       />

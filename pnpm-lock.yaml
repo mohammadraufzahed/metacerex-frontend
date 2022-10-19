@@ -24,6 +24,7 @@ specifiers:
   framer-motion: ^7.1.0
   hamburger-react: ^2.5.0
   jalaali-js: ^1.2.6
+  nanoid: ^4.0.0
   postcss: ^8.4.16
   qrcode.react: ^3.1.0
   react: ^18.2.0
@@ -62,6 +63,7 @@ dependencies:
   framer-motion: 7.2.1_biqbaboplfbrettd7655fr4n2y
   hamburger-react: 2.5.0_react@18.2.0
   jalaali-js: 1.2.6
+  nanoid: 4.0.0
   qrcode.react: 3.1.0_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2889,6 +2891,12 @@ packages:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
 
   /nice-try/1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}

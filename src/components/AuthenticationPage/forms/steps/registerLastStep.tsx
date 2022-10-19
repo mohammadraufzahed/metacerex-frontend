@@ -33,16 +33,24 @@ const RegisterLastSetp: React.FC = () => {
       await httpClient.post("users/register/verify/", data).then((res) => {
         if (res.status == 200) {
           const data: CustomTokenObtain = res.data;
-          settokenObject(data);
           setRegisterData(null);
           useCustomToast(
             "bottom-right",
             "success",
             "حساب شما با موفقیت تایید شد"
           );
+          sessionStorage.setItem(
+            "userToken",
+            JSON.stringify({
+              userToken: {
+                access: data.access,
+                refresh: data.refresh,
+                session_id: data.session_id,
+              },
+            }))
           setTimeout(
-            () => navigate("/dashboard/list", { replace: true }),
-            5000
+            () => window.location.href = window.location.origin + "/dashboard/list",
+            2500
           );
         }
       });

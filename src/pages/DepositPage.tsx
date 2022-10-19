@@ -12,7 +12,6 @@ import Loading from "../components/Loading";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "../components/Error";
 import { motion } from "framer-motion";
-import { nanoid } from "nanoid";
 import { Navigate } from "react-router-dom";
 
 const DepositPage: React.FC = () => {
@@ -60,7 +59,6 @@ const DepositPage: React.FC = () => {
         <AnimatePresence mode="wait">
           {currentForm == "toman" ? (
             <motion.div
-              key={nanoid()}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -72,7 +70,6 @@ const DepositPage: React.FC = () => {
             </motion.div>
           ) : (
             <motion.div
-              key={nanoid()}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
