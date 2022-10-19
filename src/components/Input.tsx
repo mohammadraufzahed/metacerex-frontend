@@ -77,18 +77,18 @@ const Input: React.FC<PropsT> = ({
             <motion.div
               className="w-2.5 h-2.5 rounded-full"
               initial={{
-                backgroundColor: "#525252",
-                opacity: 0.8,
+                backgroundColor: "#f23645",
+                opacity: 0.5,
               }}
               animate={{ opacity: 1 }}
               transition={{
                 repeat: Infinity,
                 repeatType: "reverse",
-                repeatDelay: 0.5,
-                duration: 1,
+                repeatDelay: 0.2,
+                duration: 0.7,
               }}
             />
-            <span className="w-full font-vazir font-light text-xs text-neutral-600">
+            <span className="w-full font-vazir font-light text-xs text-error">
               {error}
             </span>
           </motion.div>
