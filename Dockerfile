@@ -1,17 +1,15 @@
-FROM node:18-alpine as builder
+FROM node:19 as builder
 
 
 WORKDIR /usr/app
 
 COPY package.json . 
 
-RUN yarn config set "strict-ssl" false -g
-
-RUN yarn 
+RUN npm install 
 
 COPY . .
 
-RUN yarn build
+RUN npm run build
 
 FROM nginx:latest
 

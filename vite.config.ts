@@ -11,6 +11,9 @@ export default defineConfig({
   resolve: {
     alias: process.env.NODE_ENV == "production" ? prodAlias : devAlias,
   },
+  optimizeDeps: {
+    include: ["@preact/signals-react"]
+  },
   build: {
     outDir: "./build",
     emptyOutDir: true,
