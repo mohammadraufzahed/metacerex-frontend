@@ -20,6 +20,7 @@ specifiers:
   babel-plugin-dynamic-import-node: ^2.3.3
   concurrently: ^7.3.0
   cross-env: ^7.0.3
+  dayjs: ^1.11.6
   formik: ^2.2.9
   framer-motion: ^7.1.0
   hamburger-react: ^2.5.0
@@ -28,6 +29,7 @@ specifiers:
   postcss: ^8.4.16
   qrcode.react: ^3.1.0
   react: ^18.2.0
+  react-circular-progressbar: ^2.1.0
   react-dom: ^18.2.0
   react-error-boundary: ^3.1.4
   react-google-recaptcha: ^2.1.0
@@ -59,6 +61,7 @@ dependencies:
   '@tanstack/react-query-devtools': 4.2.3_7jugwuuqrrr4f74u7dtzjsintq
   '@tanstack/react-table': 8.5.13_biqbaboplfbrettd7655fr4n2y
   axios: 0.27.2
+  dayjs: 1.11.6
   formik: 2.2.9_react@18.2.0
   framer-motion: 7.2.1_biqbaboplfbrettd7655fr4n2y
   hamburger-react: 2.5.0_react@18.2.0
@@ -66,6 +69,7 @@ dependencies:
   nanoid: 4.0.0
   qrcode.react: 3.1.0_react@18.2.0
   react: 18.2.0
+  react-circular-progressbar: 2.1.0_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-error-boundary: 3.1.4_react@18.2.0
   react-google-recaptcha: 2.1.0_react@18.2.0
@@ -1457,6 +1461,10 @@ packages:
     resolution: {integrity: sha512-0VNbwmWJDS/G3ySwFSJA3ayhbURMTJLtwM2DTxf9CWondCnh6DTNlO9JgRSq6ibf4eD0lfMJNBxUdEAHHix+bA==}
     engines: {node: '>=0.11'}
     dev: true
+
+  /dayjs/1.11.6:
+    resolution: {integrity: sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -3364,6 +3372,14 @@ packages:
     dependencies:
       hoist-non-react-statics: 3.3.2
       prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /react-circular-progressbar/2.1.0_react@18.2.0:
+    resolution: {integrity: sha512-xp4THTrod4aLpGy68FX/k1Q3nzrfHUjUe5v6FsdwXBl3YVMwgeXYQKDrku7n/D6qsJA9CuunarAboC2xCiKs1g==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
       react: 18.2.0
     dev: false
 

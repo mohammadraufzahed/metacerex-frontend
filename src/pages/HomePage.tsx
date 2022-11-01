@@ -8,7 +8,7 @@ const HomePage = () => {
     <div className="fixed w-screen h-screen top-0 left-0 z-[340] bg-[#000322]">
       <div className="text-secondary-700 z-40 font-vazir  text-center flex flex-col items-center gap-6 mt-8 px-4 lg:mt-[100px] lg:gap-10">
         <span className="font-bold text-2xl lg:text-5xl">
-          به موبیدکس خوش آمدید!
+          به موبی اکس خوش آمدید!
         </span>
         <p className="font-normal text-sm lg:text-lg lg:max-w-[900px]">
           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با

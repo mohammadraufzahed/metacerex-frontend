@@ -1,10 +1,4 @@
 import { atom } from "recoil";
-import { recoilPersist } from "recoil-persist";
-
-const { persistAtom } = recoilPersist({
-  key: "register_data",
-  storage: sessionStorage,
-});
 
 export const registerAtom = atom<{
   mobile?: string;
@@ -17,5 +11,4 @@ export const registerAtom = atom<{
     status: "register",
     uuid: "",
   },
-  effects_UNSTABLE: [persistAtom],
 });
