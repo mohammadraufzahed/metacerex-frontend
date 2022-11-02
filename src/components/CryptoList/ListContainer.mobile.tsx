@@ -55,13 +55,17 @@ const ListContainer: React.FC<PropsT> = ({
           item.base_asset.code.toUpperCase() == tradingview.value.toUpperCase()
       );
       if (ticker.length == 0 && tickersAll.length !== 0) {
-        setCurrentTicker(tickersAll[1]);
-        tradingview.value = tickersAll[1].base_asset.code;
+        setCurrentTicker(tickersAll[0]);
       } else if (ticker.length > 0) {
         setCurrentTicker(ticker[0]);
       }
     }
   }, [tradingview.value, tickersAll]);
+  useEffect(() => {
+    if (currentTicker) {
+      tradingview.value = currentTicker.base_asset.code;
+    }
+  }, [currentTicker]);
   return (
     <motion.div
       variants={{

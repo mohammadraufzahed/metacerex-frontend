@@ -12,7 +12,7 @@ import Input from "../Input";
 import RulesButton from "./RulesButton";
 import * as yup from "yup";
 import { httpClient } from "../../axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { colorMode } from "../../signals/colorMode";
 
 type PropsT = {
@@ -25,6 +25,7 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
   const [currentCurrency, setCurrentCurrency] = useState<AssetList | null>(
     null
   );
+  const { asset } = useParams();
   const [selectedNetwork, setSelectedNetwork] = useState<Networks | null>();
   const [copied, setCopied] = useState<0 | 1>(0);
   const navigate = useNavigate();
@@ -83,6 +84,14 @@ const DepositCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
       }
     }
   }, [DepositCryptoFormik.errors]);
+  useEffect(() => {
+    if (assetsQuery.data && asset && asset != "toman") {
+      const selectedAsset = assetsQuery.data.filter(
+        (item) => item.code.toLocaleLowerCase() == asset
+      )[0];
+      setCurrentCurrency(selectedAsset);
+    }
+  }, [assetsQuery.data]);
   return (
     <motion.div
       initial={{ opacity: 0 }}

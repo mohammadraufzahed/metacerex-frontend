@@ -64,7 +64,14 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 1.04 }}
-              onTap={() => navigate(`/dashboard/buy`, { replace: true })}
+              onTap={() =>
+                navigate(
+                  `/dashboard/market/buy/${wallet.asset.code.toLowerCase()}`,
+                  {
+                    replace: true,
+                  }
+                )
+              }
             >
               خرید
             </motion.button>
@@ -73,7 +80,14 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 1.04 }}
-              onTap={() => navigate(`/dashboard/sell`, { replace: true })}
+              onTap={() =>
+                navigate(
+                  `/dashboard/market/sell/${wallet.asset.code.toLowerCase()}`,
+                  {
+                    replace: true,
+                  }
+                )
+              }
             >
               فروش
             </motion.button>
@@ -100,9 +114,12 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
           }}
           whileTap={{ scale: 1.04 }}
           onTap={() =>
-            navigate(`/dashboard/asset/deposit`, {
-              replace: true,
-            })
+            navigate(
+              `/dashboard/asset/deposit/${wallet.asset.code.toLowerCase()}`,
+              {
+                replace: true,
+              }
+            )
           }
         >
           واریز
@@ -128,9 +145,12 @@ export const TAction: React.FC<TActionT> = ({ wallet }) => {
           }}
           whileTap={{ scale: 1.04 }}
           onTap={() =>
-            navigate(`/dashboard/asset/withdraw`, {
-              replace: true,
-            })
+            navigate(
+              `/dashboard/asset/withdraw/${wallet.asset.code.toLowerCase()}`,
+              {
+                replace: true,
+              }
+            )
           }
         >
           برداشت

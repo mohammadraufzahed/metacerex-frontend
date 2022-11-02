@@ -88,8 +88,10 @@ const Navigation: React.FC = () => {
                 path=""
                 element={<Navigate to="/dashboard/asset/deposit" />}
               />
+              <Route path="deposit/:asset" element={<DepositPage />} />
               <Route path="deposit" element={<DepositPage />} />
               <Route path="withdraw" element={<WithdrawPage />} />
+              <Route path="withdraw/:asset" element={<WithdrawPage />} />
             </Route>
             <Route path="market" element={<MarketLayout />}>
               <Route
@@ -97,7 +99,9 @@ const Navigation: React.FC = () => {
                 element={<Navigate to="/dashboard/market/buy" replace />}
               />
               <Route path="buy" element={<ExchangeBox type="BUY" />} />
+              <Route path="buy/:asset" element={<ExchangeBox type="BUY" />} />
               <Route path="sell" element={<ExchangeBox type="SELL" />} />
+              <Route path="sell/:asset" element={<ExchangeBox type="SELL" />} />
             </Route>
             <Route path="onchain" element={<OnchainPage />} />
             <Route path="logout" element={<LogoutPage />} />

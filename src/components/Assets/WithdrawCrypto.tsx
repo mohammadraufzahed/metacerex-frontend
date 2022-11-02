@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getDepositAssets } from "../../functions/assets";
 import Button from "../AuthenticationPage/Button";
 import DropboxSelect from "../DropboxSelect";
@@ -11,7 +11,7 @@ import RulesButton from "./RulesButton";
 import * as yup from "yup";
 import useCustomToast from "../../hooks/useCustomToast";
 import { httpClient } from "../../axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { colorMode } from "../../signals/colorMode";
 
 type PropsT = {
@@ -20,6 +20,7 @@ type PropsT = {
 
 const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
   const navigate = useNavigate();
+  const { asset } = useParams();
   const withdrawFormik = useFormik({
     initialValues: {
       asset: "",
@@ -87,6 +88,17 @@ const WithdrawCrypto: React.FC<PropsT> = ({ onRuleClick }) => {
   const [assetName, setAssetName] = useState<string | undefined>("");
   // Queries
   const assetsQuery = useQuery(["assets_list"], getDepositAssets);
+  useEffect(() => {
+    if (assetsQuery.data && asset && asset != "toman") {
+      const activeAsset = assetsQuery.data.filter(
+        (item) => item.code.toLowerCase() == asset
+      )[0];
+      withdrawFormik.setFieldValue("asset", activeAsset.code);
+      setAssetName(
+        activeAsset.name_farsi != "" ? activeAsset.name_farsi : activeAsset.name
+      );
+    }
+  }, [assetsQuery.data]);
   return (
     <motion.div
       initial={{ opacity: 0 }}

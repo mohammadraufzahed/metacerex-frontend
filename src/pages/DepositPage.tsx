@@ -12,13 +12,16 @@ import Loading from "../components/Loading";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "../components/Error";
 import { motion } from "framer-motion";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 const DepositPage: React.FC = () => {
   // States
   const userTokenD = useRecoilValue(userToken);
   const [showRules, setShowRules] = useState<boolean>(false);
-  const [currentForm, setCurrentForm] = useState<"toman" | "crypto">("crypto");
+  const { asset } = useParams();
+  const [currentForm, setCurrentForm] = useState<"toman" | "crypto">(
+    asset == "toman" ? "toman" : "crypto"
+  );
   // Conditions
   if (!userTokenD) return <Navigate to="/auth" replace />;
   return (

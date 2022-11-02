@@ -14,11 +14,14 @@ import Loading from "../components/Loading";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "../components/Error";
 import { nanoid } from "nanoid";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 const WithdrawPage = () => {
   // States
-  const [currentForm, setCurrentForm] = useState<"toman" | "crypto">("crypto");
+  const { asset } = useParams();
+  const [currentForm, setCurrentForm] = useState<"toman" | "crypto">(
+    asset == "toman" ? "toman" : "crypto"
+  );
   const [ruleOpen, setRuleOpen] = useState<boolean>(false);
   const userTokenD = useRecoilValue(userToken);
   // Condition

@@ -2,7 +2,7 @@ import { useSignal } from "@preact/signals-react";
 import { useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { statusData } from "../atoms/status";
 import { userToken } from "../atoms/userToken";
@@ -27,6 +27,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
   const lastCalcType = useSignal<"quote" | "base">("base");
   const quoteAssetAmount = useSignal<number>(0);
   const status = useRecoilValue(statusData);
+  const { asset } = useParams();
   // Forms
   const form = useFormik({
     initialValues: {
@@ -151,6 +152,7 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       }
     }
   };
+
   useEffect(() => {
     if (lastCalcType.value == "quote") {
       setQuantity(quoteAssetAmount.value);
@@ -246,6 +248,15 @@ const ExchangeBox: React.FC<PropsT> = ({ type }) => {
       form.resetForm();
     }
   }, [type]);
+  useEffect(() => {
+    if (assetsQuery.data && asset) {
+      const activeAsset = assetsQuery.data?.filter(
+        (item) => item.code.toLowerCase() == asset
+      )[0];
+      setActiveAsset(activeAsset);
+      tradingview.value = activeAsset ? activeAsset.code : tradingview.value;
+    }
+  }, [assetsQuery.data]);
   return (
     <>
       <div className="w-full">

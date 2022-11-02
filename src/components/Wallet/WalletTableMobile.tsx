@@ -117,7 +117,11 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
                 initial={{ scale: 1 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 1.04 }}
-                onTap={() => navigate("/dashboard/buy")}
+                onTap={() =>
+                  navigate(
+                    `/dashboard/market/buy/${item.asset.code.toLowerCase()}`
+                  )
+                }
               >
                 خرید
               </motion.button>
@@ -126,7 +130,11 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
                 initial={{ scale: 1 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 1.04 }}
-                onTap={() => navigate("/dashboard/sell")}
+                onTap={() =>
+                  navigate(
+                    `/dashboard/market/sell/${item.asset.code.toLowerCase()}`
+                  )
+                }
               >
                 فروش
               </motion.button>
@@ -156,7 +164,11 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
               color: "#ffffff",
             }}
             whileTap={{ scale: 1.04 }}
-            onTap={() => navigate("/dashboard/asset/deposit")}
+            onTap={() =>
+              navigate(
+                `/dashboard/asset/deposit/${item.asset.code.toLowerCase()}`
+              )
+            }
           >
             واریز
           </motion.button>
@@ -184,7 +196,11 @@ const WalletTableItem: React.FC<WalletTableItemT> = ({ item, quote }) => {
               color: "#ffffff",
             }}
             whileTap={{ scale: 1.04 }}
-            onTap={() => navigate("/dashboard/asset/withdraw")}
+            onTap={() =>
+              navigate(
+                `/dashboard/asset/withdraw/${item.asset.code.toLowerCase()}`
+              )
+            }
           >
             برداشت
           </motion.button>
