@@ -14,7 +14,10 @@ const DashboardNavbar: React.FC = () => {
   return (
     <nav className="w-screen fixed z-[200] flex flex-row-reverse justify-between bg-neutral-50 dark:bg-neutral-900 items-center px-5 min-h-[3.5rem] h-[7vh] max-h-[3.5rem] lg:flex-row lg:px-8 border-b-[1px] border-primary-700 dark:border-primary-500">
       <div className="flex flex-row gap-16 items-center h-full lg:flex-auto">
-        <div className="flex flex-row items-center gap-5">
+        <div
+          className="flex flex-row items-center gap-5 cursor-pointer"
+          onClick={() => navigate("/", { replace: true })}
+        >
           <img
             src="/svgs/logo.svg"
             width={24}
