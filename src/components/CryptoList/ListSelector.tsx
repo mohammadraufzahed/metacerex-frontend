@@ -26,6 +26,7 @@ const ListSelector: React.FC = () => {
   const [tickersFavList, setTickersFavList] = useRecoilState(tickers_fav);
   const [favedEnabled, setFavedEnabled] = useState<boolean>(false);
   const userTokenD = useRecoilValue(userToken);
+  const [ws, setWS] = useState<WebSocket | null>(null);
   // Queries
   const tickersQuery = useInfiniteQuery(
     ["tickers", actualSearch],
@@ -92,6 +93,19 @@ const ListSelector: React.FC = () => {
       setFavedEnabled(true);
     }
   }, [userTokenD]);
+  useEffect(() => {
+    if (!ws) {
+      const wsTemp = new WebSocket(
+        import.meta.env.VITE_WS_BASE + "cryptobase/ticker/"
+      );
+      wsTemp.onopen = () => {
+        console.log("Connected");
+      };
+      wsTemp.onmessage = (data) => {
+        // console.dir(JSON.parse(data.data));
+      };
+    }
+  }, []);
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (

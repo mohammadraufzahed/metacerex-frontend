@@ -22,7 +22,7 @@ const AuthProcessData: React.FC<PropsT> = ({ onSuccess }) => {
       firstName: "",
       lastName: "",
       melli_code: "",
-      file: "",
+      file: null,
     },
     async onSubmit({ file, firstName, lastName, melli_code }): Promise<void> {
       return await httpClient
@@ -86,7 +86,7 @@ const AuthProcessData: React.FC<PropsT> = ({ onSuccess }) => {
             />
           ) : (
             <FormTwo
-              onSuccess={(file: string) => {
+              onSuccess={(file: File) => {
                 return new Promise(async (resolve) => {
                   form.setFieldValue("file", file);
                   await form.submitForm().then(() => {
@@ -184,20 +184,20 @@ const FormOne: React.FC<FormOneT> = ({ onSuccess }) => {
 };
 
 type FormTwoT = {
-  onSuccess: (file: string) => void;
+  onSuccess: (file: File) => void;
   loading?: boolean;
 };
 
 const FormTwo: React.FC<FormTwoT> = ({ onSuccess, loading }) => {
   const form = useFormik({
     initialValues: {
-      file: "",
+      file: null,
     },
     validationSchema: yup.object({
       file: yup.mixed().required("عکس انتخاب نشده است."),
     }),
     onSubmit({ file }) {
-      onSuccess(file);
+      onSuccess(file as unknown as File);
     },
   });
   return (
@@ -246,30 +246,44 @@ const FormTwo: React.FC<FormTwoT> = ({ onSuccess, loading }) => {
             </p>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-4 items-center border-dashed border-2 border-primary-700 dark:border-primary-500 py-10 xl:justify-self-end max-w-[411px] xl:py-32">
-          <img src={`/svgs/gallery-${colorMode.value}.svg`} className="mb-5" />
-          <motion.div
-            initial={{ y: 0 }}
-            whileHover={{ y: -2 }}
-            whileTap={{ y: -4 }}
-            transition={{ duration: 0.5, type: "spring" }}
-            className=""
-          >
+        <div
+          className={`w-full flex flex-col gap-4 items-center border-dashed border-2 border-primary-700 dark:border-primary-500 py-10 xl:justify-self-end max-w-[411px] ${
+            form.values.file ? "py-2" : "xl:py-32"
+          }`}
+        >
+          <img
+            src={
+              form.values.file
+                ? URL.createObjectURL(form.values.file)
+                : `/svgs/gallery-${colorMode.value}.svg`
+            }
+            className="mb-5 max-w-xs max-h-56 rounded-lg"
+          />
+          <div className="">
             <input
               accept="image/png, image/gif, image/jpeg"
               type="file"
-              id="file"
-              onChange={form.handleChange}
-              value={form.values.file}
+              id="fileID"
+              onChange={({ currentTarget }) =>
+                form.setFieldValue(
+                  "file",
+                  currentTarget.files ? currentTarget.files[0] : null
+                )
+              }
+              // value={form.values.file}
               className="hidden"
             />
-            <label
-              htmlFor="file"
+            <motion.label
+              initial={{ y: 0 }}
+              whileHover={{ y: -2 }}
+              whileTap={{ y: -4 }}
+              transition={{ duration: 0.5, type: "spring" }}
+              htmlFor="fileID"
               className="px-10 py-2 cursor-pointer bg-primary-700 stroke-pr dark:bg-primary-500 font-vazir font-normal text-base text-neutral-50 dark:text-neutral-900 rounded-lg"
             >
               بارگزاری تصویر
-            </label>
-          </motion.div>
+            </motion.label>
+          </div>
           <p className="font-vazir font-light text-xs text-center text-primary-700 dark:text-primary-500">
             فایل انتخابی باید از نوع تصویر بوده و حجم آن کمتر از 2 مگابایت باشد
           </p>

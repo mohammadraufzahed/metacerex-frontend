@@ -55,7 +55,7 @@ const InformationAuthStatusBox: React.FC = () => {
               <Button
                 text="احراز هویت"
                 className="px-12 py-3"
-                onClick={() => setCurrentForm("processStart")}
+                onClick={() => setCurrentForm("processing")}
               />
               <span className="font-normal text-sm text-primary-700 dark:text-primary-500">
                 آموزش احراز هویت

@@ -54,7 +54,7 @@ const MobileAndPhoneVerifyModal: React.FC<PropsT> = ({ active, onClose }) => {
     <Modal
       isOpen={active}
       onRequestClose={onClose}
-      className="mx-auto  mt-[4.666667%] max-w-2xl w-11/12 h-max gap-4 bg-neutral-100 dark:bg-neutral-800 rounded-2xl shadow-xl flex flex-col items-center py-5 px-4"
+      className="mx-auto  mt-[10%] max-w-2xl w-11/12 h-max gap-4 bg-neutral-100 dark:bg-neutral-800 rounded-2xl shadow-xl flex flex-col items-center py-5 px-4"
     >
       <div className="w-full h-full" onClick={onClose}>
         <HiX className="text-3xl transition-all duration-300 text-neutral-400 dark:text-neutral-500 cursor-pointer" />
@@ -86,6 +86,7 @@ const MobileAndPhoneVerifyModal: React.FC<PropsT> = ({ active, onClose }) => {
             className=""
             onClick={form.submitForm}
             loading={form.isSubmitting}
+            disabled={!form.isValid}
           />
         </div>
       </div>

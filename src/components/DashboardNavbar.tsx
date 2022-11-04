@@ -90,9 +90,13 @@ const DashboardNavbar: React.FC = () => {
         {profile.value ? (
           <div className="hidden lg:flex flex-row items-center justify-center gap-2">
             <span className="hidden lg:block font-vazir font-bold text-base text-primary-700">
-              {`${profile.value.first_name ?? ""} ${
-                profile.value.last_name ?? ""
-              }`}
+              {profile.value.first_name && profile.value.last_name
+                ? `${profile.value.first_name} ${profile.value.last_name}`
+                : profile.value.is_email_verified
+                ? profile.value.email
+                : profile.value.is_mobile_verified
+                ? profile.value.mobile
+                : ""}
             </span>
             <div
               onClick={() =>
