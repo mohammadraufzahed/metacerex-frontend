@@ -34,6 +34,11 @@ const ListSelector: React.FC = () => {
     {
       refetchOnMount: true,
       refetchOnWindowFocus: true,
+      refetchIntervalInBackground: true,
+      refetchInterval: 1000,
+      staleTime: 1000,
+      cacheTime: 1000,
+      refetchOnReconnect: true,
       getNextPageParam: (lastPage) => lastPage.next ?? undefined,
       suspense: false,
     }
@@ -46,6 +51,11 @@ const ListSelector: React.FC = () => {
       enabled: favedEnabled,
       refetchOnMount: true,
       refetchOnWindowFocus: true,
+      refetchIntervalInBackground: true,
+      refetchInterval: 1000,
+      staleTime: 1000,
+      refetchOnReconnect: true,
+      cacheTime: 1000,
       suspense: false,
     }
   );
@@ -93,19 +103,6 @@ const ListSelector: React.FC = () => {
       setFavedEnabled(true);
     }
   }, [userTokenD]);
-  useEffect(() => {
-    if (!ws) {
-      const wsTemp = new WebSocket(
-        import.meta.env.VITE_WS_BASE + "cryptobase/ticker/"
-      );
-      wsTemp.onopen = () => {
-        console.log("Connected");
-      };
-      wsTemp.onmessage = (data) => {
-        // console.dir(JSON.parse(data.data));
-      };
-    }
-  }, []);
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
