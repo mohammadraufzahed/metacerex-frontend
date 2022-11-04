@@ -9,6 +9,7 @@ import useCustomToast from "../../../hooks/useCustomToast";
 import { profile } from "../../../signals/profile";
 import Button from "../../AuthenticationPage/Button";
 import Input from "../../Input";
+import Timer from "../../Timer";
 
 Modal.setAppElement("#root");
 
@@ -67,6 +68,7 @@ const MobileAndPhoneVerifyModal: React.FC<PropsT> = ({ active, onClose }) => {
             : ""}
         </h1>
         <div className="w-full flex flex-col gap-4 mt-2 items-center">
+          <Timer />
           <Input
             id="code"
             name="code"

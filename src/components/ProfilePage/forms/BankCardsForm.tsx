@@ -11,13 +11,15 @@ import { colorMode } from "../../../signals/colorMode";
 
 const BankCardsForm: React.FC = () => {
   // States
-  const cards = useSignal<Card[] | null>(null);
+  const [cards, setCards] = useState<Card[]>([]);
   // Queries
   const cardsQuery = useQuery(["cards"], getCards);
   // Effects
   useEffect(() => {
-    if (cardsQuery.data && cardsQuery.data.results.length !== 0) {
-      cards.value = cardsQuery.data.results;
+    if (cardsQuery.data) {
+      if (cardsQuery.data.results.length > 0) {
+        setCards(cardsQuery.data.results);
+      }
     }
   }, [cardsQuery.data]);
   return (
@@ -31,11 +33,9 @@ const BankCardsForm: React.FC = () => {
         exit={{ opacity: 0 }}
         className="py-2 flex flex-col gap-6 md:gap-8"
       >
-        {cards.value && cards.value.length !== 0
-          ? cards.value.map((item) => (
-              <BankCardBox card={item} newCard={item.number == ""} />
-            ))
-          : null}
+        {cards.map((item) => (
+          <BankCardBox card={item} newCard={item.number == ""} />
+        ))}
         <motion.div
           variants={{
             idle: {
@@ -69,9 +69,9 @@ const BankCardsForm: React.FC = () => {
           animate="idle"
           transition={{ duration: 0.7, type: "spring" }}
           onTap={() => {
-            if (cards.value) {
-              cards.value = [
-                ...cards.value,
+            if (cards) {
+              setCards((cards) => [
+                ...cards,
                 {
                   id: 1,
                   is_active: false,
@@ -79,7 +79,7 @@ const BankCardsForm: React.FC = () => {
                   is_verified: false,
                   sheba: "",
                 },
-              ];
+              ]);
             }
           }}
           className="font-vazir bg-pri font-bold cursor-pointer text-xl flex flex-row items-center justify-center gap-5 border-[1px] border-primary-700 dark:border-primary-500 rounded-2xl py-3 md:py-11"

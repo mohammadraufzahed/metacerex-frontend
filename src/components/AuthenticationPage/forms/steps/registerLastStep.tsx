@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import Input from "../../../Input";
 import { useFormik } from "formik";
 import Button from "../../Button";
@@ -8,19 +8,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { registerAtom } from "../../../../atoms/registerAtom";
 import { httpClient } from "../../../../axios";
 import { CustomTokenObtain } from "../../../../types/API";
-import { userToken } from "../../../../atoms/userToken";
-import { useNavigate } from "react-router-dom";
 import useCustomToast from "../../../../hooks/useCustomToast";
-import { useSignal } from "@preact/signals-react";
-import { statusData } from "../../../../atoms/status";
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-import { colorMode } from "../../../../signals/colorMode";
-import dayjs from "dayjs";
+import Timer from "../../../Timer";
 
 const RegisterLastSetp: React.FC = () => {
   const [registerData, setRegisterData] = useRecoilState(registerAtom);
-  const navigate = useNavigate();
-  const [userTokenObject, settokenObject] = useRecoilState(userToken);
   const verifyCodeFormik = useFormik({
     initialValues: {
       verifyCode: "",
@@ -64,31 +56,7 @@ const RegisterLastSetp: React.FC = () => {
       });
     },
   });
-  const status = useRecoilValue(statusData);
-  const value = useSignal(0);
-  const date = useSignal(0);
-  const timerString = useSignal("");
-  useEffect(() => {
-    if (status) {
-      date.value = status.register_request_expires_in_seconds;
-      setInterval(() => {
-        if (date.value > 0) {
-          value.value += 1;
-          date.value -= 1;
-          const time = (date.value / 60).toFixed(2);
-          const minute = parseInt(time.toString().split(".")[0]);
-          const second = parseInt(
-            (parseFloat("0." + time.toString().split(".")[1]) * 60).toFixed(0)
-          );
-          timerString.value = `${minute >= 10 ? minute : `0${minute}`}:${
-            second >= 10 ? second : `0${second}`
-          }`;
-        } else {
-          window.location.reload();
-        }
-      }, 1000);
-    }
-  }, [status]);
+
   return (
     <motion.div
       className="w-full flex flex-col gap-6 items-center"
@@ -97,24 +65,7 @@ const RegisterLastSetp: React.FC = () => {
       exit={{ opacity: 0 }}
       transition={{ type: "spring", duration: 0.5 }}
     >
-      <div style={{ maxWidth: 150 }} className="bg-pr">
-        <CircularProgressbar
-          minValue={0}
-          maxValue={status ? status.register_request_expires_in_seconds : 100}
-          value={value.value}
-          text={timerString}
-          styles={buildStyles({
-            pathColor:
-              colorMode.value == "dark"
-                ? "rgb(36, 196, 249)"
-                : "rgb(8, 103, 136)",
-            textColor:
-              colorMode.value == "dark"
-                ? "rgb(36, 196, 249)"
-                : "rgb(8, 103, 136)",
-          })}
-        />
-      </div>
+      <Timer />
       <Input
         fullWidth
         id="verifyCode"

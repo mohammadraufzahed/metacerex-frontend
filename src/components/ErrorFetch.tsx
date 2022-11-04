@@ -9,7 +9,7 @@ type PropsT = {
 const ErrorFetch: React.FC<PropsT> = ({ resetErrorBoundary }) => {
   return (
     <motion.div
-      className="bg-neutral-50 flex items-center rounded-lg border-error border-[1px] justify-center flex-auto"
+      className="bg-neutral-50 dark:bg-neutral-900 flex items-center rounded-lg border-error border-[1px] justify-center flex-auto"
       initial={{ borderColor: "rgba(0,0,0,0)" }}
       animate={{ borderColor: "#EE6055" }}
       transition={{ repeat: Infinity, repeatType: "reverse", duration: 1 }}

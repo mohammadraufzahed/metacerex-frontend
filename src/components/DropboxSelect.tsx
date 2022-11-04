@@ -2,7 +2,9 @@ import { useSignal } from "@preact/signals-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
+import useCustomToast from "../hooks/useCustomToast";
 import { colorMode } from "../signals/colorMode";
+import { isDropboxOpen } from "../signals/isDropboxOpen";
 import Search from "../svgs/Search";
 import Input from "./Input";
 
@@ -35,7 +37,15 @@ const DropboxSelect: React.FC<PropsT> = ({
     <div className="w-full relative h-10 flex flex-col">
       <div
         className="w-full cursor-pointer flex flex-row px-4 py-2 items-center justify-between border-b-[1px] border-b-primary-700 dark:border-b-primary-500 text-neutral-900 dark:text-neutral-50"
-        onClick={() => (open.value = !open.value)}
+        onClick={() => {
+          if (isDropboxOpen.value && open.value) {
+            open.value = false;
+            isDropboxOpen.value = false;
+          } else if (!isDropboxOpen.value && !open.value) {
+            open.value = true;
+            isDropboxOpen.value = true;
+          }
+        }}
       >
         <span className="font-vazir font-normal text-sm">{placeholder}</span>
         {hasMemo ? (

@@ -20,7 +20,7 @@ type PropsT = {
 };
 
 const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(true);
   const mobileAndEmailFormik = useFormik({
     initialValues: {
       mobile: "",
@@ -67,14 +67,14 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
   });
   const identityFormik = useFormik({
     initialValues: {
-      first_name: "",
-      last_name: "",
-      father_name: "",
-      melli_code: "",
-      birth_date: "",
-      postal_code: "",
-      phone: "",
-      address: "",
+      first_name: profile.value ? profile.value.first_name : "",
+      last_name: profile.value ? profile.value.last_name : "",
+      father_name: profile.value ? profile.value.father_name : "",
+      melli_code: profile.value ? profile.value.melli_code : "",
+      birth_date: profile.value ? profile.value.birth_date : "",
+      postal_code: profile.value ? profile.value.postal_code : "",
+      phone: profile.value ? profile.value.phone : "",
+      address: profile.value ? profile.value.address : "",
     },
     validationSchema: yup.object({
       first_name: yup
@@ -116,7 +116,7 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
         .nullable(true),
     }),
     async onSubmit(identity): Promise<void> {
-      const date = identity.birth_date.split("-");
+      const date = identity.birth_date.split("/");
       const gregorianDate = toGregorian(
         parseInt(date[0]),
         parseInt(date[1]),
@@ -127,14 +127,17 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
         birth_date: `${gregorianDate.gy}-${gregorianDate.gm}-${gregorianDate.gd}`,
       });
     },
+    validateOnBlur: true,
+    validateOnChange: true,
+    validateOnMount: true,
   });
   useEffect(() => {
     if (profile.value) {
-      identityFormik.setValues(profile.value);
+      // identityFormik.setValues(profile.value);
       const date = useDateToString(profile.value.birth_date);
       identityFormik.setFieldValue(
         "birth_date",
-        `${date.year}-${date.month_number}-${date.day}`
+        `${date.year}/${date.month_number}/${date.day}`
       );
       mobileAndEmailFormik.setValues({
         email: profile.value.email,
