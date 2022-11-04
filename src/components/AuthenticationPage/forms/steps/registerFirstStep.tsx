@@ -156,6 +156,7 @@ const RegisterFirstStep: React.FC = () => {
         text="ثبت نام"
         onClick={registerFormik.submitForm}
         loading={registerFormik.isSubmitting}
+        disabled={!registerFormik.isValid}
         fullWidth
       />
     </motion.div>

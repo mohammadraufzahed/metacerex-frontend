@@ -97,7 +97,7 @@ const IdentityFormBox: React.FC<PropsT> = ({ onUpdate }) => {
         .nullable(true),
       birth_date: yup
         .string()
-        .matches(dateReg, "تاریخ وارد شده صحیح نمیباشد.")
+        .matches(dateReg, "تاریخ وارد شده صحیح نمیباشد. مثال: 1382/05/24")
         .nullable(true),
       postal_code: yup
         .string()

@@ -19,8 +19,8 @@ const RegisterLastSetp: React.FC = () => {
     },
     validationSchema: object({
       verifyCode: string()
-        .required("کد تایید وارد نشده است.")
-        .matches(/^[0-9]{6}$/gi, "کد وارد شده صحیح نمیباشد."),
+        .required("کد تایید را وارد نمایید")
+        .matches(/^[0-9]{6}$/gi, "یک عدد ۶ رقمی وارد نمایید"),
     }),
     async onSubmit({ verifyCode }) {
       const data = {
@@ -81,6 +81,7 @@ const RegisterLastSetp: React.FC = () => {
         text="تایید کد"
         loading={verifyCodeFormik.isSubmitting}
         onClick={() => verifyCodeFormik.submitForm()}
+        disabled={!verifyCodeFormik.isValid}
         fullWidth
       />
     </motion.div>

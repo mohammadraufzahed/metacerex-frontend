@@ -1,6 +1,7 @@
 import React, { MouseEventHandler } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ReactLoading from "react-loading";
+import { AnimatedOverlay } from "../../pages/AtiPage";
 
 type PropsT = {
   text: string;
@@ -9,6 +10,7 @@ type PropsT = {
   fullWidth?: boolean;
   className?: string;
   outlined?: boolean;
+  disabled?: boolean;
 };
 
 const Button: React.FC<PropsT> = ({
@@ -18,6 +20,7 @@ const Button: React.FC<PropsT> = ({
   fullWidth,
   className,
   outlined,
+  disabled,
 }) => {
   const buttonVariant = {
     loading: {},
@@ -41,7 +44,7 @@ const Button: React.FC<PropsT> = ({
       variants={buttonVariant}
       animate={loading ? "loading" : "loaded"}
       transition={{ type: "spring", duration: 1 }}
-      className={`${className} cursor-pointer ${
+      className={`${className} relative cursor-pointer ${
         outlined
           ? "text-primary-700 dark:text-primary-500 bg-transparent border-[1px] border-primary-700 dark:border-primary-500"
           : "text-neutral-50 dark:text-neutral-900 bg-primary-700 dark:bg-primary-500"
@@ -75,6 +78,7 @@ const Button: React.FC<PropsT> = ({
           </motion.span>
         )}
       </AnimatePresence>
+      <AnimatedOverlay accepted={disabled == undefined ? true : !disabled} />
     </motion.button>
   );
 };
