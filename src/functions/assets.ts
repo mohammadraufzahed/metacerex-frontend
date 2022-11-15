@@ -4,7 +4,7 @@ import { AssetBalanceResponse, AssetList } from "../types/API";
 
 export async function getDepositAssets(): Promise<AssetList[]> {
   return await httpClient
-    .get("cryptobase/asset/list", {
+    .get("cryptobase/asset/list/", {
       params: {
         is_depositable: true,
         is_withdrawable: true,
