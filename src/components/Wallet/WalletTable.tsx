@@ -83,17 +83,8 @@ const walletTableColumns = [
     maxSize: 60,
     minSize: 50,
   }),
-  columnHelper.accessor("price_buy", {
-    header: () => "قیمت خرید",
-    cell: (info) => {
-      const value = info.getValue();
-      return <TCell title={value ? value.toString() : "0"} />;
-    },
-    maxSize: 60,
-    minSize: 50,
-  }),
-  columnHelper.accessor("price_sell", {
-    header: () => "قیمت فروش",
+  columnHelper.accessor("price", {
+    header: () => "قیمت",
     cell: (info) => {
       const value = info.getValue();
       return <TCell title={value ? value.toString() : "0"} />;

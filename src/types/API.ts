@@ -270,8 +270,7 @@ export type Wallet = {
   asset: Asset;
   amount: number;
   value: number;
-  price_buy: number;
-  price_sell: number;
+  price: number;
 };
 
 export type PaginatedWallet = Paginated & {
@@ -460,4 +459,34 @@ export type Transaction = {
   uuid: string;
   ref_number: string;
   tracking_code: string;
+};
+
+export type OnchainTopGroup = {
+  ID: number;
+  name: string;
+  middle_groups?: OnchainMiddleGroup[];
+};
+
+export type OnchainMiddleGroup = {
+  ID: number;
+  name: string;
+  endpoints?: OnchainEndpoints[];
+};
+
+export type OnchainEndpoints = {
+  ID: number;
+  path: string;
+  tier: number;
+  assets: {
+    symbol: string;
+    name: string;
+    tags: string[];
+    exchanges: string[];
+  }[];
+  currencies: string[];
+  resolutions: string[];
+  formats: string[];
+  name: string;
+  description: string;
+  initialized: boolean;
 };
