@@ -1,9 +1,4 @@
-import {
-  useInfiniteQuery,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { table } from "console";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -31,8 +26,11 @@ const WalletPage: React.FC = () => {
   const [assetQuote, setAssetQuote] = useState<"usdt" | "toman">("toman");
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [paginated, setPaginated] = useState<number>(0);
+  const [ws, setWS] = useState<WebSocket | null>(null);
+  const queryClient = useQueryClient();
   // Conditions
   if (!userTokenD) return <Navigate to="/auth" replace />;
+
   // Queries
   const portfolioQuery = useQuery(
     ["portfolio", assetQuote],
@@ -68,6 +66,33 @@ const WalletPage: React.FC = () => {
     clearTimeout(timer);
     setTimer(setTimeout(() => setCurrectSearch(search), 200));
   }, [search]);
+
+  useEffect(()=>{
+    const wsTicker = new WebSocket(`${import.meta.env.VITE_WS_BASE}cryptobase/ticker/`);
+    wsTicker.onmessage = (event: any): any => {
+      const wsData = JSON.parse(event.data);
+      queryClient.setQueryData(["wallet", paginated, currectSearch, assetQuote], (old:any) => {
+        if(old && old.results.length) {
+          const results: any = [];
+          for (let i = 0; i < old.results.length; i++) {
+            let result = structuredClone(old.results[i]);
+            for (let j = 0; j < wsData.length; j++) {
+              if (wsData[j].symbol.startsWith(result.asset.code)) {
+                if(assetQuote === 'toman') result.price = wsData[j].price_toman.toString();
+                if(assetQuote === 'usdt') result.price = wsData[j].price_usdt.toString();
+                break;
+              }
+            }
+            results.push(result)
+          }
+          return {...old, results: results};
+        }
+        return old;
+      });
+    };
+    return () => wsTicker.close()
+  }, [walletQuery.data]);
+
   return (
     <div className="h-[93vh] overflow-y-scroll scrollbar-vertical py-6 px-4 flex flex-col gap-7 flex-auto max-w-[95vw] overflow-hidden lg:gap-10">
       <div className="w-full flex flex-col gap-6 lg:flex-row-reverse">
