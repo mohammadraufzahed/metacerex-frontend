@@ -4,68 +4,28 @@ import OnchainContent from "../components/Onchain/OnchainContent";
 import Search from "../svgs/Search";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { HiX } from "react-icons/hi";
-import { atom, useRecoilState, useRecoilValue } from "recoil";
 import { screen } from "../signals/screen";
 import { effect, signal, useSignal } from "@preact/signals-react";
 import { colorMode } from "../signals/colorMode";
-
-type data = {
-  name: string;
-  icon: string;
-  count: number;
-  child: {
-    name: string;
-    child: string[];
-  }[];
-};
-
-let fakeData = signal<data[]>([
-  {
-    name: "Favorites",
-    icon: `/svgs/star-${colorMode.value}.svg`,
-    count: 0,
-    child: [],
-  },
-  ...Array(20).fill({
-    name: "Addresses",
-    icon: `/svgs/wallet-${colorMode.value}.svg`,
-    count: 0,
-    child: Array(30).fill({
-      name: "Address Activity",
-      child: ["Active Addresses", "Sending Addresses", "Recieving Addresses"],
-    }),
-  }),
-]);
-
-effect(() => {
-  for (let i = 0; i < fakeData.value.length; i++) {
-    if (fakeData.value[i].icon.includes("star")) {
-      if (colorMode.value == "dark") {
-        fakeData.value[i].icon = "/svgs/star-dark.svg";
-      } else {
-        fakeData.value[i].icon = "/svgs/star-light.svg";
-      }
-    } else if (fakeData.value[i].icon.includes("wallet")) {
-      if (colorMode.value == "dark") {
-        fakeData.value[i].icon = "/svgs/wallet-dark.svg";
-      } else {
-        fakeData.value[i].icon = "/svgs/wallet-light.svg";
-      }
-    }
-  }
-});
+import { useQuery } from "@tanstack/react-query";
+import { getOnchainGroups } from "../functions/onchain";
+import { OnchainEndpoints, OnchainTopGroup } from "../types/API";
 
 export const sidebar = signal<boolean>(false);
 export const cryptobox = signal<boolean>(false);
 export const star = signal<boolean>(false);
+export const activeEndpoint = signal<null | OnchainEndpoints>(null);
 
 const OnchainPage = () => {
+  // Signals
   // Effects
   useEffect(() => {
     if (screen.value.width > 1024 && sidebar.value != true) {
       sidebar.value = true;
     }
   }, [screen.value]);
+  // Queries
+  const groupsQuery = useQuery(["onchain_group"], getOnchainGroups);
   return (
     <div className="w-full max-h-[92vh] overflow-y-scroll scrollbar-vertical flex py-2 gap-4 px-4">
       <motion.div
@@ -200,9 +160,10 @@ const OnchainPage = () => {
           </div>
         </div>
         <div className="w-full h-full overflow-y-scroll scrollbar-vertical relative">
-          {fakeData.value.map((item, key) => (
-            <OnchainItem data={item} key={key} />
-          ))}
+          {groupsQuery.data &&
+            groupsQuery.data.map((item, key) => (
+              <OnchainItem data={item} key={key} />
+            ))}
         </div>
       </motion.div>
       <OnchainContent />
@@ -211,7 +172,7 @@ const OnchainPage = () => {
 };
 
 type OnchainItemT = {
-  data: data;
+  data: OnchainTopGroup;
 };
 
 const OnchainItem: React.FC<OnchainItemT> = ({ data }) => {
@@ -247,7 +208,7 @@ const OnchainItem: React.FC<OnchainItemT> = ({ data }) => {
       >
         <div className=" py-1 px-1.5 flex items-center justify-center">
           <span className="font-vazir font-normal text-sm text-neutral-900 dark:text-neutral-50">
-            {data.count}
+            {data.middle_groups ? data.middle_groups.length : 0}
           </span>
         </div>
 
@@ -255,7 +216,7 @@ const OnchainItem: React.FC<OnchainItemT> = ({ data }) => {
           <span className="font-vazir font-normal text-sm text-neutral-900 dark:text-neutral-50">
             {data.name}
           </span>
-          <img width={16} src={data.icon} />
+          {/* <img width={16} src={data.icon} /> */}
         </div>
       </motion.div>
       <motion.div
@@ -283,8 +244,8 @@ const OnchainItem: React.FC<OnchainItemT> = ({ data }) => {
             onClick={() => setOpen(false)}
           />
         </div>
-        {data.child.length !== 0 ? (
-          data.child.map((item, key) => {
+        {data.middle_groups && data.middle_groups.length ? (
+          data.middle_groups.map((item, key) => {
             const [childOpen, setChildOpen] = useState<boolean>(false);
             return (
               <div key={key} className="w-full flex flex-col gap-1 px-6 py-2">
@@ -332,19 +293,22 @@ const OnchainItem: React.FC<OnchainItemT> = ({ data }) => {
                   animate={childOpen ? "show" : "hide"}
                   className="w-full flex flex-col gap-1"
                 >
-                  {item.child.map((item, key) => (
-                    <div
-                      key={key}
-                      className="w-full overflow-hidden cursor-pointer flex flex-row items-center justify-end font-vazir font-normal text-sm px-2.5 h-max border-l-[1px] border-neutral-300 dark:border-neutral-600 gap-2.5"
-                    >
-                      <span className="text-neutral-900 dark:text-neutral-50">
-                        {item}
-                      </span>
-                      <div className="bg-neutral-300 dark:bg-neutral-600 dark:text-neutral-50 w-max p-0.5">
-                        <span>T1</span>
-                      </div>
-                    </div>
-                  ))}
+                  {item.endpoints
+                    ? item.endpoints.map((item, key) => (
+                        <div
+                          key={key}
+                          className="w-full overflow-hidden cursor-pointer flex flex-row items-center justify-end font-vazir font-normal text-sm px-2.5 h-max border-l-[1px] border-neutral-300 dark:border-neutral-600 gap-2.5"
+                          onClick={() => (activeEndpoint.value = item)}
+                        >
+                          <span className="text-neutral-900 dark:text-neutral-50">
+                            {item.name}
+                          </span>
+                          <div className="bg-neutral-300 dark:bg-neutral-600 dark:text-neutral-50 w-max p-0.5">
+                            <span>T{item.tier}</span>
+                          </div>
+                        </div>
+                      ))
+                    : null}
                 </motion.div>
               </div>
             );
