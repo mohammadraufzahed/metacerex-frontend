@@ -34,11 +34,11 @@ const SidebarBoxData: SidebarBoxDataT = {
       Icon: ElementOne,
       href: "/dashboard/list",
     },
-    {
-      text: "onchain",
-      Icon: Layer,
-      href: "/dashboard/onchain",
-    },
+    // {
+    //   text: "onchain",
+    //   Icon: Layer,
+    //   href: "/dashboard/onchain",
+    // },
     {
       text: "پروفایل کاربری",
       Icon: Profile,

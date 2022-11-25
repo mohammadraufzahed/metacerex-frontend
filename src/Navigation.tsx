@@ -103,7 +103,7 @@ const Navigation: React.FC = () => {
               <Route path="sell" element={<ExchangeBox type="SELL" />} />
               <Route path="sell/:asset" element={<ExchangeBox type="SELL" />} />
             </Route>
-            <Route path="onchain" element={<OnchainPage />} />
+            {/* <Route path="onchain" element={<OnchainPage />} /> */}
             <Route path="logout" element={<LogoutPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
